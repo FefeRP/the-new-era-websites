@@ -17,7 +17,7 @@ El contenido demuestra patrones de interacción scrollytelling de nivel Awwwards
 
 | Marca de tiempo (mm:ss) | Tipo de evento | Elementos visuales / Texto | Audio / Sincronía |
 | :--- | :--- | :--- | :--- |
-| **00:00 - 00:01** | Inicio / Vista 1 | Web Ciao: Carrusel orbital 3D de latas flotando sobre pedestal reflectante. Texto: "POMME RHUBARBE". Superposición superior: "Websites in 2026 🥱". Watermark: `@W.WEAREBRAND`. | Suena base rap/trap con voz ("And I stay with..."). Sin sincronía con la UI. |
+| **00:00 - 00:01** | Inicio / Vista 1 | Web Ciao: Carrusel orbital 3D de latas flotando sobre pedestal reflectante. Texto: "POMME RHUBARBE". Superposición superior: "Websites in 2026 [emoji de bostezo]". Watermark: `@W.WEAREBRAND`. | Suena base rap/trap con voz ("And I stay with..."). Sin sincronía con la UI. |
 | **00:01 - 00:02** | Scroll / Zoom 3D | Zoom de cámara y fijación en lata morada; rotación hacia la trasera. Aparece texto: "MOINS DE SUCRE". | Beat musical continuo. |
 | **00:02 - 00:04** | Scroll / Paneo | La lata rota en eje Y mostrando tabla de ingredientes: "CAFÉINE ISSUE DE GRAINS DE CAFÉ", luego "STEVIA". | Letra de rap continúa; independiente del scroll. |
 | **00:04 - 00:05** | Transición rápida | La lata se aleja a vista frontal, fondo tipográfico con "ZERO BULLSHIT", luego se reordena en fila diagonal con todas las variantes. | Golpes de batería sin sincronía intencional con el cambio de layout. |
@@ -43,7 +43,7 @@ El contenido demuestra patrones de interacción scrollytelling de nivel Awwwards
 
 ### 2. Transcripción literal de textos en pantalla
 *   **Stickers y marcas de agua de redes**:
-    *   "Websites in 2026 🥱" (Cartel superior permanente).
+    *   "Websites in 2026 [emoji de bostezo]" (Cartel superior permanente).
     *   `@W.WEAREBRAND` (Aparece a la derecha superior y en el outro centrado).
 *   **Sitio 1: Ciao Energy (Francés)**:
     *   Barra superior / Header: Logo `CIAO ENERGY`, navegación con enlaces (`Shop`, `Concept`, `FAQ`, etc.), botón lateral derecho.
@@ -160,6 +160,6 @@ Un kit base típico suele incluir una escena 3D básica con glTF, parallax por c
 **RETOCAR**
 
 El material visual de las dos páginas web mostradas es de nivel sobresaliente en términos de diseño front-end y dirección de arte 3D. Sin embargo, como pieza audiovisual divulgativa, el video requiere:
-* Eliminar el cartel de humor superficial ("Websites in 2026 🥱") que no aporta contexto técnico.
+* Eliminar el cartel de humor superficial ("Websites in 2026 [emoji de bostezo]") que no aporta contexto técnico.
 * Grabar mediante captura digital directa a 60 fps para que la fluidez del WebGL y del scroll scrub se aprecie sin pérdida de frames ni artefactos de la pantalla física.
 * Sincronizar el audio o añadir micro-efectos sonoros de interfaz (SFX al girar o cambiar de sabor) para una experiencia audiovisual profesional.

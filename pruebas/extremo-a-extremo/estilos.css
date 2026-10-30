@@ -1,0 +1,124 @@
+/* Orbe 01 · boutique y taller en Sabadell (ejemplo de punta a punta, sin build). Marca de demos/reloj. */
+:root {
+  --fondo: #171412;            /* = fondo de los frames del giro: la escena se funde con la página */
+  --fondo-2: #1f1b18;
+  --texto: #efe9e1;
+  --texto-suave: color-mix(in oklab, var(--texto) 64%, var(--fondo));
+  --acento: #c9a46a;
+  --linea: color-mix(in oklab, var(--texto) 14%, transparent);
+  --fuente: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fuente-display: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --t-xs: clamp(.75rem, .72rem + .15vw, .85rem);
+  --t-s: clamp(.95rem, .9rem + .2vw, 1.05rem);
+  --t-m: clamp(1.05rem, 1rem + .35vw, 1.25rem);
+  --t-l: clamp(1.7rem, 1.2rem + 2vw, 2.9rem);
+  --margen: clamp(1.25rem, 5vw, 5rem);
+}
+* { box-sizing: border-box; }
+html { background: var(--fondo); }
+body { margin: 0; background: var(--fondo); color: var(--texto); font: 400 var(--t-s)/1.6 var(--fuente); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--fuente-display); font-weight: 500; line-height: 1.05; letter-spacing: -0.015em; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--acento); outline-offset: 3px; }
+.eyebrow { font-size: var(--t-xs); letter-spacing: .22em; text-transform: uppercase; color: var(--acento); margin-bottom: .9rem; }
+.saltar { position: absolute; left: -9999px; top: 0; z-index: 100; padding: .75rem 1rem; background: var(--texto); color: var(--fondo); }
+.saltar:focus { left: 1rem; top: 1rem; }
+
+/* cabecera */
+.nav { position: absolute; inset: 0 0 auto 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; padding: 1.2rem var(--margen); }
+.nav__marca { font-weight: 600; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; font-size: var(--t-xs); }
+.nav__cta { font-size: var(--t-xs); letter-spacing: .14em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid var(--acento); padding-bottom: 2px; }
+
+/* escenas fijadas: el recorrido lo da el alto de la sección; el escenario se queda pegado.
+   overflow: clip (NUNCA hidden) en el escenario y en todo antepasado de un sticky */
+.tramo { position: relative; overflow: clip visible; }
+.escenario { position: sticky; top: 0; height: 100svh; overflow: clip; isolation: isolate; }
+
+/* 1 · hero: fondo → titular → reloj recortado con alfa → texto */
+#hero { height: 170svh; }
+#hero .escenario { background: radial-gradient(60% 55% at 50% 58%, #2a241f 0%, var(--fondo) 70%); }
+.hero__titulo { position: absolute; inset: 15svh 0 auto 0; z-index: 1; text-align: center; color: var(--texto);
+  font-size: clamp(4.5rem, 19vw, 21rem); line-height: .9; letter-spacing: .02em; text-transform: uppercase; will-change: transform; }
+.hero__reloj { position: absolute; left: 50%; top: 31svh; z-index: 2; height: 62svh; width: auto; max-width: 86vw; object-fit: contain;
+  transform: translateX(-50%); will-change: transform; pointer-events: none;
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,.45)); }
+/* sombra de contacto como capa propia: el recorte se lleva la sombra (componer-capas.md) */
+.hero__sombra { position: absolute; left: 50%; top: 88svh; z-index: 1; width: min(46vw, 520px); height: 5svh; transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(0,0,0,.55), rgba(0,0,0,0)); pointer-events: none; }
+.hero__pie { position: absolute; left: var(--margen); bottom: 6svh; z-index: 3; max-width: 30ch; }
+.hero__pie p:not(.eyebrow) { color: var(--texto-suave); }
+.hero__bajar { position: absolute; right: var(--margen); bottom: 6svh; z-index: 3; font-size: var(--t-xs); letter-spacing: .18em; text-transform: uppercase; color: var(--texto-suave); }
+
+/* 2 · giro: frames en canvas, póster <img> debajo (LCP y respaldo), texto HTML encima */
+#giro { height: 420svh; }
+.giro__poster, .giro__canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.giro__poster { z-index: 0; }
+.giro__canvas { z-index: 1; }
+.giro__textos { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+/* al final del giro el reloj queda a la izquierda, bajo el texto: velo lateral para que se lea */
+.giro__textos::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 42%; background: linear-gradient(90deg, rgba(23,20,18,.9) 35%, rgba(23,20,18,0)); }
+.fase { position: absolute; left: var(--margen); top: 50%; max-width: 28ch; transform: translateY(-40%); opacity: 0; transition: opacity .45s, transform .45s; }
+.fase.activa { opacity: 1; transform: translateY(-50%); }
+.fase h2 { font-size: var(--t-l); margin-bottom: .6rem; }
+.fase p:not(.eyebrow) { color: var(--texto-suave); }
+.giro__contador { position: absolute; right: var(--margen); bottom: 6svh; z-index: 2; font: 500 var(--t-xs)/1 var(--fuente); letter-spacing: .18em; color: var(--texto-suave); }
+
+/* 3 · detalle: la esfera se descubre por bloques (crearRejilla) */
+#detalle { height: 200svh; }
+#detalle .escenario { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: clamp(2rem, 6vw, 6rem); padding: 0 var(--margen); }
+.detalle__texto h2 { font-size: var(--t-l); margin-bottom: 1rem; }
+.detalle__texto > p:not(.eyebrow) { color: var(--texto-suave); max-width: 38ch; }
+.cifras { list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem 2rem; max-width: 30rem; }
+.cifras li { border-top: 1px solid var(--linea); padding-top: .7rem; }
+.cifras b { display: block; font: 500 var(--t-m)/1.2 var(--fuente-display); color: var(--texto); }
+.cifras span { font-size: var(--t-xs); color: var(--texto-suave); letter-spacing: .06em; }
+.detalle__foto { position: relative; width: min(100%, 72svh); aspect-ratio: 1; justify-self: center; background: var(--fondo); }
+.detalle__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* 4 · taller: mapa por niveles de imagen (ortofoto PNOA) */
+#taller { height: 480svh; }
+#taller .escenario { background: #0e1418; }
+/* velo arriba a la izquierda: el texto se lee sobre cualquier ortofoto (tejados claros incluidos) */
+#taller .escenario::after { content: ''; position: absolute; inset: 0; z-index: 4; pointer-events: none;
+  background: radial-gradient(85% 65% at 0% 0%, rgba(14,20,24,.94) 0%, rgba(14,20,24,.78) 50%, rgba(14,20,24,0) 100%); }
+.mapa__fase { position: absolute; left: var(--margen); top: 11svh; z-index: 5; max-width: 26ch; opacity: 0; transition: opacity .4s; text-shadow: 0 1px 14px rgba(0,0,0,.55); }
+.mapa__fase.activa { opacity: 1; }
+.mapa__fase h2 { font-size: var(--t-l); }
+.mapa__fase p:not(.eyebrow) { color: var(--texto); opacity: .85; margin-top: .5rem; }
+.pin { display: grid; justify-items: center; gap: 6px; pointer-events: none; }
+.pin span { background: var(--texto); color: #1d1a17; font: 600 13px/1 var(--fuente); letter-spacing: .06em; padding: 7px 10px; border-radius: 3px; white-space: nowrap; }
+.pin i { width: 14px; height: 14px; border-radius: 50%; background: var(--acento); box-shadow: 0 0 0 5px rgba(201,164,106,.35), 0 0 0 1px #1d1a17; }
+.atribucion { position: absolute; right: 8px; bottom: 6px; z-index: 6; font-size: 11px; line-height: 1.3; color: var(--texto); background: rgba(14,20,24,.72); padding: 3px 7px; border-radius: 3px; }
+
+/* 5 · cierre */
+#cierre { min-height: 100svh; display: grid; place-items: center; text-align: center; padding: 14svh var(--margen) 8svh;
+  background: radial-gradient(50% 50% at 50% 40%, var(--fondo-2), var(--fondo)); }
+.cierre__titulo { font-size: clamp(3rem, 9vw, 7.5rem); }
+.precio { font: 500 var(--t-l)/1 var(--fuente-display); color: var(--acento); margin: 1.4rem 0 .6rem; }
+.cierre__nota { color: var(--texto-suave); max-width: 42ch; margin: 0 auto 2rem; }
+.boton { display: inline-block; font: 600 var(--t-xs)/1 var(--fuente); letter-spacing: .16em; text-transform: uppercase; text-decoration: none;
+  background: var(--acento); color: #1d1a17; padding: 1.1rem 1.8rem; border-radius: 2px; }
+.boton:hover { background: color-mix(in oklab, var(--acento) 85%, white); }
+.pie { border-top: 1px solid var(--linea); padding: 2rem var(--margen) 2.5rem; font-size: var(--t-xs); color: var(--texto-suave); display: grid; gap: .5rem; }
+.pie p { max-width: 90ch; }
+
+/* móvil vertical */
+@media (max-width: 767px) {
+  /* el reloj pisa la parte de abajo del titular (sándwich también en vertical) */
+  .hero__titulo { inset: 17svh 0 auto 0; font-size: 22vw; }
+  .hero__reloj { top: 22.5svh; height: auto; width: 84vw; }
+  .hero__sombra { top: 64.5svh; width: 70vw; }
+  .hero__bajar { display: none; }
+  .fase { top: auto; bottom: 7svh; transform: translateY(10%); max-width: none; right: var(--margen); }
+  .fase.activa { transform: none; }
+  .giro__textos::before { content: ''; position: absolute; inset: auto 0 0 0; width: auto; height: 42%; background: linear-gradient(rgba(23,20,18,0), rgba(23,20,18,.92)); }
+  .giro__contador { top: 11svh; bottom: auto; }
+  #detalle .escenario { grid-template-columns: 1fr; align-content: center; gap: 1.5rem; padding-top: 4svh; }
+  .detalle__foto { width: min(100%, 44svh); order: -1; }
+  .cifras { margin-top: 1.2rem; gap: .8rem 1.2rem; }
+  .detalle__texto > p:not(.eyebrow) { font-size: .92rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fase, .mapa__fase { transition: none; }
+}

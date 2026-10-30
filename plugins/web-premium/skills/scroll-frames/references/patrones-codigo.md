@@ -1,6 +1,7 @@
 # Patrones de código: scroll-frames
 
-Probados en la demo `demos/reloj` del marketplace (three 0.186, GSAP 3.15, Lenis 1.3.27, Vite).
+Probados en la demo `demos/reloj` del marketplace (GSAP 3.15, Lenis 1.3.27, Vite; la demo lleva three 0.186 para otra
+sección, la versión vigente en octubre de 2026 es la 0.187). Estos patrones no usan three.
 
 ## Maqueta
 ```html
@@ -22,7 +23,8 @@ Probados en la demo `demos/reloj` del marketplace (three 0.186, GSAP 3.15, Lenis
 ```
 ```css
 .secuencia { position: relative; }
-.secuencia__escena { position: relative; height: 100svh; overflow: hidden; background: #171412; } /* = fondo del vídeo */
+.secuencia__escena { position: relative; height: 100svh; overflow: clip; background: #171412; } /* = fondo del vídeo */
+/* overflow: clip y no hidden: hidden en un antepasado rompe position: sticky (variante sin GSAP, abajo) */
 .secuencia__poster, .secuencia__canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .secuencia__canvas { opacity: 0; transition: opacity .4s; }
 .secuencia.lista .secuencia__canvas { opacity: 1; }

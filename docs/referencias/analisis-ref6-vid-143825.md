@@ -60,7 +60,7 @@ El audio consta exclusivamente de una pista musical electrónica/downbeat modern
   - *Texto en pantalla:* `Spots fade. Tone evens out. 98% saw dark spots visibly soften after four weeks.`, botón `Shop Now`.
 - **00:20 - 00:21**: 
   - *Visual:* Transición a la ficha de producto ecommerce limpia de "Ámbar Serum".
-  - *Texto en pantalla:* `Ámbar Serum`, `$68`, rating `★★★★★ (142)`, selector `30ml / 50ml`, botón `Add to bag`.
+  - *Texto en pantalla:* `Ámbar Serum`, `$68`, rating `[5 estrellas] (142)`, selector `30ml / 50ml`, botón `Add to bag`.
 - **00:21 - 00:22**: 
   - *Corte directo (00:21.80):* Transición al Concepto 3. Iluminación LED cambia instantáneamente a azul cian/turquesa marina.
   - *Texto en pantalla:* Badge superior `3`, logotipo `NACRE`, `An ocean, held close.`.

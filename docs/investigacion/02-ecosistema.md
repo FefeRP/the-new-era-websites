@@ -51,15 +51,15 @@ Casos: Igloo Inc (awwwards.com/igloo-inc-case-study.html), Lusion, Active Theory
 ## Skills/marketplaces parecidos (aparte de los 3 instalados)
 | Repo | Qué | Actividad | Licencia |
 |---|---|---|---|
-| CloudAI-X/threejs-skills | 13 skills three (r186, R3F 9.8, gltf-transform 4.5) | ~3.7k★, oct-2026 | MIT |
-| juliobsz/skills (awwwards) | director creativo + dev; GSAP+Lenis+OGL; verifica en navegador | ~930★, oct-2026 | MIT |
-| MengTo/Skills | cinematic-scroll-storytelling, cinematic-gsap-lenis-motion-system | ~7k★ | MIT |
-| freshtechbro/claudedesignskills | 27 plugins (three, GSAP, R3F, Babylon, Spline, Rive…) | ~1.1k★, parado nov-2025 | MIT |
-| majidmanzarpour/threejs-game-skills | juegos three | ~2.6k★ | MIT |
-| EnzeD/r3f-skills | R3F | ~130★ | sin licencia |
-| iart-ai/web-animation-skills | GSAP, SVG, Lottie | ~54★ | MIT |
-| Impertio-Studio/Three.js-Claude-Skill-Package | 24 skills three | ~23★ | MIT |
-| flash-hero/GOATED-UI-SKILL | 474 recetas | ~5★ | MIT |
+| CloudAI-X/threejs-skills | 13 skills three (r186, R3F 9.8, gltf-transform 4.5) | ~3.7k estrellas, oct-2026 | MIT |
+| juliobsz/skills (awwwards) | director creativo + dev; GSAP+Lenis+OGL; verifica en navegador | ~930 estrellas, oct-2026 | MIT |
+| MengTo/Skills | cinematic-scroll-storytelling, cinematic-gsap-lenis-motion-system | ~7k estrellas | MIT |
+| freshtechbro/claudedesignskills | 27 plugins (three, GSAP, R3F, Babylon, Spline, Rive…) | ~1.1k estrellas, parado nov-2025 | MIT |
+| majidmanzarpour/threejs-game-skills | juegos three | ~2.6k estrellas | MIT |
+| EnzeD/r3f-skills | R3F | ~130 estrellas | sin licencia |
+| iart-ai/web-animation-skills | GSAP, SVG, Lottie | ~54 estrellas | MIT |
+| Impertio-Studio/Three.js-Claude-Skill-Package | 24 skills three | ~23 estrellas | MIT |
+| flash-hero/GOATED-UI-SKILL | 474 recetas | ~5 estrellas | MIT |
 | splinetool/spline-skills | oficial Spline | nuevo | MIT |
 | Higgsfield (skill oficial para Claude, 4-6-2026) | kit de marca → web con scroll, vía MCP Higgsfield + Remotion | — | — |
 Directorios: claudemarketplaces.com, mcpmarket.com/tools/skills, skillsdirectory.com, skills.sh, claudepluginhub.com.

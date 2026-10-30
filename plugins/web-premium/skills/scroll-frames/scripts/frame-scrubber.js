@@ -27,6 +27,8 @@ export async function crearFrameScrubber({
   maxBitmaps = null,       // ventana LRU de frames decodificados (auto: 48 escritorio / 24 móvil)
   alCargar = null,         // (cargados, total) => {}
   fondo = null,            // color de relleno para 'contain'
+  transparente = false,    // frames con alfa (alfa.mjs --formatos frames, skill capas-alfa): lienzo transparente y se
+                           // borra antes de cada frame, también en 'cover'
   alDibujar = null,        // ({ i, x, y, w, h, escala, canvas, manifest, variante }) => {} tras pintar cada frame: dónde
                            // quedó (px de canvas) y escala = px de canvas por px CSS. Lo usa capa-pantalla.js (skill
                            // seguir-pantalla) para poner una pantalla, un logo o un texto encima, siguiendo el vídeo.
@@ -43,7 +45,13 @@ export async function crearFrameScrubber({
   const url = (i) => base + v.ruta.replace('{i}', String(i + 1).padStart(m.pad ?? 4, '0')).replace('{ext}', ext);
   const limite = maxBitmaps ?? (esMovil ? 24 : 48);
 
-  const ctx = canvas.getContext('2d', { alpha: ajuste === 'contain' && !fondo });
+  const conAlfa = transparente || m.alfa === true;
+  const ctx = canvas.getContext('2d', { alpha: conAlfa || (ajuste === 'contain' && !fondo) });
+  // Un lienzo opaco sale negro hasta el primer frame y taparía el <img> del póster puesto debajo para el LCP:
+  // queda oculto hasta pintar el primero.
+  const visibilidadPrevia = canvas.style.visibility;
+  canvas.style.visibility = 'hidden';
+  let primeroPintado = false;
   const blobs = new Array(total).fill(null);
   const bitmaps = new Map();       // índice -> ImageBitmap
   bitmaps[ORDEN_CACHE] = [];       // orden de uso para LRU
@@ -155,7 +163,8 @@ export async function crearFrameScrubber({
     const iw = bmp.width, ih = bmp.height;
     const s = ajuste === 'cover' ? Math.max(cw / iw, ch / ih) : Math.min(cw / iw, ch / ih);
     const w = iw * s, h = ih * s;
-    if (ajuste === 'contain') {
+    if (conAlfa) ctx.clearRect(0, 0, cw, ch);
+    else if (ajuste === 'contain') {
       if (fondo) { ctx.fillStyle = fondo; ctx.fillRect(0, 0, cw, ch); } else ctx.clearRect(0, 0, cw, ch);
     }
     ctx.drawImage(bmp, (cw - w) / 2, (ch - h) / 2, w, h);
@@ -170,6 +179,7 @@ export async function crearFrameScrubber({
     if (disponible !== -1 && disponible !== dibujado) {
       const caja = pintar(bitmaps.get(disponible));
       dibujado = disponible;
+      if (!primeroPintado) { primeroPintado = true; canvas.style.visibility = visibilidadPrevia; }
       if (alDibujar) {
         const r = canvas.getBoundingClientRect();
         alDibujar({ i: disponible, ...caja, escala: canvas.width / Math.max(1, r.width), canvas, manifest: m, variante: v });
@@ -219,6 +229,7 @@ export async function crearFrameScrubber({
     varianteDatos: v,
     destruir() {
       destruido = true;
+      canvas.style.visibility = visibilidadPrevia;
       abort.abort();
       ro.disconnect();
       if (rafPendiente) cancelAnimationFrame(rafPendiente);

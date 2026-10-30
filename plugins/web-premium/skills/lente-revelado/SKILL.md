@@ -2,7 +2,7 @@
 name: lente-revelado
 description: Ver "por dentro" un producto - una lente circular que sigue al cursor (o al dedo) y revela otra versión ALINEADA de la misma imagen (rayos X, cámara térmica, interior, corte, boceto, antes/después), con interruptor de modos, y la misma pareja de imágenes como cortina antes/después ligada al scroll. Incluye el script que saca las variantes rayos X y térmica de cualquier foto sin IA (ffmpeg) y comprueba la alineación de una variante generada con IA. Úsala cuando pidan "rayos X al pasar el ratón", "lupa que enseña el interior", "ver por dentro", "modo térmico", "revelar al pasar el cursor", "antes y después con el scroll", "comparador", "x-ray hover effect", "cursor reveal", "spotlight reveal", "thermal view", "before after slider", "image reveal mask".
 license: MIT
-version: 1.0.0-beta.4
+version: 1.0.0-beta.5
 ---
 
 # Lente de revelado (rayos X, térmica, antes/después)
@@ -29,7 +29,9 @@ hecho, es de los efectos que la gente toca una y otra vez. Visto en ref11 (cruas
      - Después: `node scripts/variantes-revelado.mjs --comprobar base.png variante.png`. Debe salir ≤ 0,5 % de silueta distinta; > 2 % es inservible: se nota el "salto" bajo la lente.
 3. **Maqueta y motor** ([references/patrones-codigo.md](references/patrones-codigo.md)):
    - `crearLenteRevelado(raiz, { radio })` y botones de modo con `aria-pressed`.
-   - Para antes/después: `lente.cortina(progreso)` desde el scroll.
+   - Para antes/después: `lente.cortina(progreso)` desde el scroll. Esta cortina descubre **otra versión alineada de la
+     misma imagen** (antes/después, rayos X); para cambiar de escena o de capítulo con un panel que tapa el cambio, usa
+     `crearCortina` de `revelados-y-transiciones`.
 4. **Encima, la "mira"** (`.revelado__anillo`): un anillo fino con marcas y, si cuadra, un rótulo de datos pequeño. Es lo que la hace
    parecer un instrumento y no un truco.
 5. **Verifica:**

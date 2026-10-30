@@ -2,6 +2,56 @@
 
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones: [SemVer](https://semver.org/lang/es/).
 
+## [1.0.0-beta.5] - 2026-10-30
+Todas las skills pasan a `1.0.0-beta.5`. Idea central: **no todo es vídeo ni 3D**. Lo quieto es foto (aislada, con alfa o en capas) y el código la mueve; el vídeo, solo donde la cámara viaja o algo cambia físicamente; el 3D, solo cuando es imprescindible. Sale de analizar cinco referencias nuevas fotograma a fotograma (ref12-ref16) y de una investigación con fuentes y fechas.
+
+### Añadido
+- Investigación `docs/investigacion/04-webs-scroll-con-ia-2026.md` y su resumen `04-resumen.md`: lo que se ve de verdad en las referencias (confirmado frente a supuesto), stack actual, frames, alfa, recetas de vídeo IA publicadas, mapas, repos de agentes, accesibilidad y móvil.
+- `pedir-assets-ia/references/matriz-medio-por-elemento.md`: foto, foto con alfa o capas, vídeo, vídeo con alfa, frames o 3D para cada tipo de elemento, con coste, peso, riesgo, cuándo subir de categoría y formatos de salida.
+- Skill **`capas-alfa`**: elementos con fondo transparente sin Python ni GPU.
+  - `alfa.mjs`: saca el alfa de un fondo de color (clave lineal con desmezcla del color), de negro, de blanco, de un par negro/blanco (alfa exacto en cristal y líquidos), de la máscara del proveedor o de un WebM que ya lo trae. Salidas: stacked alpha MP4, WebM VP9, frames WebP con alfa compatibles con `frame-scrubber`, PNG, póster, recorte de imagen, hoja de revisión y `alfa.json` con métricas y avisos (fondo residual, halo, desalineación del par).
+  - `video-alfa.js`: reproduce el stacked alpha en WebGL en todos los navegadores (bucle, una vez o ligado al scroll), con póster, pausa fuera de vista y reduced-motion.
+  - references: cómo pedir el asset aislado, formatos con alfa por navegador y peso, y cómo componer capas (texto entre capas, parallax, sombra, móvil).
+  - `pruebas/capas-alfa/`: entradas con alfa conocido. Croma 39,8 dB (el chromakey de ffmpeg daba 28,2), negro 40,1, par negro/blanco 59,4, imagen 49,8; página de prueba 20/20.
+- Skill **`revelados-y-transiciones`**: `revelados.js` sin dependencias (rejilla, cortina con cambio de escena, zoom 2D a un punto con relevo a una imagen de detalle, titular línea a línea con máscara), misma interfaz para scroll o tiempo; patrones de tarjeta a pantalla completa, View Transitions y CSS ligado al scroll. Prueba `pruebas/revelados-rastro/` 23/23.
+- Skill **`rastro-cursor`**: fotos que siguen al ratón con un pool fijo de imágenes; desactivado en táctil y con reduced-motion.
+- `mapa-zoom-ubicacion`: segundo camino, **mapa por niveles de imagen** (`mapa-imagen.js`): niveles anidados de ortofoto real o estilizada con IA sobre ella, cámara anclada, paso de una zona a otra con arco, marcadores y rutas por código, fotogramas exactos de inicio y fin para pedir un clip IA entre dos vistas. Guía `references/mapa-por-imagenes.md`. Prueba `pruebas/mapa-imagen/` con ortofoto PNOA real (22/22).
+- `pedir-assets-ia`: plantillas 10-16 (foto aislada, splash quieto, objeto en capas, vídeo para recortar, 360 por frames, mapa cenital o isométrico, fondos de ambiente), coherencia de un lote y formato de salida; proveedores de alfa, recorte y 3D generado; `presupuesto.mjs` con piezas de tipo `composicion`.
+- `pruebas/servidor-estatico.mjs`: servidor de pruebas con Range (para buscar en vídeo).
+- `pruebas/extremo-a-extremo/`: ejemplo completo sin gasto, una boutique del reloj de la demo con su taller en Sabadell.
+  - `PLAN.md`: brief, guion de 5 tramos, el medio de cada elemento según la matriz y el presupuesto si se hiciera con IA de pago (1,29 $ esperado, 2,52 $ peor caso).
+  - `preparar.mjs`: hace los activos:
+    - el reloj sobre magenta, recortado con `alfa.mjs`;
+    - los frames del giro;
+    - los niveles de mapa de la ortofoto PNOA.
+  - La página combina:
+    - un titular detrás del reloj;
+    - el giro con el scroll;
+    - una rejilla que descubre el detalle;
+    - un mapa por niveles hasta el taller.
+  - `probar.mjs`: 31/31, y `verificar-scroll` sin errores en escritorio, móvil y movimiento reducido.
+
+### Cambiado
+- `frame-scrubber.js`: opción `transparente` (y `alfa: true` en el manifest) para frames con alfa sobre la página. El
+  lienzo queda oculto hasta pintar el primer frame: antes salía negro y tapaba el póster puesto debajo para el LCP.
+- Guías: paradas apaisadas del mapa por niveles con `cubrir` en móvil vertical, la rejilla tapa con un color (no con
+  transparencia), frames comparados con ±1 en las pruebas. `presupuesto.mjs` dice qué modelo cobra cada revisión.
+- `web-premium/references/base-tecnica.md`: LCP con un canvas en el hero, `overflow: clip` en vez de `hidden` con `sticky`, `svh` e `ignoreMobileResize`, interfaz HTML sobre el canvas, CSS ligado al scroll dentro de `@supports`, tabla de móvil y ahorro de datos, `gsap.matchMedia`. La plantilla configura `ignoreMobileResize` y marca el ahorro de datos.
+- Skill maestra: "no todo es vídeo" en la idea central, skills nuevas en la lista, filas nuevas en "Quiero…" (texto entre capas, splash quieto, humo sobre negro, revelados, zoom 2D, rastro, mapa ilustrado o viaje entre sitios); los recortes van a `capas-alfa`.
+- `nueva-web.mjs --con alfa,revelados,rastro,mapa-imagen`.
+- `pedir-assets-ia`: lo que gira con texto va primero con `envase-giratorio` o frames de un render; 3D en vivo solo si se toca o se configura.
+- Manifiestos y comando `/web-premium` con las técnicas nuevas y el 3D como opción, no como punto de partida.
+- Revisión de todas las skills contra la matriz:
+  - el catálogo de técnicas sin emojis, con las refs 12-16, filas nuevas (vídeo y frames con alfa, splash aislado, rejilla, zoom 2D, mapa por niveles) y combinaciones corregidas (bebidas con `envase-giratorio`, 3D solo si se gira);
+  - el recorte pasa a `alfa.mjs` o a una API (rembg solo si hay Python);
+  - `overflow: clip` en los patrones con escenas fijadas;
+  - cifras de frames y pesos unificadas;
+  - `mapa-zoom-ubicacion` con el criterio para elegir camino;
+  - `continuidad.md` sin `filter: blur()` animado;
+  - receta nueva "web solo con fotos";
+  - análisis de referencias apuntando a las skills nuevas.
+- `extraer-frames.mjs`: por defecto 1600 px en escritorio y 900 px en móvil (antes 1920/720), lo que dicen las guías.
+
 ## [1.0.0-beta.4] - 2026-10-30
 Todas las skills pasan a `1.0.0-beta.4`. Idea central: **lo realista sale de assets de IA bien pedidos, no del 3D**. Sale de volver a desmontar las 11 webs de referencia (de qué assets se compone cada una y cómo se pidieron) y de las lecciones de un encargo real con vídeo IA (zoom a la pantalla de un portátil).
 

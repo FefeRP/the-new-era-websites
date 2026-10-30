@@ -5,9 +5,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
+// En móvil la barra de direcciones cambia el alto al hacer scroll: sin esto, cada cambio recalcula todos los disparadores (saltos).
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 export const menosMovimiento = matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.documentElement.classList.toggle('menos-movimiento', menosMovimiento);
+// Ahorro de datos (Chrome/Android): las secciones pueden servir la versión ligera (póster en vez de frames o vídeo).
+export const ahorroDatos = navigator.connection?.saveData === true;
+document.documentElement.classList.toggle('ahorro-datos', ahorroDatos);
 
 // Scroll suave solo si el usuario no pide menos movimiento. Lenis mueve el scroll nativo (anclas, Ctrl+F y teclado siguen funcionando).
 export let lenis = null;
@@ -26,7 +31,9 @@ addEventListener('load', () => ScrollTrigger.refresh());
 // === Técnicas ===
 // Importa aquí cada sección (ejemplos). Ojo: los import se evalúan ANTES que el cuerpo de este fichero, así que
 // una sección que haga `import { menosMovimiento, lenis } from '../main.js'` los encuentra sin inicializar
-// (ReferenceError). Que cada sección consulte matchMedia('(prefers-reduced-motion: reduce)') por su cuenta.
+// (ReferenceError). Que cada sección consulte matchMedia('(prefers-reduced-motion: reduce)') por su cuenta, o mejor
+// gsap.matchMedia(), que además deshace las animaciones si la preferencia cambia con la página abierta:
+//   gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => { /* timelines con scrub */ });
 // import './secciones/hero-capas.js';
 // import './secciones/secuencia.js';
 // import './secciones/vivo-3d.js';

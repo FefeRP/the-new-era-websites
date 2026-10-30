@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Orbe 01 · Cronógrafo montado a mano en Sabadell</title>
+  <meta name="description" content="Orbe 01, cronógrafo de 46 mm montado y ajustado a mano en nuestro taller del centro de Sabadell. Reserva el tuyo.">
+  <link rel="icon" href="data:,">
+  <link rel="preload" as="image" href="activos/producto/alfa/recorte.webp" fetchpriority="high">
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header class="nav">
+    <a class="nav__marca" href="#hero">Orbe</a>
+    <a class="nav__cta" href="#cierre">Reservar</a>
+  </header>
+
+  <main id="contenido">
+    <!-- 1 · hero: titular ENTRE capas (fondo → titular → reloj recortado con alfa) -->
+    <section id="hero" class="tramo" aria-labelledby="titulo-hero">
+      <div class="escenario">
+        <h1 class="hero__titulo" id="titulo-hero">Orbe 01</h1>
+        <div class="hero__sombra" aria-hidden="true"></div>
+        <img class="hero__reloj" src="activos/producto/alfa/recorte.webp" width="987" height="1098" fetchpriority="high" decoding="async"
+             alt="Reloj Orbe 01: caja dorada facetada, esfera negra con números dorados y correa de caucho">
+        <div class="hero__pie">
+          <p class="eyebrow">Taller Orbe · Sabadell</p>
+          <p>Cronógrafo de 46 mm montado y ajustado a mano, pieza a pieza, en nuestro taller del centro.</p>
+        </div>
+        <p class="hero__bajar" aria-hidden="true">Baja para verlo girar</p>
+      </div>
+    </section>
+
+    <!-- 2 · giro: frames con frame-scrubber en un escenario fijado; <img> del frame 0 debajo (LCP y respaldo) -->
+    <section id="giro" class="tramo" aria-label="El Orbe 01 gira de perfil a frente">
+      <div class="escenario">
+        <picture>
+          <source media="(max-width: 767px)" srcset="activos/frames/poster-movil.webp" width="608" height="1080">
+          <img class="giro__poster" src="activos/frames/poster-escritorio.webp" width="1920" height="1080" loading="lazy" decoding="async"
+               alt="El Orbe 01 de perfil, con la correa abierta y la corona a la derecha">
+        </picture>
+        <canvas class="giro__canvas" aria-hidden="true"></canvas>
+        <div class="giro__textos">
+          <div class="fase" data-desde="0" data-hasta="0.34">
+            <p class="eyebrow">01 · La caja</p>
+            <h2>Acero con acabado dorado, facetado a mano</h2>
+            <p>Cuarenta y seis milímetros de caja con biseles pulidos uno a uno.</p>
+          </div>
+          <div class="fase" data-desde="0.34" data-hasta="0.67">
+            <p class="eyebrow">02 · La esfera</p>
+            <h2>Analógica y digital, legible de un vistazo</h2>
+            <p>Agujas luminiscentes, segundo huso horario y cronógrafo a la centésima.</p>
+          </div>
+          <div class="fase" data-desde="0.67" data-hasta="1.01">
+            <p class="eyebrow">03 · La correa</p>
+            <h2>Caucho trenzado que no se cansa</h2>
+            <p>Flexible, con hebilla de acero y cambio sin herramientas.</p>
+          </div>
+        </div>
+        <p class="giro__contador" aria-hidden="true"><span id="contador">01</span> / 03</p>
+      </div>
+    </section>
+
+    <!-- 3 · detalle: una foto (un frame del giro) que se descubre por bloques -->
+    <section id="detalle" class="tramo" aria-labelledby="titulo-detalle">
+      <div class="escenario">
+        <div class="detalle__texto">
+          <p class="eyebrow">De cerca</p>
+          <h2 id="titulo-detalle">Cada esfera se revisa con lupa antes de salir</h2>
+          <p>Ajustamos la marcha, comprobamos la hermeticidad y alineamos los índices a mano. Si algo no está perfecto, no sale del taller.</p>
+          <ul class="cifras">
+            <li><b>46 mm</b><span>diámetro de la caja</span></li>
+            <li><b>200 m</b><span>hermeticidad</span></li>
+            <li><b>Zafiro</b><span>cristal antirreflejos</span></li>
+            <li><b>2 años</b><span>garantía del taller</span></li>
+          </ul>
+        </div>
+        <div class="detalle__foto">
+          <img src="activos/detalle.webp" width="860" height="860" loading="lazy" decoding="async"
+               alt="Esfera del Orbe 01 de frente: bisel con ciudades, números dorados y pantalla digital">
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 · taller: mapa por niveles de imagen (ortofoto PNOA) con el marcador del taller -->
+    <section id="taller" class="tramo" aria-label="Dónde está el taller: de Sabadell a nuestra calle">
+      <div class="escenario">
+        <div class="mapa__fase" data-desde="0" data-hasta="0.3">
+          <p class="eyebrow">El taller</p>
+          <h2>Sabadell, en el Vallès Occidental</h2>
+        </div>
+        <div class="mapa__fase" data-desde="0.3" data-hasta="0.68">
+          <p class="eyebrow">El taller</p>
+          <h2>En el centro, a pie de calle</h2>
+          <p>A diez minutos andando de la estación.</p>
+        </div>
+        <div class="mapa__fase" data-desde="0.68" data-hasta="1.01">
+          <p class="eyebrow">El taller</p>
+          <h2>Aquí montamos cada Orbe 01</h2>
+          <p>Ven a probártelo: de martes a sábado, con cita.</p>
+        </div>
+        <div class="pin" id="pin-taller"><span>Taller Orbe</span><i></i></div>
+        <p class="atribucion" id="atribucion">PNOA cedido por © Instituto Geográfico Nacional (CC BY 4.0)</p>
+      </div>
+    </section>
+
+    <!-- 5 · cierre -->
+    <section id="cierre" aria-labelledby="titulo-cierre">
+      <div>
+        <p class="eyebrow">Serie de 2026 · 300 unidades</p>
+        <h2 class="cierre__titulo" id="titulo-cierre">Orbe 01</h2>
+        <p class="precio">1.250 €</p>
+        <p class="cierre__nota">IVA incluido. Recógelo en el taller o te lo enviamos asegurado. Ajuste de la correa gratis.</p>
+        <a class="boton" href="#cierre" id="reservar">Reservar el tuyo</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Modelo 3D «Chronograph Watch» de Eric Chadwick (Khronos Group, glTF-Sample-Assets, CC BY 4.0); incluye logotipos de Khronos y DGG, marcas de sus titulares. Fotos y giro: renders propios del modelo.</p>
+    <p>Ortofoto: PNOA cedido por © Instituto Geográfico Nacional (CC BY 4.0).</p>
+    <p>Orbe, el Orbe 01 y el taller son ficticios: página de demostración.</p>
+  </footer>
+
+  <script type="module">
+    import { crearFrameScrubber } from '../../plugins/web-premium/skills/scroll-frames/scripts/frame-scrubber.js';
+    import { crearLineas, crearRejilla } from '../../plugins/web-premium/skills/revelados-y-transiciones/scripts/revelados.js';
+    import { crearMapaImagen } from '../../plugins/web-premium/skills/mapa-zoom-ubicacion/scripts/mapa-imagen.js';
+
+    const $ = (s) => document.querySelector(s);
+    const $$ = (s) => [...document.querySelectorAll(s)];
+    const lim = (v) => Math.min(1, Math.max(0, v));
+    const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // progreso 0..1 de una escena fijada: 0 cuando su borde superior llega arriba, 1 cuando se suelta
+    const progresoDe = (sec) => { const r = sec.getBoundingClientRect(); return lim(-r.top / Math.max(1, r.height - innerHeight)); };
+    const fasesEn = (lista, p) => lista.forEach((f) => f.classList.toggle('activa', p >= +f.dataset.desde && p < +f.dataset.hasta));
+
+    // 1 · hero: el titular entra línea a línea (por tiempo, al cargar) y luego pasa por detrás del reloj con el scroll
+    const hero = $('#hero'), titulo = $('.hero__titulo'), reloj = $('.hero__reloj'), sombra = $('.hero__sombra');
+    const lineas = crearLineas(titulo, { retardo: 0.14 });
+    lineas.reproducir({ duracion: 1100 });
+
+    // 2 · giro: los frames se cargan cuando la sección se acerca; hasta entonces se ve el póster
+    const giro = $('#giro'), canvas = $('.giro__canvas'), fasesGiro = $$('#giro .fase'), contador = $('#contador');
+    canvas.style.visibility = 'hidden'; // con ajuste cover el lienzo es opaco: negro hasta el primer frame (taparía el póster)
+    let seq = null, seqPromesa = null;
+    const crearGiro = () => (seqPromesa ??= crearFrameScrubber({ canvas, base: 'activos/frames/' }).then((s) => {
+      seq = s; canvas.style.visibility = ''; actualizar(); return s;
+    }));
+    new IntersectionObserver(([e], io) => { if (e.isIntersecting) { io.disconnect(); crearGiro(); } }, { rootMargin: '100% 0px' }).observe(giro);
+
+    // 3 · detalle: la esfera se descubre por bloques en la primera mitad del tramo fijado
+    const detalle = $('#detalle');
+    const rejilla = crearRejilla($('.detalle__foto'), { filas: 4, columnas: 4, orden: 'escalera', color: '#171412' });
+
+    // 4 · taller: del municipio a la calle con niveles de ortofoto
+    const taller = $('#taller'), fasesMapa = $$('#taller .mapa__fase');
+    const datos = await (await fetch('activos/mapa/niveles.json')).json();
+    $('#atribucion').textContent = datos.atribucion;
+    const t = datos.puntos.taller;
+    const alrededor = (p, ancho) => ({ x: p.x - ancho / 2, y: p.y - ancho / 2, ancho, alto: ancho });
+    const mapa = crearMapaImagen({
+      contenedor: $('#taller .escenario'),
+      niveles: datos.niveles.map((n) => ({ ...n, src: 'activos/mapa/' + n.src })),
+      // en vertical, el encuadre final más cerrado: la vista es más alta que ancha y tiene que caber en el nivel de calle (4:5)
+      paradas: ({ ancho, alto }) => [
+        { en: 0, caja: { x: 0, y: 0, ancho: 1, alto: 1 }, cubrir: true },
+        // en vertical, una caja 16:9 encuadrada entera (contain) deja ver el borde de la base arriba y abajo: cubrir
+        { en: 0.4, caja: datos.niveles[1].caja, cubrir: alto > ancho },
+        { en: 0.85, caja: alrededor(t, alto > ancho ? 0.018 : 0.04) },
+        { en: 1, caja: alrededor(t, alto > ancho ? 0.018 : 0.04) },
+      ],
+      marcadores: [{ el: $('#pin-taller'), x: t.x, y: t.y, desde: 0.62, hasta: 1, ancla: 'abajo' }],
+    });
+
+    // un solo cálculo de scroll para todas las escenas (sin GSAP: con GSAP sería un ScrollTrigger con scrub por escena)
+    function actualizar() {
+      const pH = progresoDe(hero);
+      if (!reducido) {
+        titulo.style.transform = `translate3d(0, ${(-pH * innerHeight * 0.22).toFixed(1)}px, 0)`;
+        reloj.style.transform = `translate3d(-50%, ${(-pH * innerHeight * 0.06).toFixed(1)}px, 0) scale(${(1 - 0.05 * pH).toFixed(4)})`;
+        sombra.style.opacity = String(1 - 0.6 * pH);
+      }
+      const pG = progresoDe(giro);
+      fasesEn(fasesGiro, pG);
+      const iFase = Math.min(2, Math.floor(pG * 3));
+      contador.textContent = '0' + (iFase + 1);
+      // reduced-motion: sin scrub, un frame quieto por fase (perfil, frente, otro perfil)
+      seq?.progreso(reducido ? iFase / 2 : pG);
+      rejilla.progreso(lim(progresoDe(detalle) / 0.6));
+      const pM = progresoDe(taller);
+      mapa.progreso(pM);
+      fasesEn(fasesMapa, pM);
+    }
+    addEventListener('scroll', actualizar, { passive: true });
+    addEventListener('resize', actualizar);
+    actualizar();
+
+    await Promise.all([mapa.listo, reloj.decode().catch(() => {})]);
+    window.__prueba = {
+      listo: true, mapa, datos, rejilla, lineas,
+      giro: () => crearGiro(),
+      get seq() { return seq; },
+      // lleva el scroll al punto p (0..1) del tramo fijado de una sección y pinta ya
+      irA(id, p = 0) {
+        const sec = document.getElementById(id), r = sec.getBoundingClientRect();
+        scrollTo(0, scrollY + r.top + p * Math.max(0, r.height - innerHeight));
+        actualizar(); mapa.pintarYa();
+      },
+    };
+  </script>
+</body>
+</html>

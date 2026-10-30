@@ -93,7 +93,7 @@ The camera orbits [90] degrees to the right around the [product] at a slow const
 the same size, the background stays plain [warm grey]. Studio light fixed in the room, so highlights glide naturally across
 the [glass/metal]. [Estabilidad].
 ```
-- 5 s, Kling O3 pro ~0,56 $ (prueba de 3 s: ~0,34 $). Para 360° en bucle, imagen de inicio = fin.
+- 5 s, Kling O3 pro ~0,56 $ (prueba de 3 s: ~0,34 $). Para 360° en bucle, imagen de inicio = fin (sección 14).
 - Para scroll: un giro de 90-180° en 5 s se ve mejor que 360° (menos fotogramas por grado = más nitidez al arrastrar).
 
 ## 3. Entrada a una escena (por una puerta, ventana, entre árboles, "dentro" del producto)
@@ -130,9 +130,11 @@ No es un vídeo: son **imágenes** que el código mueve a distinta velocidad (`p
    [The product in the reference], same shape, label and colors, photographed in the same light as the scene: soft daylight
    from the left, same color temperature, same camera height and angle ([slightly above, 35mm]). Plain [white] background.
    ```
+   Recorte con `capas-alfa` (`alfa.mjs --modo croma --recortar`, o `--modo blanco` sobre blanco; sin Python), o con
+   alfa nativo del modelo (sección 10).
 3. **Sombra:** la del producto real sobre la escena (`parallax-capas/scripts/capas-sombra.mjs`) o pedida en la edición
    "place the product on the counter" y separada después.
-4. **Primer plano** (hojas, ingredientes, migas) en 2-3 tamaños, recortados.
+4. **Primer plano** (hojas, ingredientes, migas) en 2-3 tamaños, recortados con `capas-alfa`.
 - Coste: 4-6 imágenes × 0,04-0,15 $ ≈ 0,3-0,9 $. Lo más barato y lo que mejor aguanta el scroll.
 
 ## 5. Mismo encuadre, cambio de estado (día → noche, crudo → dorado, obra → terminado, antes → después)
@@ -172,12 +174,13 @@ Locked-off camera, [the peony] centered occupying [50]% of the frame, plain [blu
   ```
 - **Transición física dentro del plano:** A acaba con algo saliendo por un borde (granos que caen), B empieza con eso entrando
   por el opuesto; o "a wave of coffee sweeps across and fills the whole frame" al final de A.
-- **Cortina** cuando no hay puente: tarjeta de texto sobre el color de la sección, fundido a blanco o niebla, barrido con
-  desenfoque. Gratis y por código.
+- **Cortina** cuando no hay puente: tarjeta de texto sobre el color de la sección, fundido a blanco o niebla, barrido de
+  color. Gratis y por código: `revelados-y-transiciones` (`crearCortina`, el cambio de escena en `alCubrir`).
 - Detalle en [continuidad.md](continuidad.md).
 
 ## 8. Descenso aéreo (nubes → ciudad → edificio)
-- Ubicación real → `mapa-zoom-ubicacion` (ortofoto, gratis y exacto). La IA solo para nubes o el final cercano.
+- Ubicación real → `mapa-zoom-ubicacion` (ortofoto, gratis y exacto): mapa vivo o niveles de imagen (`mapa-imagen.js`,
+  sección 15). La IA solo para nubes o el final cercano.
 - ```
   Aerial drone shot descending slowly through a sea of morning clouds, the clouds part to reveal [a coastal town with
   whitewashed houses] seen obliquely from 300 m, soft haze, constant slow descent, no rotation. [Estabilidad].
@@ -186,8 +189,137 @@ Locked-off camera, [the peony] centered occupying [50]% of the frame, plain [blu
 
 ## 9. Interior o arquitectura fija (el más barato y el más creíble)
 - **Imagen** (no vídeo): verticales rectas, hora dorada o día suave, 24mm, cámara a 1,5 m.
-- El movimiento lo pone el código: zoom lento, máscara en arco, parallax entre 2-3 capas (`parallax-capas`), cambio día/noche por fundido.
+- El movimiento lo pone el código: zoom lento o zoom a un punto (`crearZoomA`), máscara en arco o rejilla
+  (`revelados-y-transiciones`), parallax entre 2-3 capas (`parallax-capas`), cambio día/noche por fundido.
 - 0,04-0,15 $ por imagen. Úsalo para todo lo que no necesite que la cámara se mueva de verdad.
+
+---
+Las secciones 10-16 son assets **para componer** (aislados, con alfa, en capas, por frames). Qué medio elegir para cada
+elemento: [matriz-medio-por-elemento.md](matriz-medio-por-elemento.md). Cómo sacar el alfa y montarlos: skill `capas-alfa`.
+
+## 10. Foto aislada sobre fondo neutro (producto, objeto, ingrediente)
+**Antes de pedirlo:** si el modelo da alfa nativo (gpt-image-1.5/2.5 `background: "transparent"`, Ideogram 3 Transparent,
+Seedream 5 Flash), pídelo así y **no describas ningún fondo**. Si no, fondo liso elegido para recortar: verde o magenta si el
+sujeto no tiene ese color; blanco para objetos oscuros; negro para lo luminoso o metálico brillante.
+```
+Studio product photograph of [the product in the reference image], exact same shape, proportions, colors and label.
+[Three-quarter front view, slightly above], occupying [70]% of the frame height, fully inside the frame with clear margin on
+every side. Plain seamless [chroma green #00b140] background, evenly lit, no gradient, no shadow on the background, no
+reflections of the background color on the product. Soft key light from the upper left, gentle rim light. 85mm, f/8,
+everything sharp.
+```
+- **Salida:** PNG 2048 px de lado largo → `alfa.mjs --modo croma --recortar` → WebP con alfa (≤ 250 KB a 1200 px).
+- **Coste:** 0,02-0,08 $ la imagen + recorte 0,006-0,018 $ si hace falta API (con `alfa.mjs`, 0 $).
+- Sombra: no la pidas en el fondo de color (se pierde al recortar); hazla por código o con `capas-sombra.mjs`.
+
+## 11. Splash o momento congelado (líquido, polvo, granos), quieto
+**Antes de pedirlo:** quieto = **foto**. El movimiento lo pone el código (parallax, escala, máscara). Solo si el líquido
+tiene que caer o girar de verdad, sección 13.
+```
+High-speed studio photograph frozen at 1/8000 s: [a crown splash of orange juice rising around the bottle], droplets sharp
+and separated, realistic surface tension and thin translucent sheets of liquid, a few stray droplets. Plain pure black
+background (RGB 0,0,0), no grey lift, no vignette, no smoke. Strobe light from the left and behind, so the liquid glows at
+the edges. 100mm macro, f/11.
+```
+- Líquido transparente o cristal: **la misma imagen sobre negro y sobre blanco** (edición "only change the background to pure
+  white, keep every droplet exactly in place") → `alfa.mjs --modo diferencia` da el alfa exacto de lo semitransparente.
+- **Salida:** WebP/PNG con alfa de 1600-2400 px; capa encima o detrás del producto (`capas-alfa`, `componer-capas.md`).
+- **Coste:** 2 imágenes (negro + blanco) 0,05-0,15 $.
+
+## 12. Objeto en capas (despiece, partes separadas, primer plano / sujeto / fondo)
+**Antes de pedirlo:** si las capas son **planos de profundidad** de una misma foto (fondo, sujeto, primer plano), pide una
+sola foto y sepárala: Qwen-Image-Layered (1-10 capas RGBA, ~0,05 $) o recortes con máscara. Si son **piezas de un objeto**
+(despiece), genera el estado despiezado como foto y cada pieza aislada como edición:
+```
+Exploded view of [the product in the reference]: the [cap, pump, bottle and inner tube] separated vertically along one axis
+with [8]% of the frame height between parts, every part keeps its exact shape, color and scale, nothing new added.
+Centered, plain [warm grey #d8d2c8] background, soft studio light from the upper left, 85mm, f/11.
+```
+Después, una edición por pieza: "Keep only the [cap], exactly as it is, same position and size; everything else becomes
+plain [chroma green]".
+- **Salida:** un PNG/WebP con alfa por capa, **todas con el mismo lienzo** (mismo ancho y alto, la pieza en su sitio): así el
+  código las monta con `left: 0; top: 0` y las mueve con el scroll sin recolocarlas.
+- **Coste:** 1 foto + 1 edición por capa: 4 capas ≈ 0,2-0,5 $.
+- La coherencia del despiece se revisa en la foto (si la foto es incoherente, todo lo demás también).
+
+## 13. Vídeo para recortar (líquido, humo, chispas, tela) con fondo de color o negro
+**Antes de pedirlo:** ningún modelo comercial de vídeo (Kling, Veo, Seedance, Runway, Luma) da alfa. Opciones: Wan-Alpha
+(alfa nativo, 832×480, solo texto a vídeo) o Firefly con "transparent background"; si no, fondo para recortar:
+- **luminoso** (fuego, chispas, humo claro, luz): negro puro → `alfa.mjs --modo negro`;
+- **opaco con bordes nítidos** (tela, objeto que cae): verde o magenta → `--modo croma`;
+- **líquido o humo oscuro**: fondo de color + recorte por fotograma con API (BiRefNet vídeo ~0,0008 $/s de cómputo).
+Imagen de inicio **ya sobre ese fondo** (sección 10 u 11) y:
+```
+Locked-off camera. [The orange juice splashes up around the bottle and falls back with gravity], slow motion, physically
+plausible, the bottle stays rigid and in place. The background stays plain [pure black RGB 0,0,0 / chroma green #00b140],
+evenly lit, unchanged in every frame: no gradient, no vignette, no smoke or haze on the background. [Estabilidad].
+```
+- **Salida:** `alfa.mjs` → `apilado.mp4` (stacked alpha, todos los navegadores, con `video-alfa.js`) para bucles; frames WebP
+  con alfa para scroll. 3-5 s, 24 fps, 720-1080 px de lado largo.
+- **Coste:** 5 s 0,25-0,56 $ (Veo 3.1 Lite, Kling 3, Wan 2.7) + recorte 0 $ con `alfa.mjs`.
+- Revisa la esquina: si el fondo no es uniforme (gris, degradado), el recorte deja un rectángulo. `alfa.json` lo avisa.
+
+## 14. Giro de 360° por frames
+**Antes de pedirlo:** etiqueta o texto que se tenga que leer al girar → **no es vídeo**: `envase-giratorio` (lata o botella)
+o 3D (`escena-3d-gltf`; el modelo se puede generar desde fotos con TRELLIS 2, 0,25-0,35 $, o Hunyuan3D v3, desde 0,225 $,
+y renderizar los frames). Vídeo solo para objetos sin texto, y **nunca giro y zoom a la vez**.
+```
+The [product] rotates 360 degrees on its vertical axis at a perfectly constant speed on a turntable, camera locked-off,
+same distance and height, the product stays centered and the same size. Plain [warm grey #cfc8bd] background, studio light
+fixed in the room. Seamless loop: the last frame matches the first. [Estabilidad].
+```
+- Inicio = fin = la misma foto (sección 2). La cara trasera la inventa el modelo: si existe una foto de la trasera, dásela
+  como referencia (Kling Elements) o descarta el vídeo.
+- **Salida:** 90-120 frames (3-4° por frame) en escritorio y 60-90 en móvil con `scroll-frames` (`extraer-frames.mjs`),
+  WebP 1600 px escritorio / 900 px móvil (menos si el objeto no ocupa la pantalla); con alfa si va
+  sobre la web (sección 13 + `alfa.mjs`).
+- **Coste:** 5 s ~0,42-0,56 $ (Kling 3); 3D generado + render: 0,25-0,35 $ y sin texto deformado.
+
+## 15. Mapa cenital o isométrico
+**Antes de pedirlo:** un mapa de un sitio real **no se genera**: la IA inventa calles. Se parte de la ortofoto real
+(PNOA, USGS…) por niveles y la IA solo la estiliza. Guía completa: `mapa-zoom-ubicacion/references/mapa-por-imagenes.md`.
+```
+Restyle this aerial photo as [a soft architectural illustration with warm paper tones / a clay model / a night map with warm
+street lights], top-down view. Keep every street, block, building footprint, park and coastline exactly where it is. Do not
+add, remove or move anything. No text, no labels, no icons.
+```
+- Mismo prompt y la primera imagen aprobada como referencia de estilo para los demás niveles; comprueba que alinean.
+- Isométrico: desde un render 3D propio (MapLibre con edificios extruidos inclinado, o three.js), estilizado igual.
+- **Salida:** 3-5 niveles WebP de 2048-2560 px (los profundos, 4:5 para móvil), marcadores y nombres por código.
+- **Coste:** 0,03-0,08 $ por nivel; un clip entre dos vistas (inicio y fin con `fotograma()`), 0,25-0,45 $.
+
+## 16. Fondos de ambiente (cielo, agua, niebla, luz que entra, textura que respira)
+**Antes de pedirlo:** muchos fondos son **código**: degradados animados, ruido en un shader, grano, una foto con un zoom muy
+lento. Vídeo solo si el movimiento natural es el protagonista (nubes que pasan, agua, cortinas al viento).
+```
+Locked-off camera, [soft morning clouds drifting slowly from left to right over a pale sky], very slow, calm, continuous
+motion, no camera move, no birds, no planes, no sun flare. Low contrast, muted colors that match [#e9e4da]. Seamless loop:
+the last frame matches the first. [Estabilidad].
+```
+- Con inicio = fin (la misma foto) para que haga bucle; si el modelo no lo respeta, fundido cruzado de 0,5 s en el bucle.
+- **Salida:** MP4 H.264 sin audio, 1280-1920 px, 6-10 s, crf 26-30, **≤ 1,5 MB**; `muted playsinline loop`, póster WebP, pausa
+  fuera de vista. En móvil, el póster.
+- **Coste:** 5 s 0,25-0,56 $. Un fondo por web; si hay dos, el segundo, por código.
+
+## Coherencia de un lote (todas las imágenes de una web)
+- **Una imagen base** aprobada (la clave del tramo principal) y todo lo demás como **edición o con ella de referencia**.
+- **Un párrafo de estilo** fijo (luz, hora, cámara, color, grano) que se pega igual en todos los prompts; solo cambia la acción.
+- **Referencias con papel**: hasta ~6 por petición en Nano Banana (rinde peor con más), diciendo para qué es cada una
+  ("image 1: the product; image 2: the lighting and color; image 3: the background"). En Kling, Element Library con el
+  objeto desde varios ángulos.
+- **Mismo modelo y semilla** para variantes de una misma pieza; apúntalos en `plan.json`.
+- **Comprueba el lote junto**: una hoja con todas las piezas a 400 px de lado (`ffmpeg … tile`) antes de montar. Lo que
+  desentona en la hoja, desentona en la web.
+
+## Formato de salida (lo que se pide y lo que se sirve)
+| Asset | Pedir | Servir |
+|---|---|---|
+| Foto de escena | 2048-2752 px de lado largo, PNG | WebP/AVIF 1600-2400 px, ≤ 300 KB; `srcset` con 1200 para móvil |
+| Foto aislada / capa | PNG con alfa o fondo liso, 2048 px | WebP con alfa recortado a su caja, ≤ 250 KB |
+| Vídeo para frames (scroll) | 1080p, 24 fps, sin audio, 4-6 s | WebP por frame, 1600 px y 90-150 frames escritorio / 900 px y 60-90 frames móvil |
+| Vídeo en bucle | 1080p, 24 fps, sin audio | MP4 H.264 crf 26-30, ≤ 1,5 MB, póster |
+| Vídeo con alfa | Fondo liso, 720-1080p | `apilado.mp4` (stacked alpha) + póster; frames WebP con alfa para scroll |
+| Mapa por niveles | Ortofoto por WMS, 2048-2560 px por nivel | WebP calidad 70-80, ≤ 900 KB por nivel |
 
 ## Adaptar al modelo
 - **Kling:** sin negative prompt → la estabilidad va en positivo. Inicio y fin (`first/last frame`). Respeta muy bien el final.

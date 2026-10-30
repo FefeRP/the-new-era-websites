@@ -1,0 +1,13 @@
+{
+  "proyecto": "Orbe 01 · boutique y taller en Sabadell (si se hiciera con IA de pago)",
+  "presupuesto_usd": 5,
+  "piezas": [
+    { "id": "hero-magenta", "tipo": "imagen", "modelo": "nano-banana-pro", "resolucion": "2k", "cantidad": 1, "fase": "1-claves", "nota": "foto del reloj real sobre magenta liso (edición desde la foto del cliente)" },
+    { "id": "giro-inicio-fin", "tipo": "imagen", "modelo": "qwen-image-3", "resolucion": "2k", "cantidad": 2, "fase": "1-claves", "nota": "perfil izquierdo y perfil derecho sobre el fondo de la web" },
+    { "id": "detalle-esfera", "tipo": "imagen", "modelo": "nano-banana-2.1", "resolucion": "2k", "cantidad": 1, "fase": "1-claves", "nota": "esfera de frente, de cerca" },
+    { "id": "prueba-giro", "tipo": "video", "modelo": "kling-o3-pro", "resolucion": "1080p", "segundos": 3, "cantidad": 1, "tiradas": 1, "fase": "2-prueba" },
+    { "id": "giro", "tipo": "video", "modelo": "kling-o3-pro", "resolucion": "1080p", "segundos": 5, "cantidad": 1, "fase": "3-final", "nota": "arco de 160 grados con inicio y fin" },
+    { "id": "recorte-hero", "tipo": "composicion", "modelo": "alfa-local", "cantidad": 1, "tiradas": 1, "fase": "3-final", "nota": "alfa.mjs --modo croma --recortar" },
+    { "id": "qa", "tipo": "revision", "cantidad": 3, "tiradas": 1, "fase": "3-final", "nota": "giro, hero y hoja de contactos" }
+  ]
+}

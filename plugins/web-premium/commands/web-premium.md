@@ -1,5 +1,5 @@
 ---
-description: Construye una web premium (3D, scroll cinematográfico, profundidad) a partir de un pedido
+description: Construye una web premium (scroll cinematográfico, fotos en capas, revelados, vídeo IA y 3D solo cuando hace falta) a partir de un pedido
 argument-hint: <qué web quieres: negocio, producto, activos, destino>
 ---
 

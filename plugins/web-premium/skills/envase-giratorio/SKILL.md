@@ -2,7 +2,7 @@
 name: envase-giratorio
 description: Lata, bote, tarro o botella cilíndrica que gira de verdad sin modelo 3D ni vídeo - la etiqueta PLANA (desplegada) se enrolla sobre un cilindro en un canvas 2D con sombreado, brillo y tapa metálica; el giro se liga al scroll, a un arrastre o a un slider de sabores/variantes (fondo, título y frutas que cambian a la vez). Incluye cómo preparar la etiqueta (diseño o IA) y el slider de variantes con elemento compartido. Úsala cuando pidan "lata que gira", "slider de sabores", "cambiar de sabor y que gire la lata", "mockup de lata animado", "etiqueta que da la vuelta", "bebida con varios sabores", "can rotation", "drink flavour slider", "3D can without 3D", "rotating label", "product variant slider".
 license: MIT
-version: 1.0.0-beta.4
+version: 1.0.0-beta.5
 ---
 
 # Envase que gira (sin 3D)
@@ -16,7 +16,7 @@ dedo. Un canvas 2D, sin three.js ni modelo, ~200 líneas y unos 10 KB.
 - **Sí:** latas, botes, tarros, velas, botellas de cuerpo recto, rollos, pilas, termos. Sliders de sabores o variantes.
   Hero con el envase girando despacio con el scroll.
 - **No:**
-  - Formas no cilíndricas (botella con hombros marcados, perfume facetado, zapatilla) → `escena-3d-gltf` o frames (`scroll-frames`).
+  - Formas no cilíndricas (botella con hombros marcados, perfume facetado, zapatilla) → frames de un giro (`scroll-frames`) si solo se ve girar; `escena-3d-gltf` solo si el usuario lo gira libremente o lo configura.
   - Si hay que ver el envase desde arriba o inclinado más de ~15°: el canvas solo hace una vista frontal con poca perspectiva.
 
 ## Pasos

@@ -16,9 +16,9 @@ Probados en `pruebas/lente-envase/` del repo (sin GSAP). Aquí, con GSAP, como e
 </section>
 ```
 ```css
-.slider { --fondo: #5b2bd6; --acento: #c6ff3d; position: relative; height: 100svh; overflow: hidden; display: grid; place-items: center;
+.slider { --fondo: #5b2bd6; --acento: #c6ff3d; position: relative; height: 100svh; overflow: clip; display: grid; place-items: center;
   background: radial-gradient(circle at 50% 45%, color-mix(in srgb, var(--fondo) 75%, #fff), var(--fondo) 60%); }
-.slider__titulo { position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden;   /* la máscara del título */
+.slider__titulo { position: absolute; inset: 0; display: grid; place-items: center; overflow: clip;   /* la máscara del título; clip, no hidden: no rompe sticky */
   font: italic 900 clamp(4rem, 17vw, 15rem)/1 var(--fuente-display); color: var(--acento); }
 .slider__lata { position: relative; z-index: 2; width: min(46vh, 70vw); height: min(78vh, 118vw); filter: drop-shadow(0 30px 40px #0005); }
 .fruta--cerca { z-index: 3; filter: blur(6px); }          /* primer plano desenfocado: profundidad */

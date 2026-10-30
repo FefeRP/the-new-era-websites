@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prueba revelados y rastro del cursor</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { font-family: Georgia, serif; background: #f4efe6; color: #1d2a33; }
+    section { position: relative; height: 100svh; overflow: clip; }
+    .rotulo { position: absolute; left: 1rem; top: 1rem; z-index: 30; font: 14px system-ui, sans-serif; }
+    #rejilla img, #zoom img.estanteria { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #lineas { display: grid; place-items: center; padding: 8vw; }
+    #lineas h2 { font-size: clamp(2.4rem, 6vw, 5.5rem); line-height: 1.05; max-width: 14ch; font-weight: 400; }
+    /* el bloque que escala tiene la proporción de la imagen: así las fracciones del objetivo son fracciones de la imagen */
+    #zoom .lienzo { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 2400 / 1350; }
+    #zoom .lienzo img { width: 100%; height: 100%; display: block; }
+    #zoom .relevo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 3; }
+    #cortina .escena { position: absolute; inset: 0; display: grid; place-items: center; font-size: 6vw; }
+    #cortina .a { background: #1d2a33; color: #f4efe6; }
+    #cortina .b { background: #c9b79c; color: #1d2a33; visibility: hidden; }
+    #rastro { display: grid; place-items: center; background: #1d2a33; color: #f4efe6; font-size: 4vw; }
+  </style>
+</head>
+<body>
+  <section id="rejilla"><p class="rotulo">Rejilla</p><img src="activos/foto.webp" alt="Paisaje de prueba"></section>
+  <section id="lineas"><p class="rotulo">Líneas</p><h2>Una frase larga que se parte en varias líneas con máscara</h2></section>
+  <section id="zoom"><p class="rotulo">Zoom a un punto</p>
+    <div class="lienzo"><img class="estanteria" src="activos/estanteria.webp" alt="Estantería de prueba"></div>
+    <img class="relevo" src="activos/detalle.webp" alt="">
+  </section>
+  <section id="cortina"><p class="rotulo">Cortina</p><div class="escena a">ESCENA A</div><div class="escena b">ESCENA B</div></section>
+  <section id="rastro"><p class="rotulo">Rastro del cursor</p>Mueve el ratón</section>
+  <script type="module">
+    import { crearRejilla, crearLineas, crearZoomA, crearCortina } from '../../plugins/web-premium/skills/revelados-y-transiciones/scripts/revelados.js';
+    import { crearRastro } from '../../plugins/web-premium/skills/rastro-cursor/scripts/rastro-cursor.js';
+    const $ = (s) => document.querySelector(s);
+    await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+    const m = {
+      rejilla: crearRejilla($('#rejilla'), { filas: 4, columnas: 6, orden: 'escalera', color: '#f4efe6' }),
+      lineas: crearLineas($('#lineas h2')),
+      // objetivo: la caja de la fila 1, columna 4 (en la imagen de 2400×1350: x 1650-1950, y 510-830), en fracciones de la imagen;
+      // el lienzo tiene el mismo aspecto que la imagen
+      zoom: crearZoomA($('#zoom .lienzo'), { objetivo: { x: 1650 / 2400, y: 510 / 1350, ancho: 300 / 2400, alto: 320 / 1350 }, margen: 0.04, relevo: $('#zoom .relevo'), marco: $('#zoom') }),
+      cortina: crearCortina($('#cortina'), { color: '#f4efe6',
+        alCubrir: () => { $('#cortina .a').style.visibility = 'hidden'; $('#cortina .b').style.visibility = 'visible'; },
+        alDescubrir: () => { $('#cortina .a').style.visibility = 'visible'; $('#cortina .b').style.visibility = 'hidden'; } }),
+      rastro: crearRastro($('#rastro'), { imagenes: [1, 2, 3, 4, 5, 6].map((i) => `activos/rastro/${i}.webp`), distancia: 60 }),
+    };
+    window.__prueba = { listo: true, m, irA: (nombre, p) => m[nombre].progreso(p), lineas: () => m.lineas.lineas() };
+  </script>
+</body>
+</html>

@@ -28,6 +28,13 @@ capturas/**/*
 !capturas/**/
 !capturas/**/hoja-*.png
 
+# Pruebas que se regeneran con su script (ver el LEEME de cada una)
+pruebas/capas-alfa/entrada/
+pruebas/capas-alfa/salida/
+pruebas/revelados-rastro/activos/
+pruebas/mapa-imagen/activos/
+pruebas/extremo-a-extremo/activos/
+
 # Notas internas de trabajo (instrucciones locales de Claude Code) y copias de seguridad
 CLAUDE.md
 backups/

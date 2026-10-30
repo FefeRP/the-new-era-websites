@@ -8,8 +8,8 @@
 // Opciones:
 //   --frames N          frames totales (por defecto 120). Alternativa: --fps N
 //   --inicio S --fin S  recorta el vídeo (segundos)
-//   --ancho N           ancho escritorio (por defecto 1920; nunca escala hacia arriba)
-//   --ancho-movil N     ancho móvil (por defecto 720; 0 = sin variante móvil)
+//   --ancho N           ancho escritorio (por defecto 1600; nunca escala hacia arriba)
+//   --ancho-movil N     ancho móvil (por defecto 900; 0 = sin variante móvil)
 //   --recorte-movil R   "centro" (recorta a 9:16 desde el centro) | "no" (escala el encuadre entero). Por defecto centro
 //                       si el vídeo es horizontal; "x=0.6" desplaza el centro del recorte (0 = izquierda, 1 = derecha)
 //   --formato F         webp (por defecto) | avif | ambos
@@ -91,7 +91,7 @@ async function enParalelo(tareas, n) {
 async function main() {
   const { pos, op } = args(process.argv.slice(2));
   if (pos.length < 2) {
-    console.error('Uso: node extraer-frames.mjs <video> <carpeta-salida> [--frames 120] [--ancho 1920] [--ancho-movil 720] [--formato webp|avif|ambos] [--calidad 72] [--inicio s] [--fin s] [--recorte-movil centro|no|x=0.5] [--video-scrub]');
+    console.error('Uso: node extraer-frames.mjs <video> <carpeta-salida> [--frames 120] [--ancho 1600] [--ancho-movil 900] [--formato webp|avif|ambos] [--calidad 72] [--inicio s] [--fin s] [--recorte-movil centro|no|x=0.5] [--video-scrub]');
     process.exit(2);
   }
   const video = resolve(pos[0]);
@@ -111,8 +111,8 @@ async function main() {
   else fps = Number(op.frames ?? 120) / tramo;
   fps = Math.min(fps, info.fps); // no inventamos frames: para más, interpola antes (ver references)
 
-  const ancho = Math.min(Number(op.ancho ?? 1920), info.ancho);
-  const anchoMovil = Number(op['ancho-movil'] ?? 720);
+  const ancho = Math.min(Number(op.ancho ?? 1600), info.ancho);
+  const anchoMovil = Number(op['ancho-movil'] ?? 900);
   const formato = String(op.formato ?? 'webp');
   const calidad = Number(op.calidad ?? 72);
   const crf = Number(op.crf ?? 34);

@@ -12,7 +12,7 @@ Probados en `demos/reloj` (hero).
 </header>
 ```
 ```css
-.hero { position: relative; height: 100svh; overflow: hidden; isolation: isolate; }
+.hero { position: relative; height: 100svh; overflow: clip; isolation: isolate; }   /* clip, no hidden: hidden rompe sticky en los hijos */
 .hero__capa { position: absolute; inset: -10%; }            /* más grande que el marco: no se ven bordes */
 .hero__capa--fondo { z-index: 0; }
 .hero__sujeto { z-index: 1; inset: auto; left: 50%; top: 50%; width: min(70vmin, 720px); height: auto; translate: -50% -50%; }

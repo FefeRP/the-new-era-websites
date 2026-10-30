@@ -19,9 +19,9 @@ El video muestra una grabación en plano fijo y formato vertical (9:16) de un po
 
 #### Cartelas superpuestas (Overlay de redes sociales):
 * **00:00 - 00:06**: 
-  > *"Welcome to Web Design in 2026 🥱"*
+  > *"Welcome to Web Design in 2026 [emoji de bostezo]"*
 * **00:06 - 00:14**: 
-  > *"Comment “BlackRay” if you want to build Website like this 👇"*
+  > *"Comment “BlackRay” if you want to build Website like this [flecha hacia abajo]"*
 
 #### Texto en la interfaz web (Pantalla del portátil):
 * **00:02 - 00:04 (Hero / Portada):**
@@ -35,7 +35,7 @@ El video muestra una grabación en plano fijo y formato vertical (9:16) de un po
     > `Our mission is to build the next generation of consumer spaces at the intersection of community, AI, and crypto.`
   * Inferior izquierda: 
     > `Scroll down to discover.`  
-    > `🔈 Sound: Off`
+    > `[icono de altavoz] Sound: Off`
 * **00:05 - 00:07 (Sección Portafolio / Bloque de Hielo):**
   * `IGLOO`
   * UI técnica / HUD sobre el bloque:
@@ -46,11 +46,11 @@ El video muestra una grabación en plano fijo y formato vertical (9:16) de un po
     > `CLICK TO EXPLORE`
 * **00:08 - 00:10 (Portal / Anillo):**
   * `IGLOO`
-  * `🔈 Sound: Off`
+  * `[icono de altavoz] Sound: Off`
 * **00:10 - 00:13 (Nube de Partículas / Mascota Pingüino):**
   * `IGLOO`
   * Debajo del pedestal holográfico: `LinkedIn`, `X / Twitter`
-  * `🔈 Sound: Off`
+  * `[icono de altavoz] Sound: Off`
 
 ---
 
@@ -58,7 +58,7 @@ El video muestra una grabación en plano fijo y formato vertical (9:16) de un po
 
 * **00:00 - 00:01**: 
   * *Visual:* La tapa del portátil se termina de abrir en penumbra. La pantalla blanca ilumina el teclado y proyecta un esquema wireframe procedural en el centro.
-  * *Texto:* Superposición "Welcome to Web Design in 2026 🥱".
+  * *Texto:* Superposición "Welcome to Web Design in 2026 [emoji de bostezo]".
   * *Audio:* Entrada de la base musical (a la vez, desfase 0 ms). Sin sonido de bisagra física.
 * **00:01 - 00:03**: 
   * *Visual:* El iglú 3D se materializa desde una retícula vectorial hacia un modelo texturizado con desplazamiento de nieve; la cámara hace un sutil *dolly-in*. Aparece la tipografía minimalista en las esquinas.

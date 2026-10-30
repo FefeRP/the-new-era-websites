@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prueba capas-alfa</title>
+  <link rel="icon" href="data:,">
+  <style>
+    * { box-sizing: border-box; margin: 0; }
+    body { font-family: Georgia, serif; color: #f4efe6; background: #1d2a33; }
+    /* overflow: clip y no hidden: hidden convierte la sección en contenedor de scroll y rompe position: sticky */
+    section { position: relative; min-height: 100svh; overflow: clip; }
+    .rotulo { position: absolute; left: 1rem; top: 1rem; font: 14px/1.3 system-ui, sans-serif; opacity: .8; z-index: 9; }
+    /* 1 · sándwich: fondo → texto → vídeo con alfa → primer plano con alfa */
+    #sandwich { background: linear-gradient(160deg, #3a5a78, #22323f); }
+    #sandwich .texto { position: absolute; inset: 0; display: grid; place-items: center; z-index: 2;
+      font-size: clamp(4rem, 17vw, 16rem); letter-spacing: -.04em; color: #f4efe6; }
+    #sandwich canvas, #sandwich .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 3; }
+    #sandwich .delante { position: absolute; right: 4%; bottom: -6%; height: 70%; z-index: 4; }
+    /* 2 · scroll: el vídeo avanza con el scroll */
+    #scroll { height: 300svh; background: #f4efe6; }
+    #scroll .fijo { position: sticky; top: 0; height: 100svh; }
+    #scroll canvas, #scroll .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+    #scroll .rotulo { color: #1d2a33; }
+    /* 3 · frames con alfa en canvas 2D (frame-scrubber transparente) */
+    #frames { height: 250svh; background: repeating-linear-gradient(45deg, #c9b79c 0 24px, #b9a582 24px 48px); }
+    #frames .fijo { position: sticky; top: 0; height: 100svh; }
+    #frames canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    /* 4 · chispas sobre negro, sacadas con --modo negro, encima de un fondo cálido */
+    #chispas { background: radial-gradient(circle at 50% 80%, #7a3b1d, #24130b 70%); }
+    #chispas canvas, #chispas .poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  </style>
+</head>
+<body>
+  <section id="sandwich">
+    <p class="rotulo">1 · Texto entre capas: fondo, texto, vídeo con alfa (bucle) y frasco recortado delante</p>
+    <div class="texto" aria-hidden="true">NARANJA</div>
+    <img class="poster" src="../salida/croma/poster.webp" alt="">
+    <canvas aria-hidden="true"></canvas>
+    <img class="delante" src="../salida/producto/recorte.webp" alt="Frasco de prueba">
+  </section>
+  <section id="scroll">
+    <div class="fijo">
+      <p class="rotulo">2 · El mismo vídeo con alfa ligado al scroll (currentTime)</p>
+      <img class="poster" src="../salida/croma-scrub/poster.webp" alt="">
+      <canvas aria-hidden="true"></canvas>
+    </div>
+  </section>
+  <section id="frames">
+    <div class="fijo">
+      <p class="rotulo">3 · Frames WebP con alfa en canvas 2D (frame-scrubber, transparente)</p>
+      <canvas aria-hidden="true"></canvas>
+    </div>
+  </section>
+  <section id="chispas">
+    <p class="rotulo">4 · Chispas y humo sacados de un vídeo sobre negro (modo negro), sin mix-blend-mode</p>
+    <img class="poster" src="../salida/negro/poster.webp" alt="">
+    <canvas aria-hidden="true"></canvas>
+  </section>
+  <script type="module">
+    import { crearVideoAlfa } from '../../../plugins/web-premium/skills/capas-alfa/scripts/video-alfa.js';
+    import { crearFrameScrubber } from '../../../plugins/web-premium/skills/scroll-frames/scripts/frame-scrubber.js';
+    const $ = (s) => document.querySelector(s);
+    const progreso = (sec) => {
+      const r = sec.getBoundingClientRect();
+      return Math.min(1, Math.max(0, -r.top / Math.max(1, r.height - innerHeight)));
+    };
+    const a = await crearVideoAlfa({ canvas: $('#sandwich canvas'), base: '../salida/croma/', modo: 'bucle', poster: $('#sandwich .poster') });
+    const b = await crearVideoAlfa({ canvas: $('#scroll canvas'), base: '../salida/croma-scrub/', modo: 'scroll', poster: $('#scroll .poster') });
+    const c = await crearFrameScrubber({ canvas: $('#frames canvas'), base: '../salida/croma/frames/', ajuste: 'contain', transparente: true });
+    const d = await crearVideoAlfa({ canvas: $('#chispas canvas'), base: '../salida/negro/', modo: 'bucle', ajuste: 'cover', poster: $('#chispas .poster') });
+    const alScroll = () => { b.irA(progreso($('#scroll'))); c.progreso(progreso($('#frames'))); };
+    addEventListener('scroll', alScroll, { passive: true });
+    alScroll();
+    window.__prueba = { listo: true, motores: { a, b, c, d } };
+  </script>
+</body>
+</html>

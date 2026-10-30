@@ -26,7 +26,7 @@ Una sección alta con un escenario fijo (`sticky`). El texto va en HTML real enc
 Solo lo esencial; el resto está en `demos/mapa/src/estilos.css`.
 ```css
 .mapa { position: relative; height: 520vh; }                 /* largo del recorrido */
-.mapa__escenario { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.mapa__escenario { position: sticky; top: 0; height: 100svh; overflow: clip; }  /* y ningún antepasado con overflow: hidden */
 /* Más específico que .maplibregl-map: su CSS llega después y pone position: relative. Sin esto, el lienzo mide 0 px. */
 .mapa__escenario > .mapa__lienzo { position: absolute; inset: 0; }
 .mapa__foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: var(--relevo, 0); }

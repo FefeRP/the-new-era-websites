@@ -40,6 +40,23 @@ públicas y de generaciones reales ("medido"); cambian cada mes. Los mismos dato
 | Midjourney | plan desde 10 $/mes | poco | Estética, moodboard, explorar estilos | Sin API; poco control de producto y encuadre |
 | Ideogram 4 / Recraft 4.1 | 0,03-0,10 / 0,007-0,21 | no | Tipografía, logos, vectores, patrones | No para fotografía de escena |
 
+## Alfa, recorte y 3D generado
+Para los assets que se componen encima de la web (skill `capas-alfa`). Precios de fal y Runware, 07 a 10-2026.
+
+| Qué | Opción | Precio | Nota |
+|---|---|---|---|
+| Imagen con alfa nativo | GPT Image 1.5 / 2.5 (`background: "transparent"`) | como su imagen | GPT Image 2 lo perdió el 30-09-2026. No describas fondo en el prompt |
+| | Ideogram 3 Transparent | 0,03-0,09 $ | Bueno en bordes finos |
+| | Seedream 5 Flash (`background: "transparent"`) | ~0,019 $ | El más barato con alfa |
+| Imagen partida en capas | Qwen-Image-Layered | ~0,05 $ | 1-10 capas RGBA de una foto (fondo, sujeto, primer plano) |
+| Recorte de imagen | `alfa.mjs` (local, fondo liso) | 0 $ | Croma, negro, blanco o par negro/blanco para lo semitransparente |
+| | Rembg Enhance · Ideogram · Recraft · Pixelcut · Bria RMBG 2.0 (fal) | 0,006 · 0,01 · 0,011 · 0,016 · 0,018 $ | Para fondos que no son lisos |
+| Vídeo con alfa nativo | Wan-Alpha (abierto, 832×480) · Firefly Video "transparent background" | alojado sin precio publicado · plan de Adobe | Kling, Veo, Seedance, Runway y Luma **no** dan alfa |
+| Recorte de vídeo | `alfa.mjs` (local, fondo liso o negro) | 0 $ | La vía por defecto si el vídeo se pidió sobre fondo liso |
+| | BiRefNet v2 vídeo (fal) | ~0,0008 $ por segundo de cómputo | Saca ProRes 4444 o WebM con alfa |
+| | VEED · Bria v3 | 0,015-0,0225 $ por 30 fotogramas · 0,05 $/s | Fondos complicados |
+| 3D desde fotos | TRELLIS 2 · Hunyuan3D v3 (fal) | 0,25-0,35 $ · desde 0,225 $ | Para giros con etiqueta rígida: render propio sin texto deformado |
+
 ## Elección rápida
 - **Interior o escena con cámara que se mueve** (zoom a pantalla, entrada a una sala): imagen Qwen/Nano Banana → **Kling O3 pro** con inicio+fin. Prueba con Veo 3.1 Lite 720p si quieres la más barata.
 - **Producto con luz y materiales difíciles** (vidrio, líquido, comida): Veo 3.1 Fast/Std o Kling O3 pro; prueba ambos en 3-4 s.

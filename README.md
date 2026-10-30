@@ -1,12 +1,12 @@
 # webs-premium · Claude Code marketplace
 
-**v1.0.0-beta.4** · [Leer en español](README.es.md)
+**v1.0.0-beta.5** · [Leer en español](README.es.md)
 
-Claude Code skills for building **premium, "impossible-looking" websites**: cinematic scroll driven by video frames, the product told from the inside with realistic AI imagery, depth layers with real shadows, real 3D (glTF), a can that spins without 3D, an X-ray lens under the cursor, AI product photos from real photos, and a real map that flies down to a building.
+Claude Code skills for building **premium, "impossible-looking" websites**: cinematic scroll driven by video frames, the product told from the inside with realistic AI imagery, transparent layers (text between the product and the background, a splash over the page), image reveals and scene transitions, depth layers with real shadows, real 3D (glTF), a can that spins without 3D, an X-ray lens under the cursor, AI product photos from real photos, and a map that flies down to a building (live map or image levels).
 
 The skills are organised **by techniques that combine**, not by visual styles. A master skill (**WEB PREMIUM**) takes your brief, picks the "star moment", chooses and combines techniques, plans the assets with their cost, builds the site and verifies it with screenshots.
 
-**Realism comes from AI imagery, not from 3D.** The sites that look impossible use AI-generated photos and video, split into short, well-planned shots, and the code only moves them with the scroll and puts the text on top. `pedir-assets-ia` decides which assets need AI video, AI images, code or 3D, estimates the cost before generating anything, writes the prompts for any provider and reviews the result; real 3D stays as the cheap fallback.
+**Realism comes from AI imagery, not from 3D.** The sites that look impossible use AI-generated photos and video, split into short, well-planned shots, and the code only moves them with the scroll and puts the text on top. `pedir-assets-ia` decides which assets need AI video, AI images, code or 3D, estimates the cost before generating anything, writes the prompts for any provider and reviews the result; real 3D stays as the cheap fallback. **Not everything is video either:** what stands still is a photo (isolated, with alpha or in layers) that the code moves; video only where the camera travels or something physically changes.
 
 <p align="center"><img src="docs/media/reloj-giro.gif" alt="Watch turning with the scroll (frame sequence of the demo)" width="420"></p>
 
@@ -54,16 +54,19 @@ The master skill then:
 | Skill | What it does |
 |---|---|
 | `web-premium` | Master skill (keyword **WEB PREMIUM**): directs the whole process; Vite + GSAP + Lenis template; `nueva-web.mjs` (scaffold) and `verificar-scroll.mjs` (screenshots at each scroll step) |
-| `pedir-assets-ia` | AI asset director: per-shot medium (AI video, AI image, code or 3D), cost estimate before generating (`presupuesto.mjs`, cheapest test first, your budget), prompt templates per shot type for Higgsfield, Kling, Veo, Seedance, Wan, Runway, Midjourney, Flux…, start/end frame continuity, recipes per type of site, and a "does it look fake?" review (`revisar-ia.mjs` with Gemini + checklist) |
+| `pedir-assets-ia` | AI asset director: per-element medium from a decision matrix (photo, photo with alpha or layers, video, video with alpha, frames, code or 3D, with cost, weight and risk), cost estimate before generating (`presupuesto.mjs`, cheapest test first, your budget), prompt templates per shot type for Higgsfield, Kling, Veo, Seedance, Wan, Runway, Midjourney, Flux…, start/end frame continuity, recipes per type of site, and a "does it look fake?" review (`revisar-ia.mjs` with Gemini + checklist) |
 | `scroll-frames` | Video → WebP/AVIF frames (desktop and mobile) → canvas tied to the scroll (Apple-style scrubbing), every frame sharp and never blended; video mode alternative; data HUD tied to progress |
 | `seguir-pantalla` | The real website, logo or text on a screen or sign inside the AI video: `seguir-pantalla.mjs` tracks its 4 corners frame by frame (sub-pixel, forward/backward) and `capa-pantalla.js` pins an HTML layer there with `matrix3d`, keeping its aspect ratio (never stretched) |
 | `video-ia-para-scroll` | How to ask Higgsfield, Kling, Veo, Luma… for a video made for scrolling (camera, background, loop, consistency, prompts) and review it automatically; "product from the inside" recipe in chained segments with a budget |
 | `fotos-producto-ia` | AI product photos that keep the real product: reference photos, prompts per shot and light, consistency, layers, detecting and fixing deformations, prices |
+| `capas-alfa` | Transparent elements without Python or a GPU: how to ask the AI for an isolated asset; `alfa.mjs` keys it from a flat colour, black, white or a black/white pair (exact alpha for glass and liquids) and outputs stacked-alpha MP4 (all browsers, played by `video-alfa.js` in WebGL), VP9 WebM, alpha WebP frames for scroll, PNG and a review sheet with metrics; composing layers with text in between |
+| `revelados-y-transiciones` | `revelados.js`: image revealed by a grid, curtain that swaps the scene, 2D zoom into one point of a large image with a hand-off to a detail image, headline rising line by line; card to full screen, View Transitions, CSS scroll-driven animations |
+| `rastro-cursor` | Photos that trail the cursor and fade out (fixed pool of images, mouse only; static layout on touch and reduced motion) |
 | `parallax-capas` | 2.5D depth: layers moving with scroll and pointer, CSS scroll-driven; `capas-sombra.mjs` extracts the shadow as its own semi-transparent layer (floating product, background swap) |
 | `escena-3d-gltf` | three.js with an optimised glTF (meshopt), PBR environment, drag and scroll, mobile performance, cancellable loading |
 | `lente-revelado` | A lens that follows the cursor (or finger) and reveals an aligned version of the image: X-ray, thermal, interior; mode switch; before/after curtain on scroll; `variantes-revelado.mjs` makes X-ray and thermal versions with ffmpeg and checks alignment |
 | `envase-giratorio` | A can, jar or bottle that spins without 3D: the flat label is wrapped onto a cylinder in a 2D canvas with shading and lid; spin on scroll, drag or a flavour slider (background, title and fruit change together) |
-| `mapa-zoom-ubicacion` | From the map to the building: MapLibre with real orthophoto (PNOA in Spain, free) and OSM 3D buildings; camera stops tied to the scroll, highlighted building; map sources with licences and prices |
+| `mapa-zoom-ubicacion` | From the map to the building: MapLibre with real orthophoto (PNOA in Spain, free) and OSM 3D buildings; camera stops tied to the scroll, highlighted building; map sources with licences and prices. Second path, `mapa-imagen.js`: nested image levels (real orthophoto, or AI-stylised over it without inventing geography), anchored camera, moving from one place to another, markers and routes in code, exact start/end frames to ask for an AI clip between two views |
 
 ## Screenshots
 Demo site built with the master skill (`demos/reloj`, fictional brand "Orbe"):
@@ -72,6 +75,12 @@ Demo site built with the master skill (`demos/reloj`, fictional brand "Orbe"):
 From the map to the building (`demos/mapa`, example location in Barcelona; map data © OpenStreetMap contributors, orthophoto PNOA © IGN):
 ![Map demo, desktop scroll steps](capturas/demo-mapa/hoja-escritorio.png)
 
+The same idea with image levels and no live map (`pruebas/mapa-imagen`): city, first place, moving to the second with the route drawn in code, and the exact end frame to request an AI clip (orthophoto PNOA © IGN, CC BY 4.0):
+![Image-level map test](capturas/prueba-mapa-imagen/hoja-escritorio.png)
+
+End-to-end example (`pruebas/extremo-a-extremo`, fictional brand "Orbe"): cut-out watch with the headline behind it, spin, grid reveal and the map down to the workshop:
+![End-to-end example, desktop](capturas/prueba-extremo-a-extremo/hoja-escritorio.png)
+
 Spinning can with flavour slider, and the X-ray / thermal lens (`pruebas/lente-envase`, invented brand "Nébula"):
 ![Can and lens test](capturas/prueba-lente-envase/hoja-interaccion.png)
 
@@ -79,15 +88,15 @@ Spinning can with flavour slider, and the X-ray / thermal lens (`pruebas/lente-e
 - `.claude-plugin/marketplace.json` → `plugins/web-premium/` (the plugin: `plugin.json`, `commands/`, `skills/`).
 - `demos/reloj/`: demo website made with the master skill. `cd demos/reloj && npm install && npm run dev` → http://127.0.0.1:5190.
 - `demos/mapa/`: from the map to the building. `cd demos/mapa && npm install && npm run dev` (needs internet: tiles load live).
-- `pruebas/`: checks of the scripts against known results; `pruebas/lente-envase/` is a no-build test page (serve the repo root with any static server); `pruebas/seguir-pantalla/` measures the screen tracking against a synthetic video with known corners.
-- `docs/referencias/`: written analyses of 11 reference websites and videos. The videos themselves are not included: they belong to their authors.
-- `docs/investigacion/`: notes on the ecosystem, marketplaces and AI video.
+- `pruebas/`: checks of the scripts against known results, each with a `LEEME.md` (serve the repo root with `node pruebas/servidor-estatico.mjs . 5193`): `capas-alfa/` (alpha against known ground truth), `revelados-rastro/`, `mapa-imagen/` (real PNOA orthophoto of Barcelona), `seguir-pantalla/`, `lente-envase/`, `capas-sombra/`, and `extremo-a-extremo/`: a complete example made with no paid generation (plan and budget per the decision matrix, cut-out watch with the headline behind it, spin with the scroll, grid reveal and an image-level map down to the workshop).
+- `docs/referencias/`: written analyses of 16 reference websites and videos. The videos themselves are not included: they belong to their authors.
+- `docs/investigacion/`: notes on the ecosystem, marketplaces and AI video, and the 2026 research on scroll websites made with AI assets (sources and dates).
 - `capturas/`: verification contact sheets.
 
 ## Beta status
-**Tested:** strict validation of the marketplace and plugin; install from scratch; screen tracking measured against ground truth (mean error ~1 px, max < 3 px) and the layer checked in Chrome on desktop and mobile; cost estimator and Gemini review run on real AI-generated footage; both demos verified with no errors on desktop, mobile and reduced motion (Chrome, software WebGL); `capas-sombra` measured against a rendered ground truth; engines tested in Chrome (load cancellation, frame retry, can, lens and curtain with an interaction test).
+**Tested:** strict validation of the marketplace and plugin; install from scratch; screen tracking measured against ground truth (mean error ~1 px, max < 3 px) and the layer checked in Chrome on desktop and mobile; cost estimator and Gemini review run on real AI-generated footage; both demos verified with no errors on desktop, mobile and reduced motion (Chrome, software WebGL); `capas-sombra` measured against a rendered ground truth; engines tested in Chrome (load cancellation, frame retry, can, lens and curtain with an interaction test); `alfa.mjs` measured against inputs with known alpha (39.8 dB chroma, 59.4 dB black/white pair) and the alpha page checked by pixels; reveals, cursor trail and the image-level map checked by pixels on desktop, mobile and reduced motion.
 
-**Not tested yet:** a new paid generation following the new prompt templates (Higgsfield or others); rembg, IC-Light and local editing models (need Python or a GPU); paid map sources (MapTiler, Esri).
+**Not tested yet:** a new paid generation following the new prompt templates (Higgsfield or others), including alpha-native image models and video background removal APIs; rembg, IC-Light and local editing models (need Python or a GPU); HEVC alpha (needs a Mac); paid map sources (MapTiler, Esri).
 
 Changes: [CHANGELOG.md](CHANGELOG.md) (in Spanish).
 

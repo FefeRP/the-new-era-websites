@@ -25,8 +25,8 @@ A nivel técnico web, representa el estándar de scrollytelling interactivo de a
 ### Transcripción literal de texto en pantalla
 
 #### 1. Overlays de redes sociales (stickers superiores):
-- **00:00-00:05:** `Websites in 2026 🥱`
-- **00:05-00:15:** `Comment “SEED” if you want me to build you a custom website 👇`
+- **00:00-00:05:** `Websites in 2026 [emoji de bostezo]`
+- **00:05-00:15:** `Comment “SEED” if you want me to build you a custom website [flecha hacia abajo]`
 
 #### 2. Elementos de interfaz (UI/HUD del sitio web):
 - **HUD superior e inferior (permanente/semipermanente):**
@@ -58,7 +58,7 @@ A nivel técnico web, representa el estándar de scrollytelling interactivo de a
 
 | Marca de tiempo (mm:ss) | Tipo de evento | Elemento visual / Interfaz | Pista sonora / Sincronía |
 |---|---|---|---|
-| 00:00 | Inicio / Plano general | Plano contrapicado oblicuo de la pantalla en la oscuridad. Aparece semilla dorada. Texto `Websites in 2026 🥱`. | Entrada del pad coral atmosférico. Desfase: 0 ms (a la vez). |
+| 00:00 | Inicio / Plano general | Plano contrapicado oblicuo de la pantalla en la oscuridad. Aparece semilla dorada. Texto `Websites in 2026 [emoji de bostezo]`. | Entrada del pad coral atmosférico. Desfase: 0 ms (a la vez). |
 | 00:01 | Transición de texto | Entrada tipográfica `THE SEED` con efecto de desvanecimiento/resplandor. Partículas en suspensión. | El acorde de sintetizador sube de volumen a la vez. |
 | 00:01-00:02 | Movimiento de cámara 3D | Scrubbing rápido hacia abajo: la semilla entra en la tierra (`02 BURIAL`). | Sonido sordo subacuático/terrestre (llega a la vez que el contacto con el suelo en 00:01.8). |
 | 00:02-00:03 | Deformación / Shaders | Iluminación de venas blancas bioluminiscentes en la cáscara (`AWAKENING`). | Modulación de frecuencias medias en audio a la vez. |
@@ -108,7 +108,7 @@ A nivel técnico web, representa el estándar de scrollytelling interactivo de a
 
 ### Alta gravedad
 - **Quemado por exposición y ángulo de grabación de pantalla (00:04-00:06 y 00:08-00:10):** La cámara del teléfono sobreexpone los tonos amarillos del girasol y los blancos del texto, perdiendo detalle del microtexto y contraste en los degradados del fondo.
-- **Hook engañoso / Falta de atribución técnica (00:00-00:15):** El texto *"Websites in 2026 🥱"* y el CTA posterior *"Comment SEED if you want me to build you a custom website"* sugiere un desarrollo web ordinario, cuando se trata de una producción 3D/CGI de nivel agencia cinematográfica cuya viabilidad en una web comercial convencional es nula sin presupuestos de decenas de miles de dólares y optimización extrema.
+- **Hook engañoso / Falta de atribución técnica (00:00-00:15):** El texto *"Websites in 2026 [emoji de bostezo]"* y el CTA posterior *"Comment SEED if you want me to build you a custom website"* sugiere un desarrollo web ordinario, cuando se trata de una producción 3D/CGI de nivel agencia cinematográfica cuya viabilidad en una web comercial convencional es nula sin presupuestos de decenas de miles de dólares y optimización extrema.
 
 ### Media gravedad
 - **Paralaje y reflejos ambientales de la habitación (00:00-00:02 y 00:11-00:13):** En las zonas oscuras de la pantalla se aprecian reflejos del entorno físico y la base del teclado, enturbiando la experiencia visual del software.

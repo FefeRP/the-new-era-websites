@@ -2,7 +2,7 @@
 name: parallax-capas
 description: Profundidad sin 3D - hero y secciones "dimensionales" con capas (fondo, sujeto, primer plano, atmósfera) que se mueven a distinta velocidad con el scroll y el puntero; cómo preparar las capas (recorte con alfa, clean plate, imágenes generadas por capa o capas hechas con código), la SOMBRA como capa propia semitransparente (extraída de la foto con capas-sombra.mjs o sintética) para recomponer y levitar, versión solo CSS con scroll-driven animations y versión JS sin dependencias. Úsala cuando pidan "efecto de profundidad", "parallax", "que parezca 3D sin 3D", "hero con capas", "ingredientes flotando alrededor del producto", "separar en capas", "sacar la sombra", "producto que levita", "depth effect", "layered hero", "multiplane parallax", "mouse parallax", "2.5D", "shadow layer", "keep the shadow when removing background".
 license: MIT
-version: 1.0.0-beta.4
+version: 1.0.0-beta.5
 ---
 
 # Parallax y profundidad por capas
@@ -12,7 +12,8 @@ El cerebro lee la diferencia de velocidad como distancia. Pesa poco, va en cualq
 
 ## Cuándo sí y cuándo no
 - **Sí:** hero con producto y elementos alrededor (helado + frutas, perfume + flores, zapatilla + piezas), paisajes e inmobiliaria, portadas editoriales, fondos de secciones.
-- **No:** si el objeto debe girar o verse por detrás → `scroll-frames` (vídeo) o `escena-3d-gltf`.
+- **No:** si el objeto debe girar o verse por detrás → `scroll-frames` (vídeo) o `escena-3d-gltf`; si es una lata o botella con etiqueta que gira → `envase-giratorio`.
+- **Elementos aislados** (splash, ingrediente, humo, producto recortado): cómo pedirlos y sacar el alfa sin Python, en `capas-alfa`; si tienen que moverse solos, vídeo con alfa de esa misma skill.
 
 ## Las reglas que separan "premium" de "plantilla"
 1. **3-4 capas**: fondo (-0,6…-1), sujeto (0, plano de foco), primer plano (0,3…0,8), atmósfera opcional (partículas, bruma, grano). Más de 5 parece un diorama de cartón.
@@ -27,13 +28,14 @@ El cerebro lee la diferencia de velocidad como distancia. Pesa poco, va en cualq
 ## Pasos
 1. **Decide planos y profundidades** (apúntalo): qué hay en cada capa y su `data-profundidad`.
 2. **Consigue las capas** (detalle en [references/preparar-capas.md](references/preparar-capas.md)):
-   - Imagen generada con IA → pide **cada capa por separado** sobre fondo liso, o una imagen completa y sepárala (recorte con rembg/BiRefNet + clean plate con relleno generativo).
+   - Imagen generada con IA → pide **cada capa por separado** sobre fondo liso, o una imagen completa y sepárala (recorte + clean plate con relleno generativo).
+   - Recorte: sobre fondo liso, `node ../capas-alfa/scripts/alfa.mjs --entrada capa.png --modo croma --salida capas/capa --recortar` (sin Python; skill `capas-alfa`); si no hay fondo liso, una API de recorte (0,006-0,018 $ por imagen).
    - Foto del cliente → recorte + clean plate.
    - Capas hechas con código (formas, anillos SVG, brillos, grano, partículas): sin activos, nítidas a cualquier tamaño.
    - Fotos de producto nuevas con IA a partir de fotos reales → skill `fotos-producto-ia` (pide también el plato limpio).
    - **Sombra en su propia capa** (el recorte la tira): `node scripts/capas-sombra.mjs --foto f.png --recorte p.png --plato fondo.png --salida capas/` → fondo + sombra + producto alineados y `capas.json` con las cajas. Sin sombra en la foto: `--sintetica`. Detalle y medidas en [references/sombras.md](references/sombras.md).
    - Exporta WebP/AVIF con alfa, al tamaño que se verá (no 4K para una capa de 600 px).
-3. **Maqueta**: un contenedor `position: relative; overflow: hidden` y cada capa `position: absolute`. Las capas que se mueven deben ser **más grandes** que el marco (≈ +10-20 %) para que no se vean sus bordes.
+3. **Maqueta**: un contenedor `position: relative; overflow: clip` (no `hidden`: `hidden` en un antepasado rompe `position: sticky`) y cada capa `position: absolute`. Las capas que se mueven deben ser **más grandes** que el marco (≈ +10-20 %) para que no se vean sus bordes.
 4. **Movimiento** (elige uno):
    - **JS sin dependencias** (scroll + puntero): `scripts/capas-parallax.js` → `crearParallax(raiz)`. Patrón en [references/patrones-codigo.md](references/patrones-codigo.md).
    - **Solo CSS** (`animation-timeline: view()`): cero JS, fuera del hilo principal; sin puntero. Patrón en references.
@@ -53,3 +55,4 @@ El cerebro lee la diferencia de velocidad como distancia. Pesa poco, va en cualq
 - [references/preparar-capas.md](references/preparar-capas.md): de una imagen a capas (IA, recorte, clean plate), prompts por capa, capas con código.
 - [references/sombras.md](references/sombras.md): la sombra como capa (plato limpio, capas-sombra.mjs, composición, levitar, sintética).
 - [references/patrones-codigo.md](references/patrones-codigo.md): maqueta, JS, CSS scroll-driven, GSAP, React.
+- Skill `capas-alfa`: pedir el elemento aislado, `alfa.mjs` (croma, negro, blanco, diferencia, máscara), vídeo y frames con alfa, texto entre capas.

@@ -53,7 +53,7 @@ recortado encima, corregir color, regenerar). Termina con un veredicto: APTA, RE
 ## 3. La vía segura: producto real compuesto sobre escena generada
 Cuando el logo o la forma no salen fieles en 2-3 tiradas, deja de gastar:
 1. Genera **solo la escena**, vacía, con la luz y la perspectiva de tu foto real (y, si puedes, la escena con un producto "de relleno" en su sitio para tener sombra y foto/plato alineados).
-2. Recorta el producto de la foto real: rembg o BiRefNet, Photoshop, o Higgsfield Layers con alfa. El script `capas-sombra.mjs` ya hace el producto con bordes limpios si tienes foto y plato.
+2. Recorta el producto de la foto real. Primero, si la foto tiene fondo liso: `alfa.mjs --entrada foto.png --modo croma --salida recorte --recortar` (skill `capas-alfa`, sin Python; `--modo blanco` o `negro` según el fondo). Si no, una API de recorte (0,006-0,018 $), Photoshop o Higgsfield Layers con alfa. rembg o BiRefNet en local solo si hay Python (mejor con GPU). El script `capas-sombra.mjs` ya hace el producto con bordes limpios si tienes foto y plato.
 3. Colócalo y ajusta la escala, la perspectiva y el color de la luz (curvas hacia el tono de la escena).
 4. La sombra se pone como capa propia: la de la escena de relleno extraída con `capas-sombra.mjs`, o una sintética (`--sintetica`).
 5. Reilumina si la luz no casa (IC-Light o Layers relight) y revisa otra vez.

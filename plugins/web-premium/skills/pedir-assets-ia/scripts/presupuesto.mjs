@@ -11,7 +11,9 @@
 //   { "id": "clave", "tipo": "imagen", "modelo": "qwen-image-3", "resolucion": "2k", "cantidad": 3, "fase": "1-claves" },
 //   { "id": "prueba", "tipo": "video", "modelo": "kling-o3-pro", "resolucion": "1080p", "segundos": 3, "fase": "2-prueba" },
 //   { "id": "zoom", "tipo": "video", "modelo": "kling-o3-pro", "resolucion": "1080p", "segundos": 5, "tiradas": 2, "fase": "3-final" },
-//   { "id": "qa", "tipo": "revision", "cantidad": 4, "fase": "3-final" } ] }
+//   { "id": "qa", "tipo": "revision", "cantidad": 4, "fase": "3-final" },
+//   { "id": "recorte", "tipo": "composicion", "modelo": "recorte-video-birefnet", "segundos": 5, "fase": "3-final" } ] }
+// "composicion" = recorte de fondo, capas o 3D generado (precios.composicion; "segundos" si se cobra por segundo).
 // "cantidad" = piezas distintas; "tiradas" = intentos que esperas por pieza en el peor caso (por defecto 1 imagen clave: 3, resto: 2).
 // "gastado_usd" (opcional, por pieza) = lo ya cobrado, para llevar la cuenta.
 import { readFileSync, existsSync } from 'node:fs';
@@ -46,9 +48,11 @@ if (argv.includes('--modelos')) {
     for (const [id, m] of Object.entries(lista)) {
       const tarifa = tipo === 'video' ? m.usd_por_segundo : m.usd_por_imagen;
       const t = Object.entries(tarifa).map(([r, v]) => `${r} ${v} $`).join(' · ');
-      console.log(`  ${id.padEnd(22)} ${t.padEnd(38)} ${m.via}${m.inicio_fin ? ' · inicio+fin' : ''}${m.edita ? ' · edita' : ''}${m.confirmado === false ? ' · SIN CONFIRMAR' : ''}`);
+      console.log(`  ${id.padEnd(22)} ${t.padEnd(38)} ${m.via}${m.inicio_fin ? ' · inicio+fin' : ''}${m.edita ? ' · edita' : ''}${m.alfa ? ' · alfa' : ''}${m.confirmado === false ? ' · SIN CONFIRMAR' : ''}`);
     }
   }
+  console.log('COMPOSICION (recorte, capas, 3D)');
+  for (const [id, c] of Object.entries(precios.composicion ?? {})) console.log(`  ${id.padEnd(22)} ${`${c.usd} $/${c.por}`.padEnd(38)} ${c.via}`);
   process.exit(0);
 }
 
@@ -64,7 +68,13 @@ function tarifa(p) {
   if (p.tipo === 'revision') {
     const r = precios.revision[p.modelo ?? 'gemini-flash'];
     if (!r) throw new Error(`Modelo de revisión desconocido "${p.modelo}" en la pieza ${p.id} (hay: ${Object.keys(precios.revision).join(', ')}).`);
-    return { unidad: r.usd_por_clip, texto: `${r.usd_por_clip} $/clip`, m: r }; }
+    return { unidad: r.usd_por_clip, texto: `${r.usd_por_clip} $/clip`, m: r, nombre: `revision ${p.modelo ?? 'gemini-flash'}` }; }
+  if (p.tipo === 'composicion') {
+    const c = precios.composicion?.[p.modelo];
+    if (!c) throw new Error(`Composición desconocida "${p.modelo}" en la pieza ${p.id} (hay: ${Object.keys(precios.composicion ?? {}).join(', ')}).`);
+    const n = c.por === 'segundo' ? (p.segundos ?? 5) : 1;
+    return { unidad: c.usd * n, texto: c.por === 'segundo' ? `${c.usd} $/s × ${n} s` : `${c.usd} $/${c.por}`, m: c };
+  }
   const lista = p.tipo === 'video' ? precios.video : precios.imagen;
   const m = lista[p.modelo];
   if (!m) throw new Error(`Modelo desconocido "${p.modelo}" en la pieza ${p.id}. Usa --modelos para ver los que hay o añádelo a precios.json.`);
@@ -79,14 +89,14 @@ const filas = [];
 let esperado = 0, peor = 0, gastado = 0;
 const fases = new Map();
 for (const p of plan.piezas) {
-  const { unidad, texto, m, res } = tarifa(p);
+  const { unidad, texto, m, res, nombre } = tarifa(p);
   const cantidad = p.cantidad ?? 1;
   const tiradas = p.tiradas ?? (p.tipo === 'imagen' ? 3 : p.tipo === 'video' ? 2 : 1);
   const e = unidad * cantidad, w = unidad * cantidad * tiradas;
   esperado += e; peor += w; gastado += p.gastado_usd ?? 0;
   const f = p.fase ?? '-';
   const acc = fases.get(f) ?? { e: 0, w: 0 }; acc.e += e; acc.w += w; fases.set(f, acc);
-  filas.push({ f, id: p.id, modelo: `${p.modelo ?? p.tipo}${res ? ' ' + res : ''}`, texto, cantidad, tiradas, e, w, m, p });
+  filas.push({ f, id: p.id, modelo: nombre ?? `${p.modelo ?? p.tipo}${res ? ' ' + res : ''}`, texto, cantidad, tiradas, e, w, m, p });
 }
 const $ = (v) => `${v.toFixed(2)} $`;
 console.log(`\n${plan.proyecto ?? 'Plan'} · precios de ${precios.actualizado} (orientativos)\n`);

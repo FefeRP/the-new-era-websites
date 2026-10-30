@@ -2,7 +2,7 @@
 name: fotos-producto-ia
 description: Fotos de producto de calidad con IA (Higgsfield con Nano Banana Pro/2, GPT Image, Seedream, Soul, Marketing Studio; también Flux Kontext, Qwen-Image-Edit) partiendo de fotos REALES del producto, para webs premium. Cubre cómo hacer las fotos de referencia con el móvil, encuadres e iluminación de producto, prompts por referencia que conservan forma/logo/texto/color, consistencia entre tomas (mismo producto en varias escenas, imagen clave para vídeo), capas por separado (fondo vacío, producto, flotantes, plato limpio para la sombra) y qué hacer cuando sale deformado (revisión contra la referencia, inpaint por zona, componer el producto real recortado encima). Úsala cuando pidan "fotos de producto con IA", "foto del producto en otra escena", "packshot con Higgsfield", "imagen clave del producto", "que el producto salga igual", "arreglar logo deformado", "AI product photography", "product photo from reference", "keep product consistent".
 license: MIT
-version: 1.0.0-beta.4
+version: 1.0.0-beta.5
 ---
 
 # Fotos de producto con IA desde fotos reales
@@ -39,7 +39,7 @@ Por eso el proceso **asume que habrá fallos** y trae la forma de arreglarlos.
 5. **Capas** (si la web las usa: hero con profundidad, levitar, otro fondo):
    1. **Escena vacía** (el plato limpio) primero.
    2. **Producto en esa escena**, editando la imagen vacía con la referencia del producto ("place the product from reference 2…, keep everything else identical"). Ya tienes foto y plato alineados.
-   3. **Elementos flotantes** cada uno sobre fondo liso.
+   3. **Elementos flotantes** cada uno sobre fondo liso (o con alfa nativo si el modelo lo da), y el alfa con `capas-alfa` (`alfa.mjs --modo croma --recortar`, sin Python; `--modo diferencia` con la misma imagen sobre negro y sobre blanco si es cristal o líquido) o una API de recorte (0,006-0,018 $).
    4. Después `parallax-capas` → `capas-sombra.mjs` saca fondo, **sombra como capa propia** y producto (ver su `references/sombras.md`).
 6. **Revisión contra la referencia** (gratis, antes de dar nada por bueno):
    - **Superposición al 50 %** para las proporciones (bordes dobles = forma distinta) y **lado a lado con zoom** para texto y color. Comandos en `fallos-y-arreglos.md`.
@@ -50,7 +50,7 @@ Por eso el proceso **asume que habrá fallos** y trae la forma de arreglarlos.
 7. **Arreglar** según el fallo (tabla en `fallos-y-arreglos.md`):
    - Inpaint solo de la zona mal.
    - Corrección de color.
-   - Si el producto no sale fiel tras 2-3 tiradas: **componer el producto real recortado encima de la escena generada**. Sus píxeles no cambian nunca: es la vía segura para logos y texto.
+   - Si el producto no sale fiel tras 2-3 tiradas: **componer el producto real recortado encima de la escena generada**. Sus píxeles no cambian nunca: es la vía segura para logos y texto. Recorte: foto real sobre fondo liso + `capas-alfa` (`alfa.mjs --modo croma --recortar`, o `--modo blanco`), o una API de recorte si el fondo no es liso.
 8. **Exportar**: al tamaño de uso ×2 como máximo, WebP/AVIF. Apunta en `CREDITOS.md` o el brief el origen (foto del cliente + modelo usado).
 
 ## Checklist

@@ -66,7 +66,9 @@ Para parallax real (no vídeo) usa mejor `parallax-capas` con cada ingrediente e
 ```
 Static camera. [Coffee beans] fall from the top of frame into the [grinder] in a single continuous slow-motion stream at constant speed, from the first frame to the last. The [grinder] stays perfectly still. Photoreal slow motion, no splashes leaving the frame, no new objects.
 ```
-Los fluidos son donde la IA brilla y el 3D en tiempo real sufre: buen candidato para frames.
+Los fluidos son donde la IA brilla y el 3D en tiempo real sufre: buen candidato para frames. Pero si el momento puede
+estar congelado (un splash en el aire, el café a medio caer), es una foto, no un vídeo: plantilla de
+`pedir-assets-ia` (`references/plantillas-por-plano.md` §11) y recorte con `capas-alfa`; el movimiento lo pone el código.
 
 ## 7. Vuelo a través (through object / world flight)
 ```

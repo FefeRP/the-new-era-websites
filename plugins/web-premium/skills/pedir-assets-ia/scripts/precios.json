@@ -27,7 +27,19 @@
     "seedream-5-pro":      { "usd_por_imagen": { "2k": 0.045 }, "edita": true, "via": "BytePlus, fal (~0,07-0,135)", "fuente": "10-2026" },
     "ideogram-4":          { "usd_por_imagen": { "1k": 0.06 }, "edita": false, "via": "Ideogram API", "fuente": "10-2026" },
     "recraft-4.1":         { "usd_por_imagen": { "1k": 0.035 }, "edita": false, "via": "Recraft API", "fuente": "10-2026" },
-    "midjourney":          { "usd_por_imagen": { "2k": 0.05 }, "edita": false, "via": "solo web (plan mensual desde 10 $), sin API oficial", "fuente": "estimado por plan", "confirmado": false }
+    "midjourney":          { "usd_por_imagen": { "2k": 0.05 }, "edita": false, "via": "solo web (plan mensual desde 10 $), sin API oficial", "fuente": "estimado por plan", "confirmado": false },
+    "seedream-5-flash":    { "usd_por_imagen": { "2k": 0.0193 }, "edita": true, "alfa": true, "via": "Runware (background: transparent)", "fuente": "Runware 10-2026" },
+    "ideogram-3-transparent": { "usd_por_imagen": { "1k": 0.06 }, "edita": false, "alfa": true, "via": "fal (0,03-0,09 según calidad)", "fuente": "fal 10-2026" }
+  },
+  "composicion": {
+    "alfa-local":          { "usd": 0, "por": "pieza", "via": "capas-alfa/scripts/alfa.mjs (fondo liso, negro, blanco o par negro/blanco)", "fuente": "local" },
+    "recorte-rembg":       { "usd": 0.006, "por": "imagen", "via": "fal Rembg Enhance", "fuente": "fal 07-2026" },
+    "recorte-bria":        { "usd": 0.018, "por": "imagen", "via": "fal Bria RMBG 2.0", "fuente": "fal 07-2026" },
+    "capas-qwen-layered":  { "usd": 0.05, "por": "imagen", "via": "fal Qwen-Image-Layered (1-10 capas RGBA)", "fuente": "fal 10-2026" },
+    "recorte-video-birefnet": { "usd": 0.0008, "por": "segundo", "via": "fal BiRefNet v2 vídeo (segundo de cómputo, ~1 por segundo de clip)", "fuente": "fal 10-2026" },
+    "recorte-video-bria": { "usd": 0.05, "por": "segundo", "via": "fal Bria vídeo v3", "fuente": "fal 10-2026" },
+    "3d-trellis-2":        { "usd": 0.30, "por": "modelo", "via": "fal TRELLIS 2 (0,25-0,35)", "fuente": "fal 10-2026" },
+    "3d-hunyuan3d-3":      { "usd": 0.225, "por": "modelo", "via": "fal Hunyuan3D v3 (desde)", "fuente": "fal 10-2026" }
   },
   "revision": {
     "gemini-flash":        { "usd_por_clip": 0.02, "via": "Gemini API (revisar-ia.mjs), clip de ~5 s" },

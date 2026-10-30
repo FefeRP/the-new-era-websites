@@ -1,8 +1,8 @@
 ---
 name: web-premium
-description: Skill maestra para construir webs "premium" (tipo Awwwards) - palabra clave de activación "WEB PREMIUM" o /web-premium. Entiende el pedido, decide el momento estrella y elige y combina técnicas (scroll-scrubbing de vídeo en frames, parallax y profundidad por capas, 3D real con glTF, mapa que baja hasta el edificio, lente de rayos X bajo el cursor, lata que gira sin 3D, tipografía cinética, shaders, transiciones), planifica los activos (y su coste), monta la web con la plantilla base (Vite + GSAP + Lenis) y la verifica con capturas. Úsala SIEMPRE que el pedido diga "WEB PREMIUM", "web premium", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "premium website", "awwwards style site", "cinematic scroll website", "3D scrolling website".
+description: Skill maestra para construir webs "premium" (tipo Awwwards) - palabra clave de activación "WEB PREMIUM" o /web-premium. Entiende el pedido, decide el momento estrella y elige y combina técnicas (scroll-scrubbing de vídeo en frames, parallax y profundidad por capas, 3D real con glTF, mapa que baja hasta el edificio, lente de rayos X bajo el cursor, lata que gira sin 3D, capas con fondo transparente, revelados y transiciones, rastro de fotos en el cursor, tipografía cinética, shaders), planifica los activos (y su coste), monta la web con la plantilla base (Vite + GSAP + Lenis) y la verifica con capturas. Úsala SIEMPRE que el pedido diga "WEB PREMIUM", "web premium", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "premium website", "awwwards style site", "cinematic scroll website", "3D scrolling website".
 license: MIT
-version: 1.0.0-beta.4
+version: 1.0.0-beta.5
 ---
 
 # WEB PREMIUM: de un pedido a una web que parece imposible
@@ -12,19 +12,24 @@ Esta skill **dirige**: decide qué hacer y en qué orden, y delega el *cómo* en
 - `scroll-frames` — vídeo partido en frames que avanza con el scroll (o vídeo con currentTime).
 - `seguir-pantalla` — la web, el logo o un texto reales encima de una pantalla o cartel del vídeo, siguiéndolo fotograma a fotograma y sin estirarlo.
 - `video-ia-para-scroll` — cómo pedir ese vídeo a Higgsfield/Kling/Veo/Luma y revisarlo.
-- `parallax-capas` — profundidad sin 3D (capas, puntero, CSS scroll-driven).
+- `capas-alfa` — elementos con fondo transparente sin Python ni GPU: `alfa.mjs` (croma, negro, blanco, pareja negro/blanco), vídeo con alfa para todos los navegadores (stacked alpha), frames con alfa y texto entre capas.
+- `parallax-capas` — profundidad sin 3D (capas, puntero, CSS scroll-driven) y la sombra como capa propia.
+- `revelados-y-transiciones` — imagen que se descubre en rejilla, cortina entre escenas, zoom 2D a un punto de una imagen grande con relevo, titulares que suben por líneas, tarjeta a pantalla completa, View Transitions.
+- `rastro-cursor` — fotos que siguen al ratón y se desvanecen.
 - `escena-3d-gltf` — 3D real con three.js y modelos glTF optimizados.
 - `fotos-producto-ia` — fotos del producto real en otra escena o luz con IA (Higgsfield…), consistentes entre tomas, por capas y sin deformaciones.
-- `mapa-zoom-ubicacion` — mapa real (ortofoto + edificios 3D, MapLibre) que baja con el scroll desde la ciudad hasta el edificio.
+- `mapa-zoom-ubicacion` — de la ciudad al edificio con el scroll: mapa vivo (ortofoto + edificios 3D, MapLibre) o mapa por niveles de imagen (`mapa-imagen.js`: ortofoto real o estilizada con IA, marcadores y rutas por código, viaje entre dos sitios).
 - `lente-revelado` — lente que sigue al cursor y enseña el producto por dentro (rayos X, térmica, interior) y cortina antes/después con el scroll.
 - `envase-giratorio` — lata, bote o tarro que gira sin 3D (etiqueta plana enrollada en canvas) y slider de sabores o variantes.
 Si están instaladas, apóyate también en `gsap-skills:*` (API de GSAP) y `webgl-animation-skills:*` (shaders, partículas).
 
 **Nunca por estilos** ("plantilla de heladería"): por técnicas que se combinan según el producto, la historia y el presupuesto.
 
-**Lo realista sale de la IA, no del 3D.** Las webs que parecen imposibles usan fotos y vídeos generados con IA, separados y bien
-pensados, y el código solo los mueve con el scroll y pone el texto encima. El 3D en tiempo real es el **respaldo barato** (sin
-presupuesto, borrador) o la opción para lo que el vídeo no sabe hacer (girar con texto legible, configurar, tocar).
+**Lo realista sale de la IA, no del 3D, y no todo es vídeo.** Las webs que parecen imposibles usan fotos y vídeos generados con
+IA, separados y bien pensados, y el código los mueve con el scroll y pone el texto encima. Lo que está quieto es **foto** (aislada,
+con alfa o en capas) y lo mueve el código; **vídeo IA** solo donde la cámara viaja o algo cambia físicamente; **frames** para
+el scrub. El 3D en tiempo real es el **respaldo barato** (sin presupuesto, borrador) o la opción para lo que el vídeo no sabe
+hacer (girar libre, configurar, tocar). La tabla por elemento está en `pedir-assets-ia` (matriz-medio-por-elemento.md).
 
 ## Paso 1 · Entender el pedido (brief)
 Saca del pedido (y pregunta **solo** lo que falte y cambie la decisión, en una tanda):
@@ -48,16 +53,23 @@ Usa la matriz de [references/catalogo-tecnicas.md](references/catalogo-tecnicas.
 |---|---|---|
 | Que el producto gire / se abra / se transforme al hacer scroll, sin interacción | Vídeo → frames | `pedir-assets-ia` + `video-ia-para-scroll` + `scroll-frames` |
 | Que la cámara entre en una escena real (un estudio, una tienda, una casa) y acabe en la pantalla con la web del cliente | Vídeo IA con imagen de inicio y fin → frames + la web real encima | `pedir-assets-ia` + `scroll-frames` + `seguir-pantalla` |
-| Profundidad, "3D" barato, ingredientes o elementos flotando | Capas + parallax | `parallax-capas` |
+| Profundidad, "3D" barato, ingredientes o elementos flotando | Fotos aisladas con alfa + capas + parallax | `capas-alfa` + `parallax-capas` |
+| El titular entre el fondo y el sujeto (el texto pasa por detrás del producto) | Capas con alfa y el texto en medio | `capas-alfa` (componer capas) |
 | Que el visitante gire/configure el objeto, o 3D en varias secciones | 3D real glTF | `escena-3d-gltf` |
-| Fluidos, humo, comida, tela, paisajes | Vídeo (IA) → frames; nunca 3D en tiempo real | `scroll-frames` |
+| Splash o ingrediente quieto en el aire | Foto aislada con alfa (momento congelado) | `pedir-assets-ia` (§11) + `capas-alfa` |
+| Humo, chispas, polvo con luz sobre la página | Vídeo sobre negro → vídeo con alfa | `capas-alfa --modo negro` |
+| Fluidos que cambian, comida que se hace, tela que se mueve, paisajes con cámara | Vídeo (IA) → frames; nunca 3D en tiempo real | `scroll-frames` |
+| Una foto que se descubre (rejilla, máscara) o una cortina que cambia de escena | Revelados por código | `revelados-y-transiciones` |
+| Acercarse a un producto dentro de una imagen grande (estantería, plano, cartel) | Zoom 2D a un punto con relevo a una foto de detalle | `revelados-y-transiciones` (`crearZoomA`) |
+| Fotos que aparecen al mover el ratón | Rastro de imágenes | `rastro-cursor` |
 | El producto "levita" sobre su sombra, o cambia de fondo sin perder la sombra | Capas con la sombra como capa propia | `parallax-capas` (sombras.md) |
 | Fotos del producto real en escenas que no existen | Edición por referencia con IA + revisión | `fotos-producto-ia` |
-| Enseñar dónde está (inmobiliaria, hotel, tienda): de la ciudad al edificio | Mapa real con cámara ligada al scroll + relevo a la foto | `mapa-zoom-ubicacion` |
+| Enseñar dónde está (inmobiliaria, hotel, tienda): de la ciudad al edificio | Mapa vivo (MapLibre) o por niveles de imagen, cámara ligada al scroll + relevo a la foto | `mapa-zoom-ubicacion` |
+| Mapa ilustrado o con estilo propio, o el viaje de un sitio a otro | Niveles de imagen (ortofoto estilizada con IA), marcadores y ruta por código | `mapa-zoom-ubicacion` (`mapa-imagen.js`) |
 | Contar el producto por dentro con imagen realista (se parte, capas, entrar dentro, horneado) | Tramos de vídeo IA encadenados → frames + HUD de datos | `video-ia-para-scroll` (receta "por dentro") + `scroll-frames` |
 | Que el visitante "mire dentro" con el cursor (rayos X, térmica) o compare antes/después | Dos imágenes alineadas + máscara | `lente-revelado` |
 | Bebidas o envases cilíndricos con varios sabores: la lata gira al cambiar | Etiqueta plana enrollada en canvas + slider | `envase-giratorio` (+ `parallax-capas` para las frutas) |
-| Textos con presencia | Reveals por líneas, máscaras, texto entre capas | catálogo (F) + `gsap-skills` |
+| Textos con presencia | Titulares que suben por líneas, máscaras, texto entre capas | `revelados-y-transiciones` (`crearLineas`) + `capas-alfa` |
 | Partículas que forman figuras, distorsiones, portales | Shaders/GPGPU (fase avanzada) | catálogo (E) + `webgl-animation-skills` |
 Combina 1 técnica fuerte + 1-2 de apoyo. Anota la decisión y el porqué en `BRIEF.md`.
 
@@ -70,12 +82,13 @@ Lista cada activo: qué es, de dónde sale (cliente / libre / IA / código), for
 - Pantallas, logos y textos dentro de la escena: nunca generados; por código con `seguir-pantalla`.
 - Modelos 3D: `escena-3d-gltf` (licencia, limpieza, optimización).
 - Fotos de producto con IA (hero, imagen clave del vídeo, escenas): `fotos-producto-ia` (desde fotos reales, revisión contra la referencia, presupuesto).
-- Capas: `parallax-capas` (por separado, recorte, clean plate, o código). La sombra, como capa propia con `capas-sombra.mjs`.
+- Recortes y transparencia: `capas-alfa` (`alfa.mjs`: pedir el elemento sobre fondo liso, negro o la pareja negro/blanco y sacar el alfa sin Python).
+- Capas: `parallax-capas` (por separado, clean plate, o código). La sombra, como capa propia con `capas-sombra.mjs`.
 - Sin presupuesto: activos libres (Poly Haven, Khronos, fotos del cliente) o hechos con código (SVG, degradados, render con three.js).
 
 ## Paso 5 · Construir
 ```bash
-node scripts/nueva-web.mjs <carpeta> --con frames,pantalla,capas,3d,mapa,lente,envase --titulo "…" --marca "…" --fondo "#…" --texto "#…" --acento "#…"
+node scripts/nueva-web.mjs <carpeta> --con frames,pantalla,video,alfa,capas,revelados,rastro,3d,mapa,mapa-imagen,lente,envase --titulo "…" --marca "…" --fondo "#…" --texto "#…" --acento "#…"
 cd <carpeta> && npm install [three] [maplibre-gl] && npm i -D playwright-core && npm run dev
 ```
 La plantilla trae Lenis + GSAP ScrollTrigger en un único bucle, reduced-motion, tokens de diseño, enlace "saltar al contenido".

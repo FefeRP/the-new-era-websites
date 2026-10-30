@@ -40,10 +40,13 @@ ffmpeg -sseof -0.05 -i clip-a.mp4 -frames:v 1 a-ultimo.png      # el último fot
   y el CSS casan sin costura y los cortes entre secciones son limpios.
 
 ## 6. Cortinas cuando no hay puente
+Por código con `revelados-y-transiciones`: `crearCortina` entra, cubre y sale, y la escena se cambia en `alCubrir` (con el
+panel tapándolo todo, nunca a la vista). Ref16 encadena así sus escenas (cortinas blanca y de arena).
 - Tarjeta de texto a pantalla completa sobre el color de fondo (ref11 "Built in layers…", ref8 "READY TO RISE.").
 - Fundido a blanco, a negro o a niebla (ref2, ref6).
 - Barrido con desenfoque de movimiento (whip): los últimos 4-6 frames de A y los primeros de B con `boxblur` horizontal
-  creciente; o por CSS `filter: blur()` durante el cambio.
+  creciente; o, en la web, fundido a una versión ya desenfocada de la imagen (exportada así), nunca `filter: blur()`
+  animado a pantalla completa.
 - El salto de escala sin puente se nota (ref11, del túnel al horno): o puente, o cortina.
 
 ## 7. Velocidad

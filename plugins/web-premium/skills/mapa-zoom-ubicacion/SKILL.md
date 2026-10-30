@@ -1,8 +1,8 @@
 ---
 name: mapa-zoom-ubicacion
-description: Del mapa al edificio - sección en la que, con el scroll, la cámara baja desde la ciudad (ortofoto/satélite REAL) hasta un edificio concreto, con inclinación, giro, edificios 3D, el destino resaltado y el relevo final a la foto o el render del cliente. Para inmobiliarias, promociones, hoteles, oficinas, tiendas y cualquier negocio con ubicación. Usa MapLibre GL JS con fuentes de mapa gratis y con licencia (PNOA del IGN en España, OpenFreeMap/OSM), un motor sin dependencias propias (mapa-scroll.js) y una receta probada. Úsala cuando pidan "mapa que hace zoom al edificio", "zoom desde el satélite", "mostrar la ubicación con scroll", "vuelo de cámara a la parcela", "mapa 3D de la promoción", "dónde está el piso", "map zoom to building", "scroll-driven map", "satellite zoom intro", "location reveal", "fly to property on scroll".
+description: Del mapa al edificio - sección en la que, con el scroll, la cámara baja desde la ciudad (ortofoto/satélite REAL) hasta un edificio concreto, con inclinación, giro, edificios 3D, el destino resaltado y el relevo final a la foto o el render del cliente. Para inmobiliarias, promociones, hoteles, oficinas, tiendas y cualquier negocio con ubicación. Dos caminos probados: mapa vivo con MapLibre GL JS y fuentes gratis con licencia (PNOA del IGN en España, OpenFreeMap/OSM; motor mapa-scroll.js), o mapa por niveles de imagen (ortofoto real descargada, o estilizada con IA sin inventar geografía) con marcadores, rutas y paso de una zona a otra por código (motor mapa-imagen.js, sin dependencias, peso fijo). Úsala cuando pidan "mapa que hace zoom al edificio", "zoom desde el satélite", "mostrar la ubicación con scroll", "vuelo de cámara a la parcela", "mapa 3D de la promoción", "dónde está el piso", "mapa ilustrado con zoom", "mapa con IA", "de un sitio a otro en el mapa", "map zoom to building", "scroll-driven map", "satellite zoom intro", "location reveal", "fly to property on scroll", "illustrated map zoom", "AI map".
 license: MIT
-version: 1.0.0-beta.4
+version: 1.0.0-beta.5
 ---
 
 # Del mapa al edificio (zoom de ubicación con scroll)
@@ -14,24 +14,42 @@ Referencia de partida: ref8 en `docs/referencias/` (Reposé Residence: nubes →
 ## Cuándo sí y cuándo no
 - **Sí:** inmobiliaria y promociones, hoteles, oficinas, coworkings, tiendas físicas, eventos con sede, "nuestras sedes".
 - **No:** si la ubicación no es un argumento de venta (sobra un mapa de 5 pantallas para una tienda online), o si no
-  hay datos del sitio (zona sin ortofoto buena: mejor una ilustración o vídeo propio).
-- **Motion de mapas tipo anuncio** (ciudad de arcilla, rutas, cortes del suelo con el metro: ref9) es otra cosa: vídeo
-  o three.js a medida. Ideas aprovechables en [references/ideas-ref9.md](references/ideas-ref9.md).
+  hay datos del sitio (zona sin ortofoto buena: mejor una ilustración propia montada como niveles de imagen con
+  `mapa-imagen.js`, o un vídeo propio).
+- **Motion de mapas tipo anuncio** (ciudad de arcilla, rutas, cortes del suelo con el metro: ref9): la ciudad estilizada,
+  las rutas y las tarjetas se hacen con niveles de imagen (`mapa-imagen.js`); los cortes del suelo y el dolly zoom
+  siguen siendo vídeo o three.js a medida. Ideas en [references/ideas-ref9.md](references/ideas-ref9.md).
 
-## Qué conviene (la decisión, ya tomada)
+## Elegir camino
+- **Mapa vivo (MapLibre)** si hace falta interacción o datos reales en vivo (calles y edificios del momento, inclinación
+  y giro 3D sobre la parcela) y no hay presupuesto ni tiempo para preparar imágenes.
+- **Niveles de imagen (`mapa-imagen.js`)** si se quiere un aspecto cuidado o ilustrado (ortofoto estilizada con IA sin
+  inventar geografía), peso fijo y conocido, móvil con datos, o un recorrido entre varios sitios.
+Comparativa completa en [references/mapa-por-imagenes.md](references/mapa-por-imagenes.md).
+
+## Fuentes y piezas
 | Pieza | Recomendado | Por qué |
 |---|---|---|
-| Motor | **MapLibre GL JS** (libre, BSD-3) | Mapa real en WebGL, inclinación, giro, extrusión 3D, sin claves ni cuentas |
+| Motor | **MapLibre GL JS** (libre, BSD-3) para el mapa vivo; `mapa-imagen.js` (canvas 2D, sin dependencias) para niveles de imagen | Mapa real en WebGL, inclinación, giro, extrusión 3D, sin claves ni cuentas; o imágenes con peso fijo y estilo propio |
 | Ortofoto en España | **PNOA del IGN** (CC BY 4.0, gratis, sin clave, CORS abierto, 25-50 cm) | Lo más realista y legal sin pagar |
 | Fuera de España | Ortofoto oficial abierta del país si su licencia lo permite; si no **MapTiler Satellite** (gratis con logo hasta 5.000 sesiones/mes) o Esri vía Location Platform (2M teselas/mes gratis, con key) | Ver [references/fuentes-mapa.md](references/fuentes-mapa.md) |
 | Calles, etiquetas, edificios 3D | **OpenFreeMap** estilo `liberty` (gratis, sin clave, OSM/ODbL) | Trae `render_height` de OSM para extruir |
 | Plano final del edificio | **Material real del cliente** (foto, dron, render, glTF) | El mapa no tiene fachadas: el relevo lo da la foto |
-| IA (Higgsfield, Kling, Veo) | **Solo** para animar la foto real del final (image-to-video) o un plano de ambiente | Un barrido generado se inventa calles: publicidad engañosa |
+| IA (Higgsfield, Kling, Veo, Nano Banana, Qwen) | **Solo** para estilizar la ortofoto real nivel a nivel, animar entre dos fotogramas reales del mapa (inicio/fin) o animar la foto real del final | Un mapa o un barrido generado desde cero se inventa calles: publicidad engañosa |
 | Evitar | Teselas de `tile.openstreetmap.org` (prohíbe este uso), Google Photorealistic 3D Tiles (bloqueado con facturación en el EEE desde 07-2025, y prohíbe cachear), Sentinel-2 cloudless de EOX (no comercial, 10 m) | Licencia o resolución |
 
 Coste práctico en España: **0 €** (PNOA + OpenFreeMap + MapLibre). Si hay que generar algo con IA, **precio estimado y vale del dueño antes**.
 
-## Pasos
+## Dos caminos
+- **Mapa vivo** (lo que sigue en esta página): MapLibre + teselas, cámara 3D con inclinación y giro, edificios extruidos.
+  Para cuando la ubicación en 3D es el argumento.
+- **Niveles de imagen** (`scripts/mapa-imagen.js`, guía en [references/mapa-por-imagenes.md](references/mapa-por-imagenes.md)):
+  3-5 imágenes anidadas (ciudad → barrio → calle) de ortofoto real descargada o estilizada con IA sobre ella, cámara 2D
+  cenital, marcadores HTML y rutas en coordenadas 0..1, paso de una zona a otra con `arco`, y fotogramas exactos de
+  inicio y fin para pedir un clip de vídeo IA entre dos vistas. Peso fijo (2-4 MB), sin WebGL ni dependencias. Para
+  estilo propio, móvil con datos, o contar un recorrido entre varios sitios. Probado en `pruebas/mapa-imagen/`.
+
+## Pasos (mapa vivo)
 1. **El sitio y el guion de cámara.** Coordenadas del edificio (centro de su huella en OSM, no la del portal) y 3-5
    **paradas** `{ en, centro, zoom, pitch, bearing }`: ciudad (z 11-12, pitch 0) → barrio (z 14-14,5, pitch 30-40) →
    edificio (z 17-17,5, pitch 55-62) → órbita final (mismo centro, bearing ±40°). Ajusta mirando el mapa, no a ojo.
@@ -56,6 +74,11 @@ Coste práctico en España: **0 €** (PNOA + OpenFreeMap + MapLibre). Si hay qu
   Interpola la cámara anclando el destino (no "patina"), mete la ortofoto bajo las etiquetas, extruye los edificios,
   resalta el destino, oculta los POI y deja el mapa no interactivo.
 - Demo completa: `demos/mapa/` (Barcelona, Torre Glòries como ubicación de ejemplo; capturas en `capturas/demo-mapa/`).
+- [scripts/mapa-imagen.js](scripts/mapa-imagen.js): `crearMapaImagen({ contenedor, niveles, paradas, marcadores, rutas })`
+  → `{ listo, progreso(p), vista(p), fotograma(p, ancho, alto), destruir() }` y `proyeccion(límites)` de lat/lng a 0..1.
+  Dibuja en canvas cada nivel a su resolución (nítido a cualquier escala), funde un nivel cuando el anterior se queda
+  corto, ancla el destino y salta de parada en parada con reduced-motion. Prueba: `pruebas/mapa-imagen/` (ortofoto PNOA
+  real de Barcelona, de la Sagrada Família a la Torre Glòries; capturas en `capturas/prueba-mapa-imagen/`).
 
 ## Trampas (todas vividas)
 - **MapLibre 6 no tiene export por defecto:** `import * as maplibregl from 'maplibre-gl'`.
