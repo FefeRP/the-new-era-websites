@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Crea una web premium nueva a partir de la plantilla base y copia los motores de las técnicas elegidas.
-// Uso: node nueva-web.mjs <carpeta-destino> [--con frames,video,capas,3d,mapa,lente,envase] [--titulo "…"] [--marca "…"]
+// Uso: node nueva-web.mjs <carpeta-destino> [--con frames,pantalla,video,capas,3d,mapa,lente,envase] [--titulo "…"] [--marca "…"]
 //        [--fondo "#171412"] [--texto "#efe9e1"] [--acento "#c9a46a"] [--fuente "Inter"] [--fuente-display "…"]
 // No instala nada: al terminar te dice el npm install que toca.
 
@@ -15,7 +15,7 @@ const plantilla = resolve(aqui, '..', 'plantilla');
 const argv = process.argv.slice(2);
 const destino = argv.find((a) => !a.startsWith('--') && !argv[argv.indexOf(a) - 1]?.startsWith('--'));
 const op = (k, def) => { const i = argv.indexOf(`--${k}`); return i !== -1 ? argv[i + 1] : def; };
-if (!destino) { console.error('Uso: node nueva-web.mjs <destino> [--con frames,video,capas,3d,mapa,lente,envase] [--titulo …] [--marca …] [--fondo …] [--texto …] [--acento …]'); process.exit(2); }
+if (!destino) { console.error('Uso: node nueva-web.mjs <destino> [--con frames,pantalla,video,capas,3d,mapa,lente,envase] [--titulo …] [--marca …] [--fondo …] [--texto …] [--acento …]'); process.exit(2); }
 const dst = resolve(destino);
 const vars = {
   '{{TITULO}}': op('titulo', 'Web premium'), '{{DESCRIPCION}}': op('descripcion', ''), '{{MARCA}}': op('marca', 'Marca'),
@@ -40,6 +40,7 @@ copiar();
 
 const motores = {
   frames: [['scroll-frames', 'frame-scrubber.js']],
+  pantalla: [['scroll-frames', 'frame-scrubber.js'], ['seguir-pantalla', 'capa-pantalla.js']], // web/logo real sobre el vídeo
   video: [['scroll-frames', 'video-scrubber.js']],
   capas: [['parallax-capas', 'capas-parallax.js']],
   '3d': [['escena-3d-gltf', 'escena-producto.js']],
@@ -67,5 +68,7 @@ if (con.includes('mapa'))
   console.log(`Mapa: copia el patrón de ${join(skills, 'mapa-zoom-ubicacion', 'references', 'patrones-codigo.md')} (worker de Vite, CSS, atribución)`);
 if (con.includes('lente'))
   console.log(`Lente: variantes alineadas con node "${join(skills, 'lente-revelado', 'scripts', 'variantes-revelado.mjs')}" --entrada base.png --salida "${join(dst, 'public', 'revelado')}"`);
-if (con.includes('frames') || con.includes('video'))
+if (con.includes('pantalla'))
+  console.log(`Pantalla: pista con node "${join(skills, 'seguir-pantalla', 'scripts', 'seguir-pantalla.mjs')}" video.mp4 --esquinas "x,y x,y x,y x,y" --clave "<fin>=x,y …" --salida "${join(dst, 'public', 'frames', '<nombre>', 'pista.json')}" --revision rev`);
+if (con.includes('frames') || con.includes('video') || con.includes('pantalla'))
   console.log(`Frames: node "${join(skills, 'scroll-frames', 'scripts', 'extraer-frames.mjs')}" video.mp4 "${join(dst, 'public', 'frames', '<nombre>')}"`);

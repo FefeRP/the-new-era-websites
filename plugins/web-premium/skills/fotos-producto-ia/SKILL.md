@@ -2,7 +2,7 @@
 name: fotos-producto-ia
 description: Fotos de producto de calidad con IA (Higgsfield con Nano Banana Pro/2, GPT Image, Seedream, Soul, Marketing Studio; también Flux Kontext, Qwen-Image-Edit) partiendo de fotos REALES del producto, para webs premium. Cubre cómo hacer las fotos de referencia con el móvil, encuadres e iluminación de producto, prompts por referencia que conservan forma/logo/texto/color, consistencia entre tomas (mismo producto en varias escenas, imagen clave para vídeo), capas por separado (fondo vacío, producto, flotantes, plato limpio para la sombra) y qué hacer cuando sale deformado (revisión contra la referencia, inpaint por zona, componer el producto real recortado encima). Úsala cuando pidan "fotos de producto con IA", "foto del producto en otra escena", "packshot con Higgsfield", "imagen clave del producto", "que el producto salga igual", "arreglar logo deformado", "AI product photography", "product photo from reference", "keep product consistent".
 license: MIT
-version: 1.0.0-beta.3
+version: 1.0.0-beta.4
 ---
 
 # Fotos de producto con IA desde fotos reales

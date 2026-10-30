@@ -2,6 +2,27 @@
 
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones: [SemVer](https://semver.org/lang/es/).
 
+## [1.0.0-beta.4] - 2026-10-30
+Todas las skills pasan a `1.0.0-beta.4`. Idea central: **lo realista sale de assets de IA bien pedidos, no del 3D**. Sale de volver a desmontar las 11 webs de referencia (de qué assets se compone cada una y cómo se pidieron) y de las lecciones de un encargo real con vídeo IA (zoom a la pantalla de un portátil).
+
+### Añadido
+- Skill **`pedir-assets-ia`**: el director de assets de IA.
+  - Guion de tramos → medio de cada asset (vídeo IA, imagen IA, código o 3D) → presupuesto con vale → imágenes clave primero → finales como otra toma → prueba de 3 s → revisión → entrega a las skills que montan.
+  - `scripts/presupuesto.mjs` + `precios.json`: coste por fases (esperado y peor caso), lo ya gastado, alternativas más baratas para la prueba y aviso si no cabe en el presupuesto del usuario.
+  - `scripts/revisar-ia.mjs`: revisión "¿se nota falso?" de una imagen o un vídeo con Gemini (REST, sin dependencias).
+  - references: `plantillas-por-plano.md` (bloque de realismo, delatores de IA en positivo, prompts de imagen clave y de vídeo para zoom a pantalla, producto girando, entrada a escena, capas con fondo separado, mismo encuadre día/noche, cambio de estado, transición, aéreo e interior), `continuidad.md`, `se-nota-falso.md` (revisión en 4 capas, 18 señales y su arreglo), `proveedores.md` (Higgsfield, Kling, Veo, Seedance, Wan, Luma, MiniMax, Runway; Nano Banana, GPT Image, Qwen, Flux, Seedream, Midjourney, Ideogram, Recraft: cuándo usar cada uno y coste) y `recetas-por-tipo-de-web.md` (estudio/SaaS, producto, inmobiliaria, restaurante, sabores, app, con costes).
+- Skill **`seguir-pantalla`**: la web, el logo o un texto reales encima de una pantalla o cartel del vídeo, sin generarlos ni estirarlos.
+  - `seguir-pantalla.mjs`: sigue 4 esquinas fotograma a fotograma (correlación por parches con subpíxel, pasadas de ida y vuelta entre claves, marca e interpola los dudosos), modo rejilla para medir, vídeo y hoja de revisión.
+  - `capa-pantalla.js`: capa HTML (img, vídeo, canvas o la propia web) pegada con `matrix3d`, con `object-fit` contain/cover, esquinas redondeadas, brillo y filtro.
+  - `pruebas/seguir-pantalla/`: vídeo sintético con esquinas conocidas (error medio ~1 px, máximo < 3 px) y prueba de la capa en Chrome (escritorio y móvil, error < 3,2 px CSS).
+- `nueva-web.mjs --con pantalla`.
+
+### Cambiado
+- `frame-scrubber.js`: opción `alDibujar({ i, x, y, w, h, escala, canvas, manifest, variante })` tras pintar cada frame (copiado a la demo y verificado).
+- `extraer-frames.mjs`: el manifest guarda `inicio`, el tamaño `original` y el `recorte` de la variante móvil.
+- Skill maestra: "lo realista sale de la IA, no del 3D"; el plan de activos sigue `pedir-assets-ia`; filas nuevas en la tabla de técnicas y en el catálogo.
+- `video-ia-para-scroll` y `fotos-producto-ia`: precios y modelos al 30-10-2026 (Kling O3 pro medido, Veo solo en Vertex, Seedance al doble en Higgsfield, planes nuevos de Higgsfield, Runway solo con fotograma inicial) y enlaces a las skills nuevas.
+
 ## [1.0.0-beta.3] - 2026-10-26
 Todas las skills pasan a `1.0.0-beta.3`. Sale de dos vídeos de referencia nuevos: ref10 (slider de latas en Figma) y ref11 (web del cruasán por dentro).
 

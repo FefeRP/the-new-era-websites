@@ -1,13 +1,17 @@
-# Modelos de imagen y precios (consultado 25-10-2026; los precios cambian: confírmalos en la herramienta antes de presupuestar)
+# Modelos de imagen y precios (consultado 30-10-2026; los precios cambian: confírmalos en la herramienta antes de presupuestar)
+
+Tabla general de imagen y vídeo de todos los proveedores (Nano Banana, GPT Image, Qwen, Flux, Seedream, Midjourney…) y cálculo
+del presupuesto: `pedir-assets-ia` (`references/proveedores.md`, `scripts/presupuesto.mjs`).
 
 ## Higgsfield (higgsfield.ai)
 - **Planes:**
-  - Starter: 19 $/mes, 270 créditos.
-  - Plus: 59 $/mes, 1.200 créditos.
+  - Starter: 15 $/mes, 200 créditos.
+  - Plus: 49 $/mes, 1.000 créditos.
   - Ultra: 129 $/mes, 3.000 créditos.
   - Free: sin créditos y con marca de agua.
-  - Un crédito sale por ~0,04-0,05 $.
-  - Los créditos del plan no se acumulan de un mes a otro.
+  - Un crédito sale por ~0,04-0,075 $ según el plan.
+  - Los créditos del plan caducan cada mes.
+- **Medido por API:** Qwen Image 3 (escena e interiores 2K, edita con referencia) ~0,075 $/imagen.
 
 | Modelo / herramienta | Referencias | Máx. | Coste aprox. | Para |
 |---|---|---|---|---|

@@ -43,6 +43,9 @@ Coste de rendimiento: 🟢 ligero (cualquier móvil) · 🟡 medio (cuidar móvi
 | Producto realista contado por dentro en tramos (se parte → capas → entrar dentro → cambio de estado) | imagen clave sobre negro + 3-4 vídeos IA encadenados por fotograma (inicial/final) → frames por tramo + HUD | 🟡 · € vídeo IA (~15-35 $) | video-ia-para-scroll (receta-producto-por-dentro) + scroll-frames ✅ · ref11 |
 | Cambio de estado ligado al scroll (crudo → horneado, cerrado → abierto) | vídeo IA con fotograma inicial y final del mismo encuadre → frames; el HUD pone nombre al estado | 🟡 | video-ia-para-scroll (receta) ✅ · ref11 |
 | Composición vertical 9:16 propia para móvil | vídeo o frames generados aparte en vertical (no recortar el horizontal) | 🟡 | scroll-frames (`--recorte-movil` o variante móvil) ✅ · ref6, ref7 |
+| La web, el logo o un texto reales sobre una pantalla o cartel del vídeo IA, pegados fotograma a fotograma | seguimiento de 4 esquinas (`seguir-pantalla.mjs`) + capa con `matrix3d` en el `alDibujar` del scrubber; contenido con su proporción (nunca estirado) | 🟢 | seguir-pantalla ✅ · ref4, ref6 (UI sobre el último frame) |
+| Zoom a la pantalla y "entrar" en la web real | vídeo IA con inicio + fin (el fin es otra toma, no un recorte) → frames + capa de pantalla que crece a pantalla completa | 🟡 · € vídeo IA (~1-2 $) | pedir-assets-ia (§1) + scroll-frames + seguir-pantalla ✅ |
+| Assets realistas pedidos a IA (qué medio, imagen clave, inicio/fin, presupuesto previo, revisión "¿se nota falso?") | guion de tramos → `presupuesto.mjs` → claves → prueba de 3 s → finales → `revisar-ia.mjs` | — · € según plan | pedir-assets-ia ✅ · ref4, ref5, ref6, ref7, ref10, ref11 |
 
 ## C. Profundidad 2.5D (sin 3D)
 | Efecto | Cómo | Coste | Skill / ref |

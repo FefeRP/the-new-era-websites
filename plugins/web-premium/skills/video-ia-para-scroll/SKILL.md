@@ -2,7 +2,7 @@
 name: video-ia-para-scroll
 description: Cómo pedir a un generador de vídeo con IA (Higgsfield y sus modelos Kling, Veo, Seedance, WAN, Hailuo; también Luma, Runway) el vídeo pensado para el hero o el scroll de una web premium, no un anuncio - coreografía, imagen clave primero, preset de cámara, fondo limpio, velocidad constante, bucle, duración, resolución y prompts listos por tipo de plano (giro, despiece, ingredientes, vuelo a través, transición, bucle). Incluye el control de calidad del vídeo recibido (cortes, velocidad, parpadeo) antes de partirlo en frames. Úsala cuando haya que "generar el vídeo del producto para la web", "pedir el vídeo a Higgsfield", "prompt para Kling/Veo", "vídeo para scroll", "hero video con IA", "AI video for scroll animation", "exploded view video", "product orbit video", "producto por dentro", "scroll sobre imagen realista", "web como la del cruasán", "inside the product scroll story".
 license: MIT
-version: 1.0.0-beta.3
+version: 1.0.0-beta.4
 ---
 
 # Pedir el vídeo para scroll a una IA
@@ -14,6 +14,10 @@ El objetivo es **un único plano continuo, a velocidad constante, con el product
 > **Dinero:** generar cuesta créditos. Antes de lanzar nada, presupuesta (nº de tiradas × coste por clip del modelo elegido;
 > mírelo en la herramienta o en el MCP de Higgsfield, que da el coste antes de generar) y **pide el vale** a quien paga.
 > Itera en la imagen (barata), no en el vídeo (~30-40× más caro).
+
+> **Antes de esta skill:** `pedir-assets-ia` decide qué assets van con vídeo, imagen, código o 3D, calcula el presupuesto
+> (`presupuesto.mjs`), da los prompts de escena por tipo de plano y la revisión "¿se nota falso?". Esta skill se centra en el
+> movimiento del vídeo para scroll. Las pantallas, logos y textos de la escena van por código con `seguir-pantalla`.
 
 ## Reglas de oro
 1. **Imagen a vídeo, nunca texto a vídeo.** Primero la imagen clave (foto real del producto o imagen generada y aprobada); el vídeo parte de ella. Con texto a vídeo sale *otro* producto.
@@ -31,14 +35,15 @@ El objetivo es **un único plano continuo, a velocidad constante, con el product
 2. **Elige el tipo de plano** de [references/plantillas-prompt.md](references/plantillas-prompt.md): giro/arco, dolly de revelado, despiece, montaje, ingredientes, caída/líquido, vuelo a través, transición encadenada, bucle.
    Si la web cuenta el producto **por dentro en varios tramos** (se parte → capas → entrar dentro → cambio de estado → rayos X, como ref11), sigue la receta completa de [references/receta-producto-por-dentro.md](references/receta-producto-por-dentro.md): tramos encadenados por fotograma, prompts y presupuesto.
 3. **Imagen clave**: genera o retoca la imagen inicial (y la final si el modelo admite fotograma final). Aprueba la imagen antes del vídeo. Si parte de fotos reales del producto, sigue `fotos-producto-ia` (referencias, prompt y revisión contra la referencia: un logo deformado en la imagen clave sale deformado en todo el vídeo).
-4. **Modelo y preset**: tabla en [references/modelos-y-camaras.md](references/modelos-y-camaras.md). Regla rápida: producto que gira o bucle → Kling (inicial+final) o Luma (modo loop); máxima calidad 8 s → Veo 3.1; plano largo (15-30 s) → Kling 4.0 / Seedance 2.5 (ojo: 720p).
+4. **Modelo y preset**: tabla en [references/modelos-y-camaras.md](references/modelos-y-camaras.md). Regla rápida: interiores y producto con inicio+fin → Kling O3 pro (mejor calidad/precio); bucle → Kling (inicial = final) o Luma (modo loop); máxima calidad de luz 8 s → Veo 3.1; plano largo → mejor 2-4 clips encadenados que uno de 30 s.
 5. **Parámetros**: 5-8 s (≈120-190 frames a 24 fps: de sobra), 1080p mínimo, 16:9 para escritorio. Para móvil: o recorte central 9:16 (si pediste margen) o una segunda generación vertical con la misma imagen clave.
 6. **Prompt**: plantilla = *preámbulo de estilo fijo* + *movimiento* + *estabilidad* + *negativos*. Con imagen a vídeo describe el **movimiento**, no el aspecto (eso ya lo da la imagen).
 7. **Control de calidad** del vídeo recibido:
    ```bash
    node scripts/revisar-video.mjs video.mp4      # cortes, acelerones, frames duplicados, tramos quietos, parpadeo + hoja de contactos
    ```
-   Mira la hoja. Checklist de aceptación abajo. Si falla, no lo "arregles" en la web: regenera o recorta.
+   Mira la hoja y pásale la revisión de realismo (`pedir-assets-ia/scripts/revisar-ia.mjs` + señales de `se-nota-falso.md`).
+   Checklist de aceptación abajo. Si falla, no lo "arregles" en la web: regenera o recorta.
 8. **Pasa a `scroll-frames`** con los `--inicio/--fin` que sugiere el informe.
 
 ## Trucos que ahorran tiradas

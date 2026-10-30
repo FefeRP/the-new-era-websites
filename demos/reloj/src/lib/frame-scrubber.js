@@ -27,6 +27,9 @@ export async function crearFrameScrubber({
   maxBitmaps = null,       // ventana LRU de frames decodificados (auto: 48 escritorio / 24 móvil)
   alCargar = null,         // (cargados, total) => {}
   fondo = null,            // color de relleno para 'contain'
+  alDibujar = null,        // ({ i, x, y, w, h, escala, canvas, manifest, variante }) => {} tras pintar cada frame: dónde
+                           // quedó (px de canvas) y escala = px de canvas por px CSS. Lo usa capa-pantalla.js (skill
+                           // seguir-pantalla) para poner una pantalla, un logo o un texto encima, siguiendo el vídeo.
 } = {}) {
   if (!canvas) throw new Error('frame-scrubber: falta canvas');
   if (!base.endsWith('/')) base += '/';
@@ -156,6 +159,7 @@ export async function crearFrameScrubber({
       if (fondo) { ctx.fillStyle = fondo; ctx.fillRect(0, 0, cw, ch); } else ctx.clearRect(0, 0, cw, ch);
     }
     ctx.drawImage(bmp, (cw - w) / 2, (ch - h) / 2, w, h);
+    return { x: (cw - w) / 2, y: (ch - h) / 2, w, h };
   }
 
   function dibujar() {
@@ -164,8 +168,12 @@ export async function crearFrameScrubber({
     const i = actual;
     const disponible = masCercanoConBitmap(i);
     if (disponible !== -1 && disponible !== dibujado) {
-      pintar(bitmaps.get(disponible));
+      const caja = pintar(bitmaps.get(disponible));
       dibujado = disponible;
+      if (alDibujar) {
+        const r = canvas.getBoundingClientRect();
+        alDibujar({ i: disponible, ...caja, escala: canvas.width / Math.max(1, r.width), canvas, manifest: m, variante: v });
+      }
     }
     if (disponible !== i && blobs[i]) {
       decodificar(i).then(() => { if (actual === i) pedirDibujo(); });
@@ -205,6 +213,10 @@ export async function crearFrameScrubber({
       if (i !== actual) { actual = i; pedirDibujo(); }
     },
     listo: descargas,
+    /** índice del frame que se ve ahora (puede ir por detrás del pedido mientras carga) */
+    get frameDibujado() { return dibujado; },
+    manifest: m,
+    varianteDatos: v,
     destruir() {
       destruido = true;
       abort.abort();

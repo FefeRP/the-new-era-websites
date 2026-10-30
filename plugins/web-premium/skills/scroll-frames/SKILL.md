@@ -2,7 +2,7 @@
 name: scroll-frames
 description: Scroll-scrubbing de vídeo estilo Apple - un vídeo (generado con IA o del cliente) partido en frames que avanza al hacer scroll, dibujado en canvas con GSAP ScrollTrigger, o en modo vídeo con currentTime. Incluye la extracción y optimización de frames con ffmpeg (WebP/AVIF, escritorio y móvil, manifest), el motor de reproducción con carga progresiva y memoria acotada, textos sincronizados, reduced-motion y verificación. Úsala cuando pidan "que al hacer scroll avance el vídeo", "secuencia de imágenes en canvas", "scroll como el de los AirPods", "producto que gira al hacer scroll", "explosión del producto al bajar", "image sequence scroll", "scroll-driven video", "scrub video on scroll", "frame sequence canvas".
 license: MIT
-version: 1.0.0-beta.3
+version: 1.0.0-beta.4
 ---
 
 # Scroll-scrubbing: vídeo → frames → scroll
@@ -25,7 +25,7 @@ impacto/coste: funciona en cualquier móvil y no hace falta modelo 3D.
 ## Pasos
 
 ### 1. Conseguir el vídeo bueno
-- Si hay que generarlo con IA, **usa la skill `video-ia-para-scroll`** (prompts, cámara, fondo, duración). Un mal vídeo no se arregla después.
+- Si hay que generarlo con IA, **usa `pedir-assets-ia`** (qué pedir, presupuesto, prompts por plano, revisión) y `video-ia-para-scroll` (movimiento). Un mal vídeo no se arregla después.
 - Si viene del cliente: un solo plano, sin cortes, velocidad constante, sin texto quemado.
 - Revisa antes de extraer: `ffprobe` (fps, duración, resolución) y una hoja de contactos:
   `ffmpeg -i v.mp4 -vf "fps=2,scale=480:-2,tile=6x3" -frames:v 1 hoja.png` → mira que no haya saltos, morphing ni parpadeos.
@@ -39,7 +39,8 @@ node scripts/extraer-frames.mjs fuente.mp4 public/frames/producto --frames 120
 #   --inicio 0.5 --fin 5.5   descarta arranque/frenada del generador
 #   --video-scrub        además el MP4 con GOP denso para el modo vídeo
 ```
-Sale `escritorio/0001.webp…`, `movil/0001.webp…`, `poster-*.webp` y `manifest.json`. Lee el peso que imprime y compáralo
+Sale `escritorio/0001.webp…`, `movil/0001.webp…`, `poster-*.webp` y `manifest.json` (con `fps`, `inicio`, el tamaño `original` del
+vídeo y el `recorte` de la variante móvil: lo usa `seguir-pantalla` para casar la pista con cada frame). Lee el peso que imprime y compáralo
 con el presupuesto (references/rendimiento.md). Si te pasas: menos frames (90-100 suelen bastar), `--calidad 65`, o AVIF.
 
 ### 3. Maquetar (HTML real primero)
@@ -58,6 +59,10 @@ ScrollTrigger.create({ trigger: '#seccion', start: 'top top', end: '+=300%', pin
 - Duración del tramo: ~2,5-4 pantallas (`+=250%`…`+=400%`) para 120 frames. Más corto se siente brusco; más largo, aburrido.
 - Modo vídeo: `scripts/video-scrubber.js` con el MP4 de `--video-scrub` (patrón en references).
 - Textos que aparecen en momentos del vídeo: una timeline con el mismo ScrollTrigger (references, "Textos sincronizados").
+- **Cada frame se pinta entero y nítido, sin mezclar dos** (nada de fundidos entre frames: en scrub se ven dobles). Si el frame
+  pedido no ha llegado, pinta el más cercano cargado.
+- Algo pegado a la escena (la web en una pantalla, un logo en un cartel): opción `alDibujar({ i, x, y, w, h, escala, canvas,
+  manifest, variante })`, que se llama tras pintar cada frame con dónde quedó dibujado; `seguir-pantalla` la usa para su capa.
 
 ### 5. Accesibilidad y reservas (obligatorio)
 - `prefers-reduced-motion: reduce` → no se crea el scrubber ni el pin: se queda el póster y el contenido fluye normal.

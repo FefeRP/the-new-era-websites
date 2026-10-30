@@ -1,0 +1,59 @@
+# Proveedores: cuál usar para cada cosa (octubre de 2026)
+
+La receta (imagen clave → imagen final → vídeo entre ambas → revisión → montaje) es la misma con cualquier proveedor; solo cambian
+el nombre de los parámetros, el precio y lo que cada modelo hace mejor. Precios orientativos en USD, sin audio, de páginas
+públicas y de generaciones reales ("medido"); cambian cada mes. Los mismos datos están en `scripts/precios.json` para
+`presupuesto.mjs`. **Confirma el precio en el proveedor antes de pedir el vale** (varios tienen un "estimate" gratis).
+
+## Dónde se compra
+- **Higgsfield** (principal): agregador con muchos modelos, presets de cámara y MCP.
+  - Web por créditos: Starter 15 $/200, Plus 49 $/1.000, Ultra 129 $/3.000 al mes. Los créditos **caducan cada mes**. Un clip de
+    5 s: Kling 3.0 720p ≈ 7 créditos, Seedance 2.5 ≈ 35 (720p) / 80 (1080p).
+  - API: prepago en dólares (desde 5 $), `POST /estimate/<modelo>` gratis antes de lanzar, lo fallido o moderado no se cobra,
+    no da el saldo. Algunos modelos de su web no están en la API (Nano Banana, Veo, Seedream). Seedance sale al doble del oficial.
+- **APIs oficiales** (Google Vertex, BytePlus, Alibaba, Kling, Luma, MiniMax, OpenAI, BFL…): lo más barato por unidad, una cuenta por proveedor.
+- **fal.ai / Replicate:** un solo saldo para casi todos, precio ≈ oficial o algo más; cuidado con el audio activado por defecto.
+
+## Vídeo
+| Modelo | 720p $/s | 1080p $/s | Inicio + fin (parámetro) | Duración | Bueno para | Cuidado |
+|---|---|---|---|---|---|---|
+| **Kling O3 pro** | — | **0,112** (medido) | sí: `first_frame_url`/`last_frame_url` (Higgsfield), `image_url`/`end_image_url` (fal) | 3-15 s | Interiores y producto: respeta muy bien inicio y fin, geometría estable, 1080p/24 fps reales. **Mejor calidad/precio** | Sin negative prompt. Reescribe letras de ~70 px. No anima exteriores |
+| Kling 3.0 std / pro | 0,084 | 0,112 | sí | 3-15 s | Pruebas baratas (std) | Etiquetas con texto se deforman |
+| Kling 4.0 | 0,157 | 0,235 | hasta 10 clave | 3-30 s, hasta 4K | Planos largos sin cortes | Caro; en fal, audio siempre activo |
+| Veo 3.1 Lite / Fast / Std | 0,05 / 0,10 / 0,40 | 0,08 / 0,12 / 0,40 | sí (`first_frame`/`last_frame`; el final, en clips de 8 s) | 4, 6, 8 s | La mejor luz, materiales y física; Lite = la prueba más barata | Solo en Vertex (salió de la API de Gemini el 22-10-2026); máx. 8 s |
+| Seedance 2.5 | 0,231 oficial · 0,462 Higgsfield | 0,569 · 1,137 | sí (`end_image_url`; oficial: `role: last_frame`) | hasta 30 s | Movimiento "de cine", paralaje y desenfoque reales | Caro; finos que "hierven" a 480-720p; acelera al final |
+| Seedance 2.0 Mini / Fast | 0,08 / 0,12 | — | sí | hasta 15 s | Pruebas | Menos calidad |
+| Wan 2.7 | 0,10 | 0,15 | sí: `image_url`/`end_image_url` | 2-15 s | Barato con negativo | Ignora a veces la trayectoria, rompe texto, sale a 30 fps y con audio |
+| Wan 2.1/2.2 (abierto) | 0 en local | — | 2.1 FLF2V | ~5 s | Sin coste si hay GPU (8-54 GB) | 480-720p |
+| Luma Ray 3.2 | 0,06 | 0,24 | hasta 16 clave, modo bucle | 5/10 s | Bucles, HDR | Revisa geometría |
+| MiniMax H3 / Hailuo 2.3 | 0,08 / ~0,05 | 2K 0,13 / ~0,08 | H3 sí (`first_frame_image`/`last_frame_image`) | 5-10 s | Barato en alta resolución | Menos probado |
+| Runway Gen-4.5 / Aleph | 0,12 / 0,28 | — | **solo inicio** / edita vídeo existente | — | Aleph: cambiar luz u objetos de un vídeo ya hecho | No sirve para encadenar por fin |
+
+## Imagen
+| Modelo | $/imagen | Edita con referencia | Bueno para | Cuidado |
+|---|---|---|---|---|
+| Nano Banana 2.1 / Pro (Google) | 0,034-0,05 / 0,134 | sí (hasta 14) | Producto fiel, texto legible, ediciones "misma toma" | Pro caro a 4K |
+| GPT Image 2 / 2.5 (OpenAI) | 0,006 baja · 0,053 media · 0,211 alta | sí | Texto y etiquetas exactas, composición; baja = bocetos baratos | Calidad alta cara |
+| Qwen Image 3 (Alibaba) | 0,075 en Higgsfield (medido) · 0,025-0,07 oficial | sí (edit, 1-3 ref.) | Escenas e interiores 2K, día/noche como edición | Las ediciones mueven píxeles (~30 px) |
+| Flux 3 / Flux 2 pro (BFL) | 0,048-0,10 / 0,03 | sí | Fidelidad a la foto del producto | — |
+| Seedream 5 (ByteDance) | 0,035-0,045 | sí | Volumen barato a 2K, variaciones | — |
+| Midjourney | plan desde 10 $/mes | poco | Estética, moodboard, explorar estilos | Sin API; poco control de producto y encuadre |
+| Ideogram 4 / Recraft 4.1 | 0,03-0,10 / 0,007-0,21 | no | Tipografía, logos, vectores, patrones | No para fotografía de escena |
+
+## Elección rápida
+- **Interior o escena con cámara que se mueve** (zoom a pantalla, entrada a una sala): imagen Qwen/Nano Banana → **Kling O3 pro** con inicio+fin. Prueba con Veo 3.1 Lite 720p si quieres la más barata.
+- **Producto con luz y materiales difíciles** (vidrio, líquido, comida): Veo 3.1 Fast/Std o Kling O3 pro; prueba ambos en 3-4 s.
+- **Movimiento cinematográfico con paralaje fuerte** y presupuesto: Seedance 2.5 a 1080p (mejor en su API oficial).
+- **Bucle de fondo:** Luma (modo loop) o Kling con inicio = fin.
+- **Plano largo** (> 10 s): mejor 2-4 clips encadenados por fotograma que uno largo; si no, Kling 4.0.
+- **Producto que gira con texto legible:** ningún vídeo: `envase-giratorio` o `escena-3d-gltf`.
+- **Imagen clave:** Nano Banana 2.1 o Qwen Image 3 (baratas, editan bien); Nano Banana Pro o GPT Image si hay texto o producto exacto.
+- **Bocetos para elegir dirección:** GPT Image baja (0,006 $) o Flux 2 pro (0,03 $): 6-10 opciones por menos de 0,30 $.
+
+## Parámetros que conviene fijar siempre
+- Sin audio (`sound: off`, `generate_audio: false`): cuesta más y no se usa.
+- 16:9 a 1080p y 24 fps para escritorio; la toma 9:16 aparte si el sujeto no cabe en el recorte central.
+- Semilla fija cuando el modelo la admite (repetir con cambios pequeños).
+- Imágenes de entrada al tamaño de salida o mayores (2K): el modelo reescala; mide coordenadas en el vídeo devuelto.
+- Licencias: la mayoría permite uso comercial; algunos entrenan con lo generado. En la UE, el vídeo realista generado con IA
+  debe poder identificarse como tal (Ley de IA, art. 50): un aviso discreto en la web basta.

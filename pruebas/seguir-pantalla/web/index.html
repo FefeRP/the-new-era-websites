@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prueba capa-pantalla</title>
+  <link rel="icon" href="data:,">
+  <style>
+    html, body { margin: 0; height: 100%; background: #111; color: #eee; font: 14px system-ui, sans-serif; }
+    #escena { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+    #escena canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    #control { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 5; display: flex; gap: 10px; align-items: center;
+      background: #000a; padding: 8px 12px; border-radius: 8px; }
+    #control input { flex: 1; }
+  </style>
+</head>
+<body>
+  <!-- Uso: sirve la raíz del repo y abre /pruebas/seguir-pantalla/web/?base=<carpeta de frames con manifest.json y pista.json>
+       (genera vídeo, verdad y frames con hacer-video-prueba.mjs, seguir-pantalla.mjs y extraer-frames.mjs; ver ../LEEME.md) -->
+  <div id="escena"><canvas id="lienzo"></canvas></div>
+  <div id="control"><span>progreso</span><input id="progreso" type="range" min="0" max="1" step="0.001" value="0"><span id="dato"></span></div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

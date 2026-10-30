@@ -2,13 +2,15 @@
 name: web-premium
 description: Skill maestra para construir webs "premium" (tipo Awwwards) - palabra clave de activación "WEB PREMIUM" o /web-premium. Entiende el pedido, decide el momento estrella y elige y combina técnicas (scroll-scrubbing de vídeo en frames, parallax y profundidad por capas, 3D real con glTF, mapa que baja hasta el edificio, lente de rayos X bajo el cursor, lata que gira sin 3D, tipografía cinética, shaders, transiciones), planifica los activos (y su coste), monta la web con la plantilla base (Vite + GSAP + Lenis) y la verifica con capturas. Úsala SIEMPRE que el pedido diga "WEB PREMIUM", "web premium", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "premium website", "awwwards style site", "cinematic scroll website", "3D scrolling website".
 license: MIT
-version: 1.0.0-beta.3
+version: 1.0.0-beta.4
 ---
 
 # WEB PREMIUM: de un pedido a una web que parece imposible
 
 Esta skill **dirige**: decide qué hacer y en qué orden, y delega el *cómo* en las skills de técnica de este plugin:
+- `pedir-assets-ia` — qué assets van con vídeo IA, imagen IA, código o 3D, cuánto cuestan (antes de generar), los prompts por tipo de plano para cualquier proveedor y la revisión "¿se nota falso?".
 - `scroll-frames` — vídeo partido en frames que avanza con el scroll (o vídeo con currentTime).
+- `seguir-pantalla` — la web, el logo o un texto reales encima de una pantalla o cartel del vídeo, siguiéndolo fotograma a fotograma y sin estirarlo.
 - `video-ia-para-scroll` — cómo pedir ese vídeo a Higgsfield/Kling/Veo/Luma y revisarlo.
 - `parallax-capas` — profundidad sin 3D (capas, puntero, CSS scroll-driven).
 - `escena-3d-gltf` — 3D real con three.js y modelos glTF optimizados.
@@ -19,6 +21,10 @@ Esta skill **dirige**: decide qué hacer y en qué orden, y delega el *cómo* en
 Si están instaladas, apóyate también en `gsap-skills:*` (API de GSAP) y `webgl-animation-skills:*` (shaders, partículas).
 
 **Nunca por estilos** ("plantilla de heladería"): por técnicas que se combinan según el producto, la historia y el presupuesto.
+
+**Lo realista sale de la IA, no del 3D.** Las webs que parecen imposibles usan fotos y vídeos generados con IA, separados y bien
+pensados, y el código solo los mueve con el scroll y pone el texto encima. El 3D en tiempo real es el **respaldo barato** (sin
+presupuesto, borrador) o la opción para lo que el vídeo no sabe hacer (girar con texto legible, configurar, tocar).
 
 ## Paso 1 · Entender el pedido (brief)
 Saca del pedido (y pregunta **solo** lo que falte y cambie la decisión, en una tanda):
@@ -40,7 +46,8 @@ Lee [references/direccion.md](references/direccion.md). Decide:
 Usa la matriz de [references/catalogo-tecnicas.md](references/catalogo-tecnicas.md). Regla rápida:
 | Quiero… | Técnica | Skill |
 |---|---|---|
-| Que el producto gire / se abra / se transforme al hacer scroll, sin interacción | Vídeo → frames | `video-ia-para-scroll` + `scroll-frames` |
+| Que el producto gire / se abra / se transforme al hacer scroll, sin interacción | Vídeo → frames | `pedir-assets-ia` + `video-ia-para-scroll` + `scroll-frames` |
+| Que la cámara entre en una escena real (un estudio, una tienda, una casa) y acabe en la pantalla con la web del cliente | Vídeo IA con imagen de inicio y fin → frames + la web real encima | `pedir-assets-ia` + `scroll-frames` + `seguir-pantalla` |
 | Profundidad, "3D" barato, ingredientes o elementos flotando | Capas + parallax | `parallax-capas` |
 | Que el visitante gire/configure el objeto, o 3D en varias secciones | 3D real glTF | `escena-3d-gltf` |
 | Fluidos, humo, comida, tela, paisajes | Vídeo (IA) → frames; nunca 3D en tiempo real | `scroll-frames` |
@@ -56,7 +63,11 @@ Combina 1 técnica fuerte + 1-2 de apoyo. Anota la decisión y el porqué en `BR
 
 ## Paso 4 · Plan de activos (y su coste)
 Lista cada activo: qué es, de dónde sale (cliente / libre / IA / código), formato y peso objetivo.
-- Vídeo con IA: sigue `video-ia-para-scroll` (imagen clave primero, prompts por plantilla, presupuesto). **No generes nada de pago sin el vale de quien paga, con el precio estimado delante.**
+- **Sigue `pedir-assets-ia`**: guion de tramos → medio de cada asset (vídeo IA, imagen IA, código, 3D) → `presupuesto.mjs` con el
+  presupuesto del usuario → imágenes clave (baratas) elegidas antes de ningún vídeo → prueba corta → finales → revisión.
+  **No generes nada de pago sin el vale de quien paga, con el precio estimado delante.**
+- Vídeo con IA: detalles de movimiento y trucos en `video-ia-para-scroll`.
+- Pantallas, logos y textos dentro de la escena: nunca generados; por código con `seguir-pantalla`.
 - Modelos 3D: `escena-3d-gltf` (licencia, limpieza, optimización).
 - Fotos de producto con IA (hero, imagen clave del vídeo, escenas): `fotos-producto-ia` (desde fotos reales, revisión contra la referencia, presupuesto).
 - Capas: `parallax-capas` (por separado, recorte, clean plate, o código). La sombra, como capa propia con `capas-sombra.mjs`.
@@ -64,7 +75,7 @@ Lista cada activo: qué es, de dónde sale (cliente / libre / IA / código), for
 
 ## Paso 5 · Construir
 ```bash
-node scripts/nueva-web.mjs <carpeta> --con frames,capas,3d,mapa,lente,envase --titulo "…" --marca "…" --fondo "#…" --texto "#…" --acento "#…"
+node scripts/nueva-web.mjs <carpeta> --con frames,pantalla,capas,3d,mapa,lente,envase --titulo "…" --marca "…" --fondo "#…" --texto "#…" --acento "#…"
 cd <carpeta> && npm install [three] [maplibre-gl] && npm i -D playwright-core && npm run dev
 ```
 La plantilla trae Lenis + GSAP ScrollTrigger en un único bucle, reduced-motion, tokens de diseño, enlace "saltar al contenido".

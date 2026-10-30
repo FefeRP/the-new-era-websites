@@ -119,22 +119,27 @@ async function main() {
   const horizontal = info.ancho > info.alto;
   const recorte = String(op['recorte-movil'] ?? (horizontal ? 'centro' : 'no'));
 
+  let recorteX = null; // posición del recorte 9:16 (0..1), para las capas que siguen algo del vídeo
   const recorteFiltro = (() => {
     if (recorte === 'no') return null;
     if (recorte !== 'centro' && !/^x=(0(\.\d+)?|1(\.0+)?)$/.test(recorte))
       throw new Error(`--recorte-movil no válido: "${recorte}" (usa centro, no o x=0..1, p. ej. x=0.3)`);
     const x = recorte.startsWith('x=') ? Number(recorte.slice(2)) : 0.5;
+    recorteX = x;
     // 9:16 a partir del alto; si el vídeo ya es más estrecho que 9:16, no recorta
     return `crop='min(iw,ih*9/16)':ih:'(iw-min(iw,ih*9/16))*${x}':0`;
   })();
 
   mkdirSync(salida, { recursive: true });
-  const variantes = [{ nombre: 'escritorio', filtros: [`scale=${ancho}:-2:flags=lanczos`] }];
+  const variantes = [{ nombre: 'escritorio', filtros: [`scale=${ancho}:-2:flags=lanczos`], recorte: null }];
   if (anchoMovil > 0) {
     const f = [];
     if (recorteFiltro) f.push(recorteFiltro);
     f.push(`scale='min(${anchoMovil},iw)':-2:flags=lanczos`);
-    variantes.push({ nombre: 'movil', filtros: f });
+    // recorte en fracciones del fotograma original (x0, ancho): capa-pantalla.js lo usa para casar las coordenadas
+    const anchoRec = recorteFiltro ? Math.min(info.ancho, info.alto * 9 / 16) : info.ancho;
+    const rec = recorteFiltro ? { x: Number((((info.ancho - anchoRec) * recorteX) / info.ancho).toFixed(6)), ancho: Number((anchoRec / info.ancho).toFixed(6)) } : null;
+    variantes.push({ nombre: 'movil', filtros: f, recorte: rec });
   }
   const formatos = formato === 'ambos' ? ['webp', 'avif'] : [formato];
   const recortarEntrada = ['-ss', String(inicio), '-t', String(tramo)];
@@ -144,6 +149,8 @@ async function main() {
     fuente: basename(video),
     frames: 0,
     fps: Number(fps.toFixed(4)),
+    inicio,                                          // segundo del vídeo original del frame 1: frame i = inicio + i / fps
+    original: { ancho: info.ancho, alto: info.alto }, // tamaño del vídeo de origen (coordenadas de seguir-pantalla.mjs)
     pad: 4,
     formatos,
     variantes: {},
@@ -191,6 +198,7 @@ async function main() {
       alto: dims.alto,
       ruta: `${v.nombre}/{i}.{ext}`,
       poster: `poster-${v.nombre}.${formatos[0]}`,
+      ...(v.recorte ? { recorte: v.recorte } : {}),
       bytes,
     };
     const resumen = formatos.map((fmt) => `${fmt} ${(bytes[fmt] / 1048576).toFixed(1)} MB (${(bytes[fmt] / ficheros.length / 1024).toFixed(0)} KB/frame)`).join(' · ');

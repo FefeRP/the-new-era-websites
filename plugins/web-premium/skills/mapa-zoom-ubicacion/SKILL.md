@@ -2,7 +2,7 @@
 name: mapa-zoom-ubicacion
 description: Del mapa al edificio - sección en la que, con el scroll, la cámara baja desde la ciudad (ortofoto/satélite REAL) hasta un edificio concreto, con inclinación, giro, edificios 3D, el destino resaltado y el relevo final a la foto o el render del cliente. Para inmobiliarias, promociones, hoteles, oficinas, tiendas y cualquier negocio con ubicación. Usa MapLibre GL JS con fuentes de mapa gratis y con licencia (PNOA del IGN en España, OpenFreeMap/OSM), un motor sin dependencias propias (mapa-scroll.js) y una receta probada. Úsala cuando pidan "mapa que hace zoom al edificio", "zoom desde el satélite", "mostrar la ubicación con scroll", "vuelo de cámara a la parcela", "mapa 3D de la promoción", "dónde está el piso", "map zoom to building", "scroll-driven map", "satellite zoom intro", "location reveal", "fly to property on scroll".
 license: MIT
-version: 1.0.0-beta.3
+version: 1.0.0-beta.4
 ---
 
 # Del mapa al edificio (zoom de ubicación con scroll)

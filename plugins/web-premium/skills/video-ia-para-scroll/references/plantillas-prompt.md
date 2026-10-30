@@ -1,5 +1,9 @@
 # Plantillas de prompt para vídeo de scroll
 
+> Estas son las plantillas de **movimiento de producto** (giro, despiece, ingredientes, bucle). Para escenas realistas
+> (zoom a una pantalla, entrar en un lugar, capas con fondo separado, día/noche, transiciones) y el bloque de realismo con
+> lo que delata a la IA, usa `pedir-assets-ia/references/plantillas-por-plano.md`.
+
 Los prompts van en inglés (los modelos responden mejor). Estructura fija:
 
 ```

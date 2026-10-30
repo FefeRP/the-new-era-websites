@@ -1,10 +1,12 @@
 # webs-premium · Claude Code marketplace
 
-**v1.0.0-beta.3** · [Leer en español](README.es.md)
+**v1.0.0-beta.4** · [Leer en español](README.es.md)
 
 Claude Code skills for building **premium, "impossible-looking" websites**: cinematic scroll driven by video frames, the product told from the inside with realistic AI imagery, depth layers with real shadows, real 3D (glTF), a can that spins without 3D, an X-ray lens under the cursor, AI product photos from real photos, and a real map that flies down to a building.
 
 The skills are organised **by techniques that combine**, not by visual styles. A master skill (**WEB PREMIUM**) takes your brief, picks the "star moment", chooses and combines techniques, plans the assets with their cost, builds the site and verifies it with screenshots.
+
+**Realism comes from AI imagery, not from 3D.** The sites that look impossible use AI-generated photos and video, split into short, well-planned shots, and the code only moves them with the scroll and puts the text on top. `pedir-assets-ia` decides which assets need AI video, AI images, code or 3D, estimates the cost before generating anything, writes the prompts for any provider and reviews the result; real 3D stays as the cheap fallback.
 
 <p align="center"><img src="docs/media/reloj-giro.gif" alt="Watch turning with the scroll (frame sequence of the demo)" width="420"></p>
 
@@ -52,7 +54,9 @@ The master skill then:
 | Skill | What it does |
 |---|---|
 | `web-premium` | Master skill (keyword **WEB PREMIUM**): directs the whole process; Vite + GSAP + Lenis template; `nueva-web.mjs` (scaffold) and `verificar-scroll.mjs` (screenshots at each scroll step) |
-| `scroll-frames` | Video → WebP/AVIF frames (desktop and mobile) → canvas tied to the scroll (Apple-style scrubbing); video mode alternative; data HUD tied to progress |
+| `pedir-assets-ia` | AI asset director: per-shot medium (AI video, AI image, code or 3D), cost estimate before generating (`presupuesto.mjs`, cheapest test first, your budget), prompt templates per shot type for Higgsfield, Kling, Veo, Seedance, Wan, Runway, Midjourney, Flux…, start/end frame continuity, recipes per type of site, and a "does it look fake?" review (`revisar-ia.mjs` with Gemini + checklist) |
+| `scroll-frames` | Video → WebP/AVIF frames (desktop and mobile) → canvas tied to the scroll (Apple-style scrubbing), every frame sharp and never blended; video mode alternative; data HUD tied to progress |
+| `seguir-pantalla` | The real website, logo or text on a screen or sign inside the AI video: `seguir-pantalla.mjs` tracks its 4 corners frame by frame (sub-pixel, forward/backward) and `capa-pantalla.js` pins an HTML layer there with `matrix3d`, keeping its aspect ratio (never stretched) |
 | `video-ia-para-scroll` | How to ask Higgsfield, Kling, Veo, Luma… for a video made for scrolling (camera, background, loop, consistency, prompts) and review it automatically; "product from the inside" recipe in chained segments with a budget |
 | `fotos-producto-ia` | AI product photos that keep the real product: reference photos, prompts per shot and light, consistency, layers, detecting and fixing deformations, prices |
 | `parallax-capas` | 2.5D depth: layers moving with scroll and pointer, CSS scroll-driven; `capas-sombra.mjs` extracts the shadow as its own semi-transparent layer (floating product, background swap) |
@@ -75,15 +79,15 @@ Spinning can with flavour slider, and the X-ray / thermal lens (`pruebas/lente-e
 - `.claude-plugin/marketplace.json` → `plugins/web-premium/` (the plugin: `plugin.json`, `commands/`, `skills/`).
 - `demos/reloj/`: demo website made with the master skill. `cd demos/reloj && npm install && npm run dev` → http://127.0.0.1:5190.
 - `demos/mapa/`: from the map to the building. `cd demos/mapa && npm install && npm run dev` (needs internet: tiles load live).
-- `pruebas/`: checks of the scripts against known results; `pruebas/lente-envase/` is a no-build test page (serve the repo root with any static server).
+- `pruebas/`: checks of the scripts against known results; `pruebas/lente-envase/` is a no-build test page (serve the repo root with any static server); `pruebas/seguir-pantalla/` measures the screen tracking against a synthetic video with known corners.
 - `docs/referencias/`: written analyses of 11 reference websites and videos. The videos themselves are not included: they belong to their authors.
 - `docs/investigacion/`: notes on the ecosystem, marketplaces and AI video.
 - `capturas/`: verification contact sheets.
 
 ## Beta status
-**Tested:** strict validation of the marketplace and plugin; install from scratch; both demos verified with no errors on desktop, mobile and reduced motion (Chrome, software WebGL); `capas-sombra` measured against a rendered ground truth; engines tested in Chrome (load cancellation, frame retry, can, lens and curtain with an interaction test).
+**Tested:** strict validation of the marketplace and plugin; install from scratch; screen tracking measured against ground truth (mean error ~1 px, max < 3 px) and the layer checked in Chrome on desktop and mobile; cost estimator and Gemini review run on real AI-generated footage; both demos verified with no errors on desktop, mobile and reduced motion (Chrome, software WebGL); `capas-sombra` measured against a rendered ground truth; engines tested in Chrome (load cancellation, frame retry, can, lens and curtain with an interaction test).
 
-**Not tested yet:** real generation with Higgsfield (paid); rembg, IC-Light and local editing models (need Python or a GPU); paid map sources (MapTiler, Esri).
+**Not tested yet:** a new paid generation following the new prompt templates (Higgsfield or others); rembg, IC-Light and local editing models (need Python or a GPU); paid map sources (MapTiler, Esri).
 
 Changes: [CHANGELOG.md](CHANGELOG.md) (in Spanish).
 

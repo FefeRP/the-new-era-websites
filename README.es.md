@@ -1,8 +1,10 @@
 # webs-premium · marketplace de Claude Code
 
-**v1.0.0-beta.3** · [Read in English](README.md)
+**v1.0.0-beta.4** · [Read in English](README.md)
 
 Skills para construir webs que parecen imposibles: scroll cinematográfico, vídeo convertido en frames, el producto contado por dentro con imagen realista, profundidad por capas (con la sombra como capa propia), 3D real, lata que gira sin 3D, lente de rayos X bajo el cursor, fotos de producto con IA y mapa real que baja hasta el edificio. Se organizan **por técnicas que se combinan**, no por estilos.
+
+**Lo realista sale de la IA, no del 3D.** Las webs que parecen imposibles usan fotos y vídeos generados con IA, en planos cortos y bien pensados, y el código solo los mueve con el scroll y pone el texto encima. `pedir-assets-ia` decide qué assets van con vídeo IA, imagen IA, código o 3D, estima el coste antes de generar, escribe los prompts para cualquier proveedor y revisa el resultado; el 3D real queda como respaldo barato.
 
 ## Instalar
 Requisitos:
@@ -44,7 +46,9 @@ Ejemplo: `WEB PREMIUM: landing para un reloj de edición limitada; tengo 4 fotos
 | Skill | Para qué |
 |---|---|
 | `web-premium` | Maestra: dirige todo el proceso; plantilla Vite + GSAP + Lenis; `nueva-web.mjs` y `verificar-scroll.mjs` |
-| `scroll-frames` | Vídeo → frames WebP/AVIF (escritorio y móvil) → canvas ligado al scroll; modo vídeo alternativo |
+| `pedir-assets-ia` | Director de assets de IA: medio de cada plano (vídeo IA, imagen IA, código o 3D), coste antes de generar (`presupuesto.mjs`, la prueba más barata primero, tu presupuesto), plantillas de prompt por tipo de plano para Higgsfield, Kling, Veo, Seedance, Wan, Runway, Midjourney, Flux…, continuidad con imagen de inicio y fin, recetas por tipo de web y revisión "¿se nota falso?" (`revisar-ia.mjs` con Gemini + señales) |
+| `scroll-frames` | Vídeo → frames WebP/AVIF (escritorio y móvil) → canvas ligado al scroll, cada frame nítido y sin mezclar; modo vídeo alternativo |
+| `seguir-pantalla` | La web, el logo o un texto reales sobre una pantalla o cartel del vídeo IA: `seguir-pantalla.mjs` sigue sus 4 esquinas fotograma a fotograma (subpíxel, ida y vuelta) y `capa-pantalla.js` pega ahí una capa HTML con `matrix3d`, con su proporción (nunca estirada) |
 | `video-ia-para-scroll` | Cómo pedir el vídeo a Higgsfield, Kling, Veo, Luma… (cámara, fondo, bucle, consistencia, prompts) y revisarlo automáticamente; receta "producto por dentro" en tramos encadenados con presupuesto |
 | `fotos-producto-ia` | Fotos del producto real en otras escenas con IA: referencias, prompts por encuadre y luz, consistencia entre tomas, capas, detección y arreglo de deformaciones, precios |
 | `parallax-capas` | Profundidad 2.5D: capas con scroll y puntero, CSS scroll-driven; `capas-sombra.mjs` saca la sombra como capa semitransparente (producto que levita, cambio de fondo) |
@@ -59,7 +63,7 @@ Ejemplo: `WEB PREMIUM: landing para un reloj de edición limitada; tengo 4 fotos
 - `demos/mapa/`: del mapa al edificio (Barcelona, ubicación de ejemplo). `cd demos/mapa && npm install && npm run dev` (necesita internet: las teselas se piden en directo).
 - `docs/referencias/`: análisis escritos de 11 webs y vídeos de referencia. Los vídeos no se incluyen porque son de sus autores.
 - `docs/investigacion/`: ecosistema, marketplaces y vídeo IA.
-- `pruebas/`: validación de los scripts con resultado conocido. `pruebas/lente-envase/` es la página de prueba de la lata, el HUD y la lente (se sirve tal cual, sin build).
+- `pruebas/`: validación de los scripts con resultado conocido. `pruebas/lente-envase/` es la página de prueba de la lata, el HUD y la lente (se sirve tal cual, sin build); `pruebas/seguir-pantalla/` mide el seguimiento de pantalla contra un vídeo sintético con esquinas conocidas.
 - `capturas/`: hojas de capturas de la verificación.
 
 ## Estado de la beta
@@ -68,10 +72,11 @@ Ejemplo: `WEB PREMIUM: landing para un reloj de edición limitada; tengo 4 fotos
 - Instalación desde cero.
 - Demos (reloj y mapa) verificadas sin errores en escritorio, móvil y movimiento reducido (Chrome con WebGL por software).
 - `capas-sombra` medido contra una verdad renderizada.
+- Seguimiento de pantalla medido contra la verdad (error medio ~1 px, máximo < 3 px) y la capa comprobada en Chrome en escritorio y móvil; presupuesto y revisión con Gemini probados sobre vídeo generado con IA real.
 - Motores probados en Chrome: cancelación de carga y reintento de frames; lata que gira, lente y cortina con prueba de interacción (cursor, clic, dedo).
 
 **Sin probar:**
-- Generación real con Higgsfield (de pago).
+- Una generación de pago nueva siguiendo las plantillas de prompt nuevas (Higgsfield u otros).
 - rembg, IC-Light y modelos de edición locales (necesitan Python o GPU).
 - Mapa: relevo a foto real del edificio (la demo no tiene foto propia; el patrón está documentado) y fuentes de pago (MapTiler, Esri…).
 
