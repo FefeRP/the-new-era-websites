@@ -1,5 +1,5 @@
-import { crearFrameScrubber } from '../../../plugins/web-premium/skills/scroll-frames/scripts/frame-scrubber.js';
-import { crearCapaPantalla } from '../../../plugins/web-premium/skills/seguir-pantalla/scripts/capa-pantalla.js';
+import { crearFrameScrubber } from '../../../plugins/the-new-era-websites/skills/scroll-frames/scripts/frame-scrubber.js';
+import { crearCapaPantalla } from '../../../plugins/the-new-era-websites/skills/seguir-pantalla/scripts/capa-pantalla.js';
 
 const q = new URLSearchParams(location.search);
 let base = q.get('base') ?? '../salida/frames/';

@@ -2,7 +2,7 @@
 
 > Los vídeos (`ref*.mp4`) **no se incluyen en el repositorio**: son de sus autores. Aquí solo van los análisis escritos; la columna "Fichero" es el nombre de la copia local de trabajo.
 
-Análisis completos (Gemini) en `analisis-ref*.md`. Catálogo de técnicas resultante: `plugins/web-premium/skills/web-premium/references/catalogo-tecnicas.md`.
+Análisis completos (Gemini) en `analisis-ref*.md`. Catálogo de técnicas resultante: `plugins/the-new-era-websites/skills/new-era/references/catalogo-tecnicas.md`.
 
 | Fichero | Nombre original | Qué es | Técnicas clave | Repos / librerías nombrados |
 |---|---|---|---|---|

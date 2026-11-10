@@ -7,7 +7,7 @@ repo: se regeneran en unos segundos.
 ## Regenerar y medir (desde esta carpeta)
 ```bash
 node hacer-prueba.mjs entrada
-A=../../plugins/web-premium/skills/capas-alfa/scripts/alfa.mjs
+A=../../plugins/the-new-era-websites/skills/capas-alfa/scripts/alfa.mjs
 node $A --entrada entrada/croma.mp4 --modo croma --salida salida/croma --formatos apilado,webm,frames,png,poster --movil
 node $A --entrada entrada/croma.mp4 --modo croma --salida salida/croma-scrub --scrub
 node $A --entrada entrada/negro.mp4 --modo negro --salida salida/negro --formatos apilado,png,poster

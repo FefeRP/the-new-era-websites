@@ -1,6 +1,6 @@
 // Prueba de los motores nuevos (beta.3) sin GSAP ni bundler: se sirve tal cual desde la raíz del repo.
-import { crearEnvaseGiratorio } from '../../plugins/web-premium/skills/envase-giratorio/scripts/envase-giratorio.js';
-import { crearLenteRevelado } from '../../plugins/web-premium/skills/lente-revelado/scripts/lente-revelado.js';
+import { crearEnvaseGiratorio } from '../../plugins/the-new-era-websites/skills/envase-giratorio/scripts/envase-giratorio.js';
+import { crearLenteRevelado } from '../../plugins/the-new-era-websites/skills/lente-revelado/scripts/lente-revelado.js';
 
 const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));

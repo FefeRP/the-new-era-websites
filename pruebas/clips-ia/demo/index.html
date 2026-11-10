@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Banco de pruebas de clips</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --tinta: #14161a; --papel: #f4f2ee; --acento: #1f3a8a; --seccion: #f4f2ee; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--papel); color: var(--tinta); font: 16px/1.5 system-ui, "Segoe UI", Roboto, sans-serif; }
+  h1, h2 { font-weight: 650; letter-spacing: -0.02em; line-height: 1.05; margin: 0 0 .4em; }
+  h1 { font-size: clamp(2.2rem, 6vw, 5rem); } h2 { font-size: clamp(1.6rem, 4vw, 3rem); }
+  p { margin: 0; max-width: 34ch; }
+  section { position: relative; }
+  .bloque { min-height: 100svh; display: grid; place-content: center; padding: 8vh 7vw; background: var(--seccion); }
+  .oscuro { background: #101114; color: #f4f2ee; }
+  .color { background: #1f3a8a; color: #fff; }
+  .cuadros { background: repeating-conic-gradient(#d9d9d9 0 25%, #fff 0 50%) 0 0 / 32px 32px; }
+  .pista { height: 400vh; }
+  .fija { position: sticky; top: 0; height: 100svh; overflow: clip; background: var(--seccion); }
+  .fija canvas, .fija video, .fija img.lleno { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .rotulo { position: absolute; left: 7vw; bottom: 12vh; max-width: min(40ch, 80vw); opacity: 0; transform: translateY(24px); transition: opacity .35s, transform .35s; text-shadow: 0 1px 24px rgba(0,0,0,.35); color: #fff; }
+  .rotulo.claro { color: var(--tinta); text-shadow: 0 1px 24px rgba(255,255,255,.5); }
+  .rotulo.visible { opacity: 1; transform: none; }
+  .rotulo.derecha { left: auto; right: 7vw; text-align: right; }
+  #hud { position: fixed; z-index: 50; right: 10px; top: 10px; font: 12px/1.35 ui-monospace, Consolas, monospace; background: rgba(0,0,0,.72); color: #fff; padding: 8px 10px; border-radius: 6px; max-width: 46ch; white-space: pre-wrap; }
+  .barra { position: fixed; z-index: 50; left: 0; top: 0; height: 3px; background: var(--acento); width: 0; }
+  .flota { position: absolute; will-change: transform; pointer-events: none; }
+  .flota img { display: block; width: 100%; height: auto; }
+  .detras { position: relative; z-index: 1; } .delante { z-index: 2; } .muy-delante { z-index: 3; }
+  .titular-capas { position: relative; z-index: 2; text-align: center; font-size: clamp(3rem, 14vw, 12rem); font-weight: 750; letter-spacing: -0.04em; line-height: .9; margin: 0; }
+  .rejilla { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 28px; width: min(1100px, 86vw); align-items: end; }
+  .rejilla figure { margin: 0; display: grid; gap: 8px; justify-items: center; font-size: 12px; opacity: .8; }
+  .tallas { display: flex; gap: 14px; align-items: end; }
+  .mosaico { min-height: 100svh; background-size: 420px auto; display: grid; place-content: center; padding: 8vh 7vw; }
+  .tarjeta { background: rgba(255,255,255,.86); color: var(--tinta); padding: 28px 32px; border-radius: 14px; backdrop-filter: blur(6px); }
+  video.heroe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .heroe-texto { position: relative; z-index: 2; color: #fff; text-shadow: 0 2px 30px rgba(0,0,0,.45); }
+  .alfa-lienzo { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+</style>
+</head>
+<body>
+<div class="barra" id="barra"></div>
+<pre id="hud">cargando…</pre>
+<main id="app"></main>
+<script type="module" src="./demo.js"></script>
+</body>
+</html>

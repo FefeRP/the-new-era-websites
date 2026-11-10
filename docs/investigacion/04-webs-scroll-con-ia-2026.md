@@ -1,7 +1,7 @@
 # Webs de scroll cinematográfico hechas con IA: stack, assets y lo que funciona (investigación 2026-10-30)
 
 Resumen corto aparte: [04-resumen.md](04-resumen.md). Lo útil de aquí ya está volcado en las skills (`pedir-assets-ia`,
-`capas-alfa`, `revelados-y-transiciones`, `rastro-cursor`, `mapa-zoom-ubicacion`, `scroll-frames`, `web-premium`).
+`capas-alfa`, `revelados-y-transiciones`, `rastro-cursor`, `mapa-zoom-ubicacion`, `scroll-frames`, `new-era`).
 
 Etiquetas: **[C]** confirmado en documentación oficial, código o API (`npm view`, `gh api`); **[P]** práctica publicada por un
 tercero que la probó; **[O]** opinión o criterio propio; **[NE]** buscado y no encontrado. Precios del día de la consulta: cambian

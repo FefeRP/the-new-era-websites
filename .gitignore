@@ -38,3 +38,11 @@ pruebas/extremo-a-extremo/activos/
 # Notas internas de trabajo (instrucciones locales de Claude Code) y copias de seguridad
 CLAUDE.md
 backups/
+
+# Banco de pruebas de clips: los datos (clips, prompts, registro) son locales y la prueba se regenera
+higgsfield/
+banco-clips/
+pruebas/clips-ia/prueba/
+pruebas/recursos-imagen/entrada/
+pruebas/recursos-imagen/salida/
+demos/estudio/herramientas/bruto/

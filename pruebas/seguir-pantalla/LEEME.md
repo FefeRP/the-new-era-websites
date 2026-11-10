@@ -8,11 +8,11 @@ salvo los scripts: la salida se genera en una carpeta temporal.
 # 1. vídeo + verdad (imprime las esquinas del primer y último fotograma)
 node pruebas/seguir-pantalla/hacer-video-prueba.mjs <tmp>
 # 2. seguimiento con dos claves y error contra la verdad (sale ≤ 3 px)
-node plugins/web-premium/skills/seguir-pantalla/scripts/seguir-pantalla.mjs <tmp>/prueba.mp4 --esquinas "520,260 800,260 800,435 520,435" \
+node plugins/the-new-era-websites/skills/seguir-pantalla/scripts/seguir-pantalla.mjs <tmp>/prueba.mp4 --esquinas "520,260 800,260 800,435 520,435" \
      --clave "3.9583=376,173 989,198 976,563 363,545" --salida <tmp>/pista.json --revision <tmp>/rev
 node pruebas/seguir-pantalla/hacer-video-prueba.mjs --medir <tmp>/pista.json <tmp>/verdad.json
 # 3. frames + pista para la página
-node plugins/web-premium/skills/scroll-frames/scripts/extraer-frames.mjs <tmp>/prueba.mp4 <tmp>/frames --frames 48 --ancho 1280 --formato webp
+node plugins/the-new-era-websites/skills/scroll-frames/scripts/extraer-frames.mjs <tmp>/prueba.mp4 <tmp>/frames --frames 48 --ancho 1280 --formato webp
 cp <tmp>/pista.json <tmp>/frames/
 # 4. sirve la raíz del repo y la carpeta de frames (mismo origen o con CORS) y abre
 #    /pruebas/seguir-pantalla/web/?base=<url de frames>/

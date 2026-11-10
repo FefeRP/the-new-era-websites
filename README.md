@@ -1,12 +1,12 @@
-# webs-premium · Claude Code marketplace
+# the-new-era-websites · Claude Code marketplace
 
-**v1.0.0-beta.5** · [Leer en español](README.es.md)
+**v1.0.0-beta.6** · [Leer en español](README.es.md) · formerly `webs-premium` ([migration note](#migrating-from-webs-premium))
 
-Claude Code skills for building **premium, "impossible-looking" websites**: cinematic scroll driven by video frames, the product told from the inside with realistic AI imagery, transparent layers (text between the product and the background, a splash over the page), image reveals and scene transitions, depth layers with real shadows, real 3D (glTF), a can that spins without 3D, an X-ray lens under the cursor, AI product photos from real photos, and a map that flies down to a building (live map or image levels).
+Everything we learn about building websites with Claude Code, as skills organised **by technique**: cinematic scroll driven by video frames, transparent layers (text between the product and the background), image reveals and transitions, AI image assets in coherent batches (isolated objects with alpha, brand icon sets, seamless textures, section backgrounds), reusable components (3D flip card, orbital carousel, 3D testimonial wall), real 3D (glTF), a can that spins without 3D, an X-ray lens, and a map that flies down to a building. Plus the rules learned on delivered sites.
 
-The skills are organised **by techniques that combine**, not by visual styles. A master skill (**WEB PREMIUM**) takes your brief, picks the "star moment", chooses and combines techniques, plans the assets with their cost, builds the site and verifies it with screenshots.
+A master skill (**NEW ERA**) takes your brief, hands design decisions to the design skills you have installed, picks the "star moment" (or none, if the site does not need one), chooses and combines techniques, plans the assets with their cost, builds the site and verifies it with screenshots.
 
-**Realism comes from AI imagery, not from 3D.** The sites that look impossible use AI-generated photos and video, split into short, well-planned shots, and the code only moves them with the scroll and puts the text on top. `pedir-assets-ia` decides which assets need AI video, AI images, code or 3D, estimates the cost before generating anything, writes the prompts for any provider and reviews the result; real 3D stays as the cheap fallback. **Not everything is video either:** what stands still is a photo (isolated, with alpha or in layers) that the code moves; video only where the camera travels or something physically changes.
+**Realism comes from AI imagery, not from 3D, and not everything is video.** What stands still is a photo (isolated, with alpha or in layers) that the code moves; video only where the camera travels or something physically changes. `pedir-assets-ia` decides the medium of every element, estimates the cost before generating anything, writes the prompts for any provider and reviews the result.
 
 <p align="center"><img src="docs/media/reloj-giro.gif" alt="Watch turning with the scroll (frame sequence of the demo)" width="420"></p>
 
@@ -20,40 +20,46 @@ Requirements:
 
 In Claude Code:
 ```
-/plugin marketplace add FefeRP/webs-premium
-/plugin install web-premium@webs-premium
+/plugin marketplace add FefeRP/the-new-era-websites
+/plugin install the-new-era-websites@the-new-era-websites
 ```
-Restart Claude Code (or `/reload-plugins`) and check with `/plugin` that `web-premium` is enabled.
+Restart Claude Code (or `/reload-plugins`) and check with `/plugin` that `the-new-era-websites` is enabled.
 
 From the terminal it works the same way:
 ```
-claude plugin marketplace add FefeRP/webs-premium
-claude plugin install web-premium@webs-premium
+claude plugin marketplace add FefeRP/the-new-era-websites
+claude plugin install the-new-era-websites@the-new-era-websites
 ```
 
-- **Update:** `/plugin marketplace update webs-premium`.
-- **Try it without installing:** `git clone https://github.com/FefeRP/webs-premium.git` and `claude --plugin-dir webs-premium/plugins/web-premium`.
+- **Update:** `/plugin marketplace update the-new-era-websites`.
+- **Try it without installing:** `git clone https://github.com/FefeRP/the-new-era-websites.git` and `claude --plugin-dir the-new-era-websites/plugins/the-new-era-websites`.
+- **From a local copy:** `/plugin marketplace add ./the-new-era-websites` and the same `/plugin install` line.
 
 ## Use
-Start your request with the keyword **`WEB PREMIUM:`** (or run `/web-premium …`) and describe the business, the product and the assets you have:
+Start your request with the keyword **`NEW ERA:`** (or run `/new-era …`) and describe the business, the product and the assets you have:
 
 ```
-WEB PREMIUM: landing page for a limited-edition watch; I have 4 product photos and the logo; I want it to turn as you scroll
+NEW ERA: landing page for a limited-edition watch; I have 4 product photos and the logo; I want it to turn as you scroll
 ```
 
 The master skill then:
-1. Writes the brief and picks the star moment.
-2. Chooses the techniques (from the skills below) and how they combine.
-3. Plans the assets, with an estimated cost.
-4. Builds the site from its template (Vite + GSAP + Lenis).
-5. Verifies it with screenshots on desktop, mobile and reduced motion.
+1. Writes the brief (including what is actually true: reviews, figures).
+2. Hands the visual direction, typography, colour and tokens to the design skills you have installed (see the table below) and picks the star moment, if the site needs one.
+3. Chooses the techniques and components (from the skills below) and how they combine.
+4. Plans the assets, with an estimated cost.
+5. Builds the site from its template (Vite + GSAP + Lenis), or inside your existing project.
+6. Verifies it with screenshots on desktop, mobile and reduced motion, then asks the design skill for a critique.
+
+The old keyword **`WEB PREMIUM:`** and the `/web-premium` command still work as aliases.
 
 > **No spending without asking.** The skills never use paid services (Higgsfield, image or video APIs) without first giving you an estimated price and waiting for your yes. Everything in this repo was made with free tools or code.
 
 ## Skills
 | Skill | What it does |
 |---|---|
-| `web-premium` | Master skill (keyword **WEB PREMIUM**): directs the whole process; Vite + GSAP + Lenis template; `nueva-web.mjs` (scaffold) and `verificar-scroll.mjs` (screenshots at each scroll step) |
+| `new-era` | Master skill (keyword **NEW ERA**): directs the whole process and the split with design skills; Vite + GSAP + Lenis template; `nueva-web.mjs` (scaffold) and `verificar-scroll.mjs` (screenshots at each scroll step); rules learned on delivered sites (direction, loading, mobile, CSS traps, how to check) |
+| `recursos-imagen-ia` | AI image assets as coherent batches: isolated objects with alpha (fruit, ice, leaves, pieces that float around the product), brand icon sets from a single sheet, seamless textures, section backgrounds with room for the headline (and their day/night pair), the same object in other angles or materials. Prompts per asset type and `lote-imagenes.mjs` to review the batch without Python: contact sheet over several backgrounds, light and brightness coherence between pieces, icon sheet cut with stroke-weight measurement, textures measured and fixed for tiling |
+| `componentes-interactivos` | Reusable components with no dependencies and accessibility solved: `tarjeta-volteo.js` (3D flip card with depth layers), `carrusel-orbital.js` (circular carousel in orbit, or a 3D ring driven by drag, keyboard, autoplay or the scroll) and `resenas-3d.js` (testimonial wall in tilted 3D columns in continuous motion). Each with touch, reduced-motion and `destruir()` |
 | `pedir-assets-ia` | AI asset director: per-element medium from a decision matrix (photo, photo with alpha or layers, video, video with alpha, frames, code or 3D, with cost, weight and risk), cost estimate before generating (`presupuesto.mjs`, cheapest test first, your budget), prompt templates per shot type for Higgsfield, Kling, Veo, Seedance, Wan, Runway, Midjourney, Flux…, start/end frame continuity, recipes per type of site, and a "does it look fake?" review (`revisar-ia.mjs` with Gemini + checklist) |
 | `scroll-frames` | Video → WebP/AVIF frames (desktop and mobile) → canvas tied to the scroll (Apple-style scrubbing), every frame sharp and never blended; video mode alternative; data HUD tied to progress |
 | `seguir-pantalla` | The real website, logo or text on a screen or sign inside the AI video: `seguir-pantalla.mjs` tracks its 4 corners frame by frame (sub-pixel, forward/backward) and `capa-pantalla.js` pins an HTML layer there with `matrix3d`, keeping its aspect ratio (never stretched) |
@@ -68,9 +74,29 @@ The master skill then:
 | `envase-giratorio` | A can, jar or bottle that spins without 3D: the flat label is wrapped onto a cylinder in a 2D canvas with shading and lid; spin on scroll, drag or a flavour slider (background, title and fruit change together) |
 | `mapa-zoom-ubicacion` | From the map to the building: MapLibre with real orthophoto (PNOA in Spain, free) and OSM 3D buildings; camera stops tied to the scroll, highlighted building; map sources with licences and prices. Second path, `mapa-imagen.js`: nested image levels (real orthophoto, or AI-stylised over it without inventing geography), anchored camera, moving from one place to another, markers and routes in code, exact start/end frames to ask for an AI clip between two views |
 
+## Working with design skills
+This marketplace covers **technique and assets**. It is not a design system or a typography, colour or micro-interaction guide: if you have design skills installed, the master skill calls them instead of repeating their instructions. None of them is required.
+
+| Topic | Who leads | This marketplace adds |
+|---|---|---|
+| Visual direction (not looking like a template) | `frontend-design`, `impeccable` (shape) | The star moment and the technique that makes it possible |
+| Design system, tokens, typography, colour, layout, UI copy | `impeccable` (typeset, colorize, layout, clarify; PRODUCT.md / DESIGN.md), with `ui-ux-pro-max` as the data source (styles, palettes, font pairs) | Only the template tokens, filled with whatever the design system decides |
+| Micro-interactions (buttons, menus, modals, hover) | `animate`, `emil-design-eng`, `apple-design` | Nothing: components here bring their own motion, a button is animated with `animate` |
+| Scroll-linked motion, video frames, layers, reveals, maps | **This marketplace** | Engines, template (Lenis + ScrollTrigger in one loop), verification per scroll position; `gsap-skills` for the API |
+| AI assets (image and video), alpha, shadows | **This marketplace** | Medium per element, budget, prompts, batch review |
+| Components (flip card, orbital carousel, 3D testimonials) | **This marketplace** | Engines, accessibility and tests; polish with `emil-design-eng` |
+| Product 3D, shaders, particles | **This marketplace** for glTF product scenes; `webgl-animation-skills` for shaders and particles | When 3D pays off and when a video is better |
+| Touch and mobile details | `mobile-native` | The vertical framing of the star moment and weights per device |
+| Accessibility, edge cases, final critique | `impeccable` (audit, harden, critique, polish), `break-ui` | reduced-motion in every engine, real text in the DOM, `verificar-scroll.mjs` before any critique |
+
+Rules when two skills disagree: one source of tokens, one scroll system per page, accessibility wins over effect. Full table and order of work: [reparto-skills-diseno.md](plugins/the-new-era-websites/skills/new-era/references/reparto-skills-diseno.md) (in Spanish).
+
 ## Screenshots
 Demo site built with the master skill (`demos/reloj`, fictional brand "Orbe"):
 ![Watch demo, desktop scroll steps](capturas/demo-reloj/hoja-escritorio.png)
+
+A sober service site with no star moment (`demos/estudio`, invented brand "Taller Arce"): brand icons cut from a single sheet, textures measured and fixed for tiling, flip cards, orbital carousel and testimonial wall; no pinned sections, no video, no 3D:
+![Service site demo, desktop scroll steps](capturas/demo-estudio/hoja-escritorio.png)
 
 From the map to the building (`demos/mapa`, example location in Barcelona; map data © OpenStreetMap contributors, orthophoto PNOA © IGN):
 ![Map demo, desktop scroll steps](capturas/demo-mapa/hoja-escritorio.png)
@@ -84,21 +110,47 @@ End-to-end example (`pruebas/extremo-a-extremo`, fictional brand "Orbe"): cut-ou
 Spinning can with flavour slider, and the X-ray / thermal lens (`pruebas/lente-envase`, invented brand "Nébula"):
 ![Can and lens test](capturas/prueba-lente-envase/hoja-interaccion.png)
 
+Components (`pruebas/componentes`): flip cards with depth layers, orbital carousel, 3D ring and testimonial wall:
+![Components test](capturas/prueba-componentes/hoja-componentes.png)
+
+AI image batch review (`pruebas/recursos-imagen`): the contact sheet `lote-imagenes.mjs` makes to judge a batch of isolated pieces together (test inputs drawn by code):
+![Image batch sheet](capturas/prueba-recursos-imagen/hoja-piezas.png)
+
 ## What's in the repo
-- `.claude-plugin/marketplace.json` → `plugins/web-premium/` (the plugin: `plugin.json`, `commands/`, `skills/`).
+- `.claude-plugin/marketplace.json` → `plugins/the-new-era-websites/` (the plugin: `plugin.json`, `commands/`, `skills/`).
 - `demos/reloj/`: demo website made with the master skill. `cd demos/reloj && npm install && npm run dev` → http://127.0.0.1:5190.
+- `demos/estudio/`: a service site without a star moment (components, brand icons and textures checked with `lote-imagenes.mjs`). `cd demos/estudio && npm install && npm run dev` → http://127.0.0.1:5192.
 - `demos/mapa/`: from the map to the building. `cd demos/mapa && npm install && npm run dev` (needs internet: tiles load live).
-- `pruebas/`: checks of the scripts against known results, each with a `LEEME.md` (serve the repo root with `node pruebas/servidor-estatico.mjs . 5193`): `capas-alfa/` (alpha against known ground truth), `revelados-rastro/`, `mapa-imagen/` (real PNOA orthophoto of Barcelona), `seguir-pantalla/`, `lente-envase/`, `capas-sombra/`, and `extremo-a-extremo/`: a complete example made with no paid generation (plan and budget per the decision matrix, cut-out watch with the headline behind it, spin with the scroll, grid reveal and an image-level map down to the workshop).
+- `pruebas/`: checks of the scripts against known results, each with a `LEEME.md` (serve the repo root with `node pruebas/servidor-estatico.mjs . 5193`): `capas-alfa/` (alpha against known ground truth), `revelados-rastro/`, `mapa-imagen/` (real PNOA orthophoto of Barcelona), `seguir-pantalla/`, `lente-envase/`, `capas-sombra/`, `componentes/` (42 checks in Chrome), `recursos-imagen/` (23 checks against known inputs), `clips-ia/` (a bench to judge AI clips for scroll: frames, seams, notes) and `extremo-a-extremo/`: a complete example made with no paid generation (plan and budget per the decision matrix, cut-out watch with the headline behind it, spin with the scroll, grid reveal and an image-level map down to the workshop).
 - `docs/referencias/`: written analyses of 16 reference websites and videos. The videos themselves are not included: they belong to their authors.
 - `docs/investigacion/`: notes on the ecosystem, marketplaces and AI video, and the 2026 research on scroll websites made with AI assets (sources and dates).
 - `capturas/`: verification contact sheets.
 
 ## Beta status
-**Tested:** strict validation of the marketplace and plugin; install from scratch; screen tracking measured against ground truth (mean error ~1 px, max < 3 px) and the layer checked in Chrome on desktop and mobile; cost estimator and Gemini review run on real AI-generated footage; both demos verified with no errors on desktop, mobile and reduced motion (Chrome, software WebGL); `capas-sombra` measured against a rendered ground truth; engines tested in Chrome (load cancellation, frame retry, can, lens and curtain with an interaction test); `alfa.mjs` measured against inputs with known alpha (39.8 dB chroma, 59.4 dB black/white pair) and the alpha page checked by pixels; reveals, cursor trail and the image-level map checked by pixels on desktop, mobile and reduced motion.
+**Tested:** strict validation of the marketplace and plugin; install from scratch; screen tracking measured against ground truth (mean error ~1 px, max < 3 px) and the layer checked in Chrome on desktop and mobile; cost estimator and Gemini review run on real AI-generated footage; the three demos verified with no errors on desktop, mobile and reduced motion (Chrome, software WebGL); `capas-sombra` measured against a rendered ground truth; engines tested in Chrome (load cancellation, frame retry, can, lens and curtain with an interaction test); `alfa.mjs` measured against inputs with known alpha (39.8 dB chroma, 59.4 dB black/white pair) and the alpha page checked by pixels; reveals, cursor trail and the image-level map checked by pixels on desktop, mobile and reduced motion; the three components tested in Chrome (keyboard, touch, reduced motion, pixels); `lote-imagenes.mjs` checked against inputs with known defects.
 
-**Not tested yet:** a new paid generation following the new prompt templates (Higgsfield or others), including alpha-native image models and video background removal APIs; rembg, IC-Light and local editing models (need Python or a GPU); HEVC alpha (needs a Mac); paid map sources (MapTiler, Esri).
+**Not tested yet:** a new paid generation following the new prompt templates (Higgsfield or others) and the image recipes of `recursos-imagen-ia`, including alpha-native image models and video background removal APIs; rembg, IC-Light and local editing models (need Python or a GPU); HEVC alpha (needs a Mac); paid map sources (MapTiler, Esri).
 
 Changes: [CHANGELOG.md](CHANGELOG.md) (in Spanish).
+
+## Migrating from webs-premium
+Until 1.0.0-beta.5 this marketplace and its plugin were called `webs-premium` / `web-premium`. From 1.0.0-beta.6:
+
+| Before | Now |
+|---|---|
+| Marketplace `webs-premium`, plugin `web-premium` | Both `the-new-era-websites` |
+| Master skill `web-premium` | `new-era` |
+| Keyword `WEB PREMIUM:`, command `/web-premium` | `NEW ERA:`, `/new-era` (the old ones still work) |
+| Folder `plugins/web-premium` | `plugins/the-new-era-websites` |
+
+If you had it installed, remove the old one and add the new one:
+```
+/plugin uninstall web-premium@webs-premium
+/plugin marketplace remove webs-premium
+/plugin marketplace add FefeRP/the-new-era-websites
+/plugin install the-new-era-websites@the-new-era-websites
+```
+The other skills keep their names; they are now invoked as `the-new-era-websites:<skill>`.
 
 ## Licence and credits
 Code and texts: [MIT](LICENSE). Third-party material keeps its own licence — the Chronograph Watch model used in the demo (CC-BY 4.0, Khronos Group / Eric Chadwick), map data (OSM/ODbL, OpenFreeMap, IGN PNOA CC-BY 4.0) and ideas adapted from `nateherkai/scroll-craft` (MIT): see [CREDITOS.md](CREDITOS.md).

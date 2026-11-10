@@ -1,6 +1,6 @@
 # Plan · Orbe 01, boutique y taller en Sabadell
 
-Plan escrito como lo pide la skill maestra `web-premium` (pasos 1-4) antes de construir `index.html`.
+Plan escrito como lo pide la skill maestra `new-era` (pasos 1-4) antes de construir `index.html`.
 
 ## Brief
 - **Negocio y protagonista:** Orbe, marca ficticia de relojes; el Orbe 01 (modelo «Chronograph Watch» de Khronos, CC BY 4.0).
@@ -36,7 +36,7 @@ Decisión de croma: el reloj tiene un logotipo **verde** en la esfera, así que 
 
 ## Presupuesto si se hiciera con IA de pago (`plan.json`)
 ```
-node plugins/web-premium/skills/pedir-assets-ia/scripts/presupuesto.mjs pruebas/extremo-a-extremo/plan.json
+node plugins/the-new-era-websites/skills/pedir-assets-ia/scripts/presupuesto.mjs pruebas/extremo-a-extremo/plan.json
 ```
 ```
 Orbe 01 · boutique y taller en Sabadell (si se hiciera con IA de pago) · precios de 2026-10-30 (orientativos)

@@ -21,7 +21,7 @@ La licencia MIT de este repositorio cubre el código y los textos propios. Lo de
 
 ## Ideas y código adaptado
 - **nateherkai/scroll-craft** (MIT): carga del vídeo como blob, lerp hacia el objetivo sin encadenar seeks, y MP4 con fotogramas clave frecuentes para buscar rápido.
-  - Adaptado y citado en `plugins/web-premium/skills/scroll-frames/scripts/video-scrubber.js` y `extraer-frames.mjs`.
+  - Adaptado y citado en `plugins/the-new-era-websites/skills/scroll-frames/scripts/video-scrubber.js` y `extraer-frames.mjs`.
 - Librerías que usan las webs generadas (no incluidas en el repo; se instalan con npm): three.js (MIT), GSAP (licencia estándar de GSAP, gratuita), Lenis (MIT), Vite (MIT), MapLibre GL JS (BSD-3-Clause).
 
 ## Referencias analizadas

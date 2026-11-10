@@ -1,26 +1,26 @@
 {
-  "name": "webs-premium",
+  "name": "the-new-era-websites",
   "owner": {
     "name": "FefeRP",
     "url": "https://github.com/FefeRP"
   },
   "metadata": {
-    "description": "Marketplace of Claude Code skills for premium, \"impossible-looking\" websites: cinematic scroll, AI imagery, transparent layers, reveals, depth and 3D when it is needed. Organised by techniques that combine, not by styles.",
-    "version": "1.0.0-beta.5"
+    "description": "Marketplace of Claude Code skills for websites of the new era: cinematic scroll, AI imagery and image assets, transparent layers, reveals, depth, 3D when it is needed, reusable interactive components and rules learned on real projects. Organised by techniques that combine, not by styles.",
+    "version": "1.0.0-beta.6"
   },
   "plugins": [
     {
-      "name": "web-premium",
-      "source": "./plugins/web-premium",
-      "description": "Claude Code skills for premium websites: cinematic scroll with video frames, the product told from the inside, transparent layers and alpha video, image reveals and scene transitions, a cursor image trail, depth layers with real shadows, 3D glTF only when it is needed, a can that spins without 3D, an X-ray lens under the cursor, AI product photos and a map that zooms to the building (live or from image levels). Master skill: WEB PREMIUM. Skills written in Spanish.",
-      "version": "1.0.0-beta.5",
+      "name": "the-new-era-websites",
+      "source": "./plugins/the-new-era-websites",
+      "description": "Claude Code skills for building websites: cinematic scroll with video frames, AI image assets (isolated objects with alpha, brand icon sets, textures, backgrounds, product), transparent layers and alpha video, reveals and scene transitions, depth layers with real shadows, 3D glTF only when it is needed, a map that zooms to the building, reusable components (flip card, orbital carousel, 3D reviews) and rules learned on real sites. Master skill: NEW ERA (/new-era). Works alongside your design skills instead of repeating them. Skills written in Spanish.",
+      "version": "1.0.0-beta.6",
       "author": {
         "name": "FefeRP",
         "url": "https://github.com/FefeRP"
       },
       "license": "MIT",
       "category": "design",
-      "homepage": "https://github.com/FefeRP/webs-premium"
+      "homepage": "https://github.com/FefeRP/the-new-era-websites"
     }
   ]
 }

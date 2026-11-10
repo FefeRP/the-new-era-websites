@@ -2,6 +2,81 @@
 
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones: [SemVer](https://semver.org/lang/es/).
 
+## [1.0.0-beta.6] - 2026-11-10
+**Cambio de nombre: `webs-premium` pasa a ser `the-new-era-websites`.** Y cambio de alcance: deja de ser solo «webs con
+scroll y 3D» y pasa a recoger todo lo que se aprende haciendo webs, ordenado por secciones de técnica. Todas las skills
+pasan a `1.0.0-beta.6`.
+
+### Migración
+- Marketplace `webs-premium` y plugin `web-premium` → los dos se llaman `the-new-era-websites`. Carpeta
+  `plugins/web-premium` → `plugins/the-new-era-websites`.
+- Skill maestra `web-premium` → `new-era`. Palabra clave **NEW ERA:** y comando `/new-era`.
+- **Siguen funcionando** la palabra clave «WEB PREMIUM:» y el comando `/web-premium`, como alias.
+- Las demás skills conservan su nombre; se invocan como `the-new-era-websites:<skill>`.
+- Quien lo tenía instalado: `/plugin uninstall web-premium@webs-premium`, `/plugin marketplace remove webs-premium`,
+  `/plugin marketplace add FefeRP/the-new-era-websites` y `/plugin install the-new-era-websites@the-new-era-websites`.
+
+### Añadido
+- Skill **`recursos-imagen-ia`**: recursos de imagen con IA como lotes coherentes.
+  - Objetos sueltos con alfa (lo que flota o rodea al producto), juegos de iconos de marca a partir de una sola lámina,
+    texturas repetibles, fondos de sección con hueco para el titular y su pareja día/noche, el mismo objeto en otros
+    ángulos o materiales.
+  - `references/recetas-de-imagen.md`: prompts por tipo de recurso, bloque de estilo del lote y tabla de fallos.
+  - `lote-imagenes.mjs` (sin Python; usa ffmpeg): `hoja` (conjunto sobre varios fondos), `coherencia` (luz, claridad,
+    saturación, margen), `iconos` (corta la lámina, iguala el tamaño y mide el grosor del trazo) y `mosaico` (mide la
+    junta y la desigualdad de luz de una textura; `--arreglar`, `--igualar`).
+  - `pruebas/recursos-imagen/`: entradas de verdad conocida dibujadas por código, 23/23.
+- Skill **`componentes-interactivos`**: componentes reutilizables sin dependencias, con teclado, lectores de pantalla,
+  táctil, reduced-motion, pausa fuera de pantalla y `destruir()`.
+  - `tarjeta-volteo.js`: tarjeta con volteo 3D y capas en profundidad (`data-z`).
+  - `carrusel-orbital.js`: carrusel circular en órbita o anillo 3D; arrastre con inercia, teclado, autoplay o ligado al
+    scroll (`desplazar()`).
+  - `resenas-3d.js`: muro de reseñas en columnas inclinadas en movimiento continuo; la lista real se queda en el DOM.
+  - `pruebas/componentes/`: 42/42 en Chrome (escritorio, móvil, táctil y reduced-motion).
+- Skill maestra, `references/reparto-skills-diseno.md`: **quién manda en cada tema** entre este marketplace y las skills
+  de diseño instaladas (dirección, sistema de diseño, tipografía, color, microinteracciones, accesibilidad, crítica),
+  orden de trabajo, qué hacer cuando dos skills dicen cosas distintas y qué hacer si no hay ninguna. Resumen en los README.
+- Skill maestra, `references/reglas-de-webs-reales.md`: reglas y recetas sacadas de webs entregadas, con cifras medidas:
+  dirección (lo que se rechaza por «parecer de IA»), no inventar, qué se genera y qué no, cuándo se carga lo pesado,
+  scroll y móvil, trampas de CSS, 3D que no parece de juguete, cómo se comprueba y logos por código.
+- `pruebas/clips-ia/`: banco para juzgar clips de IA pensados para el scroll (medidas del clip, frames, costura entre
+  clips, notas por clip y página de revisión), con su prueba sintética.
+- `nueva-web.mjs --con componentes` (o `tarjeta`, `carrusel`, `resenas` por separado).
+- `demos/estudio/`: demo de extremo a extremo de una web de servicio **sin momento estrella** (marca inventada). Iconos de
+  una sola lámina y texturas pasados por `lote-imagenes.mjs`, fichas con volteo, materiales en órbita, muro de opiniones
+  y titular por líneas; sin secciones fijadas, vídeo ni 3D. `verificar-scroll` con 0 errores en escritorio, móvil y
+  movimiento reducido.
+
+### Cambiado
+- Skill maestra: brief con «qué es verdad» (reseñas y cifras comprobables) y lectura de `DESIGN.md`/`PRODUCT.md`; paso de
+  dirección con el reparto y, en encargos de peso, dos direcciones con capturas antes de construir; **no toda web necesita
+  un momento estrella**; filas nuevas en «Quiero…» (piezas con alfa, iconos de marca, texturas y fondos, componentes,
+  microinteracciones delegadas); verificación en 390×844, 360×740 y 844×390, y crítica con la skill de diseño al final.
+- Descripciones de las skills sin el nombre anterior. Versión y metadatos del plugin y del marketplace (descripción y
+  palabras clave nuevas, `homepage` en la dirección nueva del repositorio).
+
+### Corregido
+Tras una auditoría de las 16 skills:
+- Contradicciones entre skills unificadas: precios y nombres de modelos (fuente única: `pedir-assets-ia`,
+  `proveedores.md` y `precios.json`), prompt negativo solo en los modelos que lo admiten, duración de clip (4-6 s),
+  giro de producto (90-180° por defecto), profundidad de campo (producto y piezas siempre nítidos), panel fijado a
+  `100lvh`, proporción de la etiqueta del envase y prueba barata con Veo.
+- Rutas de scripts de otras skills escritas completas, y avisos de qué carpetas solo existen en el repositorio.
+- Las guías de diseño genérico de la maestra (tipografía, color, accesibilidad, SEO) quedan marcadas como «solo si no hay
+  skill de diseño instalada».
+- Las plantillas de prompt dicen qué está validado con una generación real y qué no.
+- `lote-imagenes.mjs mosaico --arreglar`: el cruce de bordes se hace por ejes separados; antes dejaba una costura corta
+  en el centro de cada lado que la medida no veía (se vio al usar las texturas en la demo). Además: error claro si falta
+  ffmpeg, las hojas guardadas en la carpeta no cuentan como piezas, una pieza negra pura ya no anula los avisos de luz,
+  el icono que se sale de su celda se avisa también en láminas pequeñas y se validan los argumentos.
+- `tarjeta-volteo.js`: con `disparo: 'hover'` el teclado ya llega al dorso; una selección de texto en otra parte de la
+  página no bloquea el clic; `destruir()` deja las caras en su sitio y devuelve los estilos en línea que hubiera.
+- `carrusel-orbital.js`: velocidad de giro independiente de los hercios de la pantalla; un clic a mitad de giro ya no lo
+  deja entre dos tarjetas; soltar el puntero fuera termina el arrastre; con `desplazar()` el elemento de delante cambia
+  durante el giro.
+- `resenas-3d.js`: con pocas reseñas se añaden las copias necesarias para que no se vea el hueco; las columnas no salen
+  iguales con 2 o 4 fichas; los clones son el mismo elemento que el original, para que el CSS del autor les llegue.
+
 ## [1.0.0-beta.5] - 2026-10-30
 Todas las skills pasan a `1.0.0-beta.5`. Idea central: **no todo es vídeo ni 3D**. Lo quieto es foto (aislada, con alfa o en capas) y el código la mueve; el vídeo, solo donde la cámara viaja o algo cambia físicamente; el 3D, solo cuando es imprescindible. Sale de analizar cinco referencias nuevas fotograma a fotograma (ref12-ref16) y de una investigación con fuentes y fechas.
 

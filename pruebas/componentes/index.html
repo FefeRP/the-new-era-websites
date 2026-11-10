@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prueba de componentes: tarjeta con volteo, carrusel orbital, anillo y reseñas 3D</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --papel: #f3f1ec; --tinta: #15171c; --acento: #1f3a8a; --linea: #d9d5cc; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--papel); color: var(--tinta); font: 16px/1.5 system-ui, "Segoe UI", Roboto, sans-serif; }
+  h1, h2, h3 { font-weight: 650; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 .5em; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.4rem); }
+  section { padding: 72px clamp(16px, 5vw, 80px); border-bottom: 1px solid var(--linea); }
+  p { margin: 0 0 1em; max-width: 60ch; }
+
+  /* tarjeta con volteo */
+  .fila-tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 320px)); gap: 32px; }
+  .volteo { aspect-ratio: 3 / 4; border-radius: 12px; outline-offset: 4px; }
+  .volteo [data-volteo-interior] { height: 100%; }
+  .volteo [data-cara] { position: relative; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .volteo .fondo { position: absolute; inset: 0; border-radius: 12px; }
+  .volteo [data-cara="frente"] .fondo { background: #1f3a8a; }
+  .volteo [data-cara="dorso"] .fondo { background: #c81e78; }
+  .volteo [data-cara] > :not(.fondo) { position: relative; color: #fff; }
+  .volteo .insignia { position: absolute !important; top: 20px; left: 20px; background: #fff; color: #15171c !important; padding: 4px 10px; border-radius: 6px; font-size: 13px; }
+  .volteo a { color: #fff; }
+
+  /* carrusel en órbita */
+  .orbita { height: 380px; max-width: 980px; margin: 0 auto; outline-offset: 6px; }
+  .orbita > article, .anillo > article { width: min(60vw, 260px); aspect-ratio: 4 / 5; border-radius: 10px; padding: 18px; color: #fff; display: flex; flex-direction: column; justify-content: flex-end; }
+  .controles { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
+  .controles button { font: inherit; padding: 10px 18px; min-height: 44px; border-radius: 8px; border: 1px solid var(--tinta); background: transparent; cursor: pointer; }
+
+  /* anillo 3D */
+  .anillo { height: 420px; max-width: 1100px; margin: 0 auto; }
+  .anillo > article { position: relative; }
+  .anillo > article::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--papel); opacity: var(--velo, 0); pointer-events: none; }
+
+  /* reseñas */
+  .opiniones__lista { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .resena { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 18px 20px; }
+  .resena blockquote { margin: 0 0 12px; }
+  .resena footer { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .resena .iniciales { width: 36px; height: 36px; border-radius: 50%; background: var(--acento); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <section id="tarjetas">
+    <h2>Tarjeta con volteo</h2>
+    <p>Clic, Enter o espacio para girar. La segunda gira con el ratón encima y lleva capas en profundidad.</p>
+    <div class="fila-tarjetas">
+      <article class="volteo" id="t1">
+        <div data-cara="frente"><div class="fondo"></div><h3>Piso en el centro</h3><span>3 habitaciones · 92 m²</span></div>
+        <div data-cara="dorso"><div class="fondo"></div><h3>Detalles</h3><span>Orientación sur, ascensor.</span><a href="#carrusel" id="t1-enlace">Ver ficha</a></div>
+      </article>
+      <article class="volteo" id="t2">
+        <div data-cara="frente"><div class="fondo"></div><span class="insignia" data-z="80">Nuevo</span><h3 data-z="60">Casa con jardín</h3><span data-z="40">4 habitaciones · 180 m²</span></div>
+        <div data-cara="dorso"><div class="fondo"></div><h3 data-z="80">Detalles</h3><span data-z="40">Parcela de 400 m².</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="carrusel">
+    <h2>Carrusel en órbita</h2>
+    <div class="orbita" id="orbita" aria-label="Proyectos">
+      <article style="background:#1f3a8a"><h3>Uno</h3></article>
+      <article style="background:#c81e78"><h3>Dos</h3></article>
+      <article style="background:#0f7a55"><h3>Tres</h3></article>
+      <article style="background:#b45309"><h3>Cuatro</h3></article>
+      <article style="background:#5b21b6"><h3>Cinco</h3></article>
+      <article style="background:#0e7490"><h3>Seis</h3></article>
+    </div>
+    <div class="controles"><button id="ant" type="button">Anterior</button><button id="sig" type="button">Siguiente</button></div>
+  </section>
+
+  <section id="anillo-seccion">
+    <h2>Anillo 3D</h2>
+    <div class="anillo" id="anillo" aria-label="Destacados">
+      <article style="background:#1f3a8a"><h3>A</h3></article><article style="background:#c81e78"><h3>B</h3></article>
+      <article style="background:#0f7a55"><h3>C</h3></article><article style="background:#b45309"><h3>D</h3></article>
+      <article style="background:#5b21b6"><h3>E</h3></article><article style="background:#0e7490"><h3>F</h3></article>
+      <article style="background:#9f1239"><h3>G</h3></article><article style="background:#3f6212"><h3>H</h3></article>
+      <article style="background:#1e40af"><h3>I</h3></article><article style="background:#86198f"><h3>J</h3></article>
+    </div>
+  </section>
+
+  <section id="opiniones">
+    <h2>Reseñas en columnas 3D</h2>
+    <ul class="opiniones__lista" id="lista">
+      <li class="resena"><blockquote>Texto de ejemplo de una reseña, la primera de la lista.</blockquote><footer><span class="iniciales">AB</span> A. B.</footer></li>
+      <li class="resena"><blockquote>Segunda reseña de ejemplo, algo más larga que la anterior para que las fichas no midan lo mismo.</blockquote><footer><span class="iniciales">CD</span> C. D.</footer></li>
+      <li class="resena"><blockquote>Tercera reseña de ejemplo.</blockquote><footer><span class="iniciales">EF</span> E. F.</footer></li>
+      <li class="resena"><blockquote>Cuarta reseña de ejemplo, con dos frases. La segunda es esta.</blockquote><footer><span class="iniciales">GH</span> G. H.</footer></li>
+      <li class="resena"><blockquote>Quinta reseña de ejemplo.</blockquote><footer><span class="iniciales">IJ</span> I. J.</footer></li>
+    </ul>
+  </section>
+</main>
+<script type="module">
+  import { crearTarjetaVolteo } from '../../plugins/the-new-era-websites/skills/componentes-interactivos/scripts/tarjeta-volteo.js';
+  import { crearCarruselOrbital } from '../../plugins/the-new-era-websites/skills/componentes-interactivos/scripts/carrusel-orbital.js';
+  import { crearResenas3D } from '../../plugins/the-new-era-websites/skills/componentes-interactivos/scripts/resenas-3d.js';
+  const q = new URLSearchParams(location.search);
+  const t1 = crearTarjetaVolteo(document.getElementById('t1'), { disparo: 'clic', duracion: 300 });
+  const t2 = crearTarjetaVolteo(document.getElementById('t2'), { disparo: 'hover', duracion: 300 });
+  const cambios = [];
+  const orbita = crearCarruselOrbital(document.getElementById('orbita'), { botonAnterior: '#ant', botonSiguiente: '#sig',
+    autoplay: Number(q.get('autoplay') || 0), alCambiar: (i) => cambios.push(i) });
+  const anillo = crearCarruselOrbital(document.getElementById('anillo'), { modo: 'anillo' });
+  const resenas = crearResenas3D(document.getElementById('lista'));
+  window.__prueba = { listo: true, t1, t2, orbita, anillo, resenas, cambios };
+</script>
+</body>
+</html>

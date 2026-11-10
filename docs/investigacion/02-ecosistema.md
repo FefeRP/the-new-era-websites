@@ -1,4 +1,4 @@
-# Ecosistema de webs premium (investigación 2026-10-24)
+# Ecosistema de webs con scroll, 3D y efectos (investigación 2026-10-24)
 
 Versiones de npm a 24-10-2026. [?] = sin confirmar.
 

@@ -1,6 +1,6 @@
 # Ejemplo de punta a punta: Orbe 01, boutique y taller en Sabadell
 
-Una página real hecha con el flujo de la skill maestra `web-premium` (brief → guion → medio de cada elemento → presupuesto →
+Una página real hecha con el flujo de la skill maestra `new-era` (brief → guion → medio de cada elemento → presupuesto →
 activos → montaje → verificación) y las técnicas nuevas juntas, solo con activos gratuitos o generados por código.
 Plan, matriz de medios y presupuesto en [PLAN.md](PLAN.md) (`plan.json` para `presupuesto.mjs`). **Coste real: 0 $.**
 
@@ -25,7 +25,7 @@ node pruebas/extremo-a-extremo/preparar.mjs            # [--solo producto,frames
 node pruebas/servidor-estatico.mjs . 5193               # si no está ya en marcha
 cd demos/reloj
 node ../../pruebas/extremo-a-extremo/probar.mjs http://127.0.0.1:5193/pruebas/extremo-a-extremo/ ../../capturas/prueba-extremo-a-extremo
-node ../../plugins/web-premium/skills/web-premium/scripts/verificar-scroll.mjs http://127.0.0.1:5193/pruebas/extremo-a-extremo/ ../../capturas/prueba-extremo-a-extremo/verificar --tramos "#giro,#taller"
+node ../../plugins/the-new-era-websites/skills/new-era/scripts/verificar-scroll.mjs http://127.0.0.1:5193/pruebas/extremo-a-extremo/ ../../capturas/prueba-extremo-a-extremo/verificar --tramos "#giro,#taller"
 ```
 `preparar.mjs` renderiza `render-producto.html` (three.js de `demos/reloj/node_modules`, Chrome con swiftshader) con su propio
 servidor efímero, recorta con `alfa.mjs`, copia los frames de `demos/reloj/public/frames/reloj` (solo WebP) y baja la ortofoto.

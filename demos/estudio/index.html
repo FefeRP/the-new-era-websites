@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Taller Arce · reformas con oficio</title>
+  <meta name="description" content="Demo de the-new-era-websites: una web de servicio sobria, sin momento estrella, hecha con componentes, iconos de marca y texturas controladas por código.">
+  <meta name="theme-color" content="#f4f2ee">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/src/estilos.css">
+</head>
+<body>
+  <a class="saltar" href="#contenido">Saltar al contenido</a>
+  <header class="nav" role="banner">
+    <a class="nav__marca" href="/">Taller Arce</a>
+    <nav aria-label="Principal" class="nav__enlaces">
+      <a href="#servicios">Servicios</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#materiales">Materiales</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="hero">
+      <div class="hero__texto">
+        <p class="sobre">Reformas de vivienda · marca de demostración</p>
+        <h1 id="titular">Reformas que se entregan el día que dijimos.</h1>
+        <p class="hero__bajada">Un solo equipo de principio a fin, un presupuesto cerrado por escrito y un calendario que se ve desde el móvil.</p>
+        <p class="hero__acciones"><a class="boton" href="#contacto">Pedir visita</a> <a class="enlace" href="#proyectos">Ver proyectos</a></p>
+      </div>
+      <!-- Pieza hecha por código: el calendario de una obra. Explica el servicio mejor que una foto de banco. -->
+      <figure class="plan" aria-label="Calendario de una reforma de ejemplo">
+        <figcaption>Reforma de cocina · calendario de ejemplo</figcaption>
+        <ol class="plan__pasos">
+          <li style="--inicio: 0; --dura: 2"><span>Medición y proyecto</span><i></i></li>
+          <li style="--inicio: 2; --dura: 1"><span>Presupuesto cerrado</span><i></i></li>
+          <li style="--inicio: 3; --dura: 3"><span>Derribo e instalaciones</span><i></i></li>
+          <li style="--inicio: 6; --dura: 3"><span>Mobiliario y encimera</span><i></i></li>
+          <li style="--inicio: 9; --dura: 1"><span>Repaso y entrega</span><i></i></li>
+        </ol>
+        <p class="plan__pie">10 días laborables · cada paso con su fecha</p>
+      </figure>
+    </section>
+
+    <section class="bloque" id="servicios">
+      <header class="bloque__cabecera">
+        <h2>Lo que hacemos</h2>
+        <p>Seis cosas, las mismas en todas las obras.</p>
+      </header>
+      <ul class="servicios">
+        <li><img src="/iconos/icono-01.png" width="56" height="56" alt="" loading="lazy"><h3>Vivienda completa</h3><p>Distribución, instalaciones y acabados con un único responsable.</p></li>
+        <li><img src="/iconos/icono-02.png" width="56" height="56" alt="" loading="lazy"><h3>Proyecto y medición</h3><p>Planos a escala antes de tocar nada. Lo que se dibuja es lo que se hace.</p></li>
+        <li><img src="/iconos/icono-03.png" width="56" height="56" alt="" loading="lazy"><h3>Carpintería y ventanas</h3><p>Cerramientos, puertas y armarios a medida, hechos en taller propio.</p></li>
+        <li><img src="/iconos/icono-04.png" width="56" height="56" alt="" loading="lazy"><h3>Calendario con fechas</h3><p>Cada fase tiene día de inicio y de fin, y se consulta desde el móvil.</p></li>
+        <li><img src="/iconos/icono-05.png" width="56" height="56" alt="" loading="lazy"><h3>Garantía por escrito</h3><p>Lo que cubre y durante cuánto tiempo, en el contrato y no de palabra.</p></li>
+        <li><img src="/iconos/icono-06.png" width="56" height="56" alt="" loading="lazy"><h3>Presupuesto cerrado</h3><p>Partida a partida. Si algo cambia, se firma antes de hacerlo.</p></li>
+      </ul>
+    </section>
+
+    <section class="bloque" id="proyectos">
+      <header class="bloque__cabecera">
+        <h2>Proyectos</h2>
+        <p>Dale la vuelta a cada ficha para ver los datos de la obra.</p>
+      </header>
+      <div class="fichas">
+        <article class="ficha" style="--textura: url(/texturas/nogal.webp)">
+          <div data-cara="frente"><div class="ficha__fondo"></div><span class="ficha__insignia" data-z="70">Cocina</span><h3 data-z="50">Cocina abierta en un piso de los setenta</h3><p class="ficha__nota" data-z="30">Nogal y piedra caliza</p></div>
+          <div data-cara="dorso"><div class="ficha__fondo"></div><h3 data-z="40">Datos de la obra</h3><dl data-z="30"><dt>Superficie</dt><dd>14 m²</dd><dt>Plazo</dt><dd>10 días laborables</dd><dt>Materiales</dt><dd>Nogal, caliza, acero</dd></dl><a href="#contacto">Quiero algo así</a></div>
+        </article>
+        <article class="ficha" style="--textura: url(/texturas/piedra.webp)">
+          <div data-cara="frente"><div class="ficha__fondo"></div><span class="ficha__insignia" data-z="70">Baño</span><h3 data-z="50">Baño con ducha a ras de suelo</h3><p class="ficha__nota" data-z="30">Piedra y estuco</p></div>
+          <div data-cara="dorso"><div class="ficha__fondo"></div><h3 data-z="40">Datos de la obra</h3><dl data-z="30"><dt>Superficie</dt><dd>5 m²</dd><dt>Plazo</dt><dd>7 días laborables</dd><dt>Materiales</dt><dd>Caliza, estuco, latón</dd></dl><a href="#contacto">Quiero algo así</a></div>
+        </article>
+        <article class="ficha" style="--textura: url(/texturas/lino.webp)">
+          <div data-cara="frente"><div class="ficha__fondo"></div><span class="ficha__insignia" data-z="70">Dormitorio</span><h3 data-z="50">Dormitorio con armario de pared a pared</h3><p class="ficha__nota" data-z="30">Lino y roble</p></div>
+          <div data-cara="dorso"><div class="ficha__fondo"></div><h3 data-z="40">Datos de la obra</h3><dl data-z="30"><dt>Superficie</dt><dd>16 m²</dd><dt>Plazo</dt><dd>6 días laborables</dd><dt>Materiales</dt><dd>Roble, lino, estuco</dd></dl><a href="#contacto">Quiero algo así</a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="bloque" id="materiales">
+      <header class="bloque__cabecera">
+        <h2>Materiales con los que trabajamos</h2>
+        <p>Pocos y conocidos. Arrastra, usa las flechas o los botones.</p>
+      </header>
+      <div class="orbita" id="orbita" aria-label="Materiales">
+        <article style="--textura: url(/texturas/nogal.webp)" class="oscuro"><h3>Nogal</h3><p>Chapa natural, veta recta</p></article>
+        <article style="--textura: url(/texturas/piedra.webp)"><h3>Piedra caliza</h3><p>Apomazada, sin brillo</p></article>
+        <article style="--textura: url(/texturas/lino.webp)"><h3>Lino</h3><p>Tapizados y frentes</p></article>
+        <article style="--textura: url(/texturas/papel.webp)"><h3>Estuco</h3><p>A la cal, hecho a mano</p></article>
+        <article style="--textura: url(/texturas/piedra.webp); --tinte: #3c3f44" class="oscuro"><h3>Microcemento</h3><p>Continuo, gris grafito</p></article>
+        <article class="aclarar" style="--textura: url(/texturas/nogal.webp); --tinte: #e9cfa4"><h3>Roble</h3><p>Macizo, acabado al aceite</p></article>
+      </div>
+      <div class="controles"><button id="ant" type="button">Anterior</button><button id="sig" type="button">Siguiente</button></div>
+    </section>
+
+    <section class="bloque" id="opiniones">
+      <header class="bloque__cabecera">
+        <h2>Lo que cuentan después</h2>
+        <p>Opiniones de muestra: en una web real aquí solo van reseñas reales, con iniciales si no hay foto.</p>
+      </header>
+      <ul class="opiniones" id="opiniones-lista">
+        <li class="resena"><blockquote>Empezaron el lunes que dijeron y acabaron el viernes que dijeron.</blockquote><footer><span class="iniciales">MR</span> M. R. · cocina</footer></li>
+        <li class="resena"><blockquote>El presupuesto no se movió ni un euro. Lo único que cambió lo firmamos antes.</blockquote><footer><span class="iniciales">JL</span> J. L. · vivienda completa</footer></li>
+        <li class="resena"><blockquote>Ver el calendario en el móvil me quitó la mitad de las llamadas.</blockquote><footer><span class="iniciales">AC</span> A. C. · baño</footer></li>
+        <li class="resena"><blockquote>Vino siempre la misma gente. Eso se nota en el resultado.</blockquote><footer><span class="iniciales">PS</span> P. S. · dormitorio</footer></li>
+        <li class="resena"><blockquote>Dejaban la casa recogida cada tarde. Vivimos dentro toda la obra.</blockquote><footer><span class="iniciales">EN</span> E. N. · cocina</footer></li>
+        <li class="resena"><blockquote>Me enseñaron los materiales en la mano antes de decidir nada.</blockquote><footer><span class="iniciales">TG</span> T. G. · baño</footer></li>
+        <li class="resena"><blockquote>A los seis meses se ajustó una puerta. Vinieron sin discutir.</blockquote><footer><span class="iniciales">IV</span> I. V. · carpintería</footer></li>
+        <li class="resena"><blockquote>Los planos eran tan claros que no hubo sorpresas el día del derribo.</blockquote><footer><span class="iniciales">RO</span> R. O. · vivienda completa</footer></li>
+      </ul>
+    </section>
+
+    <section class="bloque cierre" id="contacto">
+      <h2>La primera visita es para medir y escuchar.</h2>
+      <p>Cuéntanos qué quieres cambiar y te decimos cuánto cuesta y cuándo se acaba.</p>
+      <p><a class="boton" href="mailto:hola@example.com">Pedir visita</a></p>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Demostración de the-new-era-websites. La marca, los proyectos y las opiniones son inventados. Iconos y texturas hechos por código y controlados con <code>lote-imagenes.mjs</code>; sin activos de terceros.</p>
+  </footer>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -60,7 +60,7 @@ async function producto() {
   console.log(`producto: render 1600×1600 sobre magenta liso (${kb(fuente)} KB)`);
 
   // el recorte, exactamente como lo haría quien monta la web
-  const alfa = join(raiz, 'plugins/web-premium/skills/capas-alfa/scripts/alfa.mjs');
+  const alfa = join(raiz, 'plugins/the-new-era-websites/skills/capas-alfa/scripts/alfa.mjs');
   const r = spawnSync(process.execPath, [alfa, '--entrada', fuente, '--modo', 'croma', '--recortar', '--calidad', '84', '--salida', join(dir, 'alfa')], { encoding: 'utf8' });
   process.stdout.write(r.stdout); process.stderr.write(r.stderr);
   if (r.status !== 0) throw new Error('alfa.mjs falló');

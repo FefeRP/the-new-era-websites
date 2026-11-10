@@ -1,6 +1,6 @@
 // Mide capas-sombra.mjs contra la verdad del render de prueba (foto + plato real + máscara exacta).
 // Uso: node medir.mjs <carpeta-salida-de-capas-sombra>   (desde esta carpeta)
-import { leer, mascaraDe } from '../../plugins/web-premium/skills/parallax-capas/scripts/capas-sombra.mjs';
+import { leer, mascaraDe } from '../../plugins/the-new-era-websites/skills/parallax-capas/scripts/capas-sombra.mjs';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 

@@ -1,0 +1,95 @@
+{
+  "texturas": [
+    {
+      "nombre": "papel",
+      "antes": {
+        "juntaVertical": 15.37,
+        "juntaHorizontal": 4.9,
+        "desigualdad": 9.5
+      },
+      "despues": {
+        "juntaVertical": 1.02,
+        "juntaHorizontal": 1.05,
+        "desigualdad": 0.1
+      },
+      "bien": true
+    },
+    {
+      "nombre": "lino",
+      "antes": {
+        "juntaVertical": 4.85,
+        "juntaHorizontal": 1.5,
+        "desigualdad": 9.7
+      },
+      "despues": {
+        "juntaVertical": 0.98,
+        "juntaHorizontal": 0.99,
+        "desigualdad": 0.1
+      },
+      "bien": true
+    },
+    {
+      "nombre": "piedra",
+      "antes": {
+        "juntaVertical": 9.7,
+        "juntaHorizontal": 3.42,
+        "desigualdad": 9.9
+      },
+      "despues": {
+        "juntaVertical": 1.07,
+        "juntaHorizontal": 1.04,
+        "desigualdad": 0.4
+      },
+      "bien": true
+    },
+    {
+      "nombre": "nogal",
+      "antes": {
+        "juntaVertical": 9.84,
+        "juntaHorizontal": 1.43,
+        "desigualdad": 10.6
+      },
+      "despues": {
+        "juntaVertical": 0.87,
+        "juntaHorizontal": 1.03,
+        "desigualdad": 0.3
+      },
+      "bien": true
+    }
+  ],
+  "iconos": {
+    "avisos": [],
+    "iconos": [
+      {
+        "nombre": "icono-01",
+        "tamano": 0.5,
+        "grosor": 0.0707
+      },
+      {
+        "nombre": "icono-02",
+        "tamano": 0.469,
+        "grosor": 0.0759
+      },
+      {
+        "nombre": "icono-03",
+        "tamano": 0.469,
+        "grosor": 0.0695
+      },
+      {
+        "nombre": "icono-04",
+        "tamano": 0.492,
+        "grosor": 0.0664
+      },
+      {
+        "nombre": "icono-05",
+        "tamano": 0.5,
+        "grosor": 0.0663
+      },
+      {
+        "nombre": "icono-06",
+        "tamano": 0.469,
+        "grosor": 0.073
+      }
+    ]
+  }
+}

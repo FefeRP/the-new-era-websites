@@ -1,4 +1,4 @@
-// Base común de toda web premium: scroll suave (Lenis) + GSAP ScrollTrigger en un único bucle,
+// Base común de la plantilla: scroll suave (Lenis) + GSAP ScrollTrigger en un único bucle,
 // respeto a prefers-reduced-motion y un sitio para enchufar cada técnica.
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
