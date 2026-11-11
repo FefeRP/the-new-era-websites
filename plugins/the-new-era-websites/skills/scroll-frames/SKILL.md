@@ -40,7 +40,12 @@ node scripts/extraer-frames.mjs fuente.mp4 public/frames/producto --frames 120 -
 #   --inicio 0.5 --fin 5.5   descarta arranque/frenada del generador
 #   --video-scrub        además el MP4 con GOP denso para el modo vídeo
 ```
-Sale `escritorio/0001.webp…`, `movil/0001.webp…`, `poster-*.webp` y `manifest.json` (con `fps`, `inicio`, el tamaño `original` del
+El script toma **1 de cada k fotogramas** del vídeo (k entero, o `--paso K` a mano), así que el total puede no ser
+exactamente `--frames` (avisa si se aleja más de un 10 %). Es a propósito: con un fps que no divide al del vídeo
+(24 de 30, por ejemplo) los frames quedan a intervalos desiguales y el scroll da tirones aunque el vídeo sea perfecto.
+Si necesitas un número concreto, ajusta el tramo (`--inicio`/`--fin`) o pide el vídeo a otra duración.
+
+Sale `escritorio/0001.webp…`, `movil/0001.webp…`, `poster-*.webp` y `manifest.json` (con `fps`, `paso`, `inicio`, el tamaño `original` del
 vídeo y el `recorte` de la variante móvil: lo usa `seguir-pantalla` para casar la pista con cada frame). Lee el peso que imprime y compáralo
 con el presupuesto (references/rendimiento.md). Si te pasas: menos frames (90-100 suelen bastar en escritorio, 60-90 en móvil), `--calidad 65`, o AVIF.
 

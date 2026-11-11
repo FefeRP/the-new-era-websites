@@ -11,6 +11,16 @@ públicas y de generaciones reales ("medido"); cambian cada mes. Los mismos dato
     5 s: Kling 3.0 720p ≈ 7 créditos, Seedance 2.5 ≈ 35 (720p) / 80 (1080p).
   - API: prepago en dólares (desde 5 $), `POST /estimate/<modelo>` gratis antes de lanzar, lo fallido o moderado no se cobra,
     no da el saldo. Algunos modelos de su web no están en la API (Nano Banana, Veo, Seedream). Seedance sale al doble del oficial.
+  - **MCP** (conector para Claude; catálogo leído el 11-11-2026 con `models_explore`): además de los de la API trae
+    Nano Banana 2 / 2.1 / Pro, Seedream 5 Pro, GPT Image 2 / 2.5 / 2.6 y Seedance 2.0 / 2.5. Cada `generate_*` admite
+    `get_cost: true`, que da el precio sin lanzar nada: úsalo antes de cada lote. Parámetros que importan aquí:
+    - `seedance_2_0`: 4-15 s, 480p-4K, `mode` std/fast, `generate_audio` **activado por defecto** (apágalo), medios
+      `start_image`, `end_image` e `image_references`.
+    - `seedance_2_5`: `mode` t2v / omni_reference / video_edit / video_extension, 4-30 s, hasta 1080p, `draft`.
+    - `gpt_image_2_6`: `background: transparent` (alfa nativo) y `output_format` png / svg / gif; en SVG no admite referencias.
+    - `seedream_v5_pro`: hasta 2K, `remove_bg` (recorte integrado) e `is_inpaint`. `nano_banana_2`: 1K-4K, `is_inpaint` con `mask`.
+    - Los medios se suben con `media_upload` (+ PUT firmado) y se citan por su id; el id de una generación anterior
+      también vale como imagen de inicio o de referencia, sin bajarla y volverla a subir.
 - **APIs oficiales** (Google Vertex, BytePlus, Alibaba, Kling, Luma, MiniMax, OpenAI, BFL…): lo más barato por unidad, una cuenta por proveedor.
 - **fal.ai / Replicate:** un solo saldo para casi todos, precio ≈ oficial o algo más; cuidado con el audio activado por defecto.
 
@@ -22,7 +32,7 @@ públicas y de generaciones reales ("medido"); cambian cada mes. Los mismos dato
 | Kling 4.0 | 0,157 | 0,235 | hasta 10 clave | 3-30 s, hasta 4K | Planos largos sin cortes | Caro; en fal, audio siempre activo |
 | Veo 3.1 Lite / Fast / Std | 0,05 / 0,10 / 0,40 | 0,08 / 0,12 / 0,40 | sí (`first_frame`/`last_frame`; el final, en clips de 8 s) | 4, 6, 8 s | La mejor luz, materiales y física; Lite = la prueba más barata | Solo en Vertex (salió de la API de Gemini el 22-10-2026); máx. 8 s |
 | Seedance 2.5 | 0,231 oficial · 0,462 Higgsfield | 0,569 · 1,137 | sí (`end_image_url`; oficial: `role: last_frame`) | hasta 30 s | Movimiento "de cine", paralaje y desenfoque reales | Caro; finos que "hierven" a 480-720p; acelera al final |
-| Seedance 2.0 Mini / Fast | 0,08 / 0,12 | — | sí | hasta 15 s | Pruebas | Menos calidad |
+| Seedance 2.0 (std / fast) · Mini | 0,12 fast · 0,08 Mini (std: confirma con `get_cost`) | — | sí (`start_image`/`end_image` en Higgsfield MCP) | 4-15 s | Pruebas y planos de producto con cámara lenta | Audio activado por defecto |
 | Wan 2.7 | 0,10 | 0,15 | sí: `image_url`/`end_image_url` | 2-15 s | Barato con negativo | Ignora a veces la trayectoria, rompe texto, sale a 30 fps y con audio |
 | Wan 2.1/2.2 (abierto) | 0 en local | — | 2.1 FLF2V | ~5 s | Sin coste si hay GPU (8-54 GB) | 480-720p |
 | Luma Ray 3.2 | 0,06 | 0,24 | hasta 16 clave, modo bucle | 5/10 s | Bucles, HDR | Revisa geometría |
@@ -45,7 +55,8 @@ Para los assets que se componen encima de la web (skill `capas-alfa`). Precios d
 
 | Qué | Opción | Precio | Nota |
 |---|---|---|---|
-| Imagen con alfa nativo | GPT Image 1.5 / 2.5 (`background: "transparent"`) | como su imagen | GPT Image 2 lo perdió el 30-09-2026. No describas fondo en el prompt |
+| Imagen con alfa nativo | GPT Image 1.5 / 2.5 / 2.6 (`background: "transparent"`) | como su imagen | GPT Image 2 lo perdió el 30-09-2026; la 2.6 lo tiene (Higgsfield MCP, 11-2026). No describas fondo en el prompt |
+| | Seedream 5 Pro (`remove_bg`, Higgsfield MCP) | como su imagen | Recorta en el mismo paso; mide el borde con `alfa.mjs --modo ya-alfa` |
 | | Ideogram 3 Transparent | 0,03-0,09 $ | Bueno en bordes finos |
 | | Seedream 5 Flash (`background: "transparent"`) | ~0,019 $ | El más barato con alfa |
 | Imagen partida en capas | Qwen-Image-Layered | ~0,05 $ | 1-10 capas RGBA de una foto (fondo, sujeto, primer plano) |

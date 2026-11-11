@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><title>Prueba de video-scrubber.js</title></head>
+<body style="margin:0;background:#000">
+<video id="v" muted playsinline style="width:320px;height:180px"></video>
+<canvas id="c" width="320" height="180"></canvas>
+<script type="module">
+  import { crearVideoScrubber } from '../../plugins/the-new-era-websites/skills/scroll-frames/scripts/video-scrubber.js';
+  const video = document.getElementById('v');
+  const ctx = document.getElementById('c').getContext('2d', { willReadFrequently: true });
+  let busquedas = 0;
+  video.addEventListener('seeking', () => busquedas++);
+  const m = await (await fetch('salida/video/manifest.json')).json();
+  const vs = await crearVideoScrubber({ video, src: 'salida/video/scrub-escritorio.mp4', fps: m.videoScrub.fps, suavizado: 0.35 });
+  const quieto = () => new Promise((ok) => {
+    let estable = 0, antes = -1;
+    const mirar = () => {
+      const n = busquedas;
+      if (!video.seeking && n === antes) estable++; else estable = 0;
+      antes = n;
+      if (estable >= 20) ok(); else requestAnimationFrame(mirar);
+    };
+    requestAnimationFrame(mirar);
+  });
+  window.prueba = {
+    ok: vs.ok, fotogramas: vs.fotogramas, fps: m.videoScrub.fps,
+    async ir(p) {
+      vs.progreso(p);
+      await quieto();
+      ctx.drawImage(video, 0, 0, 320, 180);
+      const d = ctx.getImageData(156, 86, 8, 8).data;
+      let s = 0; for (let i = 0; i < d.length; i += 4) s += d[i];
+      return { gris: s / 64, busquedas };
+    },
+    async esperar(ms) { const b = busquedas; await new Promise((r) => setTimeout(r, ms)); return busquedas - b; },
+    barrido(desde, hasta, pasos) { for (let k = 0; k <= pasos; k++) vs.progreso(desde + ((hasta - desde) * k) / pasos); },
+  };
+  document.title = 'lista';
+</script>
+</body>
+</html>

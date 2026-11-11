@@ -2,6 +2,27 @@
 
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones: [SemVer](https://semver.org/lang/es/).
 
+## [Sin publicar]
+### Corregido
+- **`extraer-frames.mjs`: tirones en el scroll por frames desiguales.** Con `--frames`/`--fps` que no dividían al fps del
+  vídeo, el filtro `fps` de ffmpeg tomaba fotogramas a intervalos 1-1-1-2 y, al bajar a la mitad, duplicaba
+  fotogramas (60 pedidos → 119 servidos). Ahora toma 1 de cada k fotogramas (k entero, `--paso K` a mano), avisa si el
+  total se aleja de lo pedido y guarda `paso` en el manifest. Prueba nueva con verdad conocida: `pruebas/scroll-frames`.
+- **`video-scrubber.js` (modo vídeo):** buscaba en segundos y decidía comparando con `currentTime`, en contra de la
+  regla de la propia skill. Se quedaba un fotograma por detrás y no llegaba al último. Ahora busca por índice de
+  fotograma, al centro de cada uno (`(i + 0.5) / fps`), con una sola búsqueda en curso. Nueva opción `fps`
+  (`manifest.videoScrub.fps`, que escribe `extraer-frames.mjs --video-scrub`) y `fotogramas` en la API. Prueba en
+  Chrome: `pruebas/scroll-frames/probar-video.mjs`.
+- **`alfa.mjs`:** la misma cadencia por paso entero con `--fps`. Un vídeo de 60 fps sin `--fps` sacaba todos los
+  fotogramas etiquetados a 30 fps (iba a media velocidad); ahora saca 1 de cada 2. Las métricas de la prueba de alfa no
+  cambian.
+
+### Cambiado
+- `pedir-assets-ia/references/proveedores.md`: catálogo del MCP de Higgsfield (Nano Banana 2/Pro, Seedream 5 Pro con
+  `remove_bg`, GPT Image 2.6 con fondo transparente y SVG, Seedance 2.0/2.5 con sus parámetros, `get_cost`).
+- Banco de clips (`pruebas/clips-ia`): `porVariante` en la batería, para que cada variante de una prueba lleve su
+  prompt, sus ajustes, su modo de alfa o su tipo (una imagen clave dentro de una prueba de vídeo).
+
 ## [1.0.0-beta.6] - 2026-11-10
 **Cambio de nombre: `webs-premium` pasa a ser `the-new-era-websites`.** Y cambio de alcance: deja de ser solo «webs con
 scroll y 3D» y pasa a recoger todo lo que se aprende haciendo webs, ordenado por secciones de técnica. Todas las skills

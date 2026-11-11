@@ -20,6 +20,10 @@ node medir.mjs entrada/verdad-splash.png salida/splash/recorte.png
 node medir.mjs entrada/verdad-producto.png salida/producto/recorte.png
 ```
 
+11-11-2026: tras el cambio a paso entero de fotogramas (`--fps`), los cinco casos dan exactamente las mismas cifras.
+Con un vídeo de 60 fps: `--fps 24` saca 20 fps (1 de cada 3, con aviso) y sin `--fps` saca 30 (1 de cada 2). Antes
+sacaba los 60 fotogramas etiquetados a 30 fps, y el vídeo iba a media velocidad.
+
 ## Resultados (30-10-2026)
 | Caso | Error medio del alfa | Error en el borde | Recomposición |
 |---|---|---|---|

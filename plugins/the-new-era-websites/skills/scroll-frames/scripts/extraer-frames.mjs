@@ -6,7 +6,10 @@
 //   node extraer-frames.mjs <video> <carpeta-salida> [opciones]
 //
 // Opciones:
-//   --frames N          frames totales (por defecto 120). Alternativa: --fps N
+//   --frames N          frames totales aproximados (por defecto 120). Alternativa: --fps N
+//                       Siempre se toma 1 de cada k fotogramas del vídeo (k entero): el intervalo es idéntico entre todos
+//                       los frames y el scroll no da tirones. Por eso el total real puede no ser exactamente N.
+//   --paso K            fija k a mano (1 = todos los fotogramas del tramo)
 //   --inicio S --fin S  recorta el vídeo (segundos)
 //   --ancho N           ancho escritorio (por defecto 1600; nunca escala hacia arriba)
 //   --ancho-movil N     ancho móvil (por defecto 900; 0 = sin variante móvil)
@@ -106,10 +109,22 @@ async function main() {
   const tramo = fin - inicio;
   if (!(tramo > 0)) throw new Error('El tramo --inicio/--fin está vacío');
 
-  let fps;
-  if (op.fps) fps = Number(op.fps);
-  else fps = Number(op.frames ?? 120) / tramo;
-  fps = Math.min(fps, info.fps); // no inventamos frames: para más, interpola antes (ver references)
+  // Paso entero sobre los fotogramas de origen. Con un fps que no divide al del vídeo (p. ej. 24 de 30),
+  // el filtro fps de ffmpeg elige fotogramas a intervalos irregulares (1,1,1,2…) y el scrub da tirones.
+  // No inventamos frames: para más de los que tiene el vídeo, interpola antes (ver references).
+  const origenEnTramo = Math.max(1, Math.round(tramo * info.fps));
+  let paso;
+  if (op.paso) paso = Number(op.paso);
+  else if (op.fps) paso = info.fps / Number(op.fps);
+  else paso = origenEnTramo / Number(op.frames ?? 120);
+  paso = Math.max(1, Math.round(paso));
+  if (!Number.isFinite(paso)) throw new Error('--paso/--fps/--frames no válidos');
+  const fps = info.fps / paso;
+  const pedido = op.fps ? Math.round(Number(op.fps) * tramo) : Number(op.frames ?? 120);
+  const salen = Math.ceil(origenEnTramo / paso);
+  if (!op.paso && Math.abs(salen - pedido) / pedido > 0.1)
+    console.log(`Aviso: con paso ${paso} salen unos ${salen} frames en vez de ${pedido} (el paso tiene que ser entero para que el scroll vaya uniforme).`);
+  const filtroPaso = paso === 1 ? null : `select='not(mod(n\\,${paso}))',setpts=N/(${fps.toFixed(6)}*TB)`;
 
   const ancho = Math.min(Number(op.ancho ?? 1600), info.ancho);
   const anchoMovil = Number(op['ancho-movil'] ?? 900);
@@ -149,6 +164,7 @@ async function main() {
     fuente: basename(video),
     frames: 0,
     fps: Number(fps.toFixed(4)),
+    paso,                                            // 1 de cada `paso` fotogramas del vídeo original
     inicio,                                          // segundo del vídeo original del frame 1: frame i = inicio + i / fps
     original: { ancho: info.ancho, alto: info.alto }, // tamaño del vídeo de origen (coordenadas de seguir-pantalla.mjs)
     pad: 4,
@@ -162,10 +178,10 @@ async function main() {
     const dir = join(salida, v.nombre);
     rmSync(dir, { recursive: true, force: true });
     mkdirSync(dir, { recursive: true });
-    const vf = [`fps=${fps}`, ...v.filtros, 'format=yuv420p'].join(',');
+    const vf = [filtroPaso, ...v.filtros, 'format=yuv420p'].filter(Boolean).join(',');
 
     if (formatos.includes('webp')) {
-      await ejecutar(ffmpeg, ['-hide_banner', '-y', ...recortarEntrada, '-i', video, '-vf', vf,
+      await ejecutar(ffmpeg, ['-hide_banner', '-y', ...recortarEntrada, '-i', video, '-vf', vf, '-fps_mode', 'passthrough',
         '-c:v', 'libwebp', '-quality', String(calidad), '-compression_level', '5', '-preset', 'picture',
         '-start_number', '1', join(dir, '%04d.webp')]);
     }
@@ -174,7 +190,7 @@ async function main() {
       const tmp = join(salida, `_png-${v.nombre}`);
       rmSync(tmp, { recursive: true, force: true });
       mkdirSync(tmp, { recursive: true });
-      await ejecutar(ffmpeg, ['-hide_banner', '-y', ...recortarEntrada, '-i', video, '-vf', vf.replace(',format=yuv420p', ''),
+      await ejecutar(ffmpeg, ['-hide_banner', '-y', ...recortarEntrada, '-i', video, '-vf', vf.replace(/,?format=yuv420p/, '') || 'null', '-fps_mode', 'passthrough',
         '-start_number', '1', join(tmp, '%04d.png')]);
       const pngs = readdirSync(tmp).filter((f) => f.endsWith('.png')).sort();
       await enParalelo(pngs.map((f) => () => ejecutar(ffmpeg, ['-hide_banner', '-y', '-i', join(tmp, f),
@@ -211,7 +227,7 @@ async function main() {
     await ejecutar(ffmpeg, ['-hide_banner', '-y', ...recortarEntrada, '-i', video, '-an',
       '-vf', `scale=${ancho}:-2:flags=lanczos,format=yuv420p`, '-c:v', 'libx264', '-profile:v', 'high',
       '-preset', 'slow', '-crf', '20', '-g', '8', '-keyint_min', '8', '-sc_threshold', '0', '-movflags', '+faststart', out]);
-    manifest.videoScrub = { escritorio: 'scrub-escritorio.mp4' };
+    manifest.videoScrub = { escritorio: 'scrub-escritorio.mp4', fps: Number(info.fps.toFixed(4)) };
     if (anchoMovil > 0) {
       const outM = join(salida, 'scrub-movil.mp4');
       const fM = [recorteFiltro, `scale='min(${anchoMovil},iw)':-2:flags=lanczos`, 'format=yuv420p'].filter(Boolean).join(',');

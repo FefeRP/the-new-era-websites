@@ -18,7 +18,8 @@
 //   node alfa.mjs --entrada humo.mp4 --modo negro --salida alfa/humo [--umbral 6]
 //   node alfa.mjs --modo diferencia --negro splash-negro.png --blanco splash-blanco.png --salida alfa/splash
 //   node alfa.mjs --entrada producto.png --modo croma --salida capas/producto --recortar
-// Opciones: --ancho 1280 (tope del lado horizontal) · --fps 24 · --formatos apilado,webm,frames,png,poster (por defecto en
+// Opciones: --ancho 1280 (tope del lado horizontal) · --fps 24 (se toma 1 de cada k fotogramas, k entero: si no divide
+//   al vídeo, sale la cadencia uniforme más cercana; por defecto la más cercana a 30 sin pasarse) ·--formatos apilado,webm,frames,png,poster (por defecto en
 //   vídeo: apilado,webm,poster; en imagen: recorte) · --scrub (keyframe cada 4 frames: currentTime exacto con el scroll) ·
 //   --gop N · --crf 20 · --calidad 82 (WebP) · --movil (frames a la mitad para móvil) · --poster primero|ultimo|N ·
 //   --recortar (imagen: recorta a la caja del sujeto + margen) · --conservar (deja la carpeta _rgba)
@@ -231,7 +232,10 @@ async function aRGBA({ entrada, modo, opc, w, h, fps, esImagen, info, dirRGBA })
   if (info.alfaVp9 && /\.webm$/i.test(entrada)) entradaArgs.push('-c:v', 'libvpx-vp9'); // el decodificador nativo tira el alfa
   if (entrada.includes('%')) entradaArgs.push('-framerate', String(fps));
   const filtros = [];
-  if (!esImagen && opc.fps) filtros.push(`fps=${opc.fps}`);
+  // 1 de cada `paso` fotogramas (paso entero): con el filtro fps y una cadencia que no divide a la del vídeo, los frames
+  // quedan a intervalos desiguales (1-1-1-2) y el scroll da tirones. Ver pruebas/scroll-frames.
+  const selPaso = !esImagen && opc._paso > 1 ? `select='not(mod(n\\,${opc._paso}))',setpts=N/(${fps}*TB)` : null;
+  if (selPaso) filtros.push(selPaso);
   filtros.push(`scale=${w}:${h}:flags=lanczos`);
   let complejo = null;
   const metricas = [];
@@ -251,7 +255,7 @@ async function aRGBA({ entrada, modo, opc, w, h, fps, esImagen, info, dirRGBA })
     filtros.push('format=rgba');
   } else if (modo === 'mascara') {
     if (!opc.mascara) throw new Error('modo mascara: falta --mascara');
-    complejo = `[0:v]${filtros.join(',')},format=rgba[c];[1:v]scale=${w}:${h}:flags=lanczos,format=gray[m];[c][m]alphamerge,format=rgba`;
+    complejo = `[0:v]${filtros.join(',')},format=rgba[c];[1:v]${selPaso && !opc.mascara.includes('%') && !ES_IMAGEN.test(opc.mascara) ? selPaso + ',' : ''}scale=${w}:${h}:flags=lanczos,format=gray[m];[c][m]alphamerge,format=rgba`;
   } else {
     filtros.push('format=rgba'); // negro, blanco, ya-alfa
   }
@@ -261,7 +265,7 @@ async function aRGBA({ entrada, modo, opc, w, h, fps, esImagen, info, dirRGBA })
     const mascaraArgs = opc.mascara.includes('%') ? ['-framerate', String(fps)] : [];
     args.push(...mascaraArgs, '-i', opc.mascara, '-filter_complex', complejo);
   } else args.push('-vf', filtros.join(','));
-  args.push('-f', 'rawvideo', '-pix_fmt', 'rgba', '-');
+  args.push('-fps_mode', 'passthrough', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-');
 
   const transformar = modo === 'croma' ? (d) => alfaDeCroma(d, w, h, clave, { limpiar: Number(opc.limpiar ?? 0.05), radio: opc.radio ? Number(opc.radio) : null })
     : modo === 'negro' ? (d) => alfaDeNegro(d, Number(opc.umbral ?? 6))
@@ -269,7 +273,7 @@ async function aRGBA({ entrada, modo, opc, w, h, fps, esImagen, info, dirRGBA })
 
   const dec = spawn(FFMPEG, args, { stdio: ['ignore', 'pipe', 'pipe'] });
   const enc = spawn(FFMPEG, ['-hide_banner', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', `${w}x${h}`,
-    '-framerate', String(opc.fps || fps), '-i', '-', '-start_number', '1', join(dirRGBA, '%04d.png')], { stdio: ['pipe', 'ignore', 'pipe'] });
+    '-framerate', String(fps), '-i', '-', '-start_number', '1', join(dirRGBA, '%04d.png')], { stdio: ['pipe', 'ignore', 'pipe'] });
   let errDec = '', errEnc = '';
   dec.stderr.on('data', (c) => (errDec += c));
   enc.stderr.on('data', (c) => (errEnc += c));
@@ -378,7 +382,15 @@ async function main() {
     if (!entrada.includes('%') && !existsSync(entrada)) throw new Error(`No existe ${entrada}`);
     esImagen = ES_IMAGEN.test(entrada) && !entrada.includes('%');
     const info = sondear(entrada);
-    fps = Number(opc.fps) || Math.min(30, Math.round(info.fps * 100) / 100) || 24;
+    if (entrada.includes('%') || !(info.fps > 0)) fps = Number(opc.fps) || 24;
+    else {
+      // cadencia de salida = la del vídeo / paso entero (por defecto, la más cercana a 30 sin pasarse)
+      const objetivo = Number(opc.fps) || Math.min(30, info.fps);
+      opc._paso = Math.max(1, Math.round(info.fps / objetivo));
+      fps = Math.round((info.fps / opc._paso) * 1000) / 1000;
+      if (opc.fps && Math.abs(fps - Number(opc.fps)) / Number(opc.fps) > 0.1)
+        avisos.push(`--fps ${opc.fps} no divide a los ${info.fps} fps del vídeo: salen ${fps} fps (1 de cada ${opc._paso}), para que el intervalo sea uniforme.`);
+    }
     const tope = Number(opc.ancho) || (esImagen ? 4096 : 1280);
     w = par(Math.min(info.ancho, tope)); h = par((info.alto * w) / info.ancho);
     if (modo === 'ya-alfa' && /\.webm$/i.test(entrada) && !info.alfaVp9) avisos.push('El WebM no declara alfa (alpha_mode): si sale opaco, la entrada no tenía transparencia.');

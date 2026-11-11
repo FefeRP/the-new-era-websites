@@ -61,7 +61,7 @@ function prueba(id) { return bateria().find((p) => p.id.toLowerCase() === String
 
 function iniciar() {
   for (const d of Object.values(D)) mkdirSync(d, { recursive: true });
-  if (!existsSync(F.bateria)) guardar(F.bateria, { nota: 'Una entrada por prueba: id (<pieza>-p<NN>), bloque, prioridad, tecnica, tipo (scrub | transicion | bucle | fondo | alfa-video | imagen | imagen-alfa), titulo, objetivo, modelo, ajustes, prompt, referencias, variantes, evaluar. Opcionales: alfa (croma | negro | blanco | ya-alfa), mosaico (true), extraer ({inicio, fin}).', pruebas: [] });
+  if (!existsSync(F.bateria)) guardar(F.bateria, { nota: 'Una entrada por prueba: id (<pieza>-p<NN>), bloque, prioridad, tecnica, tipo (scrub | transicion | bucle | fondo | alfa-video | imagen | imagen-alfa), titulo, objetivo, modelo, ajustes, prompt, referencias, variantes, evaluar. Opcionales: alfa (croma | negro | blanco | ya-alfa), mosaico (true), extraer ({inicio, fin}), porVariante ({"<N>": {campos que cambian en esa variante}}).', pruebas: [] });
   if (!existsSync(F.cola)) guardar(F.cola, []);
   if (!existsSync(F.reg)) guardar(F.reg, []);
 }
@@ -133,7 +133,10 @@ function procesarUno(fichero) {
   const ext = extname(fichero).toLowerCase(); const esVideo = VIDEO.has(ext);
   const a = asignar(fichero);
   if (!a) { console.log(`  ${basename(fichero)}: sin nombre de prueba y sin nada en la cola → se queda en entrada/. Renómbralo <id>-<modelo>-v<N>${ext} o apúntalo con "lanzada".`); return null; }
-  const p = prueba(a.id) ?? { id: a.id, titulo: '(prueba fuera de la batería)', tipo: esVideo ? 'scrub' : 'imagen', tecnica: '', modelo: a.modelo, prompt: '' };
+  const base = prueba(a.id) ?? { id: a.id, titulo: '(prueba fuera de la batería)', tipo: esVideo ? 'scrub' : 'imagen', tecnica: '', modelo: a.modelo, prompt: '' };
+  // porVariante: {"2": {tipo, alfa, prompt, ajustes, ...}} pisa los campos de la prueba para esa variante concreta
+  const p = { ...base, ...(base.porVariante?.[String(a.variante)] ?? {}) };
+  if (!esVideo && TIPOS_VIDEO.has(p.tipo)) p.tipo = 'imagen'; // una imagen clave dentro de una prueba de vídeo
   const reg = leer(F.reg, []);
   let variante = a.variante; while (reg.some((r) => r.nombre === `${p.id}-${a.modelo}-v${variante}`)) variante++;
   const nombre = `${p.id}-${a.modelo}-v${variante}`;

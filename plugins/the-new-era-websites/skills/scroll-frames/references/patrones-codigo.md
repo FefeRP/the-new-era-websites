@@ -131,7 +131,9 @@ function pintarHud(p) {                             // p = progreso 0..1 del tra
 ```
 ```js
 import { crearVideoScrubber } from './video-scrubber.js';
-const vs = await crearVideoScrubber({ video, src: '/frames/reloj/scrub-escritorio.mp4', srcMovil: '/frames/reloj/scrub-movil.mp4' });
+const m = await (await fetch('/frames/reloj/manifest.json')).json();
+// fps del MP4: el motor busca por fotograma, al centro de cada uno ((i + 0.5) / fps), nunca comparando con currentTime
+const vs = await crearVideoScrubber({ video, src: '/frames/reloj/scrub-escritorio.mp4', srcMovil: '/frames/reloj/scrub-movil.mp4', fps: m.videoScrub.fps });
 if (vs.ok) seccion.classList.add('lista'); else vs.alRecuperar = () => seccion.classList.add('lista');
 ScrollTrigger.create({ trigger: seccion, start: 'top top', end: '+=300%', pin: true, scrub: true, onUpdate: (s) => vs.progreso(s.progress) });
 ```

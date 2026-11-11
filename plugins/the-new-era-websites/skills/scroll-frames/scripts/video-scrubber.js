@@ -5,7 +5,8 @@
 // cebar el decodificador en iOS con play()+pause().
 //
 //   import { crearVideoScrubber } from './video-scrubber.js';
-//   const vs = await crearVideoScrubber({ video, src: '/frames/x/scrub-escritorio.mp4', srcMovil: '/frames/x/scrub-movil.mp4' });
+//   const m = await (await fetch('/frames/x/manifest.json')).json();
+//   const vs = await crearVideoScrubber({ video, src: '/frames/x/scrub-escritorio.mp4', srcMovil: '/frames/x/scrub-movil.mp4', fps: m.videoScrub.fps });
 //   ScrollTrigger.create({ ..., onUpdate: s => vs.progreso(s.progress) });
 //   if (!vs.ok) → enseña el póster (iOS en ahorro de batería bloquea el vídeo)
 
@@ -13,12 +14,11 @@ export async function crearVideoScrubber({
   video,
   src,
   srcMovil = null,
-  suavizado = 0.18,  // 0..1: fracción del camino que avanza cada frame (1 = sin suavizado)
-  zonaMuerta = null, // segundos; por defecto 0.008 escritorio / 0.02 móvil
+  fps = 30,          // fps del MP4 (extraer-frames.mjs lo deja en manifest.videoScrub.fps)
+  suavizado = 0.18,  // 0..1: fracción del camino que avanza cada frame de pantalla (1 = sin suavizado)
 } = {}) {
   const movil = matchMedia('(max-width: 767px)').matches;
   const url = movil && srcMovil ? srcMovil : src;
-  const muerta = zonaMuerta ?? (movil ? 0.02 : 0.008);
   video.muted = true;
   video.playsInline = true;
   video.setAttribute('playsinline', '');
@@ -60,8 +60,13 @@ export async function crearVideoScrubber({
   }
 
   const duracion = video.duration;
-  let objetivo = 0;
-  let actual = 0;
+  // Se trabaja en fotogramas, no en segundos. No se compara con video.currentTime para decidir si buscar: el
+  // navegador lo ajusta al fotograma y nunca coincide con lo pedido (bucle infinito de seeks). Se guarda el índice
+  // pedido y se busca al centro del fotograma, (i + 0.5) / fps, con un solo seek en curso.
+  const ultimo = Math.max(0, Math.floor(duracion * fps) - 1);
+  let objetivo = 0;   // fotograma (decimal) al que va el scroll
+  let actual = 0;     // fotograma (decimal) suavizado
+  let pedido = -1;    // último fotograma entero pedido al vídeo
   let raf = 0;
   let desde = 0;
 
@@ -69,22 +74,25 @@ export async function crearVideoScrubber({
     raf = 0;
     if (destruido) return;
     actual += (objetivo - actual) * suavizado;
-    if (Math.abs(objetivo - actual) < muerta) actual = objetivo;
+    if (Math.abs(objetivo - actual) < 0.5) actual = objetivo;
+    const idx = Math.min(ultimo, Math.max(0, Math.round(actual)));
     // Un seek a la vez: si el anterior sigue en curso, esperamos (salvo atasco > 700 ms).
     const atascado = video.seeking && performance.now() - desde > 700;
-    if ((!video.seeking || atascado) && Math.abs(video.currentTime - actual) >= muerta) {
+    if (idx !== pedido && (!video.seeking || atascado)) {
+      pedido = idx;
       desde = performance.now();
-      video.currentTime = actual;
+      video.currentTime = (idx + 0.5) / fps;
     }
-    if (actual !== objetivo || video.seeking) raf = requestAnimationFrame(paso);
+    if (actual !== objetivo || video.seeking || idx !== pedido) raf = requestAnimationFrame(paso);
   }
 
   const api = {
     ok,
     duracion,
+    fotogramas: ultimo + 1,
     alRecuperar: null,
     progreso(p) {
-      objetivo = Math.min(1, Math.max(0, p)) * Math.max(0, duracion - 0.04);
+      objetivo = Math.min(1, Math.max(0, p)) * ultimo;
       if (!raf) raf = requestAnimationFrame(paso);
     },
     destruir() {
