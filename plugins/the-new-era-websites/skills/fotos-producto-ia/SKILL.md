@@ -14,7 +14,7 @@ traía el logo o texto deformado, el 12 % piezas de menos, y el mejor modelo dej
 Por eso el proceso **asume que habrá fallos** y trae la forma de arreglarlos.
 
 > **Dinero:** cada imagen cuesta créditos. Ejemplos en Higgsfield (oct. 2026): Nano Banana Pro ~2 créditos (0,134 $) por imagen, ~4 en 4K;
-> GPT Image 2.5 entre 1,5 y 26,5 créditos según calidad; Seedream ~1. Antes de generar: **nº de imágenes × coste**
+> GPT Image 2 / 2.5 / 2.6 entre 1,5 y 26,5 créditos según calidad; Seedream 5 ~1. Antes de generar: **nº de imágenes × coste**
 > (con margen ×3 por las tiradas fallidas) y **vale de quien paga**. Itera a 1K (barato) y saca la final a 2K/4K.
 > Valida antes todo lo que se pueda gratis (composición, capas, sombras y revisión: con las fotos reales y código).
 
@@ -31,8 +31,10 @@ Por eso el proceso **asume que habrá fallos** y trae la forma de arreglarlos.
 1. **Lista de tomas**: qué imágenes necesita la web y para qué capa o sección, con su proporción. Ejemplos: hero 16:9 con aire a la izquierda para el titular, versión 9:16 para móvil, detalle macro, imagen clave del vídeo. Esa lista es el presupuesto.
 2. **Fotos de referencia** (las hace el cliente con el móvil; guía para pasarle en [references/fotos-referencia.md](references/fotos-referencia.md)).
 3. **Elige modelo** (tabla en [references/modelos-y-precios.md](references/modelos-y-precios.md)):
-   - Producto con texto o logo: Nano Banana Pro o GPT Image en calidad alta.
-   - Volumen barato: Seedream. Soul, solo para ambiente sin producto.
+   - Producto con texto o logo: Nano Banana Pro o GPT Image 2 / 2.5 / 2.6 en calidad alta.
+   - Volumen barato: Seedream 5 (o Nano Banana 2.1). Soul, solo para ambiente sin producto.
+   - Producto con fondo transparente en un paso: GPT Image 2.6 (`background: "transparent"`) o Seedream 5 Pro
+     (`remove_bg`); mide el borde con `capas-alfa` antes de usarlo.
    - Serie de marketing desde una sola foto: Marketing Studio.
    - Separar en capas, reiluminar o retocar zonas: Higgsfield Layers.
 4. **Prompt**: plantillas por encuadre y luz en [references/prompts-foto.md](references/prompts-foto.md). Estructura: *referencias y su papel* + *escena* + *encuadre y óptica* + *luz* + *qué no cambia* + *fondo y aire para el texto*.

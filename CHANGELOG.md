@@ -25,7 +25,8 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 ### Cambiado
 - Skills: rutas «del repositorio» iguales en todas las guías y nombres de modelo alineados con `proveedores.md`
   (Luma Ray 3.2, Nano Banana 2.1 / Pro, GPT Image 2 / 2.5 / 2.6, Seedream 5, Flux 3, Qwen Image 3; fila de Seedance 2.0
-  en `modelos-y-camaras.md`; coste de ejemplo de `mapa-por-imagenes.md` recalculado).
+  en `modelos-y-camaras.md`; coste de ejemplo de `mapa-por-imagenes.md` recalculado). `fotos-producto-ia`: también
+  en el cuerpo y en `modelos-y-precios.md`, con la opción de producto con fondo transparente en un paso.
 - `pedir-assets-ia/references/proveedores.md`: catálogo del MCP de Higgsfield (Nano Banana 2/Pro, Seedream 5 Pro con
   `remove_bg`, GPT Image 2.6 con fondo transparente y SVG, Seedance 2.0/2.5 con sus parámetros, `get_cost`).
 - Banco de clips (`pruebas/clips-ia`): `porVariante` en la batería, para que cada variante de una prueba lleve su

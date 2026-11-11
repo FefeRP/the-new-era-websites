@@ -17,11 +17,11 @@ del presupuesto: `pedir-assets-ia` (`references/proveedores.md`, `scripts/presup
 |---|---|---|---|---|
 | Nano Banana Pro | hasta 14 | 4K | ~2 créditos (0,134 $), ~4 en 4K | producto con texto y logo, el más fiable |
 | Nano Banana 2.1 | hasta 14 | 4K | sin confirmar (Plus/Ultra: 7 días ilimitado a 2K) | lo mismo, más rápido |
-| GPT Image 2 / 2.5 | hasta 16 | 4K | 1,5 (1K baja) · 5,5 (2K alta) · 26,5 créditos (4K máx.) | texto exacto, composición |
-| Seedream 5.0 | hasta 14 (dato de terceros) | 4096² | ~1 crédito | volumen barato, variaciones |
+| GPT Image 2 / 2.5 / 2.6 | hasta 16 | 4K | 1,5 (1K baja) · 5,5 (2K alta) · 26,5 créditos (4K máx.) | texto exacto, composición; la 2.6 con fondo transparente |
+| Seedream 5 / 5 Pro | hasta 14 (dato de terceros) | 4096² | ~1 crédito | volumen barato, variaciones; la Pro recorta (`remove_bg`) |
 | Soul 2.0 | sin confirmar | — | ~0,12 créditos | estética, escenas (poco fiel al producto) |
 | Marketing Studio / Recreate | 1 foto | — | 2-4 créditos por foto | serie hero, lifestyle y modelo desde una foto |
-| Layers (Seedream 5.0) | — | 4K | sin confirmar | separar capas, inpaint dibujando, recorte con alfa, reiluminar |
+| Layers (Seedream 5) | — | 4K | sin confirmar | separar capas, inpaint dibujando, recorte con alfa, reiluminar |
 
 - **API:**
   - En cloud.higgsfield.ai, pago por uso desde un saldo en dólares.
