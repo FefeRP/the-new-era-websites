@@ -1,8 +1,9 @@
 # Recetas: de la web al vídeo y del código a la web
 
 Todas se lanzan con `node <skill>/scripts/hf.mjs …` desde la carpeta de la composición. Las medidas son de una máquina
-de 3 núcleos sin GPU (ver «Lo que cuesta» en la skill). Probadas: 1, 2, 3 y 5. Las recetas 4 y 6 son el mismo patrón
-aplicado a otros motores y se indica qué falta por probar.
+de 3 núcleos sin GPU (ver «Lo que cuesta» en la skill). Probadas con render: 1, 2, 3 y la salida con alfa de la 5 (el
+paso por `alfa.mjs` de la 5 está sin probar). Las recetas 4 y 6 son el mismo patrón aplicado a otros motores y se indica
+qué falta por probar.
 
 ## 1. Hero de una web con WebGL a vídeo 9:16
 Caso real: hero de una web de bebida con el líquido movido por un shader, la lata en three.js (torno con la etiqueta),

@@ -4,7 +4,7 @@
 // Necesita: npm install --ignore-scripts (aquí), ffmpeg (FFMPEG/FFPROBE o PATH) y, para scroll-a-video, los frames de
 // la demo del reloj (demos/reloj/public/frames/reloj).
 import { spawnSync } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, rmSync, readdirSync, writeFileSync, statSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, rmSync, readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -88,8 +88,11 @@ if (cuales.includes('scroll-a-video')) {
     ok(s.width === 1080 && s.height === 1920 && Number(s.nb_read_frames) === 180, `scroll-a-video: 1080x1920 y 180 fotogramas (${s.width}x${s.height}, ${s.nb_read_frames})`);
     const m = medir(f);
     medidas['scroll-a-video'].movimiento = m;
-    // con curva suave el principio y el final van despacio: se admite algún fotograma casi igual, pero no un vídeo parado
-    ok(m.saltoMediano > 0.15 && m.repetidos <= 30, `scroll-a-video: la secuencia avanza con el tiempo (salto normal ${m.saltoMediano}, casi iguales ${m.repetidos})`);
+    // la secuencia tiene menos frames (120) que fotogramas el vídeo (180): los que sobran se repiten por fuerza.
+    // Se admite eso y un margen por la curva suave del principio y del final, pero no un vídeo parado.
+    const origen = JSON.parse(readFileSync(join(frames, 'manifest.json'), 'utf8')).frames;
+    const tope = Math.max(0, 180 - origen) + 10;
+    ok(m.saltoMediano > 0.15 && m.repetidos <= tope, `scroll-a-video: la secuencia avanza con el tiempo (salto normal ${m.saltoMediano}, casi iguales ${m.repetidos}, tope ${tope} con ${origen} frames de origen)`);
     ok(m.costura > m.saltoMediano * 5, `scroll-a-video: acaba lejos de donde empieza, se recorrió la secuencia (costura ${m.costura})`);
   }
 }

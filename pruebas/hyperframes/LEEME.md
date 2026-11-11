@@ -35,3 +35,7 @@ Máquina de 3 núcleos, 12 GB, sin GPU (WebGL por software), `--workers 1`, 30 f
 |---|---|---|---|
 | `bucle` 1920×1080, 6 s | 231 s | 3,5 MB | costura 1,012 frente a un salto normal de 0,928 (relación 1,09) |
 | `capa-alfa` 600×600, 1 s | 38 s (WebM), 34 s (PNG) | — | casi todo es arranque del navegador |
+| `scroll-a-video` 1080×1920, 6 s | 902 s con la máquina ocupada por otro render (sin medir en vacío) | ver `medidas.json` | 60 fotogramas repetidos: la secuencia tiene 120 frames y el vídeo 180 |
+
+Si la carga inicial no acaba en 45 s (máquina muy cargada), el render falla con «buildReady never resolved»: no es
+un fallo de la plantilla, repite con la máquina libre.
