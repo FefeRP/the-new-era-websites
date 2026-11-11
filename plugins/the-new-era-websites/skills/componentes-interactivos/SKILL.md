@@ -44,16 +44,23 @@ import { crearTarjetaVolteo } from './lib/tarjeta-volteo.js';
 const tarjeta = crearTarjetaVolteo(document.querySelector('.ficha'), {
   disparo: 'clic',     // 'clic' | 'hover' | 'ambos'. 'hover' solo con ratón: en táctil pasa a clic
   eje: 'y', duracion: 600, perspectiva: 1200,
+  etiqueta: 'Ver los datos de la obra',   // nombre del botón que gira (por defecto «Dar la vuelta a la tarjeta»)
   alVoltear: (volteada) => {},
 });
-// tarjeta.voltear() · tarjeta.voltear(false) · tarjeta.volteada · tarjeta.destruir()
+// tarjeta.voltear() · tarjeta.voltear(false) · tarjeta.volteada · tarjeta.boton · tarjeta.destruir()
 ```
+- **El control es un `<button>` aparte, no la tarjeta.** Una tarjeta con `role="button"` vuelve «presentacional» todo lo
+  de dentro: los enlaces del dorso dejan de anunciarse como enlaces y el lector de pantalla lee un botón con todo el
+  texto pegado. Por eso el motor crea `<button data-volteo-boton aria-pressed>` como primer hijo de la tarjeta, fuera de
+  las caras, oculto a la vista y visible al llegar con el tabulador. Si quieres un botón visible tuyo («Ver detalles»),
+  ponlo como hijo directo con `data-volteo-boton` (o pásalo en `boton`); dentro de una cara no vale (da error).
 - Las dos caras comparten celda: la tarjeta mide lo que la cara más alta, o lo que diga su `aspect-ratio`.
 - **Capas en profundidad:** los hijos directos de una cara con `data-z="N"` flotan N px por delante (insignia 80, título
   60, datos 40) y al girar se ve el relieve. Las caras **no** pueden llevar `overflow: hidden` (aplana las capas): el fondo
   y el recorte van en un hijo (`.ficha__fondo` con `position: absolute; inset: 0`).
 - La cara oculta queda `inert`; un clic en un enlace o botón de dentro no gira; con texto seleccionado tampoco.
-- Teclado: Enter o espacio giran, Escape vuelve al frente. Con `disparo: 'hover'`, el foco dentro enseña el dorso.
+- Teclado: Enter o espacio en el botón giran; Escape vuelve al frente y deja el foco en el botón (no se pierde en la
+  cara que queda inerte). Con `disparo: 'hover'`, el foco en el botón o dentro enseña el dorso.
 - Reduced-motion: fundido entre caras, sin giro ni relieve.
 - Dentro de un carrusel con recorte, deja aire vertical (`padding-block: 28px; margin-block: -28px`) o el giro se corta.
 

@@ -25,10 +25,11 @@ Seedance 2.5 sale al doble del precio oficial (720p ~2,3-2,8 $ por clip). Una we
 | **Kling 4.0** | 3-30 s, hasta 4K, hasta 10 fotogramas clave | Sí (varios) | Planos largos y bucles controlados. Flash: 20 s, 720p, sin varios clave |
 | **Kling 3.0 std / pro** | 3-15 s, 720p-1080p | Sí | El caballo de batalla para producto; std barato para pruebas |
 | **Veo 3.1** (Google) | 4/6/8 s, 720p/1080p (4K a 8 s) | Sí, **el final solo con 8 s** | Máxima calidad de luz/material. Lite 0,05-0,08 $/s, Fast 0,10-0,12, Standard 0,40. **Solo en Vertex AI** (salió de la API de Gemini el 22-10-2026) |
-| **Luma Ray 3.x** | 5/10 s, 1080p, HDR | Sí, **modo loop**, hasta 16 clave | Bucles de producto y fondos de hero |
+| **Luma Ray 3.2** | 5/10 s, 1080p, HDR | Sí, **modo loop**, hasta 16 clave | Bucles de producto y fondos de hero |
 | **Seedance 2.5** (ByteDance) | hasta 30 s, 480p-1080p | Sí (`end_image_url`) y referencias | Movimiento de cine con paralaje real. Caro: 0,23/0,57 $/s oficial (720p/1080p), el doble en Higgsfield; los detalles finos "hierven" a 720p |
-| **Runway Gen-4.5 / Aleph 2.0** | — | Gen-4.5 **solo fotograma inicial**; Aleph edita vídeo existente | Arreglar un vídeo (quitar un objeto, cambiar fondo) |
-| **Wan 2.7, Hailuo 2.3, MiniMax H3** | 2-15 s, 720p-1080p | Sí | Baratas (0,05-0,15 $/s). Wan sale a 30 fps y con audio: pide 24 fps y sin audio, o conviértelo |
+| **Seedance 2.0** (std / fast) · Mini | 4-15 s, 480p-4K | Sí (`start_image`/`end_image` en Higgsfield MCP) | Pruebas y planos de producto con cámara lenta: 0,12 $/s fast, 0,08 Mini (std: confirma con `get_cost`). Audio activado por defecto: apágalo |
+| **Runway Gen-4.5 / Aleph** | — | Gen-4.5 **solo fotograma inicial**; Aleph edita vídeo existente | Arreglar un vídeo (quitar un objeto, cambiar fondo) |
+| **Wan 2.7, Hailuo 2.3, MiniMax H3** | 2-15 s, 720p-1080p | Wan 2.7 y MiniMax H3, sí | Baratas (0,05-0,15 $/s). Wan sale a 30 fps y con audio: pide 24 fps y sin audio, o conviértelo |
 | **Sora 2** | **cerrado** (API apagada el 24-09-2026) | — | No usar |
 
 ## Elección rápida

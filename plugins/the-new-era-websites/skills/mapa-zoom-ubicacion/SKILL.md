@@ -9,7 +9,7 @@ version: 1.0.0-beta.6
 
 El momento "¿dónde está?" contado como plano de cine: la ciudad desde arriba, el barrio, la calle y, al final,
 **el edificio** resaltado. Con mapa **real** (ortofoto de verdad, no un dibujo) y la cámara pegada al scroll.
-Referencia de partida: ref8 en `docs/referencias/` (Reposé Residence: nubes → satélite → parcela → render).
+Referencia de partida: ref8 en `docs/referencias/` del repositorio (Reposé Residence: nubes → satélite → parcela → render).
 
 ## Cuándo sí y cuándo no
 - **Sí:** inmobiliaria y promociones, hoteles, oficinas, coworkings, tiendas físicas, eventos con sede, "nuestras sedes".
@@ -47,7 +47,7 @@ Coste práctico en España: **0 €** (PNOA + OpenFreeMap + MapLibre). Si hay qu
   3-5 imágenes anidadas (ciudad → barrio → calle) de ortofoto real descargada o estilizada con IA sobre ella, cámara 2D
   cenital, marcadores HTML y rutas en coordenadas 0..1, paso de una zona a otra con `arco`, y fotogramas exactos de
   inicio y fin para pedir un clip de vídeo IA entre dos vistas. Peso fijo (2-4 MB), sin WebGL ni dependencias. Para
-  estilo propio, móvil con datos, o contar un recorrido entre varios sitios. Probado en `pruebas/mapa-imagen/`.
+  estilo propio, móvil con datos, o contar un recorrido entre varios sitios. Probado en `pruebas/mapa-imagen/` del repositorio.
 
 ## Pasos (mapa vivo)
 1. **El sitio y el guion de cámara.** Coordenadas del edificio (centro de su huella en OSM, no la del portal) y 3-5
@@ -65,7 +65,7 @@ Coste práctico en España: **0 €** (PNOA + OpenFreeMap + MapLibre). Si hay qu
    "se convierte" en la foto en vez de saltar.
 6. **Precarga** las teselas de la ruta (`m.precargar({ senal })`) mientras se lee la intro y córtala cuando la sección
    asome. Sin esto, al bajar rápido se ven teselas borrosas.
-7. **Verifica** con `verificar-scroll.mjs` (escritorio, móvil, menos movimiento; 0 errores) con `--espera 4000`
+7. **Verifica** con `../new-era/scripts/verificar-scroll.mjs` (escritorio, móvil, menos movimiento; 0 errores) con `--espera 4000`
    (las teselas tardan) y mira las capturas: ¿el destino se queda centrado?, ¿se lee el texto?, ¿atribución visible?
 
 ## Código base (probado)
@@ -73,11 +73,12 @@ Coste práctico en España: **0 €** (PNOA + OpenFreeMap + MapLibre). Si hay qu
   satelite, resaltar, … })` → `{ progreso(p), precargar(), proyectar(lngLat), resaltado, destruir(), mapa }`.
   Interpola la cámara anclando el destino (no "patina"), mete la ortofoto bajo las etiquetas, extruye los edificios,
   resalta el destino, oculta los POI y deja el mapa no interactivo.
-- Demo completa: `demos/mapa/` (Barcelona, Torre Glòries como ubicación de ejemplo; capturas en `capturas/demo-mapa/`).
+- Demo completa: `demos/mapa/` del repositorio (Barcelona, Torre Glòries como ubicación de ejemplo; capturas en
+  `capturas/demo-mapa/`).
 - [scripts/mapa-imagen.js](scripts/mapa-imagen.js): `crearMapaImagen({ contenedor, niveles, paradas, marcadores, rutas })`
   → `{ listo, progreso(p), vista(p), fotograma(p, ancho, alto), destruir() }` y `proyeccion(límites)` de lat/lng a 0..1.
   Dibuja en canvas cada nivel a su resolución (nítido a cualquier escala), funde un nivel cuando el anterior se queda
-  corto, ancla el destino y salta de parada en parada con reduced-motion. Prueba: `pruebas/mapa-imagen/` (ortofoto PNOA
+  corto, ancla el destino y salta de parada en parada con reduced-motion. Prueba: `pruebas/mapa-imagen/` del repositorio (ortofoto PNOA
   real de Barcelona, de la Sagrada Família a la Torre Glòries; capturas en `capturas/prueba-mapa-imagen/`).
 
 ## Trampas (todas vividas)

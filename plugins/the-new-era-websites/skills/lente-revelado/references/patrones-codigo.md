@@ -1,6 +1,6 @@
 # Patrones de código: lente-revelado
 
-Probados en `pruebas/lente-envase/` del repo (Chrome, escritorio, móvil y reduced-motion; 0 errores).
+Probados en `pruebas/lente-envase/` del repositorio (Chrome, escritorio, móvil y reduced-motion; 0 errores).
 
 ## Maqueta
 ```html

@@ -58,7 +58,7 @@ Revisa siempre:
   - La capa `sombra` (mezcla normal) vale para cualquier color.
   - Sobre fondos con color fuerte o textura, usa `sombra-multiply` con `mix-blend-mode: multiply`, que conserva el tinte.
   - En fondos muy oscuros la sombra casi no se ve. Es lo físico. Si hace falta más, apila dos copias de la capa.
-- **Levitar** (probado en `pruebas/capas-sombra/web`):
+- **Levitar** (probado en `pruebas/capas-sombra/web` del repositorio):
   - El producto sube con `translate`. La sombra no se mueve: se cruza de la copia nítida a una copia con `filter: blur()` **estático**. El desenfoque nunca se anima.
   - El `transform-origin` de la sombra va en el punto de contacto (la base del producto).
   - Escalar la sombra solo si no toca el borde de la foto.

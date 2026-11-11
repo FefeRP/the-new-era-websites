@@ -15,7 +15,7 @@
 1. **Arte de imprenta del cliente** (PDF o AI): exportar el plano de la etiqueta, quitar marcas de corte y sangrado. Lo mejor: es real.
 2. **Diseño propio** en SVG o Figma: patrones que se repiten en un múltiplo del ancho (así casa la costura).
 3. **IA** (Higgsfield):
-   - **Modelo:** Nano Banana Pro o GPT Image 2.5 si hay texto, porque escriben mejor.
+   - **Modelo:** Nano Banana Pro o GPT Image 2 / 2.5 / 2.6 si hay texto, porque escriben mejor.
    - **Prompt:**
      ```
      Flat unwrapped beverage can label artwork, full 360° wrap as a single horizontal strip, aspect ratio 3:2,

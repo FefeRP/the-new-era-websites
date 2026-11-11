@@ -16,8 +16,16 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 - **`alfa.mjs`:** la misma cadencia por paso entero con `--fps`. Un vídeo de 60 fps sin `--fps` sacaba todos los
   fotogramas etiquetados a 30 fps (iba a media velocidad); ahora saca 1 de cada 2. Las métricas de la prueba de alfa no
   cambian.
+- **`tarjeta-volteo.js`: accesibilidad.** La tarjeta llevaba `role="button"`, y eso volvía presentacional todo lo de
+  dentro: los enlaces del dorso no se anunciaban como enlaces y el nombre del botón era todo el texto. Ahora el control
+  es un `<button data-volteo-boton aria-pressed>` aparte, fuera de las caras, oculto y visible con el foco del teclado
+  (o el tuyo, con `boton` o `[data-volteo-boton]`). Escape vuelve al frente y deja el foco en el botón. API: `boton`.
+  Prueba `pruebas/componentes/probar.mjs`: 48 comprobaciones (antes 42).
 
 ### Cambiado
+- Skills: rutas «del repositorio» iguales en todas las guías y nombres de modelo alineados con `proveedores.md`
+  (Luma Ray 3.2, Nano Banana 2.1 / Pro, GPT Image 2 / 2.5 / 2.6, Seedream 5, Flux 3, Qwen Image 3; fila de Seedance 2.0
+  en `modelos-y-camaras.md`; coste de ejemplo de `mapa-por-imagenes.md` recalculado).
 - `pedir-assets-ia/references/proveedores.md`: catálogo del MCP de Higgsfield (Nano Banana 2/Pro, Seedream 5 Pro con
   `remove_bg`, GPT Image 2.6 con fondo transparente y SVG, Seedance 2.0/2.5 con sus parámetros, `get_cost`).
 - Banco de clips (`pruebas/clips-ia`): `porVariante` en la batería, para que cada variante de una prueba lleve su

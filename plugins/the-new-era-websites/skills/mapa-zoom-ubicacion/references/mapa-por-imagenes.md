@@ -36,7 +36,7 @@ El segundo camino de esta skill: en vez de un mapa vivo (MapLibre + teselas), **
 
 ## 2. Con IA: estilizar sin inventar
 La IA **inventa geografía** (calles, edificios, costa) si se le pide un mapa de un sitio real. Lo seguro:
-1. **Estilizar la ortofoto real** con un modelo de edición (Nano Banana, Qwen Image Edit, Seedream o FLUX Kontext):
+1. **Estilizar la ortofoto real** con un modelo de edición (Nano Banana 2.1 / Pro, Qwen Image 3, Seedream 5 o Flux 3):
    la ortofoto como imagen de entrada y un prompt que **solo cambia el estilo**:
    ```
    Restyle this aerial photo as [a soft architectural illustration / a clay model / a night map with warm lights],
@@ -44,7 +44,7 @@ La IA **inventa geografía** (calles, edificios, costa) si se le pide un mapa de
    Do not add, remove or move anything. No text, no labels, no icons.
    ```
    Hazlo **nivel a nivel con el mismo prompt y la misma referencia de estilo** (el primer resultado aprobado como imagen de
-   estilo de los siguientes), y comprueba la alineación con la prueba de `pruebas/mapa-imagen/` (diferencia gruesa entre
+   estilo de los siguientes), y comprueba la alineación con la prueba de `pruebas/mapa-imagen/` del repositorio (diferencia gruesa entre
    niveles < 10) o superponiendo los dos niveles al 50 %.
 2. **Isométrico o de maqueta**: mejor desde un render 3D propio (MapLibre con edificios extruidos a la inclinación
    deseada, o three.js) estilizado después con el mismo método. Pedir "isometric map of Barcelona" da una ciudad que
@@ -62,10 +62,10 @@ rasante corto), un clip de vídeo con **fotograma de inicio y fin** sacados del 
 const inicio = m.fotograma(0.5, 1920, 1080);    // canvas → toBlob → PNG de inicio
 const fin = m.fotograma(0.82, 1920, 1080);      // PNG de fin
 ```
-Pídelo con un modelo que acepte inicio y fin (Veo 3.1 Lite/Fast, Kling 3, Seedance, Wan; plantillas de
+Pídelo con un modelo que acepte inicio y fin (Veo 3.1 Lite / Fast, con el final solo en clips de 8 s; Kling 3.0 o Kling O3 pro; Seedance 2.0 / 2.5; Wan 2.7; plantillas de
 `pedir-assets-ia`), con prompt de cámara simple ("slow aerial push-in, top-down, no new buildings, no text"), y sírvelo
 como frames con `scroll-frames` en una capa encima del canvas durante ese tramo (opacidad 1 solo entre los dos `en`).
-Como empieza y acaba en fotogramas exactos del mapa, entra y sale sin corte. Un clip de 5 s a 720p: 0,25-0,45 $.
+Como empieza y acaba en fotogramas exactos del mapa, entra y sale sin corte. Con inicio y fin a 720p: 5 s en Kling 3.0 std ≈ 0,42 $, 8 s en Veo 3.1 Lite ≈ 0,40 $; Seedance 2.5 cuesta bastante más.
 Lo que hay en medio sí lo inventa la IA: que sea corto y que no enseñe calles con nombre.
 
 ## 4. Montaje y cámara

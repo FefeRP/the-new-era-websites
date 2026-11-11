@@ -1,6 +1,6 @@
 # Patrones de código: escena-3d-gltf
 
-Probados en `demos/reloj` (sección "En tus manos").
+Probados en `demos/reloj` del repositorio (sección "En tus manos").
 
 ## Maqueta con póster
 ```html
@@ -52,7 +52,7 @@ tl.to(tapa.position, { y: '+=0.4' }, 0.5);
 ```
 (No combines `progreso()` con una timeline que también toque `pivote.rotation`: elige uno.)
 
-Cámara sobre una curva (recorrido): `const curva = new THREE.CatmullRomCurve3([...puntos])` y en `onUpdate` `curva.getPointAt(p, camara.position); camara.lookAt(objetivo); escena.invalidar()`. Puntos exportables de una curva de Blender (ver Codrops 2026-07-07 en docs/investigacion).
+Cámara sobre una curva (recorrido): `const curva = new THREE.CatmullRomCurve3([...puntos])` y en `onUpdate` `curva.getPointAt(p, camara.position); camara.lookAt(objetivo); escena.invalidar()`. Puntos exportables de una curva de Blender (ver Codrops 2026-07-07 en `docs/investigacion/` del repositorio).
 
 ## Materiales "premium" (retoques)
 - Metales: `metalness 1`, `roughness 0.2-0.35`, y que el entorno tenga contraste (RoomEnvironment lo da); `envMapIntensity` 1-1,5.

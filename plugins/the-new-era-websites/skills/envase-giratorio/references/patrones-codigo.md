@@ -1,6 +1,6 @@
 # Patrones de código: envase-giratorio
 
-Probados en `pruebas/lente-envase/` del repo (sin GSAP). Aquí, con GSAP, como en la plantilla.
+Probados en `pruebas/lente-envase/` del repositorio (sin GSAP). Aquí, con GSAP, como en la plantilla.
 
 ## Maqueta del slider de sabores (ref10)
 ```html

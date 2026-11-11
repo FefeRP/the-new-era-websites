@@ -1,6 +1,6 @@
 # Patrones de código: scroll-frames
 
-Probados en la demo `demos/reloj` del marketplace (GSAP 3.15, Lenis 1.3.27, Vite; la demo lleva three 0.186 para otra
+Probados en la demo `demos/reloj/` del repositorio (GSAP 3.15, Lenis 1.3.27, Vite; la demo lleva three 0.186 para otra
 sección, la versión vigente en octubre de 2026 es la 0.187). Estos patrones no usan three.
 
 ## Maqueta
@@ -95,7 +95,7 @@ Coloca los textos en el **espacio vacío** que dejó el vídeo (pídelo así al 
 
 ## HUD de datos ligado al progreso (contador, tiempo, temperatura, estado)
 Visto en ref11: "1,343 FLAKES AIRBORNE" sube mientras el cruasán se parte, y en el horneado "07:55 · 190 °C · +25 % · Golden".
-Los números van con el **mismo progreso** que los frames: si el visitante sube, bajan. Probado en `pruebas/lente-envase/` (sección HUD).
+Los números van con el **mismo progreso** que los frames: si el visitante sube, bajan. Probado en `pruebas/lente-envase/` del repositorio (sección HUD).
 ```html
 <div class="hud" aria-hidden="true">               <!-- decorativo: el dato importante, también en texto normal -->
   <b data-hud="migas">0</b><span>migas en el aire</span>

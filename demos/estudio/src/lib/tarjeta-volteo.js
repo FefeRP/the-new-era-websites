@@ -17,8 +17,17 @@
 //   (aplana las capas): el recorte y el fondo van en un hijo.
 // - Con prefers-reduced-motion no gira ni hay relieve: cambia de cara con un fundido corto.
 // - `disparo: 'hover'` solo se activa con ratón (hover + puntero fino); en táctil pasa a clic, porque el hover se queda pegado.
+// - Accesibilidad: la tarjeta NO es un botón (con role="button" los enlaces de dentro dejan de anunciarse y la etiqueta
+//   tapa todo el contenido). El control es un <button> de verdad, fuera de las caras: el tuyo si hay un hijo directo con
+//   [data-volteo-boton], o uno que se crea, oculto a la vista hasta que recibe el foco del teclado. Con ratón o dedo
+//   se puede pulsar en cualquier parte de la tarjeta. Escape vuelve al frente y deja el foco en el botón.
 
 const INTERACTIVOS = 'a[href], button, input, select, textarea, label, summary, [contenteditable], [data-sin-volteo]';
+const OCULTO = { position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden',
+  clip: 'rect(0 0 0 0)', clipPath: 'inset(50%)', whiteSpace: 'nowrap', border: '0' };
+const VISIBLE = { position: 'absolute', top: '12px', right: '12px', zIndex: '2', width: 'auto', height: 'auto', padding: '8px 12px',
+  margin: '0', overflow: 'visible', clip: 'auto', clipPath: 'none', whiteSpace: 'nowrap', border: '0', borderRadius: '6px',
+  background: '#fff', color: '#111', font: '600 14px/1.2 system-ui, sans-serif', minHeight: '44px' };
 
 export function crearTarjetaVolteo(tarjeta, {
   eje = 'y',               // 'y' (gira como una puerta) o 'x' (como una tapa)
@@ -27,7 +36,8 @@ export function crearTarjetaVolteo(tarjeta, {
   curva = 'cubic-bezier(.2, .7, .2, 1)',
   perspectiva = 1200,      // px; menos = más deformación
   sentido = 1,             // 1 o -1: hacia qué lado gira
-  etiqueta = null,         // texto accesible del control (por defecto, "Dar la vuelta a la tarjeta")
+  etiqueta = null,         // texto del botón que se crea (por defecto, "Dar la vuelta a la tarjeta")
+  boton = null,            // botón propio (por defecto, el hijo directo [data-volteo-boton]; si no hay, se crea uno)
   alVoltear = null,        // (volteada) => {}
 } = {}) {
   const frente = tarjeta.querySelector('[data-cara="frente"]');
@@ -60,7 +70,20 @@ export function crearTarjetaVolteo(tarjeta, {
   // estilo en línea de cada nodo que se va a tocar, para devolverlo tal cual en destruir()
   const estilosPrevios = new Map();
   for (const nodo of [...capas, ...frente.children, ...dorso.children]) estilosPrevios.set(nodo, nodo.getAttribute('style'));
-  const tabPrevio = tarjeta.getAttribute('tabindex');
+  // el control: un <button> fuera de las caras (las caras se vuelven inertes; el botón tiene que seguir alcanzable)
+  let control = boton ?? tarjeta.querySelector(':scope > [data-volteo-boton]');
+  if (control && (frente.contains(control) || dorso.contains(control))) throw new Error('tarjeta-volteo: el botón no puede ir dentro de una cara');
+  const controlCreado = !control;
+  const pressedPrevio = control?.getAttribute('aria-pressed') ?? null;
+  if (controlCreado) {
+    control = document.createElement('button');
+    control.type = 'button';
+    control.setAttribute('data-volteo-boton', '');
+    control.textContent = etiqueta || 'Dar la vuelta a la tarjeta';
+    Object.assign(control.style, OCULTO);
+    tarjeta.insertBefore(control, tarjeta.firstChild); // primero en el orden del tabulador, antes que los enlaces del frente
+  }
+  if (getComputedStyle(tarjeta).position === 'static') tarjeta.style.position = 'relative';
   for (const cara of [frente, dorso]) {
     Object.assign(cara.style, { gridArea: '1 / 1', backfaceVisibility: 'hidden', minWidth: '0' });
     cara.style.setProperty('-webkit-backface-visibility', 'hidden');
@@ -86,7 +109,7 @@ export function crearTarjetaVolteo(tarjeta, {
       cara.setAttribute('aria-hidden', String(!visible));
     }
     tarjeta.dataset.volteada = String(volteada);
-    if (usaClic) tarjeta.setAttribute('aria-pressed', String(volteada));
+    control.setAttribute('aria-pressed', String(volteada));
   };
 
   const voltear = (estado) => {
@@ -103,38 +126,38 @@ export function crearTarjetaVolteo(tarjeta, {
     if (sel && !sel.isCollapsed && tarjeta.contains(sel.anchorNode)) return; // estaba seleccionando texto de la tarjeta
     voltear();
   };
+  // El botón: Enter y espacio los da el propio <button>. En modo solo hover, el clic de ratón no hace nada (el ratón
+  // ya la giró al entrar); el del teclado (detail 0) sí.
+  const alBoton = (e) => { if (!usaClic && e.detail > 0) return; voltear(); };
   const alTecla = (e) => {
-    if (e.target !== tarjeta) return;
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); voltear(); }
-    else if (e.key === 'Escape' && volteada) voltear(false);
+    if (e.key !== 'Escape' || !volteada) return;
+    voltear(false);
+    control.focus({ preventScroll: true }); // el dorso queda inerte: el foco no puede quedarse en él
   };
+  const alFocoBoton = () => { if (controlCreado && control.matches(':focus-visible')) Object.assign(control.style, VISIBLE); };
+  const alSalirBoton = () => { if (controlCreado) Object.assign(control.style, OCULTO, { top: '', right: '', zIndex: '', borderRadius: '', background: '', color: '', font: '', minHeight: '' }); };
   const alEntrar = () => voltear(true);
   const alSalir = () => voltear(false);
-  // Con teclado en modo hover: si el foco llega a un enlace del frente, esa cara va a quedar inerte y el foco se
-  // perdería (y la tarjeta volvería sola). Se pasa antes el foco a la propia tarjeta.
+  // Con teclado en modo hover: al entrar el foco se enseña el dorso. Si el foco llega a un enlace del frente, esa cara
+  // va a quedar inerte y el foco se perdería: se pasa antes al botón.
   const alEnfocar = (e) => {
-    if (e.target !== tarjeta && frente.contains(e.target) && !volteada) { tarjeta.focus({ preventScroll: true }); return; }
+    if (e.target !== control && frente.contains(e.target) && !volteada) { control.focus({ preventScroll: true }); return; }
     voltear(true);
   };
   const alDesenfocar = (e) => { if (e.relatedTarget && tarjeta.contains(e.relatedTarget)) return; voltear(false); };
   const alCambiarMovimiento = () => pintar(false);
 
+  control.addEventListener('click', alBoton);
+  control.addEventListener('focus', alFocoBoton);
+  control.addEventListener('blur', alSalirBoton);
+  tarjeta.addEventListener('keydown', alTecla);
   if (usaClic) {
-    tarjeta.setAttribute('role', 'button');
-    tarjeta.tabIndex = 0;
-    if (!tarjeta.hasAttribute('aria-label') && !tarjeta.hasAttribute('aria-labelledby')) {
-      tarjeta.setAttribute('aria-label', etiqueta || 'Dar la vuelta a la tarjeta');
-      tarjeta.dataset.volteoEtiqueta = '';
-    }
     tarjeta.style.cursor = 'pointer';
     tarjeta.addEventListener('click', alClic);
-    tarjeta.addEventListener('keydown', alTecla);
   }
   if (usaHover) {
     tarjeta.addEventListener('pointerenter', alEntrar);
     tarjeta.addEventListener('pointerleave', alSalir);
-    // con teclado: al entrar el foco se enseña el dorso; al salir, vuelve
-    if (!tarjeta.hasAttribute('tabindex')) tarjeta.tabIndex = 0;
     tarjeta.addEventListener('focusin', alEnfocar);
     tarjeta.addEventListener('focusout', alDesenfocar);
   }
@@ -143,8 +166,14 @@ export function crearTarjetaVolteo(tarjeta, {
 
   return {
     voltear,
+    boton: control,
     get volteada() { return volteada; },
     destruir() {
+      control.removeEventListener('click', alBoton);
+      control.removeEventListener('focus', alFocoBoton);
+      control.removeEventListener('blur', alSalirBoton);
+      if (controlCreado) control.remove();
+      else if (pressedPrevio === null) control.removeAttribute('aria-pressed'); else control.setAttribute('aria-pressed', pressedPrevio);
       tarjeta.removeEventListener('click', alClic);
       tarjeta.removeEventListener('keydown', alTecla);
       tarjeta.removeEventListener('pointerenter', alEntrar);
@@ -158,11 +187,6 @@ export function crearTarjetaVolteo(tarjeta, {
       if (!creado) restaurar(interior, previo.interior);
       for (const cara of [frente, dorso]) { cara.inert = false; cara.removeAttribute('aria-hidden'); }
       for (const [nodo, estilo] of estilosPrevios) restaurar(nodo, estilo);
-      if (tabPrevio === null) tarjeta.removeAttribute('tabindex'); else tarjeta.setAttribute('tabindex', tabPrevio);
-      if (usaClic) {
-        tarjeta.removeAttribute('role'); tarjeta.removeAttribute('aria-pressed');
-        if ('volteoEtiqueta' in tarjeta.dataset) { tarjeta.removeAttribute('aria-label'); delete tarjeta.dataset.volteoEtiqueta; }
-      }
       delete tarjeta.dataset.volteada;
     },
   };

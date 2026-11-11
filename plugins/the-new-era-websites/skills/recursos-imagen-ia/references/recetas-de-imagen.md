@@ -4,8 +4,8 @@ Prompts en inglés (los modelos responden mejor) con huecos entre corchetes. Las
 solo se usa prompt negativo en los modelos que lo admiten (ver `pedir-assets-ia`, plantillas por plano).
 
 Modelos orientativos (octubre-noviembre de 2026; precios y nombres en `pedir-assets-ia/references/proveedores.md`):
-edición por referencia y lotes coherentes, un modelo de edición con referencias (familia Nano Banana, Seedream, Qwen
-Image Edit, GPT Image, Flux Kontext); texto a imagen de texturas y fondos, cualquiera de calidad media. No hace falta el
+edición por referencia y lotes coherentes, un modelo de edición con referencias (Nano Banana 2.1 / Pro, Seedream 5, Qwen
+Image 3, GPT Image 2 / 2.5 / 2.6, Flux 3 / Flux 2 pro); texto a imagen de texturas y fondos, cualquiera de calidad media. No hace falta el
 modelo más caro para ninguna de estas recetas: se elige el intermedio y se sube solo si la primera imagen no llega.
 
 ## Bloque de estilo del lote

@@ -44,18 +44,26 @@ const fotos = [];
   const { ctx, page, color, ver, foto } = await pagina();
   await ver('#tarjetas');
   ok(cerca(await color('#t1', 0, -60), AZUL), 't1 al empezar enseña el frente');
-  ok(await page.evaluate(() => { const t = document.getElementById('t1'); return t.getAttribute('role') === 'button' && t.getAttribute('aria-pressed') === 'false' && t.querySelector('[data-cara="dorso"]').inert && !t.querySelector('[data-cara="frente"]').inert; }),
-    't1: role=button, aria-pressed=false y el dorso inerte');
+  ok(await page.evaluate(() => { const t = document.getElementById('t1'), b = t.querySelector(':scope > button[data-volteo-boton]'); return !t.hasAttribute('role') && !t.hasAttribute('tabindex') && !t.hasAttribute('aria-label') && b && b.getAttribute('aria-pressed') === 'false' && t.querySelector('[data-cara="dorso"]').inert && !t.querySelector('[data-cara="frente"]').inert; }),
+    't1: la tarjeta no es un botón; el control es un <button> fuera de las caras (aria-pressed=false) y el dorso inerte');
+  ok(await page.locator('#t1').getByRole('button', { name: 'Dar la vuelta a la tarjeta' }).count() === 1,
+    't1: el botón se encuentra por su rol y su nombre');
   await page.locator('#t1').click({ position: { x: 150, y: 60 } });
   await page.waitForTimeout(450);
   ok(cerca(await color('#t1', 0, -60), MAGENTA), 't1 tras el clic enseña el dorso');
-  ok(await page.evaluate(() => { const t = document.getElementById('t1'); return window.__prueba.t1.volteada && t.getAttribute('aria-pressed') === 'true' && t.querySelector('[data-cara="frente"]').inert && !t.querySelector('[data-cara="dorso"]').inert; }),
+  ok(await page.evaluate(() => { const t = document.getElementById('t1'); return window.__prueba.t1.volteada && t.querySelector('[data-volteo-boton]').getAttribute('aria-pressed') === 'true' && t.querySelector('[data-cara="frente"]').inert && !t.querySelector('[data-cara="dorso"]').inert; }),
     't1 volteada: aria-pressed=true, el frente inerte y el dorso accesible');
+  ok(await page.locator('#t1').getByRole('link').count() >= 1, 't1: el enlace del dorso se anuncia como enlace (no queda aplanado dentro de un botón)');
   await page.evaluate(() => document.getElementById('t1-enlace').addEventListener('click', (e) => e.preventDefault()));
   await page.locator('#t1-enlace').click();
   await page.waitForTimeout(200);
   ok(await page.evaluate(() => window.__prueba.t1.volteada), 'el clic en un enlace de dentro no da la vuelta');
-  await page.locator('#t1').focus();
+  // con el tabulador, como una persona con teclado
+  await page.evaluate(() => { document.activeElement?.blur(); window.scrollTo(0, 0); });
+  let alBoton = false;
+  for (let i = 0; i < 40 && !alBoton; i++) { await page.keyboard.press('Tab'); alBoton = await page.evaluate(() => document.activeElement === document.querySelector('#t1 [data-volteo-boton]')); }
+  ok(alBoton && await page.evaluate(() => document.querySelector('#t1 [data-volteo-boton]').getBoundingClientRect().width > 40),
+    'teclado: se llega al botón con el tabulador y se ve al tener el foco');
   await page.keyboard.press('Enter'); await page.waitForTimeout(100);
   const trasEnter = await page.evaluate(() => window.__prueba.t1.volteada);
   await page.keyboard.press('Space'); await page.waitForTimeout(100);
@@ -63,6 +71,17 @@ const fotos = [];
   await page.keyboard.press('Escape'); await page.waitForTimeout(100);
   const trasEscape = await page.evaluate(() => window.__prueba.t1.volteada);
   ok(!trasEnter && trasEspacio && !trasEscape, 'teclado: Enter y espacio giran, Escape devuelve al frente');
+  // Escape con el foco en un enlace del dorso: vuelve al frente y el foco pasa al botón (no se pierde en la cara inerte)
+  await page.evaluate(() => window.__prueba.t1.voltear(true)); await page.locator('#t1-enlace').focus();
+  await page.keyboard.press('Escape'); await page.waitForTimeout(100);
+  ok(await page.evaluate(() => !window.__prueba.t1.volteada && document.activeElement === document.querySelector('#t1 [data-volteo-boton]')),
+    'Escape desde un enlace del dorso: frente y foco en el botón');
+  await page.keyboard.press('Tab'); await page.waitForTimeout(50);
+  ok(await page.evaluate(() => document.querySelector('#t1 [data-volteo-boton]').getBoundingClientRect().width <= 1),
+    'el botón vuelve a ocultarse al perder el foco');
+  ok(await page.evaluate(() => document.activeElement === document.querySelector('#t2 [data-volteo-boton]') && window.__prueba.t2.volteada),
+    't2 (hover): el foco del teclado en su botón la gira, como el ratón encima');
+  await page.evaluate(() => document.activeElement?.blur()); await page.mouse.move(0, 0); await page.waitForTimeout(450);
 
   ok(cerca(await color('#t2', 0, -60), AZUL), 't2 (hover) al empezar enseña el frente');
   await page.locator('#t2').hover({ position: { x: 150, y: 100 } });
@@ -73,7 +92,7 @@ const fotos = [];
   fotos.push(await foto('#tarjetas', 'tarjetas'));
   await page.mouse.move(5, 5); await page.waitForTimeout(450);
   ok(!(await page.evaluate(() => window.__prueba.t2.volteada)), 't2 vuelve al frente al salir el ratón');
-  ok(await page.evaluate(() => { const t = document.getElementById('t1'); window.__prueba.t1.destruir(); return !t.hasAttribute('role') && !t.hasAttribute('tabindex') && !t.querySelector('[data-volteo-interior]') && !t.querySelector('[inert]') && t.children.length === 2; }),
+  ok(await page.evaluate(() => { const t = document.getElementById('t1'); window.__prueba.t1.destruir(); return !t.hasAttribute('style') && !t.querySelector('[data-volteo-boton]') && !t.querySelector('[data-volteo-interior]') && !t.querySelector('[inert]') && t.children.length === 2; }),
     'destruir() deja la tarjeta como estaba');
   await ctx.close();
 }

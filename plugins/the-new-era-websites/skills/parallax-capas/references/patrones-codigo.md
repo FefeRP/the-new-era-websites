@@ -1,6 +1,6 @@
 # Patrones de código: parallax-capas
 
-Probados en `demos/reloj` (hero).
+Probados en `demos/reloj` del repositorio (hero).
 
 ## Maqueta
 ```html

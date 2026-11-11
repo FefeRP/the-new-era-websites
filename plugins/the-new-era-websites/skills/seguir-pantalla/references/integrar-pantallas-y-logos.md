@@ -6,7 +6,7 @@
    mezcla las dos pasadas en proporción a la distancia: en cada clave el error es cero y la deriva no se acumula.
    - Si las dos pasadas discrepan o la esquina no se encuentra (tapada, fuera de cuadro), ese fotograma se marca dudoso y se
      rellena interpolando entre los buenos. Si son muchos, avisa: añade una `--clave` en medio.
-   - Medido con un vídeo sintético con verdad exacta (empuje ×2,2 con giro y perspectiva, `pruebas/seguir-pantalla/`):
+   - Medido con un vídeo sintético con verdad exacta (empuje ×2,2 con giro y perspectiva, `pruebas/seguir-pantalla/` del repositorio):
      con 2 claves, error medio 1 px y máximo 2,9 px; solo hacia delante (1 clave), máximo 6,5 px. En un vídeo de IA real
      (arco de 6 s, la pantalla pasa de 175 a 450 px) la deriva de una sola pasada fue de 1-8 px: con la clave final se anula.
    - La precisión de las claves manda: un error de 3 px al medirlas son 3 px en todo el tramo. Mide ampliado (`--zona`).
