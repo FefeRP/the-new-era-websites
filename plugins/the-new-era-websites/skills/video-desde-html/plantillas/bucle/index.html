@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1920px; height: 1080px; overflow: hidden; background: #14110f; }
+    #bucle { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #14110f; }
+    .mancha { position: absolute; border-radius: 50%; filter: blur(110px); mix-blend-mode: screen; will-change: transform; }
+    .mota { position: absolute; left: 0; top: 0; border-radius: 50%; background: #ffe9c4; }
+    .vineta { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, transparent 35%, rgba(10,8,7,.75) 100%); }
+  </style>
+</head>
+<body>
+  <!-- Fondo en bucle sin corte: TODO lo que se mueve es función periódica de la fase (0..1) con un número ENTERO de
+       vueltas, así el fotograma que vendría después del último es exactamente el primero. -->
+  <div id="bucle" data-composition-id="bucle" data-start="0" data-duration="6" data-width="1920" data-height="1080" data-fps="30">
+    <div id="manchas"></div>
+    <div id="motas"></div>
+    <div class="vineta"></div>
+  </div>
+  <script>
+    // Azar con semilla (nada de Math.random: cada render tiene que dar los mismos fotogramas).
+    let semilla = 20261111;
+    const azar = () => { semilla = (semilla * 1664525 + 1013904223) >>> 0; return semilla / 4294967296; };
+    const TAU = Math.PI * 2;
+
+    const COLORES = ["#c8641e", "#7a3b12", "#e0a050", "#5a2a3a", "#b98a4a"];
+    const manchas = COLORES.map((c, i) => {
+      const el = document.createElement("div");
+      el.className = "mancha";
+      const lado = 520 + azar() * 380;
+      Object.assign(el.style, { width: lado + "px", height: lado + "px", background: c, left: -lado / 2 + "px", top: -lado / 2 + "px", opacity: 0.55 });
+      document.getElementById("manchas").append(el);
+      // vueltas enteras (1 o 2) y un desfase: órbita cerrada
+      return { el, cx: 300 + azar() * 1320, cy: 200 + azar() * 680, rx: 160 + azar() * 240, ry: 90 + azar() * 160, vueltas: 1 + (i % 2), fase: azar() * TAU, pulso: 1 + (i % 3) };
+    });
+    const motas = Array.from({ length: 70 }, () => {
+      const el = document.createElement("div");
+      el.className = "mota";
+      const t = 2 + azar() * 5;
+      Object.assign(el.style, { width: t + "px", height: t + "px", opacity: 0.15 + azar() * 0.5, filter: t > 5 ? "blur(1.5px)" : "" });
+      document.getElementById("motas").append(el);
+      // suben un número entero de pantallas por bucle (1 o 2) y se balancean con vueltas enteras
+      return { el, x: azar() * 1920, y0: azar() * 1100, pantallas: 1 + Math.floor(azar() * 2), vaiven: 12 + azar() * 40, vueltas: 1 + Math.floor(azar() * 3), fase: azar() * TAU };
+    });
+
+    function pintar(f) {               // f = fase del bucle, 0..1
+      for (const m of manchas) {
+        const a = TAU * m.vueltas * f + m.fase;
+        const s = 1 + 0.12 * Math.sin(TAU * m.pulso * f + m.fase);
+        m.el.style.transform = `translate(${m.cx + Math.cos(a) * m.rx}px, ${m.cy + Math.sin(a) * m.ry}px) scale(${s})`;
+      }
+      for (const p of motas) {
+        const y = 1090 - ((p.y0 + f * p.pantallas * 1100) % 1100);
+        const x = p.x + Math.sin(TAU * p.vueltas * f + p.fase) * p.vaiven;
+        p.el.style.transform = `translate(${x}px, ${y}px)`;
+      }
+    }
+
+    // Una sola interpolación lineal de la fase: la línea de tiempo de GSAP queda pausada y el render la recorre.
+    const estado = { f: 0 };
+    const tl = gsap.timeline({ paused: true });
+    tl.to(estado, { f: 1, duration: 6, ease: "none", onUpdate: () => pintar(estado.f) }, 0);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["bucle"] = tl;
+    pintar(0);
+    tl.seek(0);
+  </script>
+</body>
+</html>

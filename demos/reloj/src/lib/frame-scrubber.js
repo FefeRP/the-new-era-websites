@@ -222,6 +222,19 @@ export async function crearFrameScrubber({
       i = Math.min(total - 1, Math.max(0, Math.round(i)));
       if (i !== actual) { actual = i; pedirDibujo(); }
     },
+    /**
+     * Para render fuera de línea (vídeo con la skill video-desde-html): espera a que el frame de ese progreso esté
+     * descargado y decodificado y lo pinta en el momento, sin pasar por requestAnimationFrame. Devuelve su índice.
+     */
+    async fijar(p) {
+      await descargas;
+      const i = Math.round(Math.min(1, Math.max(0, p)) * (total - 1));
+      actual = i;
+      await decodificar(i);
+      if (rafPendiente) cancelAnimationFrame(rafPendiente);
+      dibujar();
+      return dibujado;
+    },
     listo: descargas,
     /** índice del frame que se ve ahora (puede ir por detrás del pedido mientras carga) */
     get frameDibujado() { return dibujado; },

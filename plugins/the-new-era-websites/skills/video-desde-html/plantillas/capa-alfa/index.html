@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=600, height=600">
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    /* Capa con transparencia: html y body SIN fondo. */
+    * { margin: 0; box-sizing: border-box; }
+    html, body { width: 600px; height: 600px; overflow: hidden; background: transparent; }
+    #sello { position: relative; width: 600px; height: 600px; }
+    .aro { position: absolute; inset: 90px; border: 14px solid #e0a050; border-radius: 50%; border-right-color: transparent; }
+    .punto { position: absolute; left: 270px; top: 270px; width: 60px; height: 60px; border-radius: 50%; background: #c8641e; }
+  </style>
+</head>
+<body>
+  <div id="sello" data-composition-id="sello" data-start="0" data-duration="1" data-width="600" data-height="600" data-fps="30">
+    <div class="aro" id="aro"></div>
+    <div class="punto" id="punto"></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.to("#aro", { rotation: 360, duration: 1, ease: "none" }, 0)
+      .fromTo("#punto", { scale: 0.6 }, { scale: 1.2, duration: 0.5, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["sello"] = tl;
+    tl.seek(0);
+  </script>
+</body>
+</html>

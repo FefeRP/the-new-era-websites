@@ -27,6 +27,7 @@ invócalas.
 | Componentes | `componentes-interactivos` (tarjeta con volteo y capas, carrusel en órbita o anillo 3D, reseñas en columnas 3D) |
 | 3D y producto | `escena-3d-gltf` (three.js con glTF) · `envase-giratorio` (lata o bote que gira sin 3D) |
 | Mapas | `mapa-zoom-ubicacion` (de la ciudad al edificio: mapa vivo o por niveles de imagen) |
+| Vídeo por código | `video-desde-html` (HyperFrames: el hero o un tramo de scroll a vídeo para redes; bucles sin corte, capas con alfa y secuencias para scroll sin modelo de IA) |
 | Oficio | [references/reglas-de-webs-reales.md](references/reglas-de-webs-reales.md): lo aprendido en webs entregadas |
 
 Si están instaladas, apóyate también en `gsap-skills:*` (API de GSAP) y `webgl-animation-skills:*` (shaders, partículas).
@@ -98,6 +99,8 @@ Usa la matriz de [references/catalogo-tecnicas.md](references/catalogo-tecnicas.
 | Prueba social con movimiento (con reseñas reales) | Muro de reseñas en columnas 3D | `componentes-interactivos` (`resenas-3d.js`) |
 | Botones, menús, modales, avisos, estados de hover | Microinteracciones | skill de animación instalada (`animate`, `emil-design-eng`) |
 | Textos con presencia | Titulares que suben por líneas, máscaras, texto entre capas | `revelados-y-transiciones` (`crearLineas`) + `capas-alfa` |
+| Un vídeo de la web para redes o el portfolio (el hero, el momento estrella en vertical) | Composición HTML renderizada fotograma a fotograma | `video-desde-html` |
+| Fondo en movimiento o secuencia de scroll que se puede dibujar por código (formas, tipografía, shader, 3D) | Bucle sin corte o secuencia renderizada, sin modelo de IA | `video-desde-html` → `scroll-frames` / `capas-alfa` |
 | Partículas que forman figuras, distorsiones, portales | Shaders/GPGPU (fase avanzada) | catálogo (E) + `webgl-animation-skills` |
 Combina 1 técnica fuerte + 1-2 de apoyo (o solo componentes y entradas discretas si la web es sobria). Anota la decisión y el porqué en `BRIEF.md`.
 

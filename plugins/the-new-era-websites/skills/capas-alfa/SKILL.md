@@ -31,6 +31,8 @@ vídeo con alfa. Antes de nada, mira la matriz de `pedir-assets-ia` (`references
    node scripts/alfa.mjs --entrada producto.png --modo croma --salida public/capas/producto --recortar
    ```
    Para scroll añade `--scrub` (keyframe cada 4 frames) o `--formatos frames` (WebP con alfa para `frame-scrubber`).
+   Si la capa se puede dibujar por código (un sello, un trazo, confeti, un contador), no hace falta croma: `video-desde-html`
+   la renderiza con alfa nativo (secuencia PNG) y aquí entra con `--modo ya-alfa`.
 4. **Revisa** `hoja.png` (el elemento sobre cuadros, fondo oscuro y fondo claro) y los avisos de `alfa.json`: halo del color de
    fondo, fondo residual en el borde, fotogramas donde el recorte parpadea, par negro/blanco desalineado. Si falla, se arregla
    en el asset (más separación, fondo más liso), no subiendo umbrales a ciegas.

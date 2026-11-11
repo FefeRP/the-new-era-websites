@@ -3,6 +3,17 @@
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones: [SemVer](https://semver.org/lang/es/).
 
 ## [Sin publicar]
+### Añadido
+- **Skill `video-desde-html`** (la número 17): vídeo a partir de HTML, CSS y JS con HyperFrames (Apache-2.0), sin
+  modelos de IA de vídeo. De la web al vídeo (hero, tramo de scroll, producto girando → MP4 9:16 o 16:9) y del código
+  a la web (bucle sin corte, capa con alfa en WebM VP9 o PNG, secuencia para scroll). Lanzador `hf.mjs` (versión
+  fijada 0.9.34, sin telemetría, sin skills globales, sin descargas, Chrome del sistema), `medir-bucle.mjs` (costura y
+  fotogramas repetidos), tres plantillas (`bucle`, `capa-alfa`, `scroll-a-video`), contrato y límites, seis recetas y
+  tiempos de render medidos sin GPU. Reparto con `scroll-frames`, `capas-alfa`, Remotion y las skills oficiales de
+  HyperFrames en la tabla de quién hace qué. Prueba: `pruebas/hyperframes`.
+- **`frame-scrubber.js`: `fijar(p)`**. Coloca la secuencia en un progreso 0..1, espera a que ese frame esté
+  decodificado y lo pinta en el momento; devuelve el índice dibujado. Para capturas y renders fotograma a fotograma.
+
 ### Corregido
 - **`extraer-frames.mjs`: tirones en el scroll por frames desiguales.** Con `--frames`/`--fps` que no dividían al fps del
   vídeo, el filtro `fps` de ffmpeg tomaba fotogramas a intervalos 1-1-1-2 y, al bajar a la mitad, duplicaba

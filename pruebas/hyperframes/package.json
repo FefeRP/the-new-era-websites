@@ -1,0 +1,13 @@
+{
+  "name": "prueba-hyperframes",
+  "private": true,
+  "type": "module",
+  "description": "Validacion de la skill video-desde-html con HyperFrames (version fijada; instalar con --ignore-scripts)",
+  "scripts": {
+    "probar": "node probar.mjs"
+  },
+  "devDependencies": {
+    "gsap": "3.15.0",
+    "hyperframes": "0.9.34"
+  }
+}

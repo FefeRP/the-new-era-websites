@@ -74,6 +74,10 @@ ScrollTrigger.create({ trigger: '#seccion', start: 'top top', end: '+=300%', pin
   pedido no ha llegado, pinta el más cercano cargado.
 - Algo pegado a la escena (la web en una pantalla, un logo en un cartel): opción `alDibujar({ i, x, y, w, h, escala, canvas,
   manifest, variante })`, que se llama tras pintar cada frame con dónde quedó dibujado; `seguir-pantalla` la usa para su capa.
+- Para capturas y renders fotograma a fotograma: `await seq.fijar(p)` coloca la secuencia en el progreso `p`, espera a
+  que **ese** frame esté decodificado y lo pinta en el momento (devuelve el índice). Lo usa `video-desde-html` para
+  convertir el tramo de scroll en un vídeo para redes. Y al revés: si el vídeo de origen se puede dibujar por código,
+  esa skill lo renderiza sin modelo de IA y aquí se extraen los frames como siempre.
 
 ### 5. Accesibilidad y reservas (obligatorio)
 - `prefers-reduced-motion: reduce` → no se crea el scrubber ni el pin: se queda el póster y el contenido fluye normal.

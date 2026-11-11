@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es" data-resolution="portrait">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1080, height=1920">
+  <script src="vendor/gsap.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1080px; height: 1920px; overflow: hidden; background: #171412; }
+    /* El fondo = el color del fondo de los frames, como en la web. */
+    #tramo { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #171412; color: #f3ece2; font-family: system-ui, sans-serif; }
+    #lienzo { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .dato { position: absolute; left: 80px; right: 80px; font-size: 64px; font-weight: 650; line-height: 1.1; letter-spacing: -.01em; text-shadow: 0 2px 24px rgba(0,0,0,.5); }
+    #d1 { top: 220px; } #d2 { top: 1480px; }
+    .barra { position: absolute; left: 80px; right: 80px; bottom: 90px; height: 6px; background: rgba(243,236,226,.18); }
+    .barra i { display: block; height: 100%; background: #e0a050; transform-origin: left; transform: scaleX(0); }
+  </style>
+</head>
+<body>
+  <!-- Un tramo de scroll por fotogramas convertido en vídeo: el tiempo hace de scroll.
+       Necesita al lado: frame-scrubber.js (skill scroll-frames) y la carpeta frames/ con su manifest.json. -->
+  <div id="tramo" data-composition-id="tramo" data-start="0" data-duration="6" data-width="1080" data-height="1920" data-fps="30">
+    <canvas id="lienzo" width="1080" height="1920"></canvas>
+    <p class="dato" id="d1">Caja de 48 mm, cristal de zafiro.</p>
+    <p class="dato" id="d2">Esfera doble, hecha a mano.</p>
+    <div class="barra"><i id="avance"></i></div>
+  </div>
+  <script>
+    const DURACION = 6;
+    const curva = gsap.parseEase("power1.inOut");               // cómo "se baja" por la página
+    const progresoEn = (t) => curva(Math.min(1, Math.max(0, t / DURACION)));
+
+    // Los textos y la barra van en la línea de tiempo, igual que en la web van en la timeline del pin.
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#d1", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.5)
+      .to("#d1", { autoAlpha: 0, y: -40, duration: 0.4, ease: "power2.in" }, 2.4)
+      .fromTo("#d2", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out" }, 3.3)
+      .to("#d2", { autoAlpha: 0, y: -40, duration: 0.4, ease: "power2.in" }, 5.4)
+      .to("#avance", { scaleX: 1, duration: DURACION, ease: "power1.inOut" }, 0);
+    tl.set({}, {}, DURACION);
+    window.__timelines = window.__timelines || {};
+    window.__timelines["tramo"] = tl;
+    tl.seek(0);
+  </script>
+  <script type="module">
+    import { crearFrameScrubber } from "./frame-scrubber.js";
+    // dprMax 1 y variante fija: el vídeo mide lo que mide, no depende de la pantalla.
+    const montaje = crearFrameScrubber({ canvas: document.getElementById("lienzo"), base: "frames/", variante: "movil", dprMax: 1, maxBitmaps: 8 });
+    // HyperFrames espera a esta promesa antes de capturar el primer fotograma (tope: 45 s). Aquí solo se espera al
+    // manifest y al primer frame; el resto de la secuencia lo espera cada fotograma con fijar(), que no tiene ese tope.
+    window.__hf = window.__hf || {};
+    window.__hf.buildReady = window.__hf.buildReady || {};
+    window.__hf.buildReady.tramo = montaje.then(() => {});
+    // En cada fotograma del vídeo: esperar al frame exacto (fijar) antes de que se capture.
+    window.addEventListener("hf-seek", (e) => {
+      const p = progresoEn(e.detail.time);
+      const pintado = montaje.then((seq) => seq.fijar(p));
+      e.detail.waitUntil?.(pintado);
+    });
+  </script>
+</body>
+</html>
