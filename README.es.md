@@ -1,6 +1,6 @@
 # the-new-era-websites · marketplace de Claude Code
 
-**v1.0.0-beta.6** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
+**v1.0.0-beta.7** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
 
 Todo lo que vamos aprendiendo de hacer webs con Claude Code, en skills ordenadas **por técnica**: scroll cinematográfico con vídeo convertido en frames, capas con fondo transparente (el texto entre el producto y el fondo), imágenes que se revelan y transiciones, recursos de imagen con IA en lotes coherentes (objetos sueltos con alfa, juegos de iconos de marca, texturas repetibles, fondos de sección), componentes reutilizables (tarjeta con volteo, carrusel orbital, muro de reseñas 3D), 3D real, lata que gira sin 3D, lente de rayos X y un mapa que baja hasta el edificio. Y las reglas aprendidas en webs entregadas.
 

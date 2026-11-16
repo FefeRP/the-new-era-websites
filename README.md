@@ -1,6 +1,6 @@
 # the-new-era-websites · Claude Code marketplace
 
-**v1.0.0-beta.6** · [Leer en español](README.es.md) · formerly `webs-premium` ([migration note](#migrating-from-webs-premium))
+**v1.0.0-beta.7** · [Leer en español](README.es.md) · formerly `webs-premium` ([migration note](#migrating-from-webs-premium))
 
 Everything we learn about building websites with Claude Code, as skills organised **by technique**: cinematic scroll driven by video frames, transparent layers (text between the product and the background), image reveals and transitions, AI image assets in coherent batches (isolated objects with alpha, brand icon sets, seamless textures, section backgrounds), reusable components (3D flip card, orbital carousel, 3D testimonial wall), real 3D (glTF), a can that spins without 3D, an X-ray lens, and a map that flies down to a building. Plus the rules learned on delivered sites.
 

@@ -2,7 +2,7 @@
 name: video-ia-para-scroll
 description: Cómo pedir a un generador de vídeo con IA (Higgsfield y sus modelos Kling, Veo, Seedance, WAN, Hailuo; también Luma, Runway) el vídeo pensado para el hero o el scroll de una web, no un anuncio - coreografía, imagen clave primero, preset de cámara, fondo limpio, velocidad constante, bucle, duración, resolución y plantillas de prompt por tipo de plano (giro, despiece, ingredientes, vuelo a través, transición, bucle). Incluye el control de calidad del vídeo recibido (cortes, velocidad, parpadeo) antes de partirlo en frames. Úsala cuando haya que "generar el vídeo del producto para la web", "pedir el vídeo a Higgsfield", "prompt para Kling/Veo", "vídeo para scroll", "hero video con IA", "AI video for scroll animation", "exploded view video", "product orbit video", "producto por dentro", "scroll sobre imagen realista", "web como la del cruasán", "inside the product scroll story".
 license: MIT
-version: 1.0.0-beta.6
+version: 1.0.0-beta.7
 ---
 
 # Pedir el vídeo para scroll a una IA

@@ -3,6 +3,11 @@
 Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones: [SemVer](https://semver.org/lang/es/).
 
 ## [Sin publicar]
+
+## [1.0.0-beta.7] - 2026-11-16
+Primera versión publicada con el nombre nuevo: incluye también la 1.0.0-beta.4, la beta.5 y la beta.6, que solo
+estaban en local. Todas las skills pasan a `1.0.0-beta.7`.
+
 ### Añadido
 - **Skill `video-desde-html`** (la número 17): vídeo a partir de HTML, CSS y JS con HyperFrames (Apache-2.0), sin
   modelos de IA de vídeo. De la web al vídeo (hero, tramo de scroll, producto girando → MP4 9:16 o 16:9) y del código

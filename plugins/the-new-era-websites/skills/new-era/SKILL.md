@@ -2,7 +2,7 @@
 name: new-era
 description: Skill maestra del marketplace the-new-era-websites para construir o mejorar webs - palabra clave de activación "NEW ERA" o /new-era (siguen valiendo "WEB PREMIUM" y /web-premium, el nombre anterior). Entiende el pedido, reparte el trabajo con las skills de diseño instaladas (sistema de diseño, tipografía, microinteracciones, accesibilidad), decide el momento estrella y elige y combina técnicas (scroll con vídeo en frames, capas con alfa y profundidad, revelados y transiciones, recursos de imagen con IA como piezas sueltas, iconos de marca, texturas y fondos, componentes reutilizables como tarjeta con volteo, carrusel orbital y reseñas 3D, 3D real con glTF, mapa que baja hasta el edificio, lente de rayos X, envase que gira sin 3D), planifica los activos y su coste, monta la web con la plantilla base (Vite + GSAP + Lenis) y la verifica con capturas. Aplica las reglas aprendidas en webs reales. Úsala SIEMPRE que el pedido diga "NEW ERA", "new era website", "WEB PREMIUM", "web premium", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "hazme la web de", "mejora esta web", "premium website", "awwwards style site", "cinematic scroll website", "3D scrolling website", "build a website with scroll effects".
 license: MIT
-version: 1.0.0-beta.6
+version: 1.0.0-beta.7
 ---
 
 # NEW ERA: de un pedido a una web hecha con oficio
