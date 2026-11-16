@@ -1,10 +1,10 @@
 # the-new-era-websites · Claude Code marketplace
 
-**v1.0.0-beta.8** · [Leer en español](README.es.md) · formerly `webs-premium` ([migration note](#migrating-from-webs-premium))
+**v1.0.0-beta.9** · [Leer en español](README.es.md) · formerly `webs-premium` ([migration note](#migrating-from-webs-premium))
 
 Everything we learn about building websites with Claude Code, as skills organised **by technique**: cinematic scroll driven by video frames, transparent layers (text between the product and the background), image reveals and transitions, AI image assets in coherent batches (isolated objects with alpha, brand icon sets, seamless textures, section backgrounds), reusable components (3D flip card, orbital carousel, 3D testimonial wall), a catalogue of UI components to adapt, real 3D (glTF), a can that spins without 3D, an X-ray lens, and a map that flies down to a building. Plus the rules learned on delivered sites.
 
-A master skill (**NEW ERA**) takes your brief, hands design decisions to the design skills you have installed, picks the "star moment" (or none, if the site does not need one), chooses and combines techniques, plans the assets with their cost, builds the site and verifies it with screenshots.
+A master skill (**NEW ERA**) takes your brief, **chooses a style direction for that client** (ten distinct directions, from cinematic to corporate, editorial, minimal or playful, each with how to execute it at a high level), loads the design skills you have installed at every phase, finds the idea and the signature of the site, chooses and combines techniques, plans the assets with their cost, builds the site, verifies it with screenshots and has it reviewed in rounds until it no longer looks generic.
 
 **Realism comes from AI imagery, not from 3D, and not everything is video.** What stands still is a photo (isolated, with alpha or in layers) that the code moves; video only where the camera travels or something physically changes. `pedir-assets-ia` decides the medium of every element, estimates the cost before generating anything, writes the prompts for any provider and reviews the result.
 
@@ -44,11 +44,13 @@ NEW ERA: landing page for a limited-edition watch; I have 4 product photos and t
 
 The master skill then:
 1. Writes the brief (including what is actually true: reviews, figures).
-2. Hands the visual direction, typography, colour and tokens to the design skills you have installed (see the table below) and picks the star moment, if the site needs one.
-3. Chooses the techniques and components (from the skills below) and how they combine.
-4. Plans the assets, with an estimated cost.
-5. Builds the site from its template (Vite + GSAP + Lenis), or inside your existing project.
-6. Verifies it with screenshots on desktop, mobile and reduced motion, then asks the design skill for a critique.
+2. Chooses the **style direction** (style and intensity) from the client, a board of varied references and two or three clearly different options, and writes it down in `DESIGN.md`. The design skills are loaded with the Skill tool, not recalled from memory.
+3. Finds the idea, the thread that runs through the site and its signature: a star moment on immersive sites, a quieter signature on restrained ones. Every site gets one.
+4. Chooses the techniques and components (from the skills below) and how they combine.
+5. Plans the assets, with an estimated cost and two or three options.
+6. Builds the site from its template (Vite + GSAP + Lenis), or inside your existing project, first screen and signature first.
+7. Verifies it with screenshots on desktop, mobile and reduced motion, runs the "generic test", asks the design skill for a critique and an independent reviewer for a second look, and repeats in rounds.
+8. Delivers with the list of skills that were actually loaded, the review rounds and the time used.
 
 The old keyword **`WEB PREMIUM:`** and the `/web-premium` command still work as aliases.
 
@@ -57,7 +59,7 @@ The old keyword **`WEB PREMIUM:`** and the `/web-premium` command still work as 
 ## Skills
 | Skill | What it does |
 |---|---|
-| `new-era` | Master skill (keyword **NEW ERA**): directs the whole process and the split with design skills; Vite + GSAP + Lenis template; `nueva-web.mjs` (scaffold) and `verificar-scroll.mjs` (screenshots at each scroll step); rules learned on delivered sites (direction, loading, mobile, CSS traps, how to check) |
+| `new-era` | Master skill (keyword **NEW ERA**): directs the whole process: style direction (ten directions and three intensities), which design skills are loaded at each phase, review in rounds; Vite + GSAP + Lenis template; `nueva-web.mjs` (scaffold) and `verificar-scroll.mjs` (screenshots at each scroll step); rules learned on delivered sites (direction, loading, mobile, CSS traps, how to check) |
 | `recursos-imagen-ia` | AI image assets as coherent batches: isolated objects with alpha (fruit, ice, leaves, pieces that float around the product), brand icon sets from a single sheet, seamless textures, section backgrounds with room for the headline (and their day/night pair), the same object in other angles or materials. Prompts per asset type and `lote-imagenes.mjs` to review the batch without Python: contact sheet over several backgrounds, light and brightness coherence between pieces, icon sheet cut with stroke-weight measurement, textures measured and fixed for tiling |
 | `componentes-interactivos` | Reusable components with no dependencies and accessibility solved: `tarjeta-volteo.js` (3D flip card with depth layers), `carrusel-orbital.js` (circular carousel in orbit, or a 3D ring driven by drag, keyboard, autoplay or the scroll) and `resenas-3d.js` (testimonial wall in tilted 3D columns in continuous motion). Each with touch, reduced-motion and `destruir()` |
 | `pedir-assets-ia` | AI asset director: per-element medium from a decision matrix (photo, photo with alpha or layers, video, video with alpha, frames, code or 3D, with cost, weight and risk), cost estimate before generating (`presupuesto.mjs`, cheapest test first, your budget), prompt templates per shot type for Higgsfield, Kling, Veo, Seedance, Wan, Runway, Midjourney, Flux…, start/end frame continuity, recipes per type of site, and a "does it look fake?" review (`revisar-ia.mjs` with Gemini + checklist) |
@@ -77,7 +79,7 @@ The old keyword **`WEB PREMIUM:`** and the `/web-premium` command still work as 
 | `mapa-zoom-ubicacion` | From the map to the building: MapLibre with real orthophoto (PNOA in Spain, free) and OSM 3D buildings; camera stops tied to the scroll, highlighted building; map sources with licences and prices. Second path, `mapa-imagen.js`: nested image levels (real orthophoto, or AI-stylised over it without inventing geography), anchored camera, moving from one place to another, markers and routes in code, exact start/end frames to ask for an AI clip between two views |
 
 ## Working with design skills
-This marketplace covers **technique and assets**. It is not a design system or a typography, colour or micro-interaction guide: if you have design skills installed, the master skill calls them instead of repeating their instructions. None of them is required.
+This marketplace covers **technique and assets**. It is not a design system or a typography, colour or micro-interaction guide: the master skill loads the design skills you have installed at each phase (direction, components, motion, review) instead of repeating their instructions, and reports which ones it loaded. None of them is required to run it, but the result is clearly better with them; what is never delegated is the style direction, the idea of the site and the check that it does not look generic.
 
 | Topic | Who leads | This marketplace adds |
 |---|---|---|

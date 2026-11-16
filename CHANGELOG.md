@@ -4,6 +4,50 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.0.0-beta.9] - 2026-11-17
+Todas las skills pasan a `1.0.0-beta.9`. Versión de corrección: las webs hechas con las betas 6 a 8 salían correctas
+pero genéricas.
+
+### Qué fallaba
+- Desde la beta.6 la skill maestra frenaba: «no toda web necesita un momento estrella», «uno, o ninguno», «solo
+  componentes y entradas discretas si la web es sobria», y los mínimos de tipografía, color y anti-plantilla valían
+  «solo si no hay skill de diseño instalada». Con esas salidas, lo más barato era siempre una web plana.
+- Las skills de diseño se «tenían en cuenta» de memoria en vez de cargarse, no se escribía ninguna dirección
+  (`DESIGN.md`) y el trabajo se cerraba en cuanto pasaban las comprobaciones técnicas.
+
+### Cambiado
+- **`new-era`, reescrita.** Cinco reglas que no se saltan: se elige dirección antes de construir; las skills se cargan
+  con la herramienta `Skill` y se apuntan; toda web lleva idea propia y firma; no se entrega sin revisión
+  independiente; no se cierra pronto si quedan mejoras claras y tiempo.
+  - **Paso nuevo de dirección de estilo**, obligatorio: estilo e intensidad (3 inmersiva, 2 con carácter, 1 contenida),
+    leídos del cliente, con un tablero de referencias variadas y dos o tres opciones bien distintas. Sin `DESIGN.md`
+    no se construye.
+  - Tabla de **qué skills se cargan en cada fase** (dirección, componentes, movimiento, revisión) y qué agentes
+    revisan al final.
+  - Idea, hilo conductor, firma, algo que tocar y recorrido antes de elegir técnicas; mínimos de técnica por intensidad.
+  - Verificación en dos partes: que funciona y **que tiene nivel** (prueba del genérico, crítica, revisor
+    independiente), por rondas.
+  - Apartado para mejorar una web que ya existe: si no cambia la primera pantalla y al menos dos de estructura,
+    tipografía, paleta o técnica, no es una mejora.
+  - El informe final lista las skills cargadas de verdad, las rondas y el tiempo usado.
+- `references/direccion.md`, reescrita: idea e hilo conductor, interfaz que cuenta la idea, paleta que acompaña el
+  relato, tensión y descarga, voz propia. Los mínimos de tipografía y color ya no dependen de que falte una skill de
+  diseño: la skill de diseño puede subirlos, nunca bajarlos. Plantilla nueva de `BRIEF.md`.
+- `references/reparto-skills-diseno.md`: cargar las skills es obligatorio; manda la intensidad elegida; la dirección
+  de estilo, la idea y la prueba del genérico no se delegan.
+- `references/reglas-de-webs-reales.md`: el rechazo «genérica, plana, igual que la anterior» y sus causas.
+- `biblioteca-componentes`: cuántas piezas vistosas caben lo marca la intensidad, no una cifra fija.
+
+### Añadido
+- **`references/direcciones-de-estilo.md`**: diez direcciones (cinematográfica, producto protagonista, lugar y
+  recorrido, editorial, corporativa de precisión, minimal de galería, juguetona, artesana y de materia, cruda y
+  tipográfica, técnica y de datos), cada una con a quién le encaja, qué la define, cómo se ejecuta a buen nivel y cuándo
+  se vuelve genérica; cómo elegir; la firma; y la prueba del genérico, de siete preguntas.
+- `biblioteca-componentes/scripts/buscar.mjs`: la búsqueda puntúa en vez de exigir todas las palabras, con más
+  sinónimos y mirando la descripción; `--sin a,b` deja fuera lo que dependa de una librería; `BIBLIOTECA_AUTH_FILE`
+  lee el acceso de un fichero para que la clave no pase por la línea de órdenes; `ver` avisa si el componente anima
+  `clip-path` o `filter`.
+
 ## [1.0.0-beta.8] - 2026-11-16
 Todas las skills pasan a `1.0.0-beta.8`.
 

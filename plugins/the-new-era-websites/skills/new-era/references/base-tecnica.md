@@ -52,7 +52,7 @@
 `navigator.connection.saveData` (la plantilla pone la clase `ahorro-datos`) y `prefers-reduced-data` cuando exista.
 
 ## Accesibilidad
-Solo si no hay skill de diseño instalada (ver reparto-skills-diseno.md); si la hay, manda la suya.
+Mínimos que se cumplen siempre; la skill de diseño puede subirlos, nunca bajarlos (ver reparto-skills-diseno.md).
 - `prefers-reduced-motion: reduce` → sin Lenis, sin scrub ni parallax: se muestra el póster y los textos en orden (la plantilla pone la clase `menos-movimiento`). Con GSAP, `gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', …)`: crea las animaciones solo sin la preferencia y las deshace si cambia. Los motores del marketplace ya lo respetan (revelados por corte, mapa de parada en parada, rastro desactivado, vídeo con alfa en póster).
 - Todo el texto en el DOM real (no dentro del canvas ni de imágenes). El canvas lleva `aria-hidden="true"` o `role="img"` + `aria-label` si aporta información.
 - Enlace "saltar al contenido", foco visible, orden de tabulación lógico; los elementos fijados no atrapan el foco.

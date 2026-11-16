@@ -1,6 +1,6 @@
 {
   "name": "the-new-era-websites",
-  "version": "1.0.0-beta.8",
+  "version": "1.0.0-beta.9",
   "description": "Claude Code skills for building websites: cinematic scroll with video frames, AI image assets (isolated objects with alpha, brand icon sets, textures, backgrounds, product), transparent layers and alpha video, reveals and scene transitions, depth layers with real shadows, 3D glTF only when it is needed, a map that zooms to the building, reusable components (flip card, orbital carousel, 3D reviews), a searchable catalogue of UI components to adapt (never paste as-is) and rules learned on real sites. Master skill: NEW ERA (/new-era). Works alongside your design skills instead of repeating them. Skills written in Spanish.",
   "author": {
     "name": "FefeRP",

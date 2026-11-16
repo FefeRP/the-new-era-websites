@@ -2,11 +2,15 @@
 
 Este marketplace sabe de **técnica y de assets**: qué medio usa cada elemento, cuánto cuesta, cómo se pide a la IA, los
 motores que lo mueven, los componentes y la verificación con capturas. **No** es un sistema de diseño ni una guía de
-tipografía, de color o de microinteracciones: de eso ya hay skills mejores. Si están instaladas, se delega en ellas; si no,
+tipografía, de color o de microinteracciones: de eso ya hay skills mejores. Si están instaladas, **se cargan**; si no,
 se usan los mínimos de [direccion.md](direccion.md) y [base-tecnica.md](base-tecnica.md).
 
-Comprueba qué hay instalado mirando la lista de skills disponibles en la sesión (no supongas). Delegar es **invocar la skill**
-con el contexto del `BRIEF.md`, no copiar sus instrucciones aquí.
+Comprueba qué hay instalado mirando la lista de skills disponibles en la sesión (no supongas). Delegar es **cargar la skill
+con la herramienta `Skill`** y darle el contexto del `BRIEF.md`. No vale copiar sus instrucciones aquí ni «aplicar lo que
+se recuerda de ella»: una web hecha sin cargarlas sale sin dirección, que es justo lo que se nota como genérico. Cada
+carga se apunta en el `BRIEF.md` y la entrega lista las que se cargaron de verdad. Delegar el diseño no es soltarlo: la
+dirección de estilo, la idea y la firma se deciden aquí (direcciones-de-estilo.md) **con** esas skills, y los mínimos de
+direccion.md valen siempre como suelo.
 
 ## Quién manda en cada tema
 | Tema | Manda | Apoyo | Este marketplace aporta |
@@ -33,14 +37,19 @@ con el contexto del `BRIEF.md`, no copiar sus instrucciones aquí.
 | Crítica y repaso final | `impeccable:impeccable` (`critique`, `audit`, `polish`) | `improve-animations` | `verificar-scroll.mjs`: capturas por posición, consola y reduced-motion. Va **antes** de la crítica: no se critica una página con errores |
 | SEO | `claude-seo:seo` | `ecc:seo` | Lo mínimo de base-tecnica.md (título, descripción, `og:image`, HTML con contenido real) |
 
-## Orden de trabajo cuando hay skills de diseño
+## Orden de trabajo y qué se carga en cada fase
 1. **Brief** (esta skill) → `BRIEF.md`.
-2. **Dirección y sistema** (skill de diseño): estética, tipografía, color, tokens. Si existe `DESIGN.md` o `PRODUCT.md`, se
-   leen y se respetan; el `BRIEF.md` los enlaza y **no repite** sus tokens.
-3. **Momento estrella, técnicas y plan de assets** (esta skill y sus skills de técnica).
-4. **Construir**: plantilla y motores de aquí; estilos y componentes de interfaz con el sistema del paso 2.
-5. **Movimiento fino** (skill de animación) en lo que no es scroll: botones, menús, estados.
-6. **Verificar** con `verificar-scroll.mjs` (aquí) → **crítica y auditoría** (skill de diseño) → corregir → volver a verificar.
+2. **Dirección de estilo y sistema**: se cargan `frontend-design:frontend-design`, `impeccable:impeccable` (`shape`; `init`
+   o `document` para el `DESIGN.md`) y `ui-ux-pro-max:ui-ux-pro-max` (paletas y pares de fuentes del sector). Sale la
+   dirección elegida entre dos o tres y el `DESIGN.md`. Si ya existe `DESIGN.md` o `PRODUCT.md`, se leen y se respetan; el
+   `BRIEF.md` los enlaza y **no repite** sus tokens.
+3. **Idea, hilo conductor, momento estrella, técnicas y plan de assets** (esta skill y sus skills de técnica, cargadas).
+4. **Construir**: plantilla y motores de aquí; componentes con `biblioteca-componentes`, `componentes-interactivos` y
+   `emil-design-eng`; líneas de tiempo a medida con `gsap-skills`; canvas y shaders con `webgl-animation-skills`.
+5. **Movimiento fino** en lo que no es scroll (botones, menús, estados): `animate`, `apple-design`.
+6. **Verificar** con `verificar-scroll.mjs` (aquí) → **crítica y auditoría** (`impeccable`: `critique`, `audit`, `polish`;
+   `animation-performance`, `mobile-native`, `break-ui`) → **revisor independiente** (agente `impeccable-finish-reviewer`
+   y, si hay movimiento, `impeccable-motion-reviewer`) → corregir → otra ronda mientras haya mejoras claras y tiempo.
 
 ## Cuando dos skills dicen cosas distintas
 - **Una sola fuente para los tokens.** No se crean dos `DESIGN.md` ni dos juegos de variables. Si la skill de diseño ya
@@ -50,21 +59,29 @@ con el contexto del `BRIEF.md`, no copiar sus instrucciones aquí.
   pedido llegó con NEW ERA, se usa la plantilla (Lenis + ScrollTrigger) y los motores de este marketplace; `gsap-skills` se
   consulta para la API. Si el pedido llegó por `scroll-craft`, manda su motor y de aquí se toman solo los assets y los
   componentes.
-- **"Un solo momento de movimiento"** (lo piden `frontend-design` y la dirección de aquí): coinciden. El momento estrella es
-  ese momento; el resto, sobrio.
+- **Manda la intensidad elegida.** Las skills de diseño tienden a recomendar contención («un solo momento de movimiento»,
+  «menos es más»). Es un buen consejo para intensidad 1 y un freno para intensidad 3: si el brief dice inmersiva, sus
+  recomendaciones se aplican al *cómo* (calidad de cada escena, curvas, legibilidad), no para quitar escenas, el hilo
+  conductor o las transiciones. Sus avisos contra lo genérico (tipografías por defecto, maquetas de plantilla, degradados
+  de adorno) mandan siempre.
 - **Scroll con sentido** (`impeccable animate`: solo si la relación con el scroll significa algo): es el filtro para decidir
-  si una sección se fija. Si el scroll no cuenta nada (no gira, no avanza, no descubre), la sección no se fija.
-- **Animar o no una interacción**: decide `animate` (frecuencia de uso, propósito). Lo que se usa cien veces al día no se
-  anima, por muy premium que sea la web.
+  *qué* cuenta cada escena fijada, no una razón para no tener ninguna. Si una sección fijada no cuenta nada (no gira, no
+  avanza, no descubre), se cambia por otra que sí.
+- **Animar o no una interacción**: decide `animate` (frecuencia de uso, propósito). En una herramienta que se usa cien
+  veces al día, lo repetido no se anima; en una web de presentación que se visita una vez, la respuesta al gesto es parte
+  de la experiencia.
+- **Rendimiento contra escena**: el presupuesto de rendimiento se cumple optimizando la escena (menos resolución, `transform`
+  en vez de `clip-path` o `filter`, pausa fuera de vista), no quitándola. Quitarla es la última opción y se dice en la entrega.
 - **Accesibilidad contra efecto**: gana la accesibilidad. Con reduced-motion se enseña el estado final o el póster.
 
 ## Si no hay ninguna skill de diseño instalada
-Se sigue con los mínimos de [direccion.md](direccion.md) (dos familias, un fondo, un texto y un acento, lo que huele a
-plantilla) y la checklist de [base-tecnica.md](base-tecnica.md), y se avisa en la entrega de que la dirección visual se ha
-hecho con valores sobrios por defecto. Se pueden recomendar: `impeccable`, `frontend-design`, `ui-ux-pro-max`, las skills de
+Se sigue igual con [direcciones-de-estilo.md](direcciones-de-estilo.md) (elegir dirección, idea y firma), los mínimos de
+[direccion.md](direccion.md) y la checklist de [base-tecnica.md](base-tecnica.md), y se avisa en la entrega de que la
+dirección visual se ha hecho sin skills de diseño. Se pueden recomendar: `impeccable`, `frontend-design`, `ui-ux-pro-max`, las skills de
 animación (`animate`, `emil-design-eng`, `apple-design`, `mobile-native`), `gsap-skills` y `webgl-animation-skills`.
 
 ## Lo que no se delega nunca
+- La **dirección de estilo, la idea y la prueba del genérico**: se deciden y se responden aquí, por escrito.
 - El **coste**: ninguna generación de pago sin precio estimado y sin el sí de quien paga.
 - La **verificación con capturas** antes de enseñar nada.
 - Las **pantallas, logos y textos** dentro de una escena generada: siempre por código.

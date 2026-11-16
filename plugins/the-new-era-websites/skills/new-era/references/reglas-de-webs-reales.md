@@ -4,9 +4,19 @@ Lo que sigue no viene de leer: son fallos y arreglos de webs construidas y entre
 cifras son medidas reales de esos proyectos.
 
 ## 1. Dirección: lo que se rechaza y lo que pasa
+- **«Genérica», «plana», «la veo igual que la anterior» es el otro gran rechazo**, y llega cuando se construye sin elegir
+  dirección. En las webs rechazadas por esto se repetía lo mismo: no se cargaron las skills de diseño (se «aplicó lo que
+  se recordaba»), no había `DESIGN.md`, el brief no decía ni idea ni momento estrella, se decidió presupuesto 0 sin
+  enseñar opciones, se escribió un motor de scroll a medias en vez de usar los del marketplace, y se cerró en una cuarta
+  parte del tiempo disponible en cuanto pasaron las comprobaciones técnicas. La versión «mejorada» conservaba maqueta,
+  tipografía y paleta: añadir seis componentes sobre la misma base no se ve. Lo que sí pasó el filtro: una idea que
+  ordena toda la web, un hilo conductor, tipografía como imagen y paleta que cambia con el relato, aunque no llevara ni
+  una imagen de pago.
+- **Celebrar los fps no es el objetivo.** Una web a 64 fps con fotos de tamaño moderado y sin escena no ha ganado nada. El
+  rendimiento se cumple optimizando la escena, no quitándola.
 - **«Parece de IA» es el rechazo más repetido.** Lo provocan: paletas pastel y formas blandas (el 3D parece plastilina),
   carteles muy coloridos con muchos efectos a la vez, un vídeo generado como intro, degradados sin motivo. Lo que pasa el
-  filtro: **un solo acento**, materiales reales (madera oscura, piedra, metal, luz cálida), referencias reales delante y
+  filtro: **un acento claro** (no cinco colores compitiendo), materiales reales (madera oscura, piedra, metal, luz cálida), referencias reales delante y
   texto, logo y pantallas compuestos por código.
 - **Dos direcciones con capturas antes de construir.** Dos propuestas distintas de verdad, sobre referencias reales, en
   escritorio y móvil (y claro y oscuro si aplica). Se elige una y se afina. Enseñar pronto una muestra ahorra rondas.
@@ -42,8 +52,9 @@ cifras son medidas reales de esos proyectos.
 - **La IA pone la toma; el código pone lo que se lee.** Logos, pantallas, sellos y textos, siempre por código. Los modelos
   de vídeo deforman texto de unos 70 px de alto.
 - **Un splash o un ingrediente quieto es una foto**, no un vídeo: lo mueve el código.
-- **No se gasta en un concepto.** En una maqueta de idea, cero generación de pago; el líquido que se mueve se resolvió
-  con un shader de flujo sobre la foto.
+- **En un concepto, primero el código.** Una maqueta de idea se puede resolver sin generación de pago (el líquido que se
+  mueve salió de un shader de flujo sobre la foto), pero el presupuesto se presenta igual con sus opciones: «cero» se
+  decide viendo lo que se pierde, y una demo para captar a un cliente no es un sitio donde ahorrar la imagen.
 - **Una intro en vídeo generado suele acabar descartada**: pesa (16 MB en un caso), su contenido envejece (la captura de
   la web de dentro deja de ser la actual) y se nota. La alternativa por código (canvas 2D sobre la portada real) salió a 0
   y dura menos de 2,5 s.

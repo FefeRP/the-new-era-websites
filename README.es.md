@@ -1,10 +1,10 @@
 # the-new-era-websites · marketplace de Claude Code
 
-**v1.0.0-beta.8** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
+**v1.0.0-beta.9** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
 
 Todo lo que vamos aprendiendo de hacer webs con Claude Code, en skills ordenadas **por técnica**: scroll cinematográfico con vídeo convertido en frames, capas con fondo transparente (el texto entre el producto y el fondo), imágenes que se revelan y transiciones, recursos de imagen con IA en lotes coherentes (objetos sueltos con alfa, juegos de iconos de marca, texturas repetibles, fondos de sección), componentes reutilizables (tarjeta con volteo, carrusel orbital, muro de reseñas 3D), un catálogo de componentes de interfaz para adaptar, 3D real, lata que gira sin 3D, lente de rayos X y un mapa que baja hasta el edificio. Y las reglas aprendidas en webs entregadas.
 
-Una skill maestra (**NEW ERA**) recoge el pedido, deja las decisiones de diseño a las skills de diseño que tengas instaladas, elige el momento estrella (o ninguno, si la web no lo pide), combina técnicas, planifica los activos con su coste, monta la web y la verifica con capturas.
+Una skill maestra (**NEW ERA**) recoge el pedido, **elige una dirección de estilo para ese cliente** (diez direcciones bien distintas, de la cinematográfica a la corporativa, la editorial, la minimal o la juguetona, cada una con cómo ejecutarla a buen nivel), carga en cada fase las skills de diseño que tengas instaladas, busca la idea y la firma de la web, combina técnicas, planifica los activos con su coste, monta la web, la verifica con capturas y la hace revisar por rondas hasta que deja de parecer genérica.
 
 **Lo realista sale de la IA, no del 3D, y no todo es vídeo.** Lo que está quieto es una foto (aislada, con alfa o en capas) que mueve el código; vídeo solo donde la cámara viaja o algo cambia físicamente. `pedir-assets-ia` decide el medio de cada elemento, estima el coste antes de generar, escribe los prompts para cualquier proveedor y revisa el resultado.
 
@@ -37,11 +37,13 @@ Reinicia Claude Code (o `/reload-plugins`) y comprueba con `/plugin` que `the-ne
 ## Usar
 Escribe **NEW ERA: …** (o `/new-era …`) con el negocio, el producto y los activos que tienes. La skill maestra:
 1. Hace el brief (también qué es verdad: reseñas, cifras).
-2. Deja la dirección visual, la tipografía, el color y los tokens a las skills de diseño instaladas (tabla de abajo) y elige el momento estrella, si la web lo pide.
-3. Elige las técnicas y los componentes y cómo se combinan.
-4. Planifica los activos con su coste.
-5. Monta la web con la plantilla (Vite + GSAP + Lenis) o dentro de tu proyecto.
-6. La verifica con capturas en escritorio, móvil y movimiento reducido, y pide la crítica a la skill de diseño.
+2. Elige la **dirección de estilo** (estilo e intensidad) a partir del cliente, un tablero de referencias variadas y dos o tres opciones claramente distintas, y la deja escrita en `DESIGN.md`. Las skills de diseño se cargan con la herramienta Skill, no se recuerdan de memoria.
+3. Busca la idea, el hilo conductor y la firma de la web: un momento estrella en las inmersivas, una firma más callada en las contenidas. Toda web lleva una.
+4. Elige las técnicas y los componentes y cómo se combinan.
+5. Planifica los activos con su coste y dos o tres opciones.
+6. Monta la web con la plantilla (Vite + GSAP + Lenis) o dentro de tu proyecto, empezando por la primera pantalla y la firma.
+7. La verifica con capturas en escritorio, móvil y movimiento reducido, le pasa la «prueba del genérico», pide la crítica a la skill de diseño y una segunda mirada a un revisor independiente, y repite por rondas.
+8. Entrega con la lista de skills que se cargaron de verdad, las rondas de revisión y el tiempo usado.
 
 La palabra clave anterior, **WEB PREMIUM:**, y el comando `/web-premium` siguen funcionando como alias.
 
@@ -52,7 +54,7 @@ Ejemplo: `NEW ERA: landing para un reloj de edición limitada; tengo 4 fotos del
 ## Skills
 | Skill | Para qué |
 |---|---|
-| `new-era` | Maestra (palabra clave **NEW ERA**): dirige todo el proceso y el reparto con las skills de diseño; plantilla Vite + GSAP + Lenis; `nueva-web.mjs` y `verificar-scroll.mjs`; reglas aprendidas en webs entregadas (dirección, carga, móvil, trampas de CSS, cómo se comprueba) |
+| `new-era` | Maestra (palabra clave **NEW ERA**): dirige todo el proceso: dirección de estilo (diez direcciones y tres intensidades), qué skills de diseño se cargan en cada fase, revisión por rondas; plantilla Vite + GSAP + Lenis; `nueva-web.mjs` y `verificar-scroll.mjs`; reglas aprendidas en webs entregadas (dirección, carga, móvil, trampas de CSS, cómo se comprueba) |
 | `recursos-imagen-ia` | Recursos de imagen con IA en lotes coherentes: objetos sueltos con alfa (frutas, hielo, hojas, piezas que flotan alrededor del producto), juegos de iconos de marca a partir de una sola lámina, texturas repetibles, fondos de sección con sitio para el titular (y su pareja día/noche), el mismo objeto en otros ángulos o materiales. Prompts por tipo de recurso y `lote-imagenes.mjs` para revisar el lote sin Python: hoja de conjunto sobre varios fondos, coherencia de luz y claridad entre piezas, corte de la lámina de iconos con medida del grosor del trazo, texturas medidas y arregladas para mosaico |
 | `componentes-interactivos` | Componentes reutilizables sin dependencias y con la accesibilidad resuelta: `tarjeta-volteo.js` (tarjeta con volteo 3D y capas en profundidad), `carrusel-orbital.js` (carrusel circular en órbita, o anillo 3D que gira con arrastre, teclado, autoplay o el scroll) y `resenas-3d.js` (muro de reseñas en columnas 3D inclinadas en movimiento continuo). Cada uno con táctil, movimiento reducido y `destruir()` |
 | `pedir-assets-ia` | Director de assets de IA: medio de cada elemento con una matriz de decisión (foto, foto con alfa o en capas, vídeo, vídeo con alfa, frames, código o 3D, con coste, peso y riesgo), coste antes de generar (`presupuesto.mjs`, la prueba más barata primero, tu presupuesto), plantillas de prompt por tipo de plano para Higgsfield, Kling, Veo, Seedance, Wan, Runway, Midjourney, Flux…, continuidad con imagen de inicio y fin, recetas por tipo de web y revisión "¿se nota falso?" (`revisar-ia.mjs` con Gemini + señales) |
@@ -72,7 +74,7 @@ Ejemplo: `NEW ERA: landing para un reloj de edición limitada; tengo 4 fotos del
 | `mapa-zoom-ubicacion` | Del mapa al edificio: MapLibre con ortofoto real (PNOA en España, gratis) y edificios 3D de OSM; cámara por paradas ligada al scroll, edificio resaltado, relevo a la foto; fuentes de mapa con licencias y precios. Segundo camino, `mapa-imagen.js`: niveles de imagen anidados (ortofoto real, o estilizada con IA sobre ella sin inventar geografía), cámara anclada, viaje de un sitio a otro, marcadores y rutas por código, fotogramas exactos de inicio y fin para pedir un clip IA entre dos vistas |
 
 ## Reparto con las skills de diseño
-Este marketplace cubre **técnica y activos**. No es un sistema de diseño ni una guía de tipografía, color o microinteracciones: si tienes skills de diseño instaladas, la maestra las invoca en vez de repetir sus instrucciones. Ninguna es obligatoria.
+Este marketplace cubre **técnica y activos**. No es un sistema de diseño ni una guía de tipografía, color o microinteracciones: la maestra carga en cada fase (dirección, componentes, movimiento, revisión) las skills de diseño que tengas instaladas en vez de repetir sus instrucciones, y dice en el informe cuáles cargó. Ninguna hace falta para que funcione, pero el resultado es claramente mejor con ellas; lo que nunca se delega es la dirección de estilo, la idea de la web y la comprobación de que no parece genérica.
 
 | Tema | Quién manda | Qué aporta este marketplace |
 |---|---|---|

@@ -2,7 +2,7 @@
 name: biblioteca-componentes
 description: Buscar, elegir y adaptar componentes UI de un catálogo propio (índice JSON con código, dependencias, demo, licencia y un prompt de integración por componente, sacado de registros abiertos tipo shadcn como Magic UI, SmoothUI, Origin UI, Cult UI, Motion Primitives, Animata y similares, más recetas de Spline) para que cada web sea única - nunca se pega un componente tal cual. Incluye el buscador sin dependencias (scripts/buscar.mjs), cómo leer licencias, cómo cambiar un componente hasta que no se parezca al original, cómo integrar escenas de Spline y qué hacer con catálogos de pago o con clave (21st.dev, versiones Pro). Úsala cuando pidan "busca un componente", "¿hay algún componente de…?", "usa la biblioteca de componentes", "catálogo de componentes", "un fondo animado", "un hero con efecto", "botón con brillo", "texto que se escribe solo", "marquesina de logos", "Magic UI", "Aceternity", "React Bits", "shadcn blocks", "21st.dev", "Spline", "component library", "find a component", "UI component catalog", "animated background component", "hero section component", "Spline scene in React".
 license: MIT
-version: 1.0.0-beta.8
+version: 1.0.0-beta.9
 ---
 
 # Biblioteca de componentes
@@ -21,6 +21,9 @@ export BIBLIOTECA_COMPONENTES=/ruta/al/catalogo/datos
 # o una web privada (si pide usuario y contraseña, también en el entorno; nunca en ficheros del proyecto)
 export BIBLIOTECA_COMPONENTES=https://catalogo.ejemplo.com/datos
 export BIBLIOTECA_AUTH="usuario:clave"
+# o, mejor, un fichero fuera del proyecto con usuario:clave (o líneas «Usuario: …» y «Contraseña: …»):
+# así la clave no pasa por la línea de órdenes ni por el historial
+export BIBLIOTECA_AUTH_FILE=/ruta/fuera/del/proyecto/acceso.txt
 ```
 
 Si no hay catálogo, el paso 1 se hace a mano en las webs de las fuentes (tabla del final) y el resto de la skill vale igual.
@@ -33,6 +36,7 @@ Formato que espera el buscador (por si se monta uno nuevo):
 ```bash
 node scripts/buscar.mjs "fondo de partículas"              # en español o en inglés
 node scripts/buscar.mjs "marquee logo" --categoria texto --con-vista
+node scripts/buscar.mjs "hero con vídeo de fondo" --sin three,gsap   # deja fuera lo que dependa de esas librerías
 node scripts/buscar.mjs categorias                          # hero, fondos, texto, botones, tarjetas, 3d, scroll…
 node scripts/buscar.mjs fuentes                             # recuento y licencia de cada fuente
 node scripts/buscar.mjs ver magicui/magic-card --todo       # código, demo, CSS y prompt
@@ -40,14 +44,23 @@ node scripts/buscar.mjs ver magicui/magic-card --todo       # código, demo, CSS
 Busca por **lo que hace** (glow, beam, marquee, tilt, reveal, spotlight…), no por el nombre comercial. Saca 3-5
 candidatos de fuentes distintas y míralos en su vista previa (la web del catálogo) antes de elegir.
 
+La búsqueda **puntúa**, no exige: no hace falta que aparezcan todas las palabras. Mira el nombre, las etiquetas, la
+categoría y la descripción, con sinónimos en español e inglés, y ordena por cuántas palabras acierta y dónde (el nombre
+pesa más). Si sale poco, quita palabras o cambia la más rara por lo que hace el efecto. Cada resultado dice de qué
+depende (`usa`) y, si el índice la trae, la técnica en una línea. Los componentes marcados «sin vista previa fiable» se
+pueden usar igual, pero hay que probarlos antes de elegirlos: `--con-vista` los deja fuera.
+
 ## Paso 2 · Elegir (filtro rápido)
-1. **¿Cuenta algo de la marca?** Un efecto que no refuerza el mensaje sobra. Uno o dos componentes vistosos por web; el
-   resto, sobrios (la regla de contención de `new-era`).
+1. **¿Cuenta algo de la marca?** Un efecto que no refuerza el mensaje sobra; cuántas piezas vistosas caben lo marca la
+   intensidad elegida en `new-era` (en una web inmersiva, varias; en una contenida, una firma). Todas con el mismo sistema
+   (tipografía, color, curvas) para que parezcan de la misma web.
 2. **Licencia.** `MIT`/`Apache`: se puede usar y modificar; conserva el aviso de copyright en el fichero. Licencias con
    «no redistribuir» o *Commons Clause*: se pueden usar dentro de un producto o web, pero no publicar el componente
    suelto (ni en un repo público de componentes ni en una plantilla que se venda). Las **referencias** (de pago o tras
    login) no tienen código: se abren en su web y, si se quieren, se compran o se pide acceso.
-3. **Peso.** Mira `deps`: `three`, `ogl`, `@react-three/*`, `matter-js` o `gsap` añaden peso. Si la web ya usa uno de
+3. **Peso y rendimiento.** `ver <id>` avisa si el componente anima `clip-path` o `filter` (blur, etc.): eso repinta en
+   cada fotograma y en móviles modestos se nota; en piezas grandes o que se repiten, cámbialo por `transform` y
+   `opacity` o limítalo a un elemento pequeño. Mira `deps`: `three`, `ogl`, `@react-three/*`, `matter-js` o `gsap` añaden peso. Si la web ya usa uno de
    ellos, mejor un componente que use el mismo. Nada de dos librerías de animación para lo mismo.
 4. **Pila.** Casi todos son React + Tailwind (estructura de shadcn/ui). En HTML estático o Astro sin React: rehazlo con
    la idea (es lo habitual en esta pila: los motores del marketplace son JS sin dependencias) en vez de meter React por
