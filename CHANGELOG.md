@@ -4,6 +4,25 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.0.0-beta.8] - 2026-11-16
+Todas las skills pasan a `1.0.0-beta.8`.
+
+### Añadido
+- **Skill `biblioteca-componentes`** (la número 18): buscar, elegir y adaptar componentes de interfaz de un catálogo
+  propio, con un índice JSON que guarda por cada componente el código, las dependencias, la demo, la licencia, el autor
+  y un prompt de integración. `scripts/buscar.mjs`, sin dependencias, busca en español o en inglés (con sinónimos), filtra
+  por categoría, fuente y vista previa, y saca el código, la demo, el CSS y el prompt. Lee el catálogo de una carpeta o de
+  una URL privada (`BIBLIOTECA_COMPONENTES`, `BIBLIOTECA_AUTH`).
+  - Reglas de licencia: MIT, «no redistribuir» o Commons Clause, y de pago.
+  - Una tabla de cambios obligatoria para que ningún componente salga tal cual.
+  - Recetas de Spline: escena con póster, objeto que mira al ratón, scroll, eventos, variables, carga diferida y versión
+    sin React.
+  - Qué hacer con los catálogos de pago o con clave.
+
+  El catálogo no viaja con el plugin.
+- `new-era` y el reparto con las skills de diseño enlazan la skill nueva: antes de escribir una pieza de interfaz desde
+  cero, se busca en el catálogo y se adapta.
+
 ## [1.0.0-beta.7] - 2026-11-16
 Primera versión publicada con el nombre nuevo: incluye también la 1.0.0-beta.4, la beta.5 y la beta.6, que solo
 estaban en local. Todas las skills pasan a `1.0.0-beta.7`.

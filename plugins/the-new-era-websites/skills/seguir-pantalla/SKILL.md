@@ -2,7 +2,7 @@
 name: seguir-pantalla
 description: Poner contenido REAL (la web del cliente, un logo, un texto, un vídeo, cifras) encima de una pantalla, cartel, etiqueta o cualquier superficie plana de un vídeo generado con IA o grabado, siguiéndola fotograma a fotograma con su perspectiva y SIN estirarla, para que la IA haga la escena y el código ponga lo que se tiene que leer. Incluye el seguimiento de las 4 esquinas (Node + ffmpeg, gratis, con fotogramas clave de ida y vuelta) y la capa que lo pinta sincronizada con frame-scrubber. Úsala cuando pidan "zoom a la pantalla del portátil con nuestra web", "poner el logo en el cartel del vídeo", "que se lea la pantalla", "el logo sale deformado/aplastado", "mockup de pantalla en vídeo", "screen replacement", "screen tracking", "corner pin", "planar tracking", "replace screen content in video", "logo on sign in AI video".
 license: MIT
-version: 1.0.0-beta.7
+version: 1.0.0-beta.8
 ---
 
 # Seguir una pantalla (o un cartel) y poner encima lo real

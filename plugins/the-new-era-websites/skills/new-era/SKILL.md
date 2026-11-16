@@ -2,7 +2,7 @@
 name: new-era
 description: Skill maestra del marketplace the-new-era-websites para construir o mejorar webs - palabra clave de activación "NEW ERA" o /new-era (siguen valiendo "WEB PREMIUM" y /web-premium, el nombre anterior). Entiende el pedido, reparte el trabajo con las skills de diseño instaladas (sistema de diseño, tipografía, microinteracciones, accesibilidad), decide el momento estrella y elige y combina técnicas (scroll con vídeo en frames, capas con alfa y profundidad, revelados y transiciones, recursos de imagen con IA como piezas sueltas, iconos de marca, texturas y fondos, componentes reutilizables como tarjeta con volteo, carrusel orbital y reseñas 3D, 3D real con glTF, mapa que baja hasta el edificio, lente de rayos X, envase que gira sin 3D), planifica los activos y su coste, monta la web con la plantilla base (Vite + GSAP + Lenis) y la verifica con capturas. Aplica las reglas aprendidas en webs reales. Úsala SIEMPRE que el pedido diga "NEW ERA", "new era website", "WEB PREMIUM", "web premium", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "hazme la web de", "mejora esta web", "premium website", "awwwards style site", "cinematic scroll website", "3D scrolling website", "build a website with scroll effects".
 license: MIT
-version: 1.0.0-beta.7
+version: 1.0.0-beta.8
 ---
 
 # NEW ERA: de un pedido a una web hecha con oficio
@@ -24,7 +24,7 @@ invócalas.
 | Transparencia y capas | `capas-alfa` (alfa sin Python, vídeo con alfa en todos los navegadores, texto entre capas) · `parallax-capas` (profundidad sin 3D, sombra como capa) |
 | Scroll con vídeo | `video-ia-para-scroll` (cómo pedirlo) · `scroll-frames` (frames ligados al scroll) · `seguir-pantalla` (la web o el logo reales sobre una pantalla del vídeo) |
 | Revelados y transiciones | `revelados-y-transiciones` (rejilla, cortina, zoom 2D, titulares por líneas, View Transitions) · `rastro-cursor` · `lente-revelado` (rayos X, antes/después) |
-| Componentes | `componentes-interactivos` (tarjeta con volteo y capas, carrusel en órbita o anillo 3D, reseñas en columnas 3D) |
+| Componentes | `componentes-interactivos` (tarjeta con volteo y capas, carrusel en órbita o anillo 3D, reseñas en columnas 3D) · `biblioteca-componentes` (buscar en un catálogo propio de componentes UI con licencia y prompt, y adaptarlos hasta que no se reconozcan; recetas de Spline) |
 | 3D y producto | `escena-3d-gltf` (three.js con glTF) · `envase-giratorio` (lata o bote que gira sin 3D) |
 | Mapas | `mapa-zoom-ubicacion` (de la ciudad al edificio: mapa vivo o por niveles de imagen) |
 | Vídeo por código | `video-desde-html` (HyperFrames: el hero o un tramo de scroll a vídeo para redes; bucles sin corte, capas con alfa y secuencias para scroll sin modelo de IA) |
@@ -98,6 +98,8 @@ Usa la matriz de [references/catalogo-tecnicas.md](references/catalogo-tecnicas.
 | Destacados que giran alrededor de un centro, o un anillo que gira al bajar | Carrusel en órbita o anillo 3D | `componentes-interactivos` (`carrusel-orbital.js`) |
 | Prueba social con movimiento (con reseñas reales) | Muro de reseñas en columnas 3D | `componentes-interactivos` (`resenas-3d.js`) |
 | Botones, menús, modales, avisos, estados de hover | Microinteracciones | skill de animación instalada (`animate`, `emil-design-eng`) |
+| Una pieza de interfaz que ya existe en algún catálogo (fondo animado, texto que se escribe, marquesina de logos, botón con brillo, bento, hero con efecto) | Componente del catálogo propio, adaptado (nunca tal cual) | `biblioteca-componentes` |
+| Escena 3D hecha en Spline (hero, objeto que sigue al ratón, configurador ligero) | Escena exportada + runtime de Spline con carga diferida | `biblioteca-componentes` (recetas `spline/*`) |
 | Textos con presencia | Titulares que suben por líneas, máscaras, texto entre capas | `revelados-y-transiciones` (`crearLineas`) + `capas-alfa` |
 | Un vídeo de la web para redes o el portfolio (el hero, el momento estrella en vertical) | Composición HTML renderizada fotograma a fotograma | `video-desde-html` |
 | Fondo en movimiento o secuencia de scroll que se puede dibujar por código (formas, tipografía, shader, 3D) | Bucle sin corte o secuencia renderizada, sin modelo de IA | `video-desde-html` → `scroll-frames` / `capas-alfa` |
@@ -129,6 +131,8 @@ La plantilla trae Lenis + GSAP ScrollTrigger en un único bucle, reduced-motion,
 Cada técnica en su fichero `src/secciones/<seccion>.js` (la carpeta `src/secciones/` se crea: la plantilla no la trae), con la maqueta y el código de las references de su skill.
 **Orden**: primero todo el HTML y el texto real (la página debe tener sentido sin JS) → estilos y móvil con los tokens del
 sistema de diseño → técnicas y componentes uno a uno, comprobando cada uno → microinteracciones con la skill de animación.
+Antes de escribir una pieza de interfaz desde cero, busca en el catálogo (`biblioteca-componentes`, paso 1) y adapta lo
+que encaje con su tabla de cambios: nunca un componente de catálogo tal cual.
 Si el proyecto ya existe (React, Next, Astro…), no se usa la plantilla: se copian los motores a su carpeta de librerías y se
 montan dentro de sus componentes (todos devuelven `destruir()` para el desmontaje).
 
