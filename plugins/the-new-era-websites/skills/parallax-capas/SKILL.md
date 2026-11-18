@@ -2,7 +2,7 @@
 name: parallax-capas
 description: Profundidad sin 3D - hero y secciones "dimensionales" con capas (fondo, sujeto, primer plano, atmósfera) que se mueven a distinta velocidad con el scroll y el puntero; cómo preparar las capas (recorte con alfa, clean plate, imágenes generadas por capa o capas hechas con código), la SOMBRA como capa propia semitransparente (extraída de la foto con capas-sombra.mjs o sintética) para recomponer y levitar, versión solo CSS con scroll-driven animations y versión JS sin dependencias. Úsala cuando pidan "efecto de profundidad", "parallax", "que parezca 3D sin 3D", "hero con capas", "ingredientes flotando alrededor del producto", "separar en capas", "sacar la sombra", "producto que levita", "depth effect", "layered hero", "multiplane parallax", "mouse parallax", "2.5D", "shadow layer", "keep the shadow when removing background".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Parallax y profundidad por capas
@@ -24,6 +24,14 @@ El cerebro lee la diferencia de velocidad como distancia. Pesa poco, va en cualq
 6. **El texto, entre planos** (delante del fondo, detrás del primer plano) o fijo: **nunca el texto con parallax fuerte** (cuesta leerlo).
 7. **Movimiento contenido**: con scroll, recorrido 0,15-0,3 del alto; con puntero, 10-30 px. Si se nota "el truco", es demasiado.
 8. **Composición propia en móvil**: menos capas (2-3), sin parallax de puntero, el sujeto más grande.
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión GSAP ScrollTrigger y Lenis antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de animación ligada al scroll en CSS (si basta sin GSAP), imágenes optimizadas, CLS de las capas, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 1. **Decide planos y profundidades** (apúntalo): qué hay en cada capa y su `data-profundidad`.

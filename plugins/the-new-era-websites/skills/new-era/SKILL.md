@@ -1,8 +1,8 @@
 ---
 name: new-era
-description: Skill maestra del marketplace the-new-era-websites para construir o mejorar webs con carácter propio en cualquier estilo (inmersiva, cinematográfica, editorial, corporativa, minimal, juguetona…) y sin resultados genéricos - palabra clave de activación "NEW ERA" o /new-era (siguen valiendo "WEB PREMIUM" y /web-premium, el nombre anterior). Entiende el pedido, elige una dirección de estilo y una intensidad según el cliente (con varias direcciones distintas donde elegir), obliga a cargar con la herramienta Skill las skills de diseño instaladas en cada fase (dirección, componentes, movimiento, revisión), define la idea propia y el hilo conductor de la web, elige y combina técnicas (scroll con vídeo en frames, capas con alfa y profundidad, revelados y transiciones, recursos de imagen con IA, componentes, 3D real con glTF, shaders, mapa que baja hasta el edificio, lente de rayos X, envase que gira sin 3D), planifica los activos y su coste, monta la web con la plantilla base (Vite + GSAP + Lenis), la verifica con capturas y la pasa por una revisión independiente en rondas antes de darla por terminada. Úsala SIEMPRE que el pedido diga "NEW ERA", "new era website", "WEB PREMIUM", "web premium", "web inmersiva", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "hazme la web de", "mejora esta web", "que no parezca genérica", "premium website", "immersive website", "awwwards style site", "cinematic scroll website", "3D scrolling website", "build a website with scroll effects".
+description: Skill maestra del marketplace the-new-era-websites para construir o mejorar webs con carácter propio en cualquier estilo (inmersiva, cinematográfica, editorial, corporativa, minimal, juguetona…) y sin resultados genéricos - palabra clave de activación "NEW ERA" o /new-era (siguen valiendo "WEB PREMIUM" y /web-premium, el nombre anterior). Entiende el pedido, elige una dirección de estilo y una intensidad según el cliente (con varias direcciones distintas donde elegir), obliga a cargar con la herramienta Skill las skills de diseño instaladas en cada fase (dirección, componentes, movimiento, código, revisión), consulta la documentación actual de cada librería en la versión del proyecto con find-docs (Next.js, React, Tailwind, GSAP, three.js…) y sigue Modern Web Guidance en las decisiones de plataforma (Core Web Vitals, imágenes, fuentes, accesibilidad, View Transitions, CSS moderno), define la idea propia y el hilo conductor de la web, elige y combina técnicas (scroll con vídeo en frames, capas con alfa y profundidad, revelados y transiciones, recursos de imagen con IA, componentes, 3D real con glTF, shaders, mapa que baja hasta el edificio, lente de rayos X, envase que gira sin 3D), planifica los activos y su coste, monta la web con la plantilla base (Vite + GSAP + Lenis), la verifica con capturas y la pasa por una revisión independiente en rondas antes de darla por terminada. Úsala SIEMPRE que el pedido diga "NEW ERA", "new era website", "WEB PREMIUM", "web premium", "web inmersiva", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "hazme la web de", "mejora esta web", "que no parezca genérica", "premium website", "immersive website", "awwwards style site", "cinematic scroll website", "3D scrolling website", "build a website with scroll effects".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # NEW ERA: de un pedido a una web con carácter propio
@@ -10,7 +10,7 @@ version: 1.0.0-beta.9
 Esta skill **dirige**: elige la dirección, decide qué hacer y en qué orden, y delega el *cómo*. Sirve para cualquier
 estilo; lo único que no puede salir de aquí es una web **genérica**: la que valdría para otro negocio cambiando el logo.
 
-## Cinco reglas que no se saltan
+## Seis reglas que no se saltan
 1. **Se elige dirección antes de construir** (paso 2). Una web sale genérica cuando nadie decide: secciones correctas,
    tipografía neutra, tarjetas, entradas suaves y un efecto suelto. Estilo e intensidad se eligen según el cliente y quedan
    escritos.
@@ -24,6 +24,11 @@ estilo; lo único que no puede salir de aquí es una web **genérica**: la que v
    construido la web. Pasar las comprobaciones técnicas (sin errores, buen rendimiento) es el mínimo, no el final.
 5. **No se cierra pronto.** Mientras el revisor encuentre mejoras claras y quede tiempo o presupuesto del encargo, se hace
    otra ronda. Terminar con la mitad del tiempo sin usar y mejoras a la vista es un encargo a medias.
+6. **El código se escribe contra la documentación actual, no de memoria.** Antes de usar o cambiar la API de una librería
+   (Next.js, React, Tailwind, GSAP, three.js, Prisma…) se consulta con `find-docs` en la versión exacta del proyecto, y
+   antes de cada decisión de plataforma (rendimiento, imágenes, fuentes, accesibilidad, transiciones, CSS moderno) se
+   sigue `modern-web-guidance`. Cada consulta se apunta en `BRIEF.md` («Documentación consultada»). Protocolo en
+   [references/codigo-y-plataforma.md](references/codigo-y-plataforma.md).
 
 ## Skills que se cargan en cada fase (obligatorio si están instaladas)
 Mira la lista de skills disponibles en la sesión, no supongas. Las de este marketplace van siempre; de las demás, las que
@@ -35,6 +40,7 @@ entrega.
 | **Dirección** (paso 2) | `frontend-design:frontend-design` (dirección estética) · `impeccable:impeccable` (`shape`, y `init`/`document` para `DESIGN.md`) · `ui-ux-pro-max:ui-ux-pro-max` (paletas y pares de fuentes por sector) | Dirección elegida, tipografía, paleta y tokens en `DESIGN.md` |
 | **Componentes** (pasos 4 y 6) | `biblioteca-componentes` (catálogo: buscar antes de escribir) · `componentes-interactivos` · `emil-design-eng` (detalle de cada pieza) | Piezas adaptadas a la marca, no de catálogo tal cual |
 | **Movimiento** (pasos 4 y 6) | Las skills de técnica de este marketplace que toquen · `gsap-skills:gsap-scrolltrigger` y `gsap-skills:gsap-timeline` (líneas de tiempo a medida) · `webgl-animation-skills:shader-glsl` / `threejs-animation` / `particle-system` (si hay canvas) · `animate` y `apple-design` (microinteracciones, gestos, muelles) | Escenas, transiciones y estados con intención |
+| **Código** (pasos 1, 4, 6 y 7) | `find-docs` (API de cada librería en la versión del `package.json`) · `modern-web-guidance:modern-web-guidance` (plataforma: Core Web Vitals, imágenes, fuentes, accesibilidad, View Transitions, CSS moderno, formularios, PWA) | Código que funciona con la versión instalada y decisiones de plataforma con su guía, apuntadas en `BRIEF.md` |
 | **Revisión** (paso 7) | `impeccable:impeccable` (`critique`, `audit`, `polish`) · `animation-performance` · `mobile-native` · `break-ui` · el agente revisor `impeccable-finish-reviewer` (y `impeccable-motion-reviewer` si hay movimiento) | Lista ordenada de arreglos, aplicada por rondas |
 
 Quién manda cuando dos skills opinan distinto: [references/reparto-skills-diseno.md](references/reparto-skills-diseno.md).
@@ -68,7 +74,9 @@ Saca del pedido (y pregunta **solo** lo que falte y cambie la decisión, en una 
 2. **Objetivo**: la acción que debe hacer el visitante (comprar, reservar, contactar) → el CTA.
 3. **Activos disponibles**: fotos, vídeo, modelo 3D, logo, textos. Si no hay: qué se genera con IA (cuesta dinero →
    presupuesto y vale) y qué se hace por código.
-4. **Destino técnico**: HTML estático (Vite, por defecto) o React/Next u otro CMS.
+4. **Destino técnico**: HTML estático (Vite, por defecto) o React/Next u otro CMS. Si el proyecto ya existe, lee su
+   `package.json` y apunta las versiones exactas (next, react, tailwindcss, gsap, three…) y, en Next.js, si es App Router o
+   Pages Router: de ahí sale qué documentación se consulta (regla 6).
 5. **Público y dispositivos**: si es sobre todo móvil (comercio local: casi siempre), manda el móvil.
 6. **Marca**: colores, tipografía, tono, y si existe `DESIGN.md` o `PRODUCT.md` (se leen y se respetan). Busca primero el
    logo y los colores en el propio proyecto antes de pedirlos.
@@ -190,6 +198,16 @@ hilo conductor y las transiciones → resto de secciones y componentes, uno a un
 animación.
 Para cada pieza de interfaz, busca antes en el catálogo (`biblioteca-componentes`) y adapta lo que encaje con su tabla de
 cambios; lo que el catálogo no tenga con la pila del proyecto, se rehace con la idea.
+**Antes de escribir código** (regla 6; se carga la fase **Código**):
+- Cada API de librería que se escribe o se cambia, consultada antes con `find-docs` en la versión del proyecto (en
+  Next.js: metadata, `next/image`, `next/font`, componente de servidor o de cliente y dónde se monta un motor que usa
+  `window`, configuración). Los motores de este marketplace no hace falta consultarlos; la librería que usan por dentro
+  (GSAP, three.js, MapLibre), sí cuando se escribe código propio con ella.
+- Cada decisión de plataforma, con su guía de `modern-web-guidance` antes de escribirla: imagen o póster de la primera
+  pantalla (LCP), fuentes, medios diferidos, CLS de las escenas fijadas, INP de lo que se toca, transiciones entre páginas,
+  diálogos, menús, formularios, accesibilidad.
+- Se apunta en `BRIEF.md` («Documentación consultada») según se consulta.
+
 Si el proyecto ya existe (React, Next, Astro…), no se usa la plantilla: se copian los motores a su carpeta de librerías y se
 montan dentro de sus componentes (todos devuelven `destruir()` para el desmontaje).
 
@@ -200,21 +218,25 @@ montan dentro de sus componentes (todos devuelven `destruir()` para el desmontaj
 3. Tamaños de móvil que fallan: 390×844, 360×740 y apaisados 844×390 y 932×430. Sin desplazamiento lateral.
 4. `npm run build` sin errores; peso total dentro del presupuesto ([references/base-tecnica.md](references/base-tecnica.md)) y su checklist final. El rendimiento es una condición, no el objetivo: si para ganar fps hay que quitar la escena, primero se
    optimiza la escena (anima `transform` y `opacity`; `clip-path` y `filter` animados en cada fotograma doblan el coste).
+5. **Código al día**: cada API de librería del código nuevo tiene su consulta de `find-docs` y cada decisión de
+   plataforma su guía de `modern-web-guidance`, revisada contra lo escrito (prioridad de la imagen principal, tamaños,
+   alternativas para lo que no es Baseline). En Next.js, `next build` sin avisos de API obsoleta. Lo que falte se consulta
+   ahora y se corrige.
 
 **B. Que tiene nivel** (con la página ya sin errores)
-5. **Prueba del genérico** de [references/direcciones-de-estilo.md](references/direcciones-de-estilo.md) (§5), respondida
+6. **Prueba del genérico** de [references/direcciones-de-estilo.md](references/direcciones-de-estilo.md) (§5), respondida
    por escrito con las capturas delante y al lado del tablero de referencias del paso 2.
-6. **Crítica con la skill de diseño** cargada con `Skill` (p. ej. `impeccable`: `critique`, `audit`, `polish`).
-7. **Revisor independiente**: lanza un subagente que no haya construido la web (si está instalado, el agente
+7. **Crítica con la skill de diseño** cargada con `Skill` (p. ej. `impeccable`: `critique`, `audit`, `polish`).
+8. **Revisor independiente**: lanza un subagente que no haya construido la web (si está instalado, el agente
    `impeccable-finish-reviewer`, y `impeccable-motion-reviewer` para el movimiento; si no, un subagente con las capturas, una
    grabación del scroll, el brief y la prueba del genérico). Pídele la lista ordenada de arreglos de más a menos impacto.
-8. Revisión visual con un modelo de visión de las hojas o de la grabación; contrasta cada aviso con la captura (da falsos
+9. Revisión visual con un modelo de visión de las hojas o de la grabación; contrasta cada aviso con la captura (da falsos
    positivos).
 
 **C. Rondas**
-9. Aplica los arreglos de más impacto y vuelve a A. Repite mientras el revisor siga encontrando mejoras claras y quede
+10. Aplica los arreglos de más impacto y vuelve a A. Repite mientras el revisor siga encontrando mejoras claras y quede
    tiempo del encargo (regla 5). Apunta cada ronda en `BRIEF.md`: qué se cambió y qué queda.
-10. Se cierra cuando el revisor ya no encuentra arreglos de peso o se acaba el tiempo, nunca solo porque «pasa las
+11. Se cierra cuando el revisor ya no encuentra arreglos de peso o se acaba el tiempo, nunca solo porque «pasa las
     comprobaciones».
 
 ## Mejoras de una web que ya existe
@@ -223,12 +245,16 @@ Subir de nivel sobre la misma base no cambia lo que se ve. Para que una versión
 - Captura de antes y después lado a lado (primera pantalla y dos posiciones más). Si no se distinguen de un vistazo, no se
   publica como versión nueva.
 - Si lo rechazado fue «no me gusta», se vuelve al paso 2 con direcciones nuevas; no se retoca la misma.
+- Antes de tocar su código: versiones del `package.json` y `find-docs` para lo que se cambie. Si piden modernizarla
+  entera, el `legacy-scan` de `modern-web-guidance`.
 
 ## Paso 8 · Entregar
 Resumen corto con:
 - Dirección elegida (estilo e intensidad), la idea en una frase y las direcciones descartadas.
 - **Skills cargadas de verdad con la herramienta `Skill`**, por fase, y las de la tabla que no se cargaron con el motivo
   (no instalada, no aplicaba). Sin esta lista la entrega no está completa.
+- **Documentación consultada**: versiones del proyecto, consultas de `find-docs` (librería, versión, pregunta) y guías
+  de `modern-web-guidance` aplicadas (id y qué cambió). Sin esta lista tampoco está completa.
 - Técnicas y componentes usados y por qué; activos (origen, licencia, coste); pesos.
 - Rondas de revisión hechas, qué dijo el revisor independiente y qué se corrigió; tiempo usado frente al disponible.
 - Qué se ha comprobado (capturas), qué queda (activos definitivos, textos del cliente, datos «por confirmar», dominio) y
@@ -240,4 +266,5 @@ Resumen corto con:
 - [references/direccion.md](references/direccion.md): idea e hilo conductor, recorrido, ritmo, mínimos de tipografía y color, lo que da "aspecto de IA" y la plantilla del brief.
 - [references/reparto-skills-diseno.md](references/reparto-skills-diseno.md): quién manda en cada tema entre este marketplace y las skills de diseño instaladas.
 - [references/reglas-de-webs-reales.md](references/reglas-de-webs-reales.md): reglas y recetas sacadas de webs entregadas (dirección, carga, móvil, trampas de CSS, comprobación).
+- [references/codigo-y-plataforma.md](references/codigo-y-plataforma.md): cuándo y cómo se usan `find-docs` (API de librerías en la versión del proyecto) y `modern-web-guidance` (plataforma web), qué se apunta y cómo se comprueba.
 - [references/base-tecnica.md](references/base-tecnica.md): presupuestos globales, rendimiento, accesibilidad, SEO y checklist final.

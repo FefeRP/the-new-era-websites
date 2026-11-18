@@ -2,7 +2,7 @@
 name: escena-3d-gltf
 description: Escena 3D real con three.js y un modelo glTF/GLB (producto, objeto, personaje) - conseguir y optimizar el modelo (gltf-transform, Meshopt/Draco, texturas WebP/KTX2, versión móvil), escena de estudio con luz realista sin HDR externo, producto que gira o se acerca con el scroll (GSAP ScrollTrigger), arrastre que no secuestra el scroll, render bajo demanda, póster de reserva, limpieza de memoria, y equivalente en React Three Fiber. Úsala cuando pidan "modelo 3D en la web", "producto en 3D que se pueda girar", "three.js", "glTF/GLB", "configurador 3D", "3D al hacer scroll", "3D product viewer", "WebGL hero", "react-three-fiber".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Escena 3D con modelo glTF
@@ -15,6 +15,14 @@ Es lo más caro (modelo, peso, GPU, móvil) y no siempre hace falta: si el visit
 Cuándo no: si gira y es una lata o botella con etiqueta cilíndrica → `envase-giratorio` (canvas 2D, sin modelo); si solo
 se ve girar (el visitante no lo controla) → frames de un render o de un vídeo (`scroll-frames`); si está quieto → foto, con
 alfa si va en capas (`capas-alfa`, `parallax-capas`).
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión three.js (y sus addons: GLTFLoader, DRACO, KTX2) o React Three Fiber si el proyecto lo usa antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de carga diferida de lo que no se ve, prioridad de recursos, póster para el LCP, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 

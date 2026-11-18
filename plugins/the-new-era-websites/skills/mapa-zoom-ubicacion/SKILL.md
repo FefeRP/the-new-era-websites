@@ -2,7 +2,7 @@
 name: mapa-zoom-ubicacion
 description: Del mapa al edificio - sección en la que, con el scroll, la cámara baja desde la ciudad (ortofoto/satélite REAL) hasta un edificio concreto, con inclinación, giro, edificios 3D, el destino resaltado y el relevo final a la foto o el render del cliente. Para inmobiliarias, promociones, hoteles, oficinas, tiendas y cualquier negocio con ubicación. Dos caminos probados - mapa vivo con MapLibre GL JS y fuentes gratis con licencia (PNOA del IGN en España, OpenFreeMap/OSM; motor mapa-scroll.js), o mapa por niveles de imagen (ortofoto real descargada, o estilizada con IA sin inventar geografía) con marcadores, rutas y paso de una zona a otra por código (motor mapa-imagen.js, sin dependencias, peso fijo). Úsala cuando pidan "mapa que hace zoom al edificio", "zoom desde el satélite", "mostrar la ubicación con scroll", "vuelo de cámara a la parcela", "mapa 3D de la promoción", "dónde está el piso", "mapa ilustrado con zoom", "mapa con IA", "de un sitio a otro en el mapa", "map zoom to building", "scroll-driven map", "satellite zoom intro", "location reveal", "fly to property on scroll", "illustrated map zoom", "AI map".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Del mapa al edificio (zoom de ubicación con scroll)
@@ -39,6 +39,14 @@ Comparativa completa en [references/mapa-por-imagenes.md](references/mapa-por-im
 | Evitar | Teselas de `tile.openstreetmap.org` (prohíbe este uso), Google Photorealistic 3D Tiles (bloqueado con facturación en el EEE desde 07-2025, y prohíbe cachear), Sentinel-2 cloudless de EOX (no comercial, 10 m) | Licencia o resolución |
 
 Coste práctico en España: **0 €** (PNOA + OpenFreeMap + MapLibre). Si hay que generar algo con IA, **precio estimado y vale del dueño antes**.
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión MapLibre GL JS y GSAP ScrollTrigger antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de carga diferida del mapa, prioridad de la foto de relevo, alternativa en texto para lectores de pantalla, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Dos caminos
 - **Mapa vivo** (lo que sigue en esta página): MapLibre + teselas, cámara 3D con inclinación y giro, edificios extruidos.

@@ -35,6 +35,8 @@ direccion.md valen siempre como suelo.
 | Rendimiento de animaciones | `animation-performance` | `gsap-skills:gsap-performance` | Los presupuestos de peso de frames, vídeo, alfa y glTF (base-tecnica.md) |
 | Datos extremos y casos límite | `break-ui` | `impeccable:impeccable` (`harden`) | — |
 | Crítica y repaso final | `impeccable:impeccable` (`critique`, `audit`, `polish`) | `improve-animations` | `verificar-scroll.mjs`: capturas por posición, consola y reduced-motion. Va **antes** de la crítica: no se critica una página con errores |
+| API de librerías y frameworks (Next.js, React, Tailwind, GSAP, three.js, MapLibre, Prisma…) | `find-docs` (en la versión exacta del `package.json`) | `gsap-skills`, `webgl-animation-skills` para patrones; la documentación manda sobre ellas y sobre lo que se recuerde | Los motores ya probados: no hace falta consultarlos; sí la librería cuando se escribe código propio con ella |
+| Plataforma web: Core Web Vitals, imágenes, fuentes, accesibilidad nativa, View Transitions, animación ligada al scroll en CSS, diálogos, formularios, CSS moderno, PWA | `modern-web-guidance:modern-web-guidance` | `impeccable:impeccable` (`audit`), `animation-performance` | Los presupuestos de peso y la verificación por posiciones; la decisión motor contra nativo en las escenas ([codigo-y-plataforma.md](codigo-y-plataforma.md)) |
 | SEO | `claude-seo:seo` | `ecc:seo` | Lo mínimo de base-tecnica.md (título, descripción, `og:image`, HTML con contenido real) |
 
 ## Orden de trabajo y qué se carga en cada fase
@@ -44,10 +46,10 @@ direccion.md valen siempre como suelo.
    dirección elegida entre dos o tres y el `DESIGN.md`. Si ya existe `DESIGN.md` o `PRODUCT.md`, se leen y se respetan; el
    `BRIEF.md` los enlaza y **no repite** sus tokens.
 3. **Idea, hilo conductor, momento estrella, técnicas y plan de assets** (esta skill y sus skills de técnica, cargadas).
-4. **Construir**: plantilla y motores de aquí; componentes con `biblioteca-componentes`, `componentes-interactivos` y
+4. **Construir**: antes de cada API de librería, `find-docs` en la versión del proyecto; antes de cada decisión de plataforma, `modern-web-guidance` (ver [codigo-y-plataforma.md](codigo-y-plataforma.md)). Plantilla y motores de aquí; componentes con `biblioteca-componentes`, `componentes-interactivos` y
    `emil-design-eng`; líneas de tiempo a medida con `gsap-skills`; canvas y shaders con `webgl-animation-skills`.
 5. **Movimiento fino** en lo que no es scroll (botones, menús, estados): `animate`, `apple-design`.
-6. **Verificar** con `verificar-scroll.mjs` (aquí) → **crítica y auditoría** (`impeccable`: `critique`, `audit`, `polish`;
+6. **Verificar** con `verificar-scroll.mjs` (aquí) y el código contra las consultas y guías apuntadas → **crítica y auditoría** (`impeccable`: `critique`, `audit`, `polish`;
    `animation-performance`, `mobile-native`, `break-ui`) → **revisor independiente** (agente `impeccable-finish-reviewer`
    y, si hay movimiento, `impeccable-motion-reviewer`) → corregir → otra ronda mientras haya mejoras claras y tiempo.
 
@@ -72,6 +74,7 @@ direccion.md valen siempre como suelo.
   de la experiencia.
 - **Rendimiento contra escena**: el presupuesto de rendimiento se cumple optimizando la escena (menos resolución, `transform`
   en vez de `clip-path` o `filter`, pausa fuera de vista), no quitándola. Quitarla es la última opción y se dice en la entrega.
+- **Documentación contra memoria o receta**: si la documentación actual (`find-docs`) o una guía de `modern-web-guidance` contradice lo que dice una skill o lo que se recuerda, manda la documentación en la API y la guía en la plataforma; se anota y, si afecta a un motor de aquí, se avisa en la entrega.
 - **Accesibilidad contra efecto**: gana la accesibilidad. Con reduced-motion se enseña el estado final o el póster.
 
 ## Si no hay ninguna skill de diseño instalada
@@ -79,6 +82,7 @@ Se sigue igual con [direcciones-de-estilo.md](direcciones-de-estilo.md) (elegir 
 [direccion.md](direccion.md) y la checklist de [base-tecnica.md](base-tecnica.md), y se avisa en la entrega de que la
 dirección visual se ha hecho sin skills de diseño. Se pueden recomendar: `impeccable`, `frontend-design`, `ui-ux-pro-max`, las skills de
 animación (`animate`, `emil-design-eng`, `apple-design`, `mobile-native`), `gsap-skills` y `webgl-animation-skills`.
+Para el código: `find-docs` y `modern-web-guidance` (cómo instalarlas en [codigo-y-plataforma.md](codigo-y-plataforma.md)).
 
 ## Lo que no se delega nunca
 - La **dirección de estilo, la idea y la prueba del genérico**: se deciden y se responden aquí, por escrito.

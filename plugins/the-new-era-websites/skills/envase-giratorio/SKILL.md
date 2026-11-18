@@ -2,7 +2,7 @@
 name: envase-giratorio
 description: Lata, bote, tarro o botella cilíndrica que gira de verdad sin modelo 3D ni vídeo - la etiqueta PLANA (desplegada) se enrolla sobre un cilindro en un canvas 2D con sombreado, brillo y tapa metálica; el giro se liga al scroll, a un arrastre o a un slider de sabores/variantes (fondo, título y frutas que cambian a la vez). Incluye cómo preparar la etiqueta (diseño o IA) y el slider de variantes con elemento compartido. Úsala cuando pidan "lata que gira", "slider de sabores", "cambiar de sabor y que gire la lata", "mockup de lata animado", "etiqueta que da la vuelta", "bebida con varios sabores", "can rotation", "drink flavour slider", "3D can without 3D", "rotating label", "product variant slider".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Envase que gira (sin 3D)
@@ -18,6 +18,14 @@ dedo. Un canvas 2D, sin three.js ni modelo, ~200 líneas y unos 10 KB.
 - **No:**
   - Formas no cilíndricas (botella con hombros marcados, perfume facetado, zapatilla) → frames de un giro (`scroll-frames`) si solo se ve girar; `escena-3d-gltf` solo si el usuario lo gira libremente o lo configura.
   - Si hay que ver el envase desde arriba o inclinado más de ~15°: el canvas solo hace una vista frontal con poca perspectiva.
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión GSAP si se usa antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de imágenes de etiqueta optimizadas, control deslizante accesible (`input type="range"` o botones), INP, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 1. **Etiqueta plana** por variante ([references/etiquetas.md](references/etiquetas.md)):

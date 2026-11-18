@@ -2,7 +2,7 @@
 name: video-desde-html
 description: Convierte en vídeo las animaciones hechas con HTML, CSS y JS usando HyperFrames (framework open source de HeyGen, Apache-2.0), sin modelos de IA de vídeo. Dos sentidos. De la web al vídeo, el hero, un tramo de scroll o el producto girando pasan a MP4 9:16 o 16:9 para promos y redes. Del código a la web, fondos en bucle sin corte, capas con transparencia (WebM con alfa, secuencia PNG) y secuencias para scroll por fotogramas, generados por código y repetibles. Trae un lanzador seguro (versión fijada, sin telemetría, sin descargas), plantillas probadas (bucle, capa con alfa, scroll a vídeo), el patrón para motores con WebGL o canvas, un medidor de bucles y el reparto con scroll-frames, capas-alfa, Remotion y los modelos de IA. Úsala cuando pidan "pasa el hero a vídeo", "vídeo de la web para redes", "reel de la web", "fondo en bucle sin IA", "vídeo en bucle por código", "render de HTML a vídeo", "HyperFrames", "frames para scroll sin IA", "capa animada con transparencia", "HTML to video", "render website animation to MP4", "seamless loop background video", "code-generated video", "hyperframes render".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Vídeo desde HTML (HyperFrames)
@@ -88,6 +88,14 @@ Una composición es una carpeta con un `index.html`. Reglas completas y las que 
    ```
    Plantilla [plantillas/scroll-a-video](plantillas/scroll-a-video/index.html). Cómo adaptar un motor que tiene su propio
    reloj: [references/recetas.md](references/recetas.md), receta 1.
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión GSAP, three.js o la librería que use la composición (la versión que fija la composición) antes de
+  usar o cambiar su API.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de solo si la pieza vuelve a la web: vídeo diferido, póster y formatos.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 1. **Decide el sentido y el formato** con la tabla de arriba y la de [reparto](#reparto-quién-hace-qué). Apunta en el

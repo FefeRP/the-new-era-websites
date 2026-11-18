@@ -4,6 +4,23 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.0.0-beta.10] - 2026-11-18
+Todas las skills pasan a `1.0.0-beta.10`. NEW ERA también programa (Vite, React, Next.js, Tailwind, GSAP, three.js), y
+ese código ya no se escribe de memoria.
+
+### Añadido
+- **Regla 6 de `new-era`**: antes de usar o cambiar la API de una librería se consulta su documentación actual con
+  `find-docs` (Context7) en la versión exacta del `package.json`; antes de cada decisión de plataforma (Core Web Vitals,
+  imágenes, fuentes, accesibilidad, View Transitions, CSS moderno, formularios, PWA) se sigue `modern-web-guidance`
+  (la skill oficial de Chrome). Fase **Código** en la tabla de skills que se cargan.
+- Pasos concretos: versiones y App Router o Pages Router en el brief (paso 1), consulta antes de cada API y guía antes de
+  cada decisión de plataforma al construir (paso 6), comprobación «Código al día» en la verificación (paso 7) y lista de
+  documentación consultada en la entrega (paso 8). Sección «Documentación consultada» en la plantilla de `BRIEF.md`.
+- `new-era/references/codigo-y-plataforma.md`: cuándo entra cada una, cómo se usan, qué se apunta, cómo se comprueba,
+  la decisión motor contra nativo y cómo instalarlas.
+- Bloque «Antes de programar» en las 13 skills que escriben código, con sus librerías y sus temas de plataforma.
+- Reparto, checklist final de `base-tecnica.md` y README con las dos skills.
+
 ## [1.0.0-beta.9] - 2026-11-17
 Todas las skills pasan a `1.0.0-beta.9`. Versión de corrección: las webs hechas con las betas 6 a 8 salían correctas
 pero genéricas.

@@ -2,7 +2,7 @@
 name: biblioteca-componentes
 description: Buscar, elegir y adaptar componentes UI de un catálogo propio (índice JSON con código, dependencias, demo, licencia y un prompt de integración por componente, sacado de registros abiertos tipo shadcn como Magic UI, SmoothUI, Origin UI, Cult UI, Motion Primitives, Animata y similares, más recetas de Spline) para que cada web sea única - nunca se pega un componente tal cual. Incluye el buscador sin dependencias (scripts/buscar.mjs), cómo leer licencias, cómo cambiar un componente hasta que no se parezca al original, cómo integrar escenas de Spline y qué hacer con catálogos de pago o con clave (21st.dev, versiones Pro). Úsala cuando pidan "busca un componente", "¿hay algún componente de…?", "usa la biblioteca de componentes", "catálogo de componentes", "un fondo animado", "un hero con efecto", "botón con brillo", "texto que se escribe solo", "marquesina de logos", "Magic UI", "Aceternity", "React Bits", "shadcn blocks", "21st.dev", "Spline", "component library", "find a component", "UI component catalog", "animated background component", "hero section component", "Spline scene in React".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Biblioteca de componentes
@@ -67,6 +67,14 @@ pueden usar igual, pero hay que probarlos antes de elegirlos: `--con-vista` los 
    un efecto.
 5. **Accesibilidad y móvil.** Prefiere los que ya respetan `prefers-reduced-motion` (etiqueta `reduced-motion` en el
    índice) y no dependen solo del hover.
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión las que use el componente (motion, Tailwind, Radix, React, Next.js…): la versión del catálogo y la del proyecto pueden no coincidir (Tailwind 3 contra 4, framer-motion contra motion) antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de si el componente reimplementa algo que la plataforma ya da (diálogo, popover, anchor positioning, animación ligada al scroll, View Transitions, `<select>` personalizable), la guía decide si se adapta con la pieza nativa.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Paso 3 · Integrar
 Usa el **prompt** de la ficha (`ver <id> --prompt`): trae dependencias, ficheros, CSS y la lista de adaptación. Ajusta:

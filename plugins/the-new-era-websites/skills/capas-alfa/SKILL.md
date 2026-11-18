@@ -2,7 +2,7 @@
 name: capas-alfa
 description: Elementos con fondo transparente - cómo pedir a la IA el asset aislado (foto o vídeo), cómo sacar el alfa sin Python ni GPU (fondo de color, negro, blanco, par negro/blanco para cristal y líquidos, o la máscara del proveedor) con alfa.mjs, en qué formato servirlo para que vaya en todos los navegadores (stacked alpha MP4 con video-alfa.js, WebM VP9, frames WebP con alfa, PNG/WebP) y cómo componerlo con parallax, z-index y texto entre capas. Úsala cuando pidan "fondo transparente", "vídeo con transparencia", "recortar el fondo", "splash aislado", "humo o chispas encima de la web", "el texto por detrás del producto", "texto entre capas", "elemento flotando sobre la web", "quitar el fondo verde", "transparent video", "alpha channel video", "video with transparency on the web", "remove background from AI video", "chroma key", "isolated asset", "text behind subject".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Capas con alfa: elementos aislados que se mueven sobre la web
@@ -11,6 +11,14 @@ Muchos momentos "imposibles" son un elemento aislado (un splash, un producto, hu
 por encima del fondo y del texto. Si el elemento está **quieto**, es una foto con alfa que el código mueve (parallax,
 zoom, máscara): barato y nítido. Solo si **tiene que moverse por sí mismo** (el líquido cae, el humo sube) hace falta
 vídeo con alfa. Antes de nada, mira la matriz de `pedir-assets-ia` (`references/matriz-medio-por-elemento.md`).
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión three.js o WebGL si se escribe código propio alrededor de `video-alfa.js` antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de vídeo diferido y en silencio, formatos de vídeo e imagen, póster para el LCP, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 1. **Decide el medio** (foto con alfa, vídeo con alfa o frames con alfa) y el **destino**: bucle decorativo, avance con el

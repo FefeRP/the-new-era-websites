@@ -2,7 +2,7 @@
 name: revelados-y-transiciones
 description: Revelados y transiciones entre secciones sin 3D ni vídeo - imagen que aparece por bloques (rejilla), cortina que cambia de escena, zoom 2D a un punto de una imagen grande con relevo a una imagen de detalle, titulares que suben línea a línea con máscara, tarjeta que crece a pantalla completa, View Transitions y animaciones CSS ligadas al scroll. Motor revelados.js sin dependencias, con la misma interfaz para scroll (GSAP scrub) o tiempo. Úsala cuando pidan "revelado por bloques", "la imagen aparece en cuadrícula", "transición entre secciones", "cortina", "cambio de escena", "zoom a un producto de la estantería", "acercarse a un punto de la imagen", "texto que sube por líneas", "titular con máscara", "tarjeta a pantalla completa", "grid reveal", "clip-path reveal", "section transition", "curtain wipe", "zoom into image", "line reveal text", "view transitions", "scroll-driven animation".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Revelados y transiciones
@@ -24,6 +24,14 @@ tiempo (promesa) y `destruir` deja el DOM como estaba. Solo animan `transform`, 
 | `crearZoomA(el, { objetivo, margen, relevo, inicioRelevo, marco })` | Zoom 2D con escala logarítmica a un rectángulo de una imagen grande; al final, fundido a una imagen de detalle | De la estantería al producto, del plano al edificio, de la mesa al plato | ref14 |
 | `crearLineas(el, { retardo })` | Parte un titular en líneas y las sube desde detrás de una máscara; deja una copia para lectores de pantalla y se vuelve a partir al cambiar el ancho | Titulares de entrada; con tipografías de trazo muy fino, mejor fundido que máscara | ref12 |
 | `alEntrar(el, revelado, { umbral, duracion })` | Lanza `reproducir` cuando el elemento entra en pantalla (sin GSAP) | Webs sin scroll pinado | |
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión GSAP (ScrollTrigger y, si se usa, SplitText) antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de View Transitions, animaciones ligadas al scroll en CSS, coste de `clip-path` y `filter`, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 1. **Elige el efecto por lo que cuenta**: aparecer (rejilla, líneas), cambiar de escena (cortina), acercarse a algo

@@ -80,5 +80,6 @@ Solo si no hay skill de SEO instalada (ver reparto-skills-diseno.md); si está `
 - [ ] Teclado: Tab recorre todo; el foco se ve.
 - [ ] Ningún antepasado de un elemento `sticky` con `overflow: hidden`; panel fijado a `100lvh` y composición interior en `svh`.
 - [ ] Si el hero es un canvas, hay un `<img>` debajo para el LCP.
+- [ ] Código al día: cada API de librería consultada con `find-docs` en la versión del `package.json` y cada decisión de plataforma (imagen principal, fuentes, transiciones, diálogos, formularios) con su guía de `modern-web-guidance`, apuntadas en `BRIEF.md` ([codigo-y-plataforma.md](codigo-y-plataforma.md)).
 - [ ] Créditos y licencias de todos los activos en el pie o en CREDITOS.md.
 - [ ] Revisión visual externa (Gemini) leída y sus fallos corregidos o descartados con motivo.

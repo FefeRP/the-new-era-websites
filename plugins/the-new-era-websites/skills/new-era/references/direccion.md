@@ -94,10 +94,16 @@ Técnicas (fuerte + apoyo) y por qué:
 Activos: origen, licencia, opciones de presupuesto y la elegida:
 Destino técnico (Vite / Next / …):
 
+## Documentación consultada (ver codigo-y-plataforma.md)
+Versiones (package.json) y, en Next.js, App Router o Pages Router:
+find-docs (librería y versión · pregunta · qué decidió):
+Modern Web Guidance (id de la guía · qué se aplicó):
+
 ## Skills cargadas (con la herramienta Skill, según se cargan)
 Dirección:
 Componentes:
 Movimiento:
+Código (find-docs, modern-web-guidance):
 Revisión:
 No cargadas y motivo:
 

@@ -2,7 +2,7 @@
 name: componentes-interactivos
 description: Componentes reutilizables para webs, sin dependencias y con la accesibilidad resuelta - tarjeta con volteo 3D y capas en profundidad (tarjeta-volteo.js), carrusel circular en órbita o anillo 3D que gira con arrastre, teclado, autoplay o el scroll (carrusel-orbital.js) y muro de reseñas en columnas inclinadas en 3D en movimiento continuo (resenas-3d.js). Cada uno con su versión para táctil, para reduced-motion y su destruir(). Úsala cuando pidan "tarjeta que se da la vuelta", "tarjeta con volteo", "flip card", "carrusel circular", "carrusel orbital", "anillo 3D", "galería circular", "carrusel 3D que gira con el scroll", "reseñas en 3D", "muro de testimonios", "testimonios en columnas", "componente reutilizable", "3D flip card", "circular gallery", "orbital carousel", "3D carousel on scroll", "3D testimonials", "testimonial marquee", "reusable component".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Componentes interactivos
@@ -21,6 +21,14 @@ hay skills de diseño instaladas, el pulido de curvas y tiempos se consulta con 
 | Destacados que giran alrededor de un centro | `carrusel-orbital.js` (`modo: 'orbita'`) | 5-9 elementos de igual peso, uno protagonista cada vez | Más de 12 elementos o comparación lado a lado: rejilla |
 | Un anillo de tarjetas que gira al bajar | `carrusel-orbital.js` (`modo: 'anillo'` + `desplazar`) | Sección fijada de destacados con foto | Sin fotos buenas: el anillo las enseña grandes y en escorzo |
 | Prueba social con movimiento | `resenas-3d.js` | 5 o más reseñas reales | Menos de 5, o reseñas inventadas: no se usa |
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión GSAP y el framework del proyecto (React, Next.js…) antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de botones y foco, accesibilidad de carruseles, popover o diálogo nativos si la pieza abre algo, INP, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 1. **Escribe primero el HTML con el contenido real** (lista de reseñas, artículos del carrusel, las dos caras). La página

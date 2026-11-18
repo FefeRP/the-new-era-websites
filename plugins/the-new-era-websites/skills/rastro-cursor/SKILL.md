@@ -2,7 +2,7 @@
 name: rastro-cursor
 description: Rastro de imágenes que siguen al cursor (image trail) - al mover el ratón por una zona aparecen fotos en el puntero que se apilan, siguen la inercia y se desvanecen. Motor rastro-cursor.js sin dependencias (pool fijo de img, Web Animations), solo con ratón; en táctil y con reduced-motion deja una composición estática. Úsala cuando pidan "fotos que siguen al ratón", "rastro de imágenes", "estela del cursor", "galería que aparece al mover el ratón", "efecto de cursor con fotos", "image trail", "cursor trail images", "mouse trail gallery", "hover image trail".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Rastro de imágenes en el cursor
@@ -10,6 +10,14 @@ version: 1.0.0-beta.9
 Un efecto de portada o de galería: al mover el ratón por una zona van saliendo fotos en el puntero que se apilan y se
 apagan. Funciona porque es inesperado y cuesta muy poco: fotos normales (de producto, del equipo, de proyectos), sin
 vídeo ni 3D. La idea es la de los ImageTrailEffects de Codrops (MIT), reescrita sin dependencias.
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión GSAP si se usa antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de eventos de puntero, INP, imágenes decorativas optimizadas, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 1. **Elige 6-12 fotos** del mismo formato y tratamiento (mismo encuadre, luz y color; si son de IA, del mismo lote con las

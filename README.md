@@ -1,6 +1,6 @@
 # the-new-era-websites · Claude Code marketplace
 
-**v1.0.0-beta.9** · [Leer en español](README.es.md) · formerly `webs-premium` ([migration note](#migrating-from-webs-premium))
+**v1.0.0-beta.10** · [Leer en español](README.es.md) · formerly `webs-premium` ([migration note](#migrating-from-webs-premium))
 
 Everything we learn about building websites with Claude Code, as skills organised **by technique**: cinematic scroll driven by video frames, transparent layers (text between the product and the background), image reveals and transitions, AI image assets in coherent batches (isolated objects with alpha, brand icon sets, seamless textures, section backgrounds), reusable components (3D flip card, orbital carousel, 3D testimonial wall), a catalogue of UI components to adapt, real 3D (glTF), a can that spins without 3D, an X-ray lens, and a map that flies down to a building. Plus the rules learned on delivered sites.
 
@@ -48,9 +48,9 @@ The master skill then:
 3. Finds the idea, the thread that runs through the site and its signature: a star moment on immersive sites, a quieter signature on restrained ones. Every site gets one.
 4. Chooses the techniques and components (from the skills below) and how they combine.
 5. Plans the assets, with an estimated cost and two or three options.
-6. Builds the site from its template (Vite + GSAP + Lenis), or inside your existing project, first screen and signature first.
+6. Builds the site from its template (Vite + GSAP + Lenis), or inside your existing project, first screen and signature first. Before writing or changing code that uses a library API (Next.js, React, Tailwind, GSAP, three.js…) it checks the current docs for the exact version in `package.json` with `find-docs`, and it follows Modern Web Guidance for web platform decisions (Core Web Vitals, images, fonts, accessibility, View Transitions, modern CSS).
 7. Verifies it with screenshots on desktop, mobile and reduced motion, runs the "generic test", asks the design skill for a critique and an independent reviewer for a second look, and repeats in rounds.
-8. Delivers with the list of skills that were actually loaded, the review rounds and the time used.
+8. Delivers with the list of skills that were actually loaded, the documentation consulted, the review rounds and the time used.
 
 The old keyword **`WEB PREMIUM:`** and the `/web-premium` command still work as aliases.
 
@@ -92,6 +92,8 @@ This marketplace covers **technique and assets**. It is not a design system or a
 | Video of the site itself for social, loops and layers made in code | **This marketplace** (`video-desde-html`, with HyperFrames) | Safe launcher, templates and measurements. An edited piece with voice and subtitles stays in Remotion if the project already uses it; the full contract lives in the official HyperFrames skills if installed |
 | Product 3D, shaders, particles | **This marketplace** for glTF product scenes; `webgl-animation-skills` for shaders and particles | When 3D pays off and when a video is better |
 | Touch and mobile details | `mobile-native` | The vertical framing of the star moment and weights per device |
+| Library and framework APIs (Next.js, React, Tailwind, GSAP, three.js, Prisma…) | [`find-docs`](https://github.com/upstash/context7) (Context7 CLI, docs for the version in `package.json`) | Engines already tested; the docs win over memory when writing your own code |
+| Web platform: Core Web Vitals, images, fonts, native accessibility, View Transitions, scroll-driven CSS, dialogs, forms, PWA | [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance) (official, from Chrome) | Weight budgets and the engine-vs-native decision for scenes |
 | Accessibility, edge cases, final critique | `impeccable` (audit, harden, critique, polish), `break-ui` | reduced-motion in every engine, real text in the DOM, `verificar-scroll.mjs` before any critique |
 
 Rules when two skills disagree: one source of tokens, one scroll system per page, accessibility wins over effect. Full table and order of work: [reparto-skills-diseno.md](plugins/the-new-era-websites/skills/new-era/references/reparto-skills-diseno.md) (in Spanish).

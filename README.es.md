@@ -1,6 +1,6 @@
 # the-new-era-websites · marketplace de Claude Code
 
-**v1.0.0-beta.9** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
+**v1.0.0-beta.10** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
 
 Todo lo que vamos aprendiendo de hacer webs con Claude Code, en skills ordenadas **por técnica**: scroll cinematográfico con vídeo convertido en frames, capas con fondo transparente (el texto entre el producto y el fondo), imágenes que se revelan y transiciones, recursos de imagen con IA en lotes coherentes (objetos sueltos con alfa, juegos de iconos de marca, texturas repetibles, fondos de sección), componentes reutilizables (tarjeta con volteo, carrusel orbital, muro de reseñas 3D), un catálogo de componentes de interfaz para adaptar, 3D real, lata que gira sin 3D, lente de rayos X y un mapa que baja hasta el edificio. Y las reglas aprendidas en webs entregadas.
 
@@ -41,9 +41,9 @@ Escribe **NEW ERA: …** (o `/new-era …`) con el negocio, el producto y los ac
 3. Busca la idea, el hilo conductor y la firma de la web: un momento estrella en las inmersivas, una firma más callada en las contenidas. Toda web lleva una.
 4. Elige las técnicas y los componentes y cómo se combinan.
 5. Planifica los activos con su coste y dos o tres opciones.
-6. Monta la web con la plantilla (Vite + GSAP + Lenis) o dentro de tu proyecto, empezando por la primera pantalla y la firma.
+6. Monta la web con la plantilla (Vite + GSAP + Lenis) o dentro de tu proyecto, empezando por la primera pantalla y la firma. Antes de escribir o cambiar código que use la API de una librería (Next.js, React, Tailwind, GSAP, three.js…) consulta su documentación actual en la versión exacta del `package.json` con `find-docs`, y sigue Modern Web Guidance en las decisiones de plataforma (Core Web Vitals, imágenes, fuentes, accesibilidad, View Transitions, CSS moderno).
 7. La verifica con capturas en escritorio, móvil y movimiento reducido, le pasa la «prueba del genérico», pide la crítica a la skill de diseño y una segunda mirada a un revisor independiente, y repite por rondas.
-8. Entrega con la lista de skills que se cargaron de verdad, las rondas de revisión y el tiempo usado.
+8. Entrega con la lista de skills que se cargaron de verdad, la documentación consultada, las rondas de revisión y el tiempo usado.
 
 La palabra clave anterior, **WEB PREMIUM:**, y el comando `/web-premium` siguen funcionando como alias.
 
@@ -87,6 +87,8 @@ Este marketplace cubre **técnica y activos**. No es un sistema de diseño ni un
 | Vídeo de la propia web para redes, bucles y capas por código | **Este marketplace** (`video-desde-html`, con HyperFrames) | Lanzador seguro, plantillas y medidas. La pieza editada con voz y subtítulos se queda en Remotion si el proyecto ya lo usa; el contrato completo, en las skills oficiales de HyperFrames si están instaladas |
 | 3D de producto, shaders, partículas | **Este marketplace** en la escena de producto con glTF; `webgl-animation-skills` en shaders y partículas | Cuándo compensa el 3D y cuándo es mejor un vídeo |
 | Detalles táctiles y de móvil | `mobile-native` | El encuadre vertical del momento estrella y los pesos por dispositivo |
+| API de librerías y frameworks (Next.js, React, Tailwind, GSAP, three.js, Prisma…) | [`find-docs`](https://github.com/upstash/context7) (CLI de Context7, documentación de la versión del `package.json`) | Motores ya probados; la documentación manda sobre la memoria al escribir código propio |
+| Plataforma web: Core Web Vitals, imágenes, fuentes, accesibilidad nativa, View Transitions, animación ligada al scroll en CSS, diálogos, formularios, PWA | [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance) (oficial, de Chrome) | Presupuestos de peso y la decisión motor contra nativo en las escenas |
 | Accesibilidad, casos límite y crítica final | `impeccable` (audit, harden, critique, polish), `break-ui` | Movimiento reducido en todos los motores, texto real en el DOM y `verificar-scroll.mjs` antes de cualquier crítica |
 
 Si dos skills dicen cosas distintas: una sola fuente de tokens, un solo sistema de scroll por página y la accesibilidad gana al efecto. Tabla completa y orden de trabajo: [reparto-skills-diseno.md](plugins/the-new-era-websites/skills/new-era/references/reparto-skills-diseno.md).

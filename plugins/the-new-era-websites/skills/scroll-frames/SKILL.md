@@ -2,7 +2,7 @@
 name: scroll-frames
 description: Scroll-scrubbing de vídeo estilo Apple - un vídeo (generado con IA o del cliente) partido en frames que avanza al hacer scroll, dibujado en canvas con GSAP ScrollTrigger, o en modo vídeo con currentTime. Incluye la extracción y optimización de frames con ffmpeg (WebP/AVIF, escritorio y móvil, manifest), el motor de reproducción con carga progresiva y memoria acotada, textos sincronizados, reduced-motion y verificación. Úsala cuando pidan "que al hacer scroll avance el vídeo", "secuencia de imágenes en canvas", "scroll como el de los AirPods", "producto que gira al hacer scroll", "explosión del producto al bajar", "image sequence scroll", "scroll-driven video", "scrub video on scroll", "frame sequence canvas".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Scroll-scrubbing: vídeo → frames → scroll
@@ -21,6 +21,14 @@ impacto/coste: funciona en cualquier móvil y no hace falta modelo 3D.
 | **Frames en canvas** (por defecto) | 90-150 frames en escritorio, 60-90 en móvil; hero o sección fijada. Preciso en todos los navegadores, también iOS en ahorro de batería. | 3-8 MB escritorio, 1,5-4 MB móvil |
 | **Vídeo con currentTime** | Secuencias largas (>10 s o >200 frames), o el peso manda. Necesita póster de reserva (iOS en ahorro de batería no lo deja reproducir). | 0,8-3 MB |
 | **CSS sprite + `animation-timeline`** | Micro-secuencias (≤24 frames, iconos, pequeños objetos). Sin JS. | <500 KB |
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión GSAP ScrollTrigger y Lenis antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de imagen o póster de la primera pantalla (LCP), precarga y prioridad de los primeros frames, vídeo diferido, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 

@@ -2,7 +2,7 @@
 name: lente-revelado
 description: Ver "por dentro" un producto - una lente circular que sigue al cursor (o al dedo) y revela otra versión ALINEADA de la misma imagen (rayos X, cámara térmica, interior, corte, boceto, antes/después), con interruptor de modos, y la misma pareja de imágenes como cortina antes/después ligada al scroll. Incluye el script que saca las variantes rayos X y térmica de cualquier foto sin IA (ffmpeg) y comprueba la alineación de una variante generada con IA. Úsala cuando pidan "rayos X al pasar el ratón", "lupa que enseña el interior", "ver por dentro", "modo térmico", "revelar al pasar el cursor", "antes y después con el scroll", "comparador", "x-ray hover effect", "cursor reveal", "spotlight reveal", "thermal view", "before after slider", "image reveal mask".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Lente de revelado (rayos X, térmica, antes/después)
@@ -16,6 +16,14 @@ hecho, es de los efectos que la gente toca una y otra vez. Visto en ref11 (cruas
   aislante, estructura de una zapatilla), antes/después (reforma, limpieza, retoque, cosmética).
 - **No:** si el interior debe **moverse** (entrar dentro, despiece) → `video-ia-para-scroll` + `scroll-frames`. Si la imagen base
   es un vídeo o frames que cambian, la variante tendría que cambiar igual: mejor una imagen fija al final del tramo.
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión GSAP si se usa antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de formatos y densidades de las dos imágenes, eventos de puntero y táctil, alternativa accesible a la comparación, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 1. **Imagen base:** la imagen clave del producto (o el último frame del tramo anterior, para que el paso sea invisible).

@@ -2,7 +2,7 @@
 name: seguir-pantalla
 description: Poner contenido REAL (la web del cliente, un logo, un texto, un vídeo, cifras) encima de una pantalla, cartel, etiqueta o cualquier superficie plana de un vídeo generado con IA o grabado, siguiéndola fotograma a fotograma con su perspectiva y SIN estirarla, para que la IA haga la escena y el código ponga lo que se tiene que leer. Incluye el seguimiento de las 4 esquinas (Node + ffmpeg, gratis, con fotogramas clave de ida y vuelta) y la capa que lo pinta sincronizada con frame-scrubber. Úsala cuando pidan "zoom a la pantalla del portátil con nuestra web", "poner el logo en el cartel del vídeo", "que se lea la pantalla", "el logo sale deformado/aplastado", "mockup de pantalla en vídeo", "screen replacement", "screen tracking", "corner pin", "planar tracking", "replace screen content in video", "logo on sign in AI video".
 license: MIT
-version: 1.0.0-beta.9
+version: 1.0.0-beta.10
 ---
 
 # Seguir una pantalla (o un cartel) y poner encima lo real
@@ -19,6 +19,14 @@ siguiendo las 4 esquinas en cada fotograma. Resultado: escena de IA realista y t
 - **Entrar en la pantalla** (la web llena el encuadre al final): sigue la pantalla mientras se ven sus 4 esquinas y, cuando se
   salgan, termina con la captura a pantalla completa (fundido corto, ≤ 1 s). Ver
   [references/integrar-pantallas-y-logos.md](references/integrar-pantallas-y-logos.md).
+
+## Antes de programar (obligatorio)
+El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en
+`new-era/references/codigo-y-plataforma.md`).
+- **`find-docs`** (cárgala con `Skill`): lee la versión en el `package.json` y consulta en esa versión GSAP y el framework del proyecto antes de
+  usar o cambiar su API. En Next.js, además, cómo se monta en un componente de cliente y se desmonta con `destruir()`.
+- **`modern-web-guidance:modern-web-guidance`** (con `Skill`): busca y aplica las guías de transformaciones 3D en CSS, vídeo e imagen diferidos, reduced-motion.
+- Apunta cada consulta en `BRIEF.md` («Documentación consultada»).
 
 ## Pasos
 1. **Pídelo bien al generar** (skill `pedir-assets-ia`): pantalla "flat evenly lit plain white, empty" (o el color de fondo de la
