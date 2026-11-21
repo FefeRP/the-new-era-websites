@@ -47,7 +47,7 @@ if (argv.includes('--modelos')) {
     console.log(tipo.toUpperCase());
     for (const [id, m] of Object.entries(lista)) {
       const tarifa = tipo === 'video' ? m.usd_por_segundo : m.usd_por_imagen;
-      const t = Object.entries(tarifa).map(([r, v]) => `${r} ${v} $`).join(' · ');
+      const t = Object.entries(tarifa).map(([r, v]) => (v == null ? `${r} solo créditos` : `${r} ${v} $`)).join(" · ");
       console.log(`  ${id.padEnd(22)} ${t.padEnd(38)} ${m.via}${m.inicio_fin ? ' · inicio+fin' : ''}${m.edita ? ' · edita' : ''}${m.alfa ? ' · alfa' : ''}${m.confirmado === false ? ' · SIN CONFIRMAR' : ''}`);
     }
   }
@@ -118,7 +118,7 @@ for (const r of filas.filter((x) => x.p.tipo === 'video')) {
   const opciones = Object.entries(precios.video)
     .filter(([id, m]) => id !== r.p.modelo && (!r.m.inicio_fin || m.inicio_fin))
     .flatMap(([id, m]) => Object.entries(m.usd_por_segundo).filter(([res]) => resOk(res)).map(([res, v]) => ({ id, res, v })))
-    .filter((o) => o.v < actual * 0.75).sort((a, b) => a.v - b.v).slice(0, 2);
+    .filter((o) => o.v != null && o.v < actual * 0.75).sort((a, b) => a.v - b.v).slice(0, 2);
   if (opciones.length) sugerencias.push(`  ${r.id}: ${opciones.map((o) => `${o.id} ${o.res} (${o.v} $/s)`).join(', ')} — más barato; pruébalo en la fase de prueba antes de cambiar`);
 }
 if (sugerencias.length) console.log('\nAlternativas más baratas para probar:\n' + sugerencias.join('\n'));

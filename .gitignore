@@ -49,6 +49,7 @@ demos/estudio/herramientas/bruto/
 pruebas/scroll-frames/salida/
 pruebas/revisar-video/salida/
 pruebas/hyperframes/salida/
+pruebas/montaje-web/salida/
 .hyperframes/
 
 # Biblioteca privada de componentes (código de terceros, prompts y web privada): nunca al repo público

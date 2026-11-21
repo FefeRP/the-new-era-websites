@@ -1,109 +1,198 @@
-# Plantillas de prompt para vídeo de scroll
+# Biblioteca de plantillas de prompt por tipo de plano
 
-> Estas son las plantillas de **movimiento de producto** (giro, despiece, ingredientes, bucle). Para escenas realistas
-> (zoom a una pantalla, entrar en un lugar, capas con fondo separado, día/noche, transiciones) y el bloque de realismo con
-> lo que delata a la IA, usa `pedir-assets-ia/references/plantillas-por-plano.md`.
+Cada plantilla trae: cuándo se usa en una web, la imagen clave que necesita, el modelo y los parámetros recomendados,
+el prompt (en inglés) y de dónde sale. **Estado** dice cuánto te puedes fiar:
+- **Publicada:** el prompt o su estructura salen literal de una guía oficial o de una fuente con resultados (enlace).
+- **Medida:** se generó en un proyecto real y se midió con `revisar-video.mjs`.
+- **Por reglas:** sigue las reglas comprobadas, pero nadie ha publicado el resultado: el primer clip es la prueba.
 
-Estado de validación: las plantillas siguen reglas comprobadas, pero no todas se han validado con una generación real modelo
-a modelo. Trata el primer clip como la prueba.
+> Para escenas realistas (entrar en un lugar, zoom a una pantalla, día/noche) y lo que delata a la IA, ver también
+> `pedir-assets-ia/references/plantillas-por-plano.md`. Para elegir el modelo: `arbol-decision.md`. Para cada
+> modelo: `modelos/`.
 
-Los prompts van en inglés (los modelos responden mejor). Estructura fija:
-
+## Estructura de todas
 ```
-[PREÁMBULO DE ESTILO — idéntico en todas las tomas del proyecto]
-
-[MOVIMIENTO: qué hace la cámara y qué hace el objeto, de principio a fin]
-[ESTABILIDAD: qué NO cambia]
-[RESTRICCIONES en positivo, al final: "Keep…", "no text, no logos"]
+[PREÁMBULO DE ESTILO: idéntico en todas las tomas del proyecto]
+[MOVIMIENTO: qué hace la cámara (uno solo) y qué hace el sujeto, de principio a fin, a velocidad constante]
+[ESTABILIDAD: qué no cambia (forma, luz, exposición)]
+[LO QUE LA CÁMARA NO HACE, en frases: no cuts, no zoom, no shake… y "clean image without text"]
 ```
-Pega el preámbulo **literal** en cada toma del mismo proyecto (consistencia entre clips). Con imagen a vídeo, no describas
-el aspecto del producto: ya está en la imagen. Describe el movimiento.
+- Con imagen a vídeo, **describe el movimiento, no el aspecto** (ya está en la imagen).
+- Menos de ~200 tokens. Un movimiento. Como mucho dos fases en 5 s.
+- Velocidad: «constant speed», «one constant angular speed», «no speed changes, no steps, no drift». No escribas
+  «settling into a static hold» si no quieres que frene [1].
+- Campo negativo solo en Wan y Kling 2.5 Turbo (ver la ficha del modelo).
 
 ## Preámbulos de estilo (elige uno por proyecto y no lo toques)
-- **Estudio oscuro cálido (lujo, relojería, perfume, licor):**
-  `Premium product film, seamless warm charcoal studio background (#171412), soft large softbox key light from upper left, subtle cool rim light from behind right, gentle contact shadow, product in sharp focus from front to back, photoreal, 24 fps, clean and calm.`
-- **Estudio claro (tecnología, cosmética, auriculares):**
-  `Premium product film, seamless light warm-grey studio background, soft diffused key light from upper left, gentle fill from the right, soft contact shadow beneath, razor sharp focus, neutral colour, photoreal, 24 fps.`
-- **Color de marca (helados, bebidas, snacks):**
-  `Premium product film on a seamless solid [pastel pink #F4C6D0] background, soft even top light, tiny soft shadow, vivid but natural colours, photoreal food photography, 24 fps.`
-- **Natural (café, panadería, artesanía):**
-  `Premium editorial film, warm morning window light from the left, seamless soft beige background, natural textures, gentle shadows, photoreal, 24 fps.`
+- **Estudio oscuro cálido** (lujo, relojería, perfume): `Premium product film, seamless warm charcoal studio background (#171412), soft large softbox key light from upper left, subtle cool rim light from behind right, gentle contact shadow, product in sharp focus from front to back, photoreal, 24 fps, clean and calm.`
+- **Estudio claro** (tecnología, cosmética): `Premium product film, seamless light warm-grey studio background, soft diffused key light from upper left, gentle fill from the right, soft contact shadow beneath, razor sharp focus, neutral colour, photoreal, 24 fps.`
+- **Color de marca** (helados, bebidas): `Premium product film on a seamless solid [pastel pink #F4C6D0] background, soft even top light, tiny soft shadow, vivid but natural colours, photoreal food photography, 24 fps.`
+- **Natural** (café, artesanía): `Premium editorial film, warm morning window light from the left, seamless soft beige background, natural textures, gentle shadows, photoreal, 24 fps.`
+- **Lugar real** (intro, inmobiliaria): `Documentary cinematography, real light and materials, locked exposure and white balance, deep depth of field, photoreal, 24 fps.`
 
-## Restricciones base (siempre, en positivo y al final del prompt)
-`Keep one continuous shot with a steady camera at constant speed. Keep every shape, edge, colour and logo exactly as in the first frame, with stable lighting. No text, no logos, no hands, no extra objects.`
+---
 
-Campo negativo, solo en los modelos que lo tienen (Wan, Seedance, Qwen, Flux; Kling y Veo no):
-`cuts, scene change, camera shake, handheld, jitter, wobble, sudden zoom, speed ramp, warping, morphing, melting edges, shape change, colour shift, logo distortion, garbled text, new text, watermark, flicker, extra objects, hands`
+## 1. Intro hacia delante (entrar, atravesar, llegar)
+**En la web:** el hero que avanza con el scroll. **Imagen clave:** inicio gran angular (18-24 mm, fijado en la imagen),
+con primer plano, plano medio y fondo claros. **Fin:** ninguno, o uno alcanzable hecho editando el inicio.
+**Modelo:** Seedance 2.5 (480p de prueba, 720p/1080p final, 5-10 s); barato: Wan 3.0; con paradas: Kling 4.0.
+**Estado:** Publicada (estructura de Higgsfield [1]) + Medida (las lecciones de una intro real).
+```
+One continuous long take. The camera dollies forward on straight rails at a constant speed along the centre of the
+[passage], at a locked height of [1.5] metres, passing the [foreground element] and the [midground element] so they
+sweep out past the frame edges with strong parallax, toward the [background element], which fills the frame by
+[4.5] seconds. The field of view never changes, no zoom: the perspective shifts because the camera physically
+approaches. No pan, no tilt, no crane, no handheld drift, no cuts. Locked exposure, consistent light from the first
+image. Clean image without text.
+```
+La frase del FOV y del paralaje sale literal de la plantilla de dolly de Cinema Studio [1]. Riesgos: frena al final
+(pide el fin a 4,5 s, no «hold»), se salta tramos con un fin lejano.
 
-## 1. Giro / arco alrededor del producto (el más seguro)
-Imagen clave: producto centrado, ¾, con aire a los lados.
+## 2. Revelado de logo o de portada
+**En la web:** el cierre de la intro o la sección de marca. **Imagen clave:** el **fin** es la portada o el logo
+terminado (compuesto desde el SVG real); el inicio, la misma escena sin logo o con las formas sueltas.
+**Modelo:** Seedance 2.0 con imagen final, 5 s, 1080p, sin audio (receta oficial [2]); alternativa: Veo 3.1 Lite
+con dos fotogramas. **Estado:** Publicada.
 ```
-The camera performs one slow, steady arc of about [90-180] degrees around the product, moving at constant speed from the very first frame to the very last, always at the same distance. The product stays perfectly still and centred. Every part keeps its exact shape, colour, material and logo. Lighting stays constant.
+Subtle light moves across the surface and the forms assemble into the logo with precise alignment, no extra
+symbols. The camera holds almost still with a slow push in. The shot ends exactly on the provided end frame, holding
+still. Clean edges, centred, high contrast, no distortion, no flicker, no extra text, no new objects.
 ```
-Higgsfield preset: **Arc Left/Right** (90-180°, lo normal). **360 Orbit** solo en objetos sin texto (ver §14 de `pedir-assets-ia/references/plantillas-por-plano.md`); **Lazy Susan** si prefieres que gire el producto y la cámara quieta.
+Combina la receta de Higgsfield [2] y la de Veo para logos [3]. Mantén el final quieto para que la web pase a la
+imagen estática sin salto. Si el logo tiene letras, que lleguen por código (ver `flujos.md`, «Marca»).
 
-## 2. Producto que gira sobre sí mismo (cámara fija)
+## 3. Fondo en bucle (hero, contacto)
+**En la web:** vídeo de fondo con autoplay, sin scroll. **Imagen clave:** inicio = fin (el mismo PNG).
+**Modelo:** Kling 3.0 std, 5 s (7,5 créditos); con semilla para repetir: Wan 2.7. **Estado:** Medida (bucles de Kling
+sin costura) + Publicada (cámara bloqueada [1]).
 ```
-Static locked-off camera. The product rotates smoothly on a hidden turntable, exactly [90-180] degrees at constant angular speed, starting immediately and never pausing. Every part keeps its exact shape, colour and material. Background and lighting never change.
+Locked tripod bolted in place, zero rotation, zero travel. Only [steam rises slowly from the cup / the curtain moves
+gently / light shifts softly across the wall]. The camera's position and height are identical in the first and last
+frame, so the clip loops seamlessly. Constant, calm motion, no flicker.
 ```
-Por defecto, 90-180°. Giro de 360° solo en objetos sin texto (§14 de `pedir-assets-ia/references/plantillas-por-plano.md`).
-Para bucle de 360°: misma imagen inicial y final. Aviso: con inicio = fin algunos modelos devuelven un clip casi quieto; comprueba el giro.
+Si no cierra: ida y vuelta o fundido de la cola sobre el principio (`flujos.md`, «Bucles»). En el motor de nsfw de
+producto, evita «seamless loop feel», «ambient» e «intimate» [2].
 
-## 3. Dolly de revelado (de detalle a producto entero o al revés)
+## 4. Transición entre secciones (A → B)
+**En la web:** el vídeo que une dos secciones al hacer scroll. **Imagen clave:** inicio = imagen de la sección A,
+fin = imagen de B; los dos tienen que compartir un **portador** (la luz, la posición de la cámara, un objeto).
+**Modelo:** Kling O3 (el más barato con fin) o Veo 3.1 si el cambio es grande; Seedance 2.5 si hay recorrido.
+**Estado:** Publicada (ejemplo oficial de Google [3]).
 ```
-The camera starts in an extreme close-up on the [crown / texture / label area] and pulls back in one slow, continuous, constant-speed dolly out until the whole product is visible, centred, with generous empty space on the left for text. No other movement.
+The camera performs one smooth [180-degree arc / slow push forward], starting on [view of section A] and continuing
+around the [shared subject] to seamlessly end on [view of section B]. One continuous move at constant speed, the
+[shared subject] stays the same, no cuts, no fades.
 ```
-Preset: **Dolly Out** (o **Dolly In** al revés). Evita **Crash/Rapid Zoom**.
+Si A y B no comparten nada, no hay prompt que lo salve: transición por código (`revelados-y-transiciones`) o un
+puente generado con inicio = último fotograma de A y fin = primero de B (`flujos.md`).
 
-## 4. Despiece (exploded view)
-Imagen clave: producto montado, ocupando ~80 % del alto. Nombra cada pieza.
+## 5. Producto 360 / arco alrededor del producto
+**En la web:** el producto que gira con el scroll. **Imagen clave:** producto centrado a 3/4, con aire a los lados,
+fondo liso. **Modelo:** Kling 3.0 / O3 (el más fiel al producto); 360 completo solo en objetos sin texto (la etiqueta
+se destroza). Arco < 45° en Wan [4]. **Estado:** Publicada (literal de Higgsfield [1] y Kling [5]).
+Arco (lo seguro):
 ```
-The disassembly begins in the very first frame and continues without pause until the final frame. The [product] separates into a clean exploded view: the [part A] lifts straight up, the [part B] slides forward, the [internal part C] floats free, the [part D] drops down. Each component drifts slowly along its own axis and stays suspended, fully separated and evenly spaced by the last frame. The camera holds a slow steady orbit of about 30 degrees. Every component keeps its exact shape, colour and material.
+The camera orbits slowly around the [product] in one [90]-degree arc, at a locked constant radius and height,
+constant velocity, no drift, no reframing, precision-slider smoothness. The product remains static, only the camera
+moves. Every part keeps its exact shape, colour and label. Lighting stays constant. One continuous shot.
 ```
-Con fotograma final: imagen 2 = despiece ya generado (como imagen). Pide "slow and subtle transitions".
-**Montaje**: invierte el despiece (`-vf reverse`).
+360 completo (literal de Higgsfield, recortado):
+```
+One continuous 360-degree orbit, the camera travels a full circle around the subject on a locked constant radius of
+[2.5] metres at a locked constant height, panning continuously to keep the subject dead-center at constant size, one
+full revolution in ONE direction at one constant angular speed, returning exactly to the opening framing at the end.
+The subject stays planted, facing one fixed direction in the world the entire time, it is the camera that circles
+them. No radius drift, no height drift, no speed changes, no reversal, no turntable effect where the subject spins
+in place.
+```
+Aviso publicado: pedir pocos grados a veces da más giro del pedido; mide.
 
-## 5. Ingredientes flotando / orbitando (alimentación, cosmética)
+## 6. Producto que gira sobre sí mismo (cámara fija)
+**Modelo:** Kling 3.0 std. **Estado:** Por reglas.
 ```
-Static camera. The [ice cream cone] stays centred and still. Around it, [three raspberries, two mint leaves and chocolate shavings] drift slowly in mid-air, each along its own gentle path at constant speed, slightly rotating, never touching the product, never leaving the frame. Every ingredient stays in sharp focus. No new objects appear.
+Static locked-off camera. The [product] rotates smoothly on a hidden turntable, exactly [90-180] degrees at one
+constant angular speed, starting immediately and never pausing. Every part keeps its exact shape, colour and
+material. Background and lighting never change.
 ```
-Para parallax real (no vídeo) usa mejor `parallax-capas` con cada ingrediente en su capa: pesa menos y es interactivo.
+Con inicio = fin para un bucle de 360° algunos modelos devuelven un clip casi quieto: comprueba el giro.
 
-## 6. Caída / líquido / salpicadura (un evento)
+## 7. Dolly de revelado (de un detalle al producto entero)
+**Modelo:** Kling 3.0 / Seedance 2.0. **Estado:** Por reglas (vocabulario de Kling [5]).
 ```
-Static camera. [Coffee beans] fall from the top of frame into the [grinder] in a single continuous slow-motion stream at constant speed, from the first frame to the last. The [grinder] stays perfectly still. Photoreal slow motion, no splashes leaving the frame, no new objects.
+Start with an extreme close-up on the [texture / label area], then pull back in one slow, continuous dolly out at
+constant speed to reveal the whole [product], centred, with empty space on both sides. No other movement, no zoom.
 ```
-Los fluidos son donde la IA brilla y el 3D en tiempo real sufre: buen candidato para frames. Pero si el momento puede
-estar congelado (un splash en el aire, el café a medio caer), es una foto, no un vídeo: plantilla de
-`pedir-assets-ia` (`references/plantillas-por-plano.md` §11) y recorte con `capas-alfa`; el movimiento lo pone el código.
 
-## 7. Vuelo a través (through object / world flight)
+## 8. Grúa de revelado (sube y descubre el sitio)
+**En la web:** de un detalle al lugar entero (hotel, finca, paisaje). **Modelo:** Veo 3.1 o Seedance 2.5.
+**Estado:** Publicada (ejemplo de Google [3]).
 ```
-One continuous FPV-smooth camera move forward at constant speed: the camera glides through the [arch of the building / open box lid] and continues into the [interior], never cutting, never turning sharply. Stable horizon, consistent lighting.
+Crane shot starting low on [the subject] and ascending high above, revealing [the place] at [time of day], one
+continuous rise at constant speed, steady horizon, consistent light.
 ```
-Preset: **Through Object In**, **Super Dolly In** o **FPV Drone** (solo si es suave). Mejor 2-3 clips encadenados que uno largo.
 
-## 8. Transición entre escenas (encadenado)
-Clip A termina en la imagen clave B (fotograma final = imagen B); clip B empieza en ella.
+## 9. Despiece (exploded view) y montaje
+**Imagen clave:** producto montado a ~80 % del alto; nombra cada pieza. **Modelo:** Veo 3.1 8 s con fin, o Kling con
+inicio + fin. **Estado:** Por reglas. **Montaje** = despiece al revés (`ffmpeg -vf reverse`).
 ```
-Seamless continuous transformation from the first image to the last image: the camera keeps one slow forward movement while the [scene A element] gradually becomes the [scene B element]. No cuts, no fades, constant speed.
+The disassembly begins in the very first frame and continues without pause until the final frame. The [product]
+separates into a clean exploded view: the [part A] lifts straight up, the [part B] slides forward, the [part C]
+floats free. Each component drifts slowly along its own axis and stays suspended, evenly spaced by the last frame.
+The camera holds still. Every component keeps its exact shape, colour and material.
 ```
-Comprueba la costura con `revisar-video.mjs` sobre el vídeo concatenado (no debe haber pico en la unión).
 
-## 9. Bucle de fondo para hero (no scroll, autoplay)
+## 10. Ingredientes flotando
+**Modelo:** Kling 3.0 / Seedance 2.0. **Estado:** Por reglas. Si puede ser interactivo, mejor `parallax-capas`.
 ```
-Subtle ambient motion only: [steam rising slowly from the cup / fabric moving gently in a breeze]. Static camera. The first and last frames are identical so the clip loops seamlessly.
+Static camera. The [product] stays centred and still. Around it, [three raspberries and two mint leaves] drift
+slowly in mid-air, each along its own gentle path at constant speed, never touching the product, never leaving the
+frame. No new objects appear.
 ```
-Imagen inicial = imagen final. Luma (modo loop) o Kling con inicial+final.
 
-## Plantilla de pedido para dejar por escrito (para el cliente o para el registro del proyecto)
+## 11. Caída, líquido, salpicadura
+**Modelo:** Veo 3.1 o Kling (prueba los dos barato); física barata: Hailuo 2.3. **Estado:** Por reglas.
+```
+Static camera. [Coffee beans] fall from the top of frame into the [grinder] in one continuous slow-motion stream at
+constant speed, from the first frame to the last. The [grinder] stays perfectly still. No splashes leave the frame.
+```
+Si el momento puede estar congelado, es una foto (`pedir-assets-ia`) y el movimiento lo pone el código.
+
+## 12. Vuelo FPV a través de un lugar
+**Modelo:** Seedance 2.5 o Wan 3.0 (con ruta dibujada). Los presets FPV de DoP inventan y no van a velocidad
+constante. **Estado:** Publicada (Wan [4], adaptada a velocidad constante).
+```
+First-person FPV drone perspective, single take, one uninterrupted continuous motion, flying forward through the
+[arch] and into the [interior] at one constant speed, stabilised horizon, no sharp turns. No cuts throughout, no
+shot splits, no transition breaks.
+```
+
+## 13. Hero con poco movimiento (parallax de cámara)
+**En la web:** el hero que solo «respira» con el scroll. **Modelo:** Seedance 2.0 (5 s, «slow, gentle, continuous
+small movements» [6]) o Kling 3.0 std. **Estado:** Publicada (vocabulario BytePlus).
+```
+Slow, gentle, continuous small camera movement: a slight push in toward the [subject] with subtle parallax between
+the foreground and the background. Fixed exposure, no cuts, no zoom.
+```
+
+---
+
+## Plantilla de pedido para dejar por escrito
 ```
 Proyecto: …  Sección: hero / sección 2…
 Coreografía (0→100 % del scroll): …
-Textos y dónde: …   Lado libre para texto: izquierda/derecha
-Imagen clave: ruta/archivo (aprobada el …)   Fotograma final: sí/no
-Modelo: …   Preset de cámara: …   Duración: … s   Resolución: 1080p   Aspecto: 16:9 (+ 9:16 aparte / recorte)
+Textos y dónde: …   Lado libre para texto: izquierda / derecha / los dos
+Tipo de plano (nº de esta biblioteca): …   Estado de la plantilla: publicada / medida / por reglas
+Imagen clave: archivo (aprobada el …), focal: …   Fin: sí/no (cómo se hizo)
+Modelo: …   Duración: … s   Resolución: …   Audio: no   Borrador: sí/no
 Prompt: …
-Tiradas: N   Coste estimado: …   Vale de: …
-Resultado elegido: archivo, informe de revisar-video (apto, variación, cortes)
+Precio estimado (estimar-higgsfield.mjs o estimate_video_cost): …   Tope: …   Vale de: …
+Resultado: archivo + informe de revisar-video (cortes, saltos, avance, variación)
 ```
+
+## Fuentes
+1. Higgsfield, control de cámara en vídeo IA (plantillas de dolly, órbita, cámara fija) [leída entera]: https://higgsfield.ai/blog/ai-video-camera-control
+2. higgsfield-ai/skills, `higgsfield-websites/references/cover-animator.md` y `asset-system.md` [leída entera / parcial]: https://github.com/higgsfield-ai/skills
+3. Google Cloud, guía definitiva de prompts de Veo 3.1 [leída entera]: https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1
+4. Alibaba Cloud, guías de prompts de Wan y Wan 3.0 [leída entera / parcial]: https://www.alibabacloud.com/help/en/model-studio/text-to-video-prompt
+5. Kling, guía de control de cámara [leída entera]: https://kling.ai/blog/kling-ai-camera-control-video-guide
+6. BytePlus, guía de prompts de Seedance 2.0 [leída entera]: https://ai.byteplus.com/ark/region:ap-southeast-1/docs/seedance-2-0-prompt-guide

@@ -7,10 +7,10 @@ públicas y de generaciones reales ("medido"); cambian cada mes. Los mismos dato
 
 ## Dónde se compra
 - **Higgsfield** (principal): agregador con muchos modelos, presets de cámara y MCP.
-  - Web por créditos: Starter 15 $/200, Plus 49 $/1.000, Ultra 129 $/3.000 al mes. Los créditos **caducan cada mes**. Un clip de
+  - Web por créditos: Starter 15 $/200, Plus 49 $/1.000, Ultra 129 $/3.000 al mes (en noviembre de 2026, con oferta: 19 €/270, 33 €/1.200 y 50 €/3.000 en pago anual). Lo fallido o moderado no se cobra y los resultados se guardan 7 días. Los créditos **caducan cada mes**. Un clip de
     5 s: Kling 3.0 720p ≈ 7,5-10 créditos, Seedance 2.5 ≈ 15 (480p) / 35 (720p) / 80 (1080p).
   - API: prepago en dólares (desde 5 $), `POST /estimate/<modelo>` gratis antes de lanzar, lo fallido o moderado no se cobra,
-    no da el saldo. Algunos modelos de su web no están en la API (Nano Banana, Veo, Seedream). En noviembre de 2026 los precios
+    no da el saldo. Algunos modelos de su web no están en la API (Nano Banana, Veo, GPT Image, Flux, Sora no está en ningún sitio); Seedream 5 Pro sí (0,108 $ medido). En noviembre de 2026 los precios
     de vídeo bajaron (Seedance 2.5 ya sale cerca del oficial). Guía de vídeo para webs: `video-ia-para-scroll/references/higgsfield-para-webs.md`.
   - **MCP** (conector para Claude; catálogo leído el 11-11-2026 con `models_explore`): además de los de la API trae
     Nano Banana 2 / 2.1 / Pro, Seedream 5 Pro, GPT Image 2 / 2.5 / 2.6 y Seedance 2.0 / 2.5. Cada `generate_*` admite
@@ -30,14 +30,17 @@ públicas y de generaciones reales ("medido"); cambian cada mes. Los mismos dato
 |---|---|---|---|---|---|---|
 | **Kling O3 pro** | 0,068 (medido) | **0,086** (medido) | sí: `first_frame_url`/`last_frame_url` (Higgsfield), `image_url`/`end_image_url` (fal) | 3-15 s | Interiores y producto: respeta muy bien inicio y fin, geometría estable, 1080p/24 fps reales. **Mejor calidad/precio** | Sin negative prompt. Reescribe letras de ~70 px. No anima exteriores. Con inicio + fin puede apenas avanzar y saltar al fin: mide con `revisar-video.mjs` |
 | Kling 3.0 std / pro | 0,071 (medido) | 0,096 (medido) | sí | 3-15 s | Pruebas baratas (std) | Etiquetas con texto se deforman |
-| Kling 4.0 | 0,157 | 0,235 | hasta 10 clave | 3-30 s, hasta 4K | Planos largos sin cortes | Caro; en fal, audio siempre activo |
+| Kling 3.0 Turbo · 2.5 Turbo | 0,084 · 0,032 (medido) | 0,105 · 0,053 (medido) | **no** (solo inicio) | 3-15 s · 5/10 s | Pruebas del movimiento muy baratas; 2.5 Turbo con negative prompt | Sin fin |
+| Kling 4.0 · Flash | 0,126 · 0,094 (medido) | 0,188 (medido; 4K 0,549; HDR +0,047) | hasta 10 clave (Flash: no) | 3-30 s (10 por defecto) · Flash hasta 20 s 720p | Recorridos con paradas guiadas por fotogramas intermedios | Pon la duración: viene a 10 s; en fal, audio siempre activo (0,157 / 0,235) |
 | Veo 3.1 Lite / Fast / Std | 0,05 / 0,10 / 0,40 | 0,08 / 0,12 / 0,40 | sí (`first_frame`/`last_frame`; el final, en clips de 8 s) | 4, 6, 8 s | La mejor luz, materiales y física; Lite = la prueba más barata | Solo en Vertex (salió de la API de Gemini el 22-10-2026); máx. 8 s |
 | Seedance 2.5 | 0,231 oficial · 0,265 Higgsfield (480p: 0,118) | 0,569 · 0,652 | sí (`end_image_url`; oficial: `role: last_frame`) | hasta 30 s | Movimiento "de cine", paralaje y desenfoque reales; el de las intros de recorrido | Finos que "hierven" a 480-720p; con un fin lejano da tirones y frena en el último tramo |
-| Seedance 2.0 (std / fast) · Mini | 0,12 fast · 0,08 Mini (std: confirma con `get_cost`) | — | sí (`start_image`/`end_image` en Higgsfield MCP) | 4-15 s | Pruebas y planos de producto con cámara lenta | Audio activado por defecto |
-| Wan 2.7 | 0,10 | 0,15 | sí: `image_url`/`end_image_url` | 2-15 s | Barato con negativo | Ignora a veces la trayectoria, rompe texto, sale a 30 fps y con audio |
+| Seedance 2.0 · Mini | 0,174 (medido; 480p 0,080) · Mini 5 créditos/5 s en la web | 0,429 (medido; 4K 0,891) | sí (`end_image_url`; `start_image`/`end_image` en el MCP) | 4-15 s | Revelado de logo que termina en la imagen final (receta oficial de Higgsfield); pruebas con Mini | Audio activado por defecto |
+| Wan 3.0 · Prime | 0,075 · 0,105 (medido; 480p 0,038) | 0,150 · 0,210 (medido) | sí | 2-30 s | Lo más barato a 1080p con inicio + fin; semilla | 30 fps; en preview en Alibaba |
+| Wan 2.7 | 0,075 (medido) | 0,113 (medido) | sí: `image_url`/`end_image_url` | 2-15 s | Barato con negativo y semilla | Ignora a veces la trayectoria, rompe texto, sale a 30 fps y con audio |
 | Wan 2.1/2.2 (abierto) | 0 en local | — | 2.1 FLF2V | ~5 s | Sin coste si hay GPU (8-54 GB) | 480-720p |
 | Luma Ray 3.2 | 0,06 | 0,24 | hasta 16 clave, modo bucle | 5/10 s | Bucles, HDR | Revisa geometría |
-| MiniMax H3 / Hailuo 2.3 | 0,08 / ~0,05 | 2K 0,13 / ~0,08 | H3 sí (`first_frame_image`/`last_frame_image`) | 5-10 s | Barato en alta resolución | Menos probado |
+| MiniMax H3 / H3 lite / Hailuo 2.3 | 0,08 / 768p 0,04 (medido) / ~0,05 | 2K 0,13 / — / ~0,08 | H3 sí (`first_frame_image`/`last_frame_image`) | 5-15 s | Barato en alta resolución; física | Menos probado; marca de agua de IA opcional |
+| Grok Video 1.5 · LTX-2.5 pro · Happy Horse 1.1 | 0,142 · — · — (medido) | — · 0,17 · 0,18 (medido) | no | 1-15 s · 6 s · 5 s | — | Sin ventaja para scroll al mismo precio |
 | Runway Gen-4.5 / Aleph | 0,12 / 0,28 | — | **solo inicio** / edita vídeo existente | — | Aleph: cambiar luz u objetos de un vídeo ya hecho | No sirve para encadenar por fin |
 
 ## Imagen
@@ -45,9 +48,10 @@ públicas y de generaciones reales ("medido"); cambian cada mes. Los mismos dato
 |---|---|---|---|---|
 | Nano Banana 2.1 / Pro (Google) | 0,034-0,05 / 0,134 | sí (máximo técnico 14; recomendado 3-6) | Producto fiel, texto legible, ediciones "misma toma" | Pro caro a 4K |
 | GPT Image 2 / 2.5 (OpenAI) | 0,006 baja · 0,053 media · 0,211 alta | sí | Texto y etiquetas exactas, composición; baja = bocetos baratos | Calidad alta cara |
-| Qwen Image 3 (Alibaba) | 0,075 en Higgsfield (medido) · 0,025-0,07 oficial | sí (edit, 1-3 ref.) | Escenas e interiores 2K, día/noche como edición | Las ediciones mueven píxeles (~30 px) |
+| Qwen Image 3 (Alibaba) | 0,04 en Higgsfield (medido el 21-11; 0,075 en octubre) · 0,025-0,07 oficial | sí (edit, 1-3 ref.) | Escenas e interiores 2K, día/noche como edición | Las ediciones mueven píxeles (~30 px) |
 | Flux 3 / Flux 2 pro (BFL) | 0,048-0,10 / 0,03 | sí | Fidelidad a la foto del producto | — |
-| Seedream 5 (ByteDance) | 0,035-0,045 | sí | Volumen barato a 2K, variaciones | — |
+| Seedream 5 (ByteDance) | 0,035-0,045 oficial · 5 Pro 0,108 en Higgsfield (medido) | sí | Volumen barato a 2K, variaciones; letra pequeña legible | — |
+| Cinema Studio Image (Higgsfield, solo web/MCP) | 2 créditos a 2K | sí | Fijar la **focal (FOV)**, la lente, el cuerpo y la apertura de la imagen de inicio | — |
 | Midjourney | plan desde 10 $/mes | poco | Estética, moodboard, explorar estilos | Sin API; poco control de producto y encuadre |
 | Ideogram 4 / Recraft 4.1 | 0,03-0,10 / 0,007-0,21 | no | Tipografía, logos, vectores, patrones | No para fotografía de escena |
 
@@ -73,8 +77,8 @@ Para los assets que se componen encima de la web (skill `capas-alfa`). Precios d
 - **Interior o escena con cámara que se mueve** (zoom a pantalla, entrada a una sala): imagen Qwen/Nano Banana → **Kling O3 pro** con inicio+fin. La prueba más barata: 4 s en Veo 3.1 Lite 720p (solo imagen de inicio) o 3 s en Kling 3.0 std.
 - **Producto con luz y materiales difíciles** (vidrio, líquido, comida): Veo 3.1 Fast/Std o Kling O3 pro; prueba ambos en 3-4 s.
 - **Movimiento cinematográfico con paralaje fuerte** y presupuesto: Seedance 2.5 a 1080p (mejor en su API oficial).
-- **Bucle de fondo:** Luma (modo loop) o Kling con inicio = fin.
-- **Plano largo** (> 10 s): mejor 2-4 clips encadenados por fotograma que uno largo; si no, Kling 4.0.
+- **Bucle de fondo:** Kling 3.0 std con inicio = fin (o Luma, modo loop, fuera de Higgsfield).
+- **Plano largo** (> 10 s): una toma de Seedance 2.5 (hasta 30 s) o Kling 4.0 con fotogramas intermedios; si no, 2-4 clips encadenados por fotograma. Árbol completo por plano y presupuesto: `video-ia-para-scroll/references/arbol-decision.md`.
 - **Producto que gira con texto legible:** ningún vídeo: `envase-giratorio` o `escena-3d-gltf`.
 - **Imagen clave:** Nano Banana 2.1 o Qwen Image 3 (baratas, editan bien); Nano Banana Pro o GPT Image si hay texto o producto exacto.
 - **Bocetos para elegir dirección:** GPT Image baja (0,006 $) o Flux 2 pro (0,03 $): 6-10 opciones por menos de 0,30 $.

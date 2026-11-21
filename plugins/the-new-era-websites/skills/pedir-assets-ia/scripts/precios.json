@@ -1,48 +1,474 @@
 {
   "actualizado": "2026-11-21",
-  "nota": "Orientativos en USD, sin audio. 'medido' = cobrado en generaciones reales; el resto, páginas de precios públicas o revendedores (fal). Cambian cada mes: confírmalos en el proveedor antes de pedir el vale.",
+  "nota": "Orientativos en USD, sin audio. 'medido' = cobrado en generaciones reales; el resto, páginas de precios públicas o revendedores (fal). Cambian cada mes: confírmalos en el proveedor antes de pedir el vale. Las entradas 'medido 21-11-2026' salen de POST /estimate de la API de Higgsfield (gratis; scripts de video-ia-para-scroll/estimar-higgsfield.mjs). Los créditos de la web de Higgsfield son otra tarifa: no se convierten a dólares.",
   "video": {
-    "kling-o3-pro":        { "usd_por_segundo": { "720p": 0.0683, "1080p": 0.086 }, "inicio_fin": true, "via": "Higgsfield API (medido), fal, Kling", "fuente": "medido 11-2026 (en 10-2026, 0,112 a 1080p)" },
-    "kling-3-std":         { "usd_por_segundo": { "720p": 0.0714 }, "inicio_fin": true, "via": "Higgsfield API (medido), fal, Kling; web Higgsfield ~7,5-10 créditos/5 s", "fuente": "medido 11-2026" },
-    "kling-3-pro":         { "usd_por_segundo": { "1080p": 0.0962 }, "inicio_fin": true, "via": "Higgsfield API (medido), fal (oficial ~0,16)", "fuente": "medido 11-2026" },
-    "kling-4":             { "usd_por_segundo": { "720p": 0.157, "1080p": 0.235 }, "inicio_fin": true, "via": "fal (audio siempre activo), web Kling", "fuente": "fal 10-2026" },
-    "veo-3.1-lite":        { "usd_por_segundo": { "720p": 0.05, "1080p": 0.08 }, "inicio_fin": true, "via": "Google Vertex", "fuente": "Vertex 10-2026" },
-    "veo-3.1-fast":        { "usd_por_segundo": { "720p": 0.10, "1080p": 0.12 }, "inicio_fin": true, "via": "Google Vertex", "fuente": "Vertex 10-2026" },
-    "veo-3.1":             { "usd_por_segundo": { "720p": 0.40, "1080p": 0.40 }, "inicio_fin": true, "via": "Google Vertex", "fuente": "Vertex 10-2026" },
-    "seedance-2.5":        { "usd_por_segundo": { "480p": 0.1177, "720p": 0.2647, "1080p": 0.6518 }, "inicio_fin": true, "via": "Higgsfield API (medido), fal; web Higgsfield ~15 créditos/5 s a 480p y ~35 a 720p", "fuente": "medido 11-2026 (en 10-2026 era 0,2056 / 0,4622 / 1,1372)" },
-    "seedance-2.5-oficial":{ "usd_por_segundo": { "480p": 0.103, "720p": 0.231, "1080p": 0.569 }, "inicio_fin": true, "via": "BytePlus ModelArk", "fuente": "BytePlus 10-2026" },
-    "seedance-2-mini":     { "usd_por_segundo": { "720p": 0.08 }, "inicio_fin": true, "via": "BytePlus, fal", "fuente": "10-2026" },
-    "wan-2.7":             { "usd_por_segundo": { "720p": 0.10, "1080p": 0.15 }, "inicio_fin": true, "via": "Higgsfield API (medido), fal, Alibaba", "fuente": "medido 10-2026" },
-    "luma-ray-3.2":        { "usd_por_segundo": { "720p": 0.06, "1080p": 0.24 }, "inicio_fin": true, "via": "Luma API", "fuente": "Luma 10-2026" },
-    "minimax-h3":          { "usd_por_segundo": { "720p": 0.08, "2k": 0.13 }, "inicio_fin": true, "via": "MiniMax API, fal", "fuente": "10-2026" },
-    "runway-gen-4.5":      { "usd_por_segundo": { "720p": 0.12 }, "inicio_fin": false, "via": "Runway API (solo fotograma inicial)", "fuente": "Runway 10-2026" }
+    "kling-o3-pro": {
+      "usd_por_segundo": {
+        "720p": 0.0683,
+        "1080p": 0.086
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido), fal, Kling",
+      "fuente": "medido 11-2026 (en 10-2026, 0,112 a 1080p)"
+    },
+    "kling-3-std": {
+      "usd_por_segundo": {
+        "720p": 0.0714
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido), fal, Kling; web Higgsfield ~7,5-10 créditos/5 s",
+      "fuente": "medido 11-2026"
+    },
+    "kling-3-pro": {
+      "usd_por_segundo": {
+        "1080p": 0.0962
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido), fal (oficial ~0,16)",
+      "fuente": "medido 11-2026"
+    },
+    "kling-4": {
+      "usd_por_segundo": {
+        "720p": 0.1257,
+        "1080p": 0.1879,
+        "4k": 0.549
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido; HDR +0,047 $/s a 1080p y +0,078 en 4K); web Higgsfield 12,5 / 18,75 créditos/5 s; fal ~0,157/0,235 con audio",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "veo-3.1-lite": {
+      "usd_por_segundo": {
+        "720p": 0.05,
+        "1080p": 0.08
+      },
+      "inicio_fin": true,
+      "via": "Google Vertex",
+      "fuente": "Vertex 10-2026"
+    },
+    "veo-3.1-fast": {
+      "usd_por_segundo": {
+        "720p": 0.1,
+        "1080p": 0.12
+      },
+      "inicio_fin": true,
+      "via": "Google Vertex",
+      "fuente": "Vertex 10-2026"
+    },
+    "veo-3.1": {
+      "usd_por_segundo": {
+        "720p": 0.4,
+        "1080p": 0.4
+      },
+      "inicio_fin": true,
+      "via": "Google Vertex",
+      "fuente": "Vertex 10-2026"
+    },
+    "seedance-2.5": {
+      "usd_por_segundo": {
+        "480p": 0.1177,
+        "720p": 0.2647,
+        "1080p": 0.6518
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido), fal; web Higgsfield ~15 créditos/5 s a 480p y ~35 a 720p",
+      "fuente": "medido 11-2026 (en 10-2026 era 0,2056 / 0,4622 / 1,1372)"
+    },
+    "seedance-2.5-oficial": {
+      "usd_por_segundo": {
+        "480p": 0.103,
+        "720p": 0.231,
+        "1080p": 0.569
+      },
+      "inicio_fin": true,
+      "via": "BytePlus ModelArk",
+      "fuente": "BytePlus 10-2026"
+    },
+    "seedance-2-mini": {
+      "usd_por_segundo": {
+        "720p": 0.08
+      },
+      "inicio_fin": true,
+      "via": "BytePlus, fal; web Higgsfield 5 créditos/5 s a 720p",
+      "fuente": "10-2026 + MCP 21-11-2026"
+    },
+    "wan-2.7": {
+      "usd_por_segundo": {
+        "720p": 0.075,
+        "1080p": 0.1125
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido; semilla y negativo); web 12,5 créditos/5 s a 1080p",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield) (en 10-2026, 0,10 / 0,15)"
+    },
+    "luma-ray-3.2": {
+      "usd_por_segundo": {
+        "720p": 0.06,
+        "1080p": 0.24
+      },
+      "inicio_fin": true,
+      "via": "Luma API",
+      "fuente": "Luma 10-2026"
+    },
+    "minimax-h3": {
+      "usd_por_segundo": {
+        "720p": 0.08,
+        "2k": 0.13
+      },
+      "inicio_fin": true,
+      "via": "MiniMax API, fal",
+      "fuente": "10-2026"
+    },
+    "runway-gen-4.5": {
+      "usd_por_segundo": {
+        "720p": 0.12
+      },
+      "inicio_fin": false,
+      "via": "Runway API (solo fotograma inicial)",
+      "fuente": "Runway 10-2026"
+    },
+    "kling-4-flash": {
+      "usd_por_segundo": {
+        "720p": 0.094
+      },
+      "inicio_fin": false,
+      "via": "Higgsfield API (medido: 0,47 $ por 5 s); web 7,5 créditos/5 s",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "kling-3-4k": {
+      "usd_por_segundo": {
+        "4k": 0.3151
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido); web 30 créditos/5 s",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "kling-3-turbo": {
+      "usd_por_segundo": {
+        "720p": 0.0839,
+        "1080p": 0.1049
+      },
+      "inicio_fin": false,
+      "via": "Higgsfield API (medido; solo imagen de inicio)",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "kling-2.5-turbo": {
+      "usd_por_segundo": {
+        "720p": 0.0315,
+        "1080p": 0.0525
+      },
+      "inicio_fin": false,
+      "via": "Higgsfield API (medido; tiene negative_prompt)",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "seedance-2.5-extend": {
+      "usd_por_segundo": {
+        "480p": 0.1387,
+        "720p": 0.3264,
+        "1080p": 0.7858
+      },
+      "inicio_fin": false,
+      "via": "Higgsfield API (medido; se paga solo lo añadido); web 35 créditos por 5 s a 720p",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "seedance-2.5-flash": {
+      "usd_por_segundo": {
+        "720p": null
+      },
+      "inicio_fin": true,
+      "via": "MCP/web Higgsfield 25 créditos/5 s a 720p; no está en la API",
+      "fuente": "MCP 21-11-2026",
+      "confirmado": false
+    },
+    "seedance-2": {
+      "usd_por_segundo": {
+        "480p": 0.0804,
+        "720p": 0.1735,
+        "1080p": 0.4293,
+        "4k": 0.8907
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido); web 22,5 / 60 créditos/5 s a 720p/1080p",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "wan-3": {
+      "usd_por_segundo": {
+        "480p": 0.0375,
+        "720p": 0.075,
+        "1080p": 0.15
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido; 2-30 s, semilla); web 15 créditos/5 s a 1080p",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "wan-3-prime": {
+      "usd_por_segundo": {
+        "480p": 0.051,
+        "720p": 0.105,
+        "1080p": 0.21
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido); web 27,5 créditos/5 s a 1080p",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "minimax-h3-lite": {
+      "usd_por_segundo": {
+        "480p": 0.025,
+        "768p": 0.04
+      },
+      "inicio_fin": true,
+      "via": "Higgsfield API (medido: 0,15 / 0,24 $ por 6 s)",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "grok-video-1.5": {
+      "usd_por_segundo": {
+        "720p": 0.142
+      },
+      "inicio_fin": false,
+      "via": "Higgsfield API (medido: 0,71 $ por 5 s); web 40 créditos a 1080p",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "ltx-2.5-pro": {
+      "usd_por_segundo": {
+        "1080p": 0.17
+      },
+      "inicio_fin": false,
+      "via": "Higgsfield API (medido: 1,02 $ por 6 s)",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "happy-horse-1.1": {
+      "usd_por_segundo": {
+        "1080p": 0.18
+      },
+      "inicio_fin": false,
+      "via": "Higgsfield API (medido: 0,90 $ por 5 s)",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "veo-3.1-higgsfield": {
+      "usd_por_segundo": {
+        "1080p": null
+      },
+      "inicio_fin": true,
+      "via": "solo web/MCP de Higgsfield (no en la API): 8 s Lite 12 créditos, Fast 32, High 80",
+      "fuente": "MCP 21-11-2026",
+      "confirmado": false
+    }
   },
   "imagen": {
-    "qwen-image-3":        { "usd_por_imagen": { "2k": 0.075 }, "edita": true, "via": "Higgsfield API (medido); oficial ~0,025-0,07", "fuente": "medido 10-2026" },
-    "nano-banana-2.1":     { "usd_por_imagen": { "1k": 0.034, "2k": 0.05 }, "edita": true, "via": "Gemini API, Vertex", "fuente": "Google 10-2026" },
-    "nano-banana-pro":     { "usd_por_imagen": { "2k": 0.134, "4k": 0.24 }, "edita": true, "via": "Gemini API, Higgsfield (~2 créditos)", "fuente": "Google 10-2026" },
-    "gpt-image-2":         { "usd_por_imagen": { "baja": 0.006, "media": 0.053, "alta": 0.211 }, "edita": true, "via": "OpenAI API (1024x1024)", "fuente": "OpenAI 10-2026" },
-    "flux-3":              { "usd_por_imagen": { "1k": 0.048, "2k": 0.10 }, "edita": true, "via": "BFL API, fal", "fuente": "10-2026" },
-    "flux-2-pro":          { "usd_por_imagen": { "1k": 0.03 }, "edita": true, "via": "BFL API, fal", "fuente": "10-2026" },
-    "seedream-5-pro":      { "usd_por_imagen": { "2k": 0.045 }, "edita": true, "via": "BytePlus, fal (~0,07-0,135)", "fuente": "10-2026" },
-    "ideogram-4":          { "usd_por_imagen": { "1k": 0.06 }, "edita": false, "via": "Ideogram API", "fuente": "10-2026" },
-    "recraft-4.1":         { "usd_por_imagen": { "1k": 0.035 }, "edita": false, "via": "Recraft API", "fuente": "10-2026" },
-    "midjourney":          { "usd_por_imagen": { "2k": 0.05 }, "edita": false, "via": "solo web (plan mensual desde 10 $), sin API oficial", "fuente": "estimado por plan", "confirmado": false },
-    "seedream-5-flash":    { "usd_por_imagen": { "2k": 0.0193 }, "edita": true, "alfa": true, "via": "Runware (background: transparent)", "fuente": "Runware 10-2026" },
-    "ideogram-3-transparent": { "usd_por_imagen": { "1k": 0.06 }, "edita": false, "alfa": true, "via": "fal (0,03-0,09 según calidad)", "fuente": "fal 10-2026" }
+    "qwen-image-3": {
+      "usd_por_imagen": {
+        "2k": 0.04
+      },
+      "edita": true,
+      "via": "Higgsfield API (medido; semilla y negativo)",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield) (en 10-2026, 0,075)"
+    },
+    "nano-banana-2.1": {
+      "usd_por_imagen": {
+        "1k": 0.034,
+        "2k": 0.05
+      },
+      "edita": true,
+      "via": "Gemini API, Vertex",
+      "fuente": "Google 10-2026"
+    },
+    "nano-banana-pro": {
+      "usd_por_imagen": {
+        "2k": 0.134,
+        "4k": 0.24
+      },
+      "edita": true,
+      "via": "Gemini API, Higgsfield (~2 créditos)",
+      "fuente": "Google 10-2026"
+    },
+    "gpt-image-2": {
+      "usd_por_imagen": {
+        "baja": 0.006,
+        "media": 0.053,
+        "alta": 0.211
+      },
+      "edita": true,
+      "via": "OpenAI API (1024x1024)",
+      "fuente": "OpenAI 10-2026"
+    },
+    "flux-3": {
+      "usd_por_imagen": {
+        "1k": 0.048,
+        "2k": 0.1
+      },
+      "edita": true,
+      "via": "BFL API, fal",
+      "fuente": "10-2026"
+    },
+    "flux-2-pro": {
+      "usd_por_imagen": {
+        "1k": 0.03
+      },
+      "edita": true,
+      "via": "BFL API, fal",
+      "fuente": "10-2026"
+    },
+    "seedream-5-pro": {
+      "usd_por_imagen": {
+        "2k": 0.045
+      },
+      "edita": true,
+      "via": "BytePlus, fal (~0,07-0,135)",
+      "fuente": "10-2026"
+    },
+    "ideogram-4": {
+      "usd_por_imagen": {
+        "1k": 0.06
+      },
+      "edita": false,
+      "via": "Ideogram API",
+      "fuente": "10-2026"
+    },
+    "recraft-4.1": {
+      "usd_por_imagen": {
+        "1k": 0.035
+      },
+      "edita": false,
+      "via": "Recraft API",
+      "fuente": "10-2026"
+    },
+    "midjourney": {
+      "usd_por_imagen": {
+        "2k": 0.05
+      },
+      "edita": false,
+      "via": "solo web (plan mensual desde 10 $), sin API oficial",
+      "fuente": "estimado por plan",
+      "confirmado": false
+    },
+    "seedream-5-flash": {
+      "usd_por_imagen": {
+        "2k": 0.0193
+      },
+      "edita": true,
+      "alfa": true,
+      "via": "Runware (background: transparent)",
+      "fuente": "Runware 10-2026"
+    },
+    "ideogram-3-transparent": {
+      "usd_por_imagen": {
+        "1k": 0.06
+      },
+      "edita": false,
+      "alfa": true,
+      "via": "fal (0,03-0,09 según calidad)",
+      "fuente": "fal 10-2026"
+    },
+    "seedream-5-pro-higgsfield": {
+      "usd_por_imagen": {
+        "2k": 0.108
+      },
+      "edita": true,
+      "via": "Higgsfield API (medido); web 2,5 créditos",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "kling-image-4": {
+      "usd_por_imagen": {
+        "2k": 0.063
+      },
+      "edita": true,
+      "via": "Higgsfield API (medido)",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "grok-image-2": {
+      "usd_por_imagen": {
+        "2k": 0.06
+      },
+      "edita": true,
+      "via": "Higgsfield API (medido); web 2,5 créditos",
+      "fuente": "medido 21-11-2026 (POST /estimate de la API de Higgsfield)"
+    },
+    "cinematic-studio-image": {
+      "usd_por_imagen": {
+        "2k": null
+      },
+      "edita": true,
+      "via": "solo web/MCP de Higgsfield: 2 créditos a 2K; controla focal (FOV), lente, cuerpo y apertura",
+      "fuente": "MCP 21-11-2026",
+      "confirmado": false
+    }
   },
   "composicion": {
-    "alfa-local":          { "usd": 0, "por": "pieza", "via": "capas-alfa/scripts/alfa.mjs (fondo liso, negro, blanco o par negro/blanco)", "fuente": "local" },
-    "recorte-rembg":       { "usd": 0.006, "por": "imagen", "via": "fal Rembg Enhance", "fuente": "fal 07-2026" },
-    "recorte-bria":        { "usd": 0.018, "por": "imagen", "via": "fal Bria RMBG 2.0", "fuente": "fal 07-2026" },
-    "capas-qwen-layered":  { "usd": 0.05, "por": "imagen", "via": "fal Qwen-Image-Layered (1-10 capas RGBA)", "fuente": "fal 10-2026" },
-    "recorte-video-birefnet": { "usd": 0.0008, "por": "segundo", "via": "fal BiRefNet v2 vídeo (segundo de cómputo, ~1 por segundo de clip)", "fuente": "fal 10-2026" },
-    "recorte-video-bria": { "usd": 0.05, "por": "segundo", "via": "fal Bria vídeo v3", "fuente": "fal 10-2026" },
-    "3d-trellis-2":        { "usd": 0.30, "por": "modelo", "via": "fal TRELLIS 2 (0,25-0,35)", "fuente": "fal 10-2026" },
-    "3d-hunyuan3d-3":      { "usd": 0.225, "por": "modelo", "via": "fal Hunyuan3D v3 (desde)", "fuente": "fal 10-2026" }
+    "alfa-local": {
+      "usd": 0,
+      "por": "pieza",
+      "via": "capas-alfa/scripts/alfa.mjs (fondo liso, negro, blanco o par negro/blanco)",
+      "fuente": "local"
+    },
+    "recorte-rembg": {
+      "usd": 0.006,
+      "por": "imagen",
+      "via": "fal Rembg Enhance",
+      "fuente": "fal 07-2026"
+    },
+    "recorte-bria": {
+      "usd": 0.018,
+      "por": "imagen",
+      "via": "fal Bria RMBG 2.0",
+      "fuente": "fal 07-2026"
+    },
+    "capas-qwen-layered": {
+      "usd": 0.05,
+      "por": "imagen",
+      "via": "fal Qwen-Image-Layered (1-10 capas RGBA)",
+      "fuente": "fal 10-2026"
+    },
+    "recorte-video-birefnet": {
+      "usd": 0.0008,
+      "por": "segundo",
+      "via": "fal BiRefNet v2 vídeo (segundo de cómputo, ~1 por segundo de clip)",
+      "fuente": "fal 10-2026"
+    },
+    "recorte-video-bria": {
+      "usd": 0.05,
+      "por": "segundo",
+      "via": "fal Bria vídeo v3",
+      "fuente": "fal 10-2026"
+    },
+    "3d-trellis-2": {
+      "usd": 0.3,
+      "por": "modelo",
+      "via": "fal TRELLIS 2 (0,25-0,35)",
+      "fuente": "fal 10-2026"
+    },
+    "3d-hunyuan3d-3": {
+      "usd": 0.225,
+      "por": "modelo",
+      "via": "fal Hunyuan3D v3 (desde)",
+      "fuente": "fal 10-2026"
+    }
   },
   "revision": {
-    "gemini-flash":        { "usd_por_clip": 0.02, "via": "Gemini API (revisar-ia.mjs), clip de ~5 s" },
-    "gemini-flash-lite":   { "usd_por_clip": 0.005, "via": "Gemini API, más flojo: inventa más fallos" }
+    "gemini-flash": {
+      "usd_por_clip": 0.02,
+      "via": "Gemini API (revisar-ia.mjs), clip de ~5 s"
+    },
+    "gemini-flash-lite": {
+      "usd_por_clip": 0.005,
+      "via": "Gemini API, más flojo: inventa más fallos"
+    }
+  },
+  "herramientas": {
+    "higgsfield-deflicker": {
+      "creditos": 2,
+      "via": "web/MCP Higgsfield video_deflicker"
+    },
+    "higgsfield-upscale": {
+      "creditos": 2,
+      "via": "web/MCP Higgsfield video_upscale"
+    },
+    "bytedance-upscale-1080p": {
+      "creditos": 1,
+      "via": "web/MCP Higgsfield bytedance_video_upscale, preset AIGC; ~0,0072 $/s en fal"
+    },
+    "topaz-starlight-precise": {
+      "usd_por_10s": 1.2,
+      "via": "fal (≤1080p); en Higgsfield sin estimación sin el vídeo"
+    }
   }
 }

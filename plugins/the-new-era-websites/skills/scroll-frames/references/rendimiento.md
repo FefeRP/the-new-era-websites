@@ -25,7 +25,9 @@ El vídeo pesa ~5× menos; los frames son más fiables (iOS en ahorro de baterí
 
 ## Formatos
 - **WebP**: el comodín. Decodifica rápido. Por defecto.
-- **AVIF**: ~20-35 % menos peso con la misma calidad, decodificación algo más lenta. Úsalo (`--formato ambos`) cuando el peso apriete; el motor elige AVIF solo si el navegador lo soporta.
+- **AVIF**: en fotos suele pesar un 20-35 % menos, pero en frames de vídeo de IA medidos (121 frames, 1280 px) solo
+  ahorró un 4 % frente a WebP q72 y tardó casi el doble en decodificar (17 frente a 10 ms). Úsalo (`--formato ambos`)
+  solo si el peso aprieta mucho; el motor elige AVIF solo si el navegador lo soporta.
 - **JPEG**: solo como reserva antigua. **PNG**: nunca para secuencias (salvo intermedio).
 - Transparencia: WebP y AVIF admiten alfa. Mejor evitarla: pide al generador un fondo liso y pon ese color de fondo en la sección (más ligero y sin halos).
 
@@ -50,6 +52,10 @@ Con el vídeo pedido sobre fondo liso o negro (skill `capas-alfa`):
 frames con alfa pesan ~1,5-2× los opacos: ≤ 1280 px y menos frames.
 
 ## Modo vídeo: codificación
-`-c:v libx264 -crf 20 -g 8 -keyint_min 8 -sc_threshold 0 -movflags +faststart -an` (móvil: 720 p, crf 24, `-g 4`).
-`-g 1` (todo intra) = scrub perfecto pero ~3× peso. Comprueba fotogramas clave:
-`ffprobe -v error -select_streams v -show_entries frame=key_frame -of csv=p=0 v.mp4 | find /c "1"`.
+`-c:v libx264 -crf 20 -g 8 -keyint_min 8 -sc_threshold 0 -bf 0 -movflags +faststart -an` (móvil: 720 p, crf 24, `-g 4`).
+Medido en Chrome con un clip de IA de 5 s a 1280 px: `-g 8 -bf 0` busca en 28 ms (mediana), igual que `-g 4`, con un
+22 % menos de peso; con B-frames, +6 ms; `-g 1` (todo intra) 17 ms pero 1,8× el peso; **el clip tal como sale del
+generador (un solo fotograma clave) 220 ms**: recodifica siempre. Tabla completa (VP9, AV1, WebP, AVIF, JPEG) en
+`video-ia-para-scroll/references/montaje-web.md`. Comprueba los fotogramas clave:
+`ffprobe -v error -select_streams v -skip_frame nokey -show_entries frame=pts_time -of csv=p=0 v.mp4` (una línea por
+clave; con VP9 de libvpx el recuento no es fiable).

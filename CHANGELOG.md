@@ -4,6 +4,34 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.0.0-beta.12] - 2026-11-21
+Todas las skills pasan a `1.0.0-beta.12`. Segunda pasada sobre Higgsfield para webs: guía por modelo, plantillas por
+tipo de plano, árbol de decisión, checklists, flujos y una receta de montaje medida en Chrome.
+
+### Añadido
+- `video-ia-para-scroll/references/modelos/`: una ficha por modelo (Seedance 2.5 y 2.0, Kling 3.0/O3, Kling 4.0, Veo
+  3.1, Wan, otros e imagen clave) con parámetros reales de la API y la web, precio medido, fallos conocidos y prompt de
+  partida; índice con tabla rápida y lo que no está en Higgsfield.
+- `arbol-decision.md` (¿hace falta vídeo?, tipo de plano → modelo y precio, resolución, presupuestos por tipo de web),
+  `checklists.md` (antes de generar y al recibir), `flujos.md` (imagen clave, encadenar sin fotograma repetido,
+  extender, bucles, upscale, deflicker, cinco caminos para que la marca no se deforme) y `montaje-web.md`.
+- `montaje-web.md`: el clip del generador llega con un solo fotograma clave (búsqueda de ~220 ms en Chrome);
+  medidas propias de GOP 1/4/8/12, B-frames, VP9, AV1 y frames WebP/AVIF/JPEG en escritorio y móvil; recetas de ffmpeg;
+  carga, póster, bucle de scroll, móvil y movimiento reducido.
+- `scripts/estimar-higgsfield.mjs`: precios gratis con `POST /estimate` de la API (tabla de rutas útiles o un pedido).
+- `pruebas/montaje-web/`: prepara las variantes de un clip y mide la búsqueda en Chrome (`seeked` + pintar en canvas).
+
+### Cambiado
+- `plantillas-prompt.md`: biblioteca de 13 plantillas por tipo de plano, cada una con su estado (publicada, medida o
+  por reglas). `modelos-y-camaras.md`: control de cámara, lente y FOV, dolly frente a zoom, presets que sirven.
+- `higgsfield-para-webs.md`: mapa de lectura, tabla de 7 modelos con precios medidos, nuevas lecciones y montaje que
+  remite a `montaje-web.md` (GOP 8 sin B-frames en vez de todo intra).
+- `scroll-frames`: `extraer-frames.mjs --video-scrub` codifica sin B-frames (`-bf 0`, +6 ms por búsqueda medidos con
+  ellos); `rendimiento.md` con las medidas y AVIF solo si el peso aprieta.
+- `pedir-assets-ia`: `precios.json` y `proveedores.md` al día (Kling 4/Flash/Turbo, Seedance 2.0 Mini, Wan 3.0,
+  MiniMax, Grok, LTX, herramientas); `presupuesto.mjs` admite modelos con precio solo en créditos.
+- `new-era`: la fila y el bloque de vídeo con Higgsfield remiten al árbol, las fichas, las checklists y el montaje.
+
 ## [1.0.0-beta.11] - 2026-11-21
 Todas las skills pasan a `1.0.0-beta.11`. NEW ERA sabe usar Higgsfield (Seedance, Kling, Veo) para webs: el vídeo se
 planifica entero antes de generar y se mide antes de montarlo.

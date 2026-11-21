@@ -2,7 +2,7 @@
 name: new-era
 description: Skill maestra del marketplace the-new-era-websites para construir o mejorar webs con carácter propio en cualquier estilo (inmersiva, cinematográfica, editorial, corporativa, minimal, juguetona…) y sin resultados genéricos - palabra clave de activación "NEW ERA" o /new-era (siguen valiendo "WEB PREMIUM" y /web-premium, el nombre anterior). Entiende el pedido, elige una dirección de estilo y una intensidad según el cliente (con varias direcciones distintas donde elegir), obliga a cargar con la herramienta Skill las skills de diseño instaladas en cada fase (dirección, componentes, movimiento, código, revisión), consulta la documentación actual de cada librería en la versión del proyecto con find-docs (Next.js, React, Tailwind, GSAP, three.js…) y sigue Modern Web Guidance en las decisiones de plataforma (Core Web Vitals, imágenes, fuentes, accesibilidad, View Transitions, CSS moderno), define la idea propia y el hilo conductor de la web, elige y combina técnicas (scroll con vídeo en frames, capas con alfa y profundidad, revelados y transiciones, recursos de imagen con IA, componentes, 3D real con glTF, shaders, mapa que baja hasta el edificio, lente de rayos X, envase que gira sin 3D), planifica los activos y su coste, monta la web con la plantilla base (Vite + GSAP + Lenis), la verifica con capturas y la pasa por una revisión independiente en rondas antes de darla por terminada. Úsala SIEMPRE que el pedido diga "NEW ERA", "new era website", "WEB PREMIUM", "web premium", "web inmersiva", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "hazme la web de", "mejora esta web", "que no parezca genérica", "premium website", "immersive website", "awwwards style site", "cinematic scroll website", "3D scrolling website", "build a website with scroll effects".
 license: MIT
-version: 1.0.0-beta.11
+version: 1.0.0-beta.12
 ---
 
 # NEW ERA: de un pedido a una web con carácter propio
@@ -125,7 +125,7 @@ elegida (fase **Movimiento** y **Componentes**). Regla rápida:
 |---|---|---|
 | Que el producto gire / se abra / se transforme al hacer scroll, sin interacción | Vídeo → frames | `pedir-assets-ia` + `video-ia-para-scroll` + `scroll-frames` |
 | Que la cámara entre en una escena real (un estudio, una tienda, una casa) y acabe en la pantalla con la web del cliente | Vídeo IA con imagen de inicio y fin → frames + la web real encima | `pedir-assets-ia` + `scroll-frames` + `seguir-pantalla` |
-| Una intro en vídeo por scroll (entrar, atravesar, llegar a la marca), un fondo en bucle o una transición en vídeo con Higgsfield (Seedance, Kling, Veo) | Vídeo IA planificado entero antes de generar → medido → frames o vídeo all-intra | `video-ia-para-scroll` (lee **`references/higgsfield-para-webs.md`**: modelo por pieza, primer y último fotograma sin saltos, checklist, `revisar-video.mjs`) + `scroll-frames` |
+| Una intro en vídeo por scroll (entrar, atravesar, llegar a la marca), un fondo en bucle o una transición en vídeo con Higgsfield (Seedance, Kling, Veo) | Vídeo IA planificado entero antes de generar → medido → frames o vídeo all-intra | `video-ia-para-scroll` (lee **`references/higgsfield-para-webs.md`** y su mapa: `arbol-decision.md`, guía por modelo en `modelos/`, plantillas por plano, `checklists.md`, `montaje-web.md`, `revisar-video.mjs`) + `scroll-frames` |
 | Profundidad, "3D" barato, ingredientes o elementos flotando | Fotos aisladas con alfa + capas + parallax | `capas-alfa` + `parallax-capas` |
 | El titular entre el fondo y el sujeto (el texto pasa por detrás del producto) | Capas con alfa y el texto en medio | `capas-alfa` (componer capas) |
 | Que el visitante gire/configure el objeto, o 3D en varias secciones | 3D real glTF | `escena-3d-gltf` |
@@ -177,10 +177,10 @@ eligiendo la de 0: decidir «cero» sin enseñar lo que se pierde es una de las 
 - Con presupuesto 0 también hay imagen propia: canvas y shaders por código, SVG, tipografía como imagen, render con
   three.js, fotos del cliente bien tratadas, activos libres (Poly Haven, Khronos). Lo que no vale es dejar la web sin imagen.
 - Vídeo con IA: detalles de movimiento y trucos en `video-ia-para-scroll`. Con Higgsfield (intros, fondos, transiciones,
-  marcos, cristal), antes de presupuestar lee su `references/higgsfield-para-webs.md` y pasa la checklist del §2: una
+  marcos, cristal), antes de presupuestar lee su `references/higgsfield-para-webs.md`, decide con `arbol-decision.md`, estima gratis con `scripts/estimar-higgsfield.mjs` y pasa `checklists.md`: una
   toma, máximo dos fases, último fotograma solo si es alcanzable (si no, dos pasadas o lo exacto por código), encuadre
   abierto desde la imagen clave, estimación con tope y prueba a 480p. Cada clip recibido pasa por `revisar-video.mjs`
-  (saltos, tirones, avance real de la cámara) antes de montarlo.
+  (saltos, tirones, avance real de la cámara) antes de montarlo, y se recodifica siempre según `montaje-web.md` (llega con un solo fotograma clave).
 - Pantallas, logos y textos dentro de la escena: nunca generados; por código con `seguir-pantalla`.
 - Modelos 3D: `escena-3d-gltf` (licencia, limpieza, optimización).
 - Lotes de imagen (piezas con alfa, iconos, texturas, fondos): `recursos-imagen-ia`, con la primera imagen aprobada antes del resto y el lote revisado junto (`lote-imagenes.mjs`).

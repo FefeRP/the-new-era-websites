@@ -222,18 +222,19 @@ async function main() {
   }
 
   if (op['video-scrub']) {
-    // MP4 "para buscar": todos los frames clave cada 4-8 (seek barato). Lección tomada de scroll-craft (MIT).
+    // MP4 "para buscar": un fotograma clave cada 8 (móvil 4) y sin B-frames (seek barato). Idea de scroll-craft (MIT);
+    // medido en Chrome (pruebas/montaje-web): g8 sin B-frames busca como g4 y pesa un 22 % menos; con B-frames, +6 ms.
     const out = join(salida, 'scrub-escritorio.mp4');
     await ejecutar(ffmpeg, ['-hide_banner', '-y', ...recortarEntrada, '-i', video, '-an',
       '-vf', `scale=${ancho}:-2:flags=lanczos,format=yuv420p`, '-c:v', 'libx264', '-profile:v', 'high',
-      '-preset', 'slow', '-crf', '20', '-g', '8', '-keyint_min', '8', '-sc_threshold', '0', '-movflags', '+faststart', out]);
+      '-preset', 'slow', '-crf', '20', '-g', '8', '-keyint_min', '8', '-sc_threshold', '0', '-bf', '0', '-movflags', '+faststart', out]);
     manifest.videoScrub = { escritorio: 'scrub-escritorio.mp4', fps: Number(info.fps.toFixed(4)) };
     if (anchoMovil > 0) {
       const outM = join(salida, 'scrub-movil.mp4');
       const fM = [recorteFiltro, `scale='min(${anchoMovil},iw)':-2:flags=lanczos`, 'format=yuv420p'].filter(Boolean).join(',');
       await ejecutar(ffmpeg, ['-hide_banner', '-y', ...recortarEntrada, '-i', video, '-an', '-vf', fM,
         '-c:v', 'libx264', '-profile:v', 'high', '-preset', 'slow', '-crf', '24', '-g', '4', '-keyint_min', '4',
-        '-sc_threshold', '0', '-movflags', '+faststart', outM]);
+        '-sc_threshold', '0', '-bf', '0', '-movflags', '+faststart', outM]);
       manifest.videoScrub.movil = 'scrub-movil.mp4';
     }
     console.log('video-scrub: generado');

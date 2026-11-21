@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>medir</title>
+<link rel="icon" href="data:,">
+<style>body{margin:0;background:#111;color:#ddd;font:14px system-ui} video,canvas{display:block;max-width:100%}</style>
+</head>
+<body>
+<video id="v" muted playsinline preload="auto"></video>
+<canvas id="c"></canvas>
+<script type="module">
+// Mide, para cada variante de variantes.json: el tiempo de cada búsqueda en <video> (de poner currentTime a que el
+// fotograma está presentado) y el de decodificar un frame suelto (createImageBitmap). Los ficheros se bajan antes a
+// memoria (Blob) para que la red no cuente: aquí solo se mide la decodificación.
+const q = new URLSearchParams(location.search);
+const base = q.get('base');
+const solo = q.get('solo');
+const info = await (await fetch(base + '/variantes.json')).json();
+const v = document.getElementById('v');
+const c = document.getElementById('c');
+const ctx = c.getContext('2d');
+const est = (xs) => { const s = [...xs].sort((a, b) => a - b); const p = (k) => s[Math.min(s.length - 1, Math.floor(k * s.length))]; return { med: +p(0.5).toFixed(1), p95: +p(0.95).toFixed(1), max: +s[s.length - 1].toFixed(1) }; };
+// generador fijo para que todas las variantes reciban las mismas búsquedas
+let semilla = 7; const azar = () => ((semilla = (semilla * 16807) % 2147483647) / 2147483647);
+let agotadas = 0;
+const presentado = () => new Promise((ok) => {
+  let hecho = false;
+  const fin = (tope) => { if (!hecho) { hecho = true; if (tope === true) agotadas++; ok(); } };
+  v.addEventListener('seeked', () => { if (c.width !== v.videoWidth) { c.width = v.videoWidth; c.height = v.videoHeight; } ctx.drawImage(v, 0, 0); ctx.getImageData(0, 0, 1, 1); fin(); }, { once: true });
+  setTimeout(() => fin(true), 1500);
+});
+async function medirVideo(x) {
+  const blob = await (await fetch(`${base}/${x.fichero}`)).blob();
+  const url = URL.createObjectURL(blob);
+  v.src = url;
+  await new Promise((ok, mal) => { v.onloadeddata = ok; v.onerror = () => mal(new Error('no carga ' + x.fichero)); });
+  const dur = v.duration; agotadas = 0;
+  // 1) búsquedas al azar (saltos grandes: como arrastrar la barra o un scroll rápido)
+  semilla = 7; const azarT = [];
+  for (let i = 0; i < 30; i++) { const t0 = performance.now(); v.currentTime = azar() * (dur - 0.05); await presentado(); azarT.push(performance.now() - t0); }
+  // 2) scroll lento hacia delante y hacia atrás, fotograma a fotograma (el caso normal de un scrub)
+  const pasos = 60, delante = [], atras = [];
+  for (let i = 0; i <= pasos; i++) { const t0 = performance.now(); v.currentTime = (i / pasos) * (dur - 0.05); await presentado(); delante.push(performance.now() - t0); }
+  for (let i = pasos; i >= 0; i--) { const t0 = performance.now(); v.currentTime = (i / pasos) * (dur - 0.05); await presentado(); atras.push(performance.now() - t0); }
+  URL.revokeObjectURL(url); v.removeAttribute('src'); v.load();
+  return { azar: est(azarT), delante: est(delante), atras: est(atras), agotadas };
+}
+async function medirFrames(x) {
+  const nombres = Array.from({ length: x.frames }, (_, i) => `${base}/${x.carpeta}/${String(i + 1).padStart(4, '0')}.${x.ext}`);
+  const blobs = await Promise.all(nombres.map(async (n) => (await fetch(n)).blob()));
+  const dec = [], dib = [];
+  semilla = 7;
+  // en orden al azar para que la caché de decodificación no ayude
+  for (let i = 0; i < 40; i++) {
+    const b = blobs[Math.floor(azar() * blobs.length)];
+    const t0 = performance.now(); const bmp = await createImageBitmap(b); const t1 = performance.now();
+    if (c.width !== bmp.width) { c.width = bmp.width; c.height = bmp.height; }
+    ctx.drawImage(bmp, 0, 0); const t2 = performance.now();
+    dec.push(t1 - t0); dib.push(t2 - t1); bmp.close();
+  }
+  return { decodificar: est(dec), dibujar: est(dib), bytesMedio: Math.round(x.bytes / x.frames) };
+}
+const res = [];
+for (const x of info.variantes) {
+  if (solo && !new RegExp(solo).test(`${x.disp}-${x.nombre}`)) continue;
+  const t0 = performance.now();
+  try { res.push({ ...x, medida: x.tipo === 'video' ? await medirVideo(x) : await medirFrames(x) }); }
+  catch (e) { res.push({ ...x, error: String(e.message || e) }); }
+  console.log(`hecho ${x.disp}-${x.nombre} en ${((performance.now() - t0) / 1000).toFixed(1)} s` + (res.at(-1).medida?.agotadas ? ` (${res.at(-1).medida.agotadas} búsquedas sin fotograma en 1,5 s)` : '') + (res.at(-1).error ? ' ERROR ' + res.at(-1).error : ''));
+}
+window.resultado = res;
+document.title = 'listo';
+</script>
+</body>
+</html>

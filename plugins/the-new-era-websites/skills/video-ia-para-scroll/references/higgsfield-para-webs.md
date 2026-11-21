@@ -2,8 +2,20 @@
 
 Para intros por scroll, fondos, transiciones entre secciones, marcos y objetos de cristal o 3D. Junta lo que publica
 quien lo hace (fuentes al final, con enlace) y lo aprendido generando intros reales (sección «Lecciones»).
-Estado: noviembre de 2026. Los modelos y precios cambian cada mes: comprueba con `estimate` (API) o el MCP antes de
-presupuestar.
+Estado: 21-11-2026. Los modelos y precios cambian cada mes: comprueba con `scripts/estimar-higgsfield.mjs` (API,
+gratis) o `estimate_video_cost` (MCP, gratis) antes de presupuestar.
+
+## Mapa: qué leer para cada paso
+| Paso | Lee |
+|---|---|
+| ¿Qué modelo para este plano y este presupuesto? | [arbol-decision.md](arbol-decision.md) |
+| Parámetros, precio y fallos de un modelo concreto | [modelos/](modelos/README.md) (una ficha por modelo, también los de imagen) |
+| El prompt del tipo de plano (intro, revelado de logo, bucle, transición, 360…) | [plantillas-prompt.md](plantillas-prompt.md) |
+| Cámara, presets de Higgsfield, lente y FOV | [modelos-y-camaras.md](modelos-y-camaras.md) |
+| Antes de generar y después de recibir | [checklists.md](checklists.md) |
+| Imagen clave → vídeo, encadenar, bucles, extender, upscale, deflicker, marca | [flujos.md](flujos.md) |
+| Montarlo en la web (códec, GOP, frames o vídeo, móvil, carga, movimiento reducido) | [montaje-web.md](montaje-web.md) |
+| Precio de un lote antes de pedir el vale | `node scripts/estimar-higgsfield.mjs lote lote.json` |
 
 > **La regla que más dinero ahorra:** el vídeo se planifica entero antes de generar (coreografía, imágenes clave,
 > prompt, coste) y se comprueba con `scripts/revisar-video.mjs` antes de montarlo. Casi todos los fallos de una
@@ -14,10 +26,11 @@ presupuestar.
 
 | Pieza de la web | Medio | Modelo y modo | Por qué |
 |---|---|---|---|
-| **Intro por scroll** (entrar en un sitio, atravesar algo, llegar a la marca) | Vídeo, imagen a vídeo | **Seedance 2.5** con imagen de inicio (y fin solo si cumple el §4) | Una sola toma continua con paralaje real; es lo que Higgsfield recomienda por defecto para imagen a vídeo [6]. Frena al final y se salta tramos si el fin está lejos (§4, §8) |
+| **Intro por scroll** (entrar en un sitio, atravesar algo, llegar a la marca) | Vídeo, imagen a vídeo | **Seedance 2.5** con imagen de inicio (y fin solo si cumple el §4); barato: Wan 3.0; con paradas: Kling 4.0 | Una sola toma continua con paralaje real; es lo que usa la skill oficial de webs de Higgsfield [6][33]. Frena al final y se salta tramos si el fin está lejos (§4, §8) |
+| **Revelado de logo o portada** | Vídeo que termina en una imagen exacta | **Seedance 2.0** con la portada como **imagen final** | Receta oficial de Higgsfield [34]; el logo con letras llega por código (`flujos.md`, «Marca») |
 | **Producto o interior con recorrido corto** (acercarse a una pantalla, entrar en una sala) | Vídeo con inicio + fin | **Kling O3 / Kling 3.0** | Geometría estable y respeta bien inicio y fin. Puede «no moverse» y saltar al fin al final (§8): mide el avance |
-| **Fondo en bucle** (hero, contacto) | Vídeo corto | **Kling 3.0 std** con inicio = fin, cámara fija | Bucle sin costura y barato [12]. Luma Ray tiene bucle nativo, pero no admite a la vez fotograma final [12] |
-| **Transición entre secciones** | Vídeo con inicio = imagen de la sección A, fin = imagen de B | Kling 3.0 / Veo 3.1 / Seedance 2.5 | Funciona si A y B comparten un «portador» (§4). Si no, una transición por código (`revelados-y-transiciones`) |
+| **Fondo en bucle** (hero, contacto) | Vídeo corto | **Kling 3.0 std** con inicio = fin, cámara fija | Bucle sin costura y barato [12] |
+| **Transición entre secciones** | Vídeo con inicio = imagen de la sección A, fin = imagen de B | Kling O3 / Veo 3.1 / Seedance 2.5 | Funciona si A y B comparten un «portador» (§4). Si no, una transición por código (`revelados-y-transiciones`) |
 | **Marco** (ventana, pantalla, portal con contenido dentro) | Imagen + código | Imagen (Nano Banana, Seedream, GPT Image) con el hueco recortado por `capas-alfa`; lo de dentro, por código o con `seguir-pantalla` si la cámara se mueve | La IA deforma lo que va dentro (texto, interfaz) y un marco quieto no necesita vídeo |
 | **Objeto de cristal o 3D suelto** | Imagen o vídeo sobre fondo liso + alfa; o 3D real | Imagen/vídeo sobre negro y blanco → `capas-alfa` (alfa por diferencia); si el usuario lo mueve, `escena-3d-gltf` | Ningún modelo de vídeo da alfa. No hay guía publicada específica para cristal: trátalo como producto (§3) con fondo liso |
 | **Logo, texto, interfaz** | **Código siempre** (o compuesto en la imagen final, §4) | — | Ningún modelo mantiene un logo o un texto concretos; el consejo general es «plate first, logo in post» [16][17] |
@@ -29,6 +42,7 @@ Otras observaciones publicadas:
   mejor cada plano [1][13].
 
 ## 2. Antes de generar (checklist; no se lanza nada sin esto)
+Versión completa, con la de después de recibir: [checklists.md](checklists.md).
 - [ ] **Coreografía en una frase**, de 0 a 100 % del scroll: qué ve el visitante y dónde aparecen los textos.
 - [ ] **Una toma, un movimiento, un eje.** Mezclar órbita, paneo, zoom y grúa deja el encuadre «sin regla estable» [3].
 - [ ] **Como mucho dos fases en 5 s** (p. ej. «avanza» y «llega»). Muchos momentos en poco tiempo provocan cortes [11].
@@ -40,9 +54,11 @@ Otras observaciones publicadas:
 - [ ] **Estimación** con el coste real (`estimate` en la API, `estimate_video_cost` en el MCP, o el botón de la web)
       y **tope** del lote. Apunta modelo, resolución, segundos y precio.
 - [ ] **Prueba barata** si el presupuesto lo deja: el mismo prompt a 480p y 4-5 s para ver la estructura (¿avanza?,
-      ¿salta?), y el bueno a 720p o 1080p [1][11]. En Kling, la prueba en std o turbo [6].
+      ¿salta?), y el bueno a 720p o 1080p [1][11]. Seedance 2.5 tiene **modo borrador** (480p, 15 créditos,
+      finalizable durante 7 días). En Kling, la prueba en 2.5 Turbo o 3.0 std.
 - [ ] **Una sola variable por reintento** [14]. Compara el coste por clip aceptado, no el precio de lista [7].
-- [ ] **Audio apagado** (`generate_audio: false`) y sin «prompt enhancer» si la herramienta lo tiene [15].
+- [ ] **Audio apagado** (`generate_audio: false`) y sin «prompt enhancer» si la herramienta lo tiene [15]. En Kling,
+      multiplano apagado; en Kling 4.0, la duración puesta (viene a 10 s).
 
 ## 3. Plantilla de prompt (inglés; restricciones en positivo al final)
 
@@ -116,7 +132,8 @@ movimiento de forma fiable [12].
 
 ## 5. Resolución, duración y texto
 - **Seedance 2.5:** 480p, 720p o 1080p, de 4 a 30 s. Guía publicada: 4 s para un gesto, 6-10 s para 2-3 momentos,
-  12-20 s para un recorrido; cuanto más largo, más deriva [1]. **Kling 3.0:** 3-15 s [23]. **Veo 3.1:** 4, 6 u 8 s [7].
+  12-20 s para un recorrido; cuanto más largo, más deriva [1]. **Seedance 2.0:** 4-15 s, hasta 4K. **Kling 3.0 / O3:**
+  3-15 s [23]. **Kling 4.0:** 3-30 s (10 por defecto). **Wan 3.0:** 2-30 s. **Veo 3.1:** 4, 6 u 8 s (8 a 1080p) [7].
 - Para scroll, 3-8 s por clip, con la cámara o el sujeto fijos, no los dos [24].
 - **Letras:** a 720p la IA deforma las palabras de un logo. El símbolo sin letras, compuesto por código en la imagen
   final, sí sale exacto (§8). Cualquier texto legible va en HTML.
@@ -169,6 +186,12 @@ tres semanas, la última tanda con un tope de 6 $:
 - **Velocidad:** un clip que acelera al final (+4 %, +4 %, +10 %, +35 %, +60 % por sextos) se igualó repartiendo los
   fotogramas a pasos iguales de log(escala).
 - **Bucles de fondo** con Kling 3.0 std, cámara fija e inicio = fin: sin costura y de ~30 KB codificados.
+- **Lo que entrega Higgsfield no se arrastra:** los seis clips de esa intro (Kling 1080p y Seedance 720p) traen 121
+  fotogramas a 24 fps con **un solo fotograma clave** en todo el clip, a 15-24 Mb/s (9,6-15 MB por 5 s). Sin
+  recodificar, cada posición del scroll decodifica desde el principio. Recodificado para la web, el mismo clip pesa
+  1,2-2,4 MB (`montaje-web.md`).
+- **Las tiradas que más enseñaron fueron las baratas:** la estructura (avanza o no, salta o no) se vio igual a 480p
+  que a 1080p. Lo que no se vio a 480p fueron las letras.
 - **Lo que habría salido a la primera:** imagen de inicio gran angular; pasada 1 de Seedance solo con inicio, recorrido
   sin logo, 5 s; su último fotograma con el logo compuesto; pasada 2 corta con cámara casi fija; `revisar-video` en
   cada una antes de seguir. Unos 2,4 $ a 720p (5 s + 4 s), o 3 $ con una prueba previa a 480p, frente a los 5,4 $ de
@@ -179,29 +202,39 @@ Dos caminos (detalle y código en `scroll-frames`):
 - **Secuencia de imágenes en canvas** (lo más fiable en móvil): 60-150 frames para un hero, 15-40 KB por WebP,
   5-15 MB en total, ~1600-1920 px en escritorio y ~960 px en móvil, calidad 75-80 [26][27]. Extrae a 24 fps, nunca
   por encima de los del clip; `decode()` de los primeros ~20 antes de dibujar y DPR limitado a 2 [24].
-- **`<video>` con `currentTime`** (pesa menos): codifica todo intra para que cada posición sea un fotograma clave:
+- **`<video>` con `currentTime`** (pesa menos). El clip de Higgsfield **nunca se monta tal cual**: llega con un
+  solo fotograma clave y cada búsqueda tarda ~220 ms en Chrome (medido). Recodifica con GOP corto y sin B-frames:
   ```bash
-  ffmpeg -i clip.mp4 -vf "fps=24,scale=1280:-2" -c:v libx264 -g 1 -keyint_min 1 -bf 0 -x264-params scenecut=0 \
-    -pix_fmt yuv420p -crf 23 -an -movflags +faststart scrub.mp4
+  ffmpeg -i clip.mp4 -vf "fps=24,scale=1280:-2" -c:v libx264 -crf 20 -g 8 -keyint_min 8 -sc_threshold 0 -bf 0     -pix_fmt yuv420p -an -movflags +faststart scrub.mp4          # móvil: recorte 9:16 a 540x960, -crf 24 -g 4
   ```
-  Ocupa ~2 veces más que el normal [28]. El servidor tiene que responder 206 a las peticiones Range; no pidas otra
-  posición hasta el evento `seeked` (con tope de ~250 ms) [29]. x264 se arrastra mejor que x265; evita HEVC y 10 bits
-  [29][30]. En táctiles hay quien cambia el scrub por un bucle porque en iOS no es fiable [29]: decide con
-  `scroll-frames` y pruébalo en un móvil real. VP9 y AV1 para scrub: sin medidas publicadas.
+  Medido en Chrome con un clip de IA de 5 s a 1280 px: `-g 8 -bf 0` busca en 28 ms con un 43 % menos de peso que
+  todo intra (`-g 1`, 17 ms); VP9 y AV1 con GOP 12 buscan en ~26 ms y pesan menos, pero Safari sin hardware no
+  decodifica AV1: úsalos solo como fuente extra de `<source>`. Tabla, recetas, póster, móvil y movimiento reducido en
+  [montaje-web.md](montaje-web.md). El servidor tiene que responder 206 a las peticiones Range; no pidas otra
+  posición hasta el evento `seeked` [29]. Evita HEVC y 10 bits [29][30]. En táctiles hay quien cambia el scrub por
+  un bucle porque en iOS no es fiable [29]: decide con `scroll-frames` y pruébalo en un móvil real.
 
 ## 10. Presupuesto (precios medidos en la API de Higgsfield, noviembre de 2026)
 
-| Modelo | 480p | 720p | 1080p | 5 s a 720p |
-|---|---|---|---|---|
-| Seedance 2.5 | 0,118 $/s | 0,265 $/s | 0,652 $/s | 1,32 $ |
-| Kling O3 pro | — | 0,068 $/s | 0,086 $/s | 0,34 $ |
-| Kling 3.0 std / pro | — | 0,071 $/s (std) | 0,096 $/s (pro) | 0,36 $ |
+| Modelo | 480p | 720p | 1080p | 5 s a 720p | Créditos web, 5 s |
+|---|---|---|---|---|---|
+| Seedance 2.5 | 0,118 $/s | 0,265 $/s | 0,652 $/s | 1,32 $ | 15 / 35 / 80 |
+| Seedance 2.0 | 0,080 $/s | 0,174 $/s | 0,429 $/s | 0,87 $ | — / 22,5 / 60 (Mini 5) |
+| Kling O3 | — | 0,068 $/s | 0,086 $/s | 0,34 $ | 6,25 (1080p) |
+| Kling 3.0 std / pro | — | 0,071 $/s (std) | 0,096 $/s (pro) | 0,36 $ | 7,5 / 8,75 |
+| Kling 4.0 | — | 0,126 $/s | 0,188 $/s | 0,63 $ | 12,5 / 18,75 |
+| Wan 3.0 | 0,038 $/s | 0,075 $/s | 0,150 $/s | 0,38 $ | 3,75 / 7,5 / 15 |
+| Veo 3.1 (solo web) | — | — | — | — | 8 s: Lite 12, Fast 32, High 80 |
 
-En la web de Higgsfield va por créditos (~0,049 $ el crédito en el plan Plus, según terceros): Seedance 2.5 unos
-15 créditos por 5 s a 480p y 35 a 720p; Kling 3.0 unos 7,5-10 por 5 s a 720p; Veo 3.1 unos 40 por 4 s [31][32].
-Precios por segundo y tabla completa: `pedir-assets-ia/scripts/precios.json` y `references/proveedores.md`; cálculo
-con `presupuesto.mjs`. Intro típica bien planificada: 1 prueba a 480p + 2 pasadas a 720p ≈ 3 $ con Seedance 2.5, o
-menos de 1 $ con Kling.
+Todas las cifras están medidas el 21-11-2026: en dólares con `POST /estimate` de la API y en créditos con
+`estimate_video_cost` del MCP. Son tarifas distintas y no se convierten una en otra. Para recalcularlas:
+```bash
+node scripts/estimar-higgsfield.mjs tabla                  # precios de las rutas útiles para webs
+node scripts/estimar-higgsfield.mjs lote lote.json         # [{ "id", "ruta", "cuerpo" }] → precio por pieza y total
+```
+La tabla completa está en `pedir-assets-ia/scripts/precios.json` y `references/proveedores.md`, y se calcula con
+`presupuesto.mjs`. Una intro bien planificada (borrador a 480p y final a 720p con Seedance 2.5) cuesta 1,91 $; con Kling
+o Wan, menos de 1 $. Por proyecto: `arbol-decision.md`, paso 3.
 
 ## Fuentes
 1. Clipdance, «Seedance 2.5 first & last frame prompt workflow»: https://clipdance.ai/blog/seedance-2-5-first-last-frame-prompt-workflow
@@ -237,5 +270,11 @@ menos de 1 $ con Kling.
 31. Genativity, precios de Higgsfield: https://genativity.com/guides/higgsfield-pricing
 32. Aliteq, qué modelo de Higgsfield usar: https://aliteq.com/which-higgsfield-model-to-use
 
-Sin verificar o sin fuente: que «24mm» en el prompt del vídeo abra el plano; recetas específicas para cristal; VP9/AV1
-para scrub; los créditos de la web de Higgsfield (de terceros). Los precios de la tabla del §10 sí están medidos.
+33. higgsfield-ai/skills, `higgsfield-websites/references/scroll-scrub.md` [leída entera]: https://github.com/higgsfield-ai/skills
+34. higgsfield-ai/skills, `higgsfield-websites/references/cover-animator.md` [leída entera]: https://github.com/higgsfield-ai/skills
+35. Documentación de la API de Higgsfield (modelos, facturación y retención) [leída entera, por modelo]: https://docs.higgsfield.ai
+
+Las fuentes de cada tema están en su fichero (`modelos/`, `plantillas-prompt.md`, `flujos.md`, `montaje-web.md`).
+Sin verificar o sin fuente: que «24mm» en el prompt del vídeo abra el plano (indicios en contra: el FOV lo fija la
+imagen; ver `modelos/imagen-clave.md`); recetas específicas para cristal; si Higgsfield recodifica el H.265 de 10
+bits que BytePlus da a 1080p. Los precios del §10 y los pesos y tiempos de `montaje-web.md` sí están medidos.
