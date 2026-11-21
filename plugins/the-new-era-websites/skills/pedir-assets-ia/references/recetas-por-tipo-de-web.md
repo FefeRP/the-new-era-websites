@@ -9,6 +9,9 @@ técnica de las escenas está sin confirmar. Las demás (ref2, ref3, ref9, ref10
 sirven de guion, no de receta de prompts.
 
 Costes con Kling O3 pro 1080p (0,112 $/s) e imagen a ~0,05-0,075 $; "peor caso" con 2 tiradas por vídeo y 3 por imagen.
+Son precios de octubre de 2026: en noviembre Kling O3 pro bajó a 0,086 $/s (los totales de vídeo salen ~20 % más baratos;
+recalcula con `presupuesto.mjs`). Para intros, fondos, transiciones y marcos con Higgsfield, antes de presupuestar lee
+`video-ia-para-scroll/references/higgsfield-para-webs.md` (modelo por pieza, primer y último fotograma sin saltos, checklist).
 Calcula el tuyo con `scripts/presupuesto.mjs`. Plantillas de prompt: [plantillas-por-plano.md](plantillas-por-plano.md) (§n).
 
 ## Cómo decidir el medio de cada asset

@@ -4,6 +4,34 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.0.0-beta.11] - 2026-11-21
+Todas las skills pasan a `1.0.0-beta.11`. NEW ERA sabe usar Higgsfield (Seedance, Kling, Veo) para webs: el vídeo se
+planifica entero antes de generar y se mide antes de montarlo.
+
+### Añadido
+- `video-ia-para-scroll/references/higgsfield-para-webs.md`: qué modelo y qué medio para cada pieza (intro por scroll,
+  fondo en bucle, transición, marco, objeto de cristal o 3D, logo y texto); checklist antes de generar (coreografía,
+  una toma, máximo dos fases, encuadre abierto desde la imagen clave, estimación con tope, prueba a 480p); plantilla de
+  prompt con lente, avance de cámara y llegada al último fotograma; cuándo usar primer y último fotograma y cuándo no
+  (fin alcanzable, dos pasadas con un «portador», encadenar); resolución, duración y letras; arreglos por código sin
+  regenerar; montaje (frames o vídeo all-intra); precios medidos en noviembre de 2026; lecciones de intros reales y
+  32 fuentes enlazadas.
+- `revisar-video.mjs` mide más cosas: cortes de escena con `scdet`, **saltos de contenido** sin corte, **tirones** (la
+  cámara se lanza y emborrona para llegar al fin, con el cambio de luz), **avance real de la cámara** en acercamientos
+  (escala cada medio segundo y total, con traslación compensada), tramos donde la cámara se para, recorrido corto y
+  clips casi quietos. El informe da el segundo de cada viñeta de la hoja; `--centro` y `--detalle`.
+- `pruebas/revisar-video/`: 7 vídeos sintéticos de verdad conocida (acercamiento constante, frenazo, recorrido corto,
+  salto, corte seco, salto disimulado, paneo). Comprobado además con clips reales de Kling O3 y Seedance 2.5 con fallos
+  conocidos.
+
+### Cambiado
+- `video-ia-para-scroll`: reglas 10-12 (último fotograma alcanzable, encuadre abierto, medir antes de montar), elección
+  de modelo por pieza y checklist de aceptación con saltos, tirones y avance.
+- `new-era`: fila de intro/fondo/transición en vídeo con Higgsfield en la tabla de técnicas, checklist de vídeo en el
+  plan de activos y comprobación de `revisar-video.mjs` en la verificación.
+- Precios de vídeo de Higgsfield de noviembre (bajaron): Seedance 2.5 0,118 / 0,265 / 0,652 $/s, Kling O3 pro 0,068 /
+  0,086 $/s, Kling 3.0 std 0,071 y pro 0,096 $/s, en `precios.json`, `proveedores.md` y `modelos-y-camaras.md`.
+
 ## [1.0.0-beta.10] - 2026-11-18
 Todas las skills pasan a `1.0.0-beta.10`. NEW ERA también programa (Vite, React, Next.js, Tailwind, GSAP, three.js), y
 ese código ya no se escribe de memoria.

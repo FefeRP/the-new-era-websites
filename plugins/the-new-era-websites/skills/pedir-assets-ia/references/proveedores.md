@@ -1,4 +1,4 @@
-# Proveedores: cuál usar para cada cosa (octubre de 2026)
+# Proveedores: cuál usar para cada cosa (octubre de 2026; vídeo de Higgsfield revisado el 21-11-2026)
 
 La receta (imagen clave → imagen final → vídeo entre ambas → revisión → montaje) es la misma con cualquier proveedor; solo cambian
 el nombre de los parámetros, el precio y lo que cada modelo hace mejor. Precios orientativos en USD, sin audio, de páginas
@@ -8,9 +8,10 @@ públicas y de generaciones reales ("medido"); cambian cada mes. Los mismos dato
 ## Dónde se compra
 - **Higgsfield** (principal): agregador con muchos modelos, presets de cámara y MCP.
   - Web por créditos: Starter 15 $/200, Plus 49 $/1.000, Ultra 129 $/3.000 al mes. Los créditos **caducan cada mes**. Un clip de
-    5 s: Kling 3.0 720p ≈ 7 créditos, Seedance 2.5 ≈ 35 (720p) / 80 (1080p).
+    5 s: Kling 3.0 720p ≈ 7,5-10 créditos, Seedance 2.5 ≈ 15 (480p) / 35 (720p) / 80 (1080p).
   - API: prepago en dólares (desde 5 $), `POST /estimate/<modelo>` gratis antes de lanzar, lo fallido o moderado no se cobra,
-    no da el saldo. Algunos modelos de su web no están en la API (Nano Banana, Veo, Seedream). Seedance sale al doble del oficial.
+    no da el saldo. Algunos modelos de su web no están en la API (Nano Banana, Veo, Seedream). En noviembre de 2026 los precios
+    de vídeo bajaron (Seedance 2.5 ya sale cerca del oficial). Guía de vídeo para webs: `video-ia-para-scroll/references/higgsfield-para-webs.md`.
   - **MCP** (conector para Claude; catálogo leído el 11-11-2026 con `models_explore`): además de los de la API trae
     Nano Banana 2 / 2.1 / Pro, Seedream 5 Pro, GPT Image 2 / 2.5 / 2.6 y Seedance 2.0 / 2.5. Cada `generate_*` admite
     `get_cost: true`, que da el precio sin lanzar nada: úsalo antes de cada lote. Parámetros que importan aquí:
@@ -27,11 +28,11 @@ públicas y de generaciones reales ("medido"); cambian cada mes. Los mismos dato
 ## Vídeo
 | Modelo | 720p $/s | 1080p $/s | Inicio + fin (parámetro) | Duración | Bueno para | Cuidado |
 |---|---|---|---|---|---|---|
-| **Kling O3 pro** | — | **0,112** (medido) | sí: `first_frame_url`/`last_frame_url` (Higgsfield), `image_url`/`end_image_url` (fal) | 3-15 s | Interiores y producto: respeta muy bien inicio y fin, geometría estable, 1080p/24 fps reales. **Mejor calidad/precio** | Sin negative prompt. Reescribe letras de ~70 px. No anima exteriores |
-| Kling 3.0 std / pro | 0,084 | 0,112 | sí | 3-15 s | Pruebas baratas (std) | Etiquetas con texto se deforman |
+| **Kling O3 pro** | 0,068 (medido) | **0,086** (medido) | sí: `first_frame_url`/`last_frame_url` (Higgsfield), `image_url`/`end_image_url` (fal) | 3-15 s | Interiores y producto: respeta muy bien inicio y fin, geometría estable, 1080p/24 fps reales. **Mejor calidad/precio** | Sin negative prompt. Reescribe letras de ~70 px. No anima exteriores. Con inicio + fin puede apenas avanzar y saltar al fin: mide con `revisar-video.mjs` |
+| Kling 3.0 std / pro | 0,071 (medido) | 0,096 (medido) | sí | 3-15 s | Pruebas baratas (std) | Etiquetas con texto se deforman |
 | Kling 4.0 | 0,157 | 0,235 | hasta 10 clave | 3-30 s, hasta 4K | Planos largos sin cortes | Caro; en fal, audio siempre activo |
 | Veo 3.1 Lite / Fast / Std | 0,05 / 0,10 / 0,40 | 0,08 / 0,12 / 0,40 | sí (`first_frame`/`last_frame`; el final, en clips de 8 s) | 4, 6, 8 s | La mejor luz, materiales y física; Lite = la prueba más barata | Solo en Vertex (salió de la API de Gemini el 22-10-2026); máx. 8 s |
-| Seedance 2.5 | 0,231 oficial · 0,462 Higgsfield | 0,569 · 1,137 | sí (`end_image_url`; oficial: `role: last_frame`) | hasta 30 s | Movimiento "de cine", paralaje y desenfoque reales | Caro; finos que "hierven" a 480-720p; acelera al final |
+| Seedance 2.5 | 0,231 oficial · 0,265 Higgsfield (480p: 0,118) | 0,569 · 0,652 | sí (`end_image_url`; oficial: `role: last_frame`) | hasta 30 s | Movimiento "de cine", paralaje y desenfoque reales; el de las intros de recorrido | Finos que "hierven" a 480-720p; con un fin lejano da tirones y frena en el último tramo |
 | Seedance 2.0 (std / fast) · Mini | 0,12 fast · 0,08 Mini (std: confirma con `get_cost`) | — | sí (`start_image`/`end_image` en Higgsfield MCP) | 4-15 s | Pruebas y planos de producto con cámara lenta | Audio activado por defecto |
 | Wan 2.7 | 0,10 | 0,15 | sí: `image_url`/`end_image_url` | 2-15 s | Barato con negativo | Ignora a veces la trayectoria, rompe texto, sale a 30 fps y con audio |
 | Wan 2.1/2.2 (abierto) | 0 en local | — | 2.1 FLF2V | ~5 s | Sin coste si hay GPU (8-54 GB) | 480-720p |
