@@ -4,6 +4,17 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.0.0] - 2026-11-22
+Primera versión estable. Es la 1.0.0-beta.13 sin cambios de contenido: NEW ERA con una base común y seis módulos
+opcionales, y las 18 skills. Todas las skills pasan a `1.0.0`.
+
+### Pendiente para la 1.1
+- Construir una web real entera, de principio a fin, con NEW ERA y revisar lo que entrega.
+- Validar con clips reales las plantillas de vídeo que aún van «por reglas», incluida la 14.
+- Medir el montaje de vídeo y frames en un móvil real (iPhone y Android).
+- Quitar las repeticiones entre la maestra, los módulos y las skills.
+- Recuperar los componentes del catálogo que no tienen vista previa.
+
 ## [1.0.0-beta.13] - 2026-11-22
 Todas las skills pasan a `1.0.0-beta.13`. NEW ERA se reorganiza en una **base común** para cualquier web con carácter
 (corporativa, editorial, inmobiliaria, tienda, restaurante, producto, inmersiva) y **seis módulos opcionales** que la

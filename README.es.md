@@ -1,6 +1,6 @@
 # the-new-era-websites · marketplace de Claude Code
 
-**v1.0.0-beta.13** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
+**v1.0.0** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
 
 Todo lo que vamos aprendiendo de hacer webs con Claude Code, en skills ordenadas **por técnica**: scroll cinematográfico con vídeo convertido en frames, capas con fondo transparente (el texto entre el producto y el fondo), imágenes que se revelan y transiciones, recursos de imagen con IA en lotes coherentes (objetos sueltos con alfa, juegos de iconos de marca, texturas repetibles, fondos de sección), componentes reutilizables (tarjeta con volteo, carrusel orbital, muro de reseñas 3D), un catálogo de componentes de interfaz para adaptar, 3D real como un módulo opcional más, lata que gira sin 3D, lente de rayos X y un mapa que baja hasta el edificio. Y las reglas aprendidas en webs entregadas.
 
@@ -138,7 +138,7 @@ Revisión de un lote de imagen (`pruebas/recursos-imagen`): la hoja de conjunto 
 - `pruebas/`: validación de los scripts con resultado conocido, cada una con su `LEEME.md` (se sirve la raíz del repo con `node pruebas/servidor-estatico.mjs . 5193`): `capas-alfa/` (alfa contra una verdad conocida), `revelados-rastro/`, `mapa-imagen/` (ortofoto PNOA real de Barcelona), `seguir-pantalla/`, `lente-envase/`, `capas-sombra/`, `componentes/` (42 comprobaciones en Chrome), `recursos-imagen/` (23 comprobaciones contra entradas conocidas), `clips-ia/` (banco para juzgar clips de IA para scroll: frames, costuras, notas) y `extremo-a-extremo/`: un ejemplo completo sin generar nada de pago (plan y presupuesto según la matriz de decisión, reloj recortado con el titular detrás, giro con el scroll, revelado en rejilla y mapa por niveles hasta el taller).
 - `capturas/`: hojas de capturas de la verificación.
 
-## Estado de la beta
+## Estado
 **Probado:**
 - Validación estricta del marketplace y del plugin.
 - Instalación desde cero.
@@ -154,6 +154,13 @@ Revisión de un lote de imagen (`pruebas/recursos-imagen`): la hoja de conjunto 
 - rembg, IC-Light y modelos de edición locales (necesitan Python o GPU; para recortar, `alfa.mjs` no los necesita).
 - Vídeo HEVC con alfa (solo se codifica en un Mac).
 - Mapa: relevo a foto real del edificio (la demo no tiene foto propia; el patrón está documentado) y fuentes de pago (MapTiler, Esri…).
+
+**Previsto para la 1.1:**
+- Una web real construida de principio a fin con NEW ERA.
+- Las plantillas de prompt de vídeo validadas con clips reales.
+- El vídeo y los frames medidos en móviles reales.
+- Menos repeticiones entre la maestra, los módulos y las skills.
+- Los componentes del catálogo sin vista previa, recuperados.
 
 Cambios: ver [CHANGELOG.md](CHANGELOG.md).
 
