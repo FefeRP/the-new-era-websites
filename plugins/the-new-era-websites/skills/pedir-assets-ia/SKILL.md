@@ -2,10 +2,12 @@
 name: pedir-assets-ia
 description: Director de assets de IA - dado un pedido de web, decide qué assets hacen falta y, elemento a elemento, si van con foto, foto con alfa o en capas, vídeo, vídeo con alfa, frames, código o 3D (matriz con coste, peso y riesgo); estima el coste ANTES de generar y propone la prueba más barata; redacta los prompts de imagen clave y de vídeo (en inglés, por tipo de plano) para Higgsfield o cualquier proveedor (Kling, Veo, Seedance, Wan, Runway, Luma, Midjourney, Flux, Nano Banana, GPT Image, Qwen); fija la continuidad (imagen de inicio y fin, encadenado, día/noche); y revisa el resultado ("¿se nota falso?") antes de montarlo. Úsala cuando pidan "qué assets necesito", "pide el vídeo a Higgsfield", "prompt para Kling/Veo/Seedance", "que parezca real y no IA", "cuánto cuesta generar", "imagen clave", "imagen de inicio y fin", "encadenar vídeos", "versión de noche", "¿foto o vídeo?", "pedir el producto aislado", "splash", "giro 360", "AI asset plan", "photo or video for this section", "AI video prompt for a website", "make AI video look real", "first and last frame", "Higgsfield prompt", "AI generation budget".
 license: MIT
-version: 1.0.0-beta.12
+version: 1.0.0-beta.13
 ---
 
 # Pedir assets realistas a la IA (y saber cuándo no)
+
+> **En NEW ERA:** módulo **Assets de IA (foto, alfa y capas)** y **Vídeo con IA** (`new-era/references/modulos/assets-ia.md`, `video-ia.md`): la maestra la carga cuando ese módulo está activo en el brief. Usada sola, funciona igual.
 
 Lo que hace que las webs de referencia parezcan reales no es el código: son **fotografías y vídeos generados por IA,
 separados y bien pensados**, y el código solo los mueve con el scroll y pone encima el texto. El 3D (three.js) queda como

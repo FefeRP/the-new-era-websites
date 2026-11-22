@@ -2,10 +2,12 @@
 name: componentes-interactivos
 description: Componentes reutilizables para webs, sin dependencias y con la accesibilidad resuelta - tarjeta con volteo 3D y capas en profundidad (tarjeta-volteo.js), carrusel circular en órbita o anillo 3D que gira con arrastre, teclado, autoplay o el scroll (carrusel-orbital.js) y muro de reseñas en columnas inclinadas en 3D en movimiento continuo (resenas-3d.js). Cada uno con su versión para táctil, para reduced-motion y su destruir(). Úsala cuando pidan "tarjeta que se da la vuelta", "tarjeta con volteo", "flip card", "carrusel circular", "carrusel orbital", "anillo 3D", "galería circular", "carrusel 3D que gira con el scroll", "reseñas en 3D", "muro de testimonios", "testimonios en columnas", "componente reutilizable", "3D flip card", "circular gallery", "orbital carousel", "3D carousel on scroll", "3D testimonials", "testimonial marquee", "reusable component".
 license: MIT
-version: 1.0.0-beta.12
+version: 1.0.0-beta.13
 ---
 
 # Componentes interactivos
+
+> **En NEW ERA:** es de la **base común** (vale para cualquier web, sin activar módulos).
 
 Tres piezas que se repiten en webs reales (listados, destacados, prueba social), escritas en JavaScript sin dependencias
 para que sirvan igual en HTML estático, Vite, Astro o dentro de un componente de React o Vue. Cada motor recibe el HTML

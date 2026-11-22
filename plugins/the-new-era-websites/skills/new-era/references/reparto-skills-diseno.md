@@ -45,9 +45,11 @@ direccion.md valen siempre como suelo.
    o `document` para el `DESIGN.md`) y `ui-ux-pro-max:ui-ux-pro-max` (paletas y pares de fuentes del sector). Sale la
    dirección elegida entre dos o tres y el `DESIGN.md`. Si ya existe `DESIGN.md` o `PRODUCT.md`, se leen y se respetan; el
    `BRIEF.md` los enlaza y **no repite** sus tokens.
-3. **Idea, hilo conductor, momento estrella, técnicas y plan de assets** (esta skill y sus skills de técnica, cargadas).
-4. **Construir**: antes de cada API de librería, `find-docs` en la versión del proyecto; antes de cada decisión de plataforma, `modern-web-guidance` (ver [codigo-y-plataforma.md](codigo-y-plataforma.md)). Plantilla y motores de aquí; componentes con `biblioteca-componentes`, `componentes-interactivos` y
-   `emil-design-eng`; líneas de tiempo a medida con `gsap-skills`; canvas y shaders con `webgl-animation-skills`.
+3. **Idea, hilo conductor, momento estrella, módulos, técnicas y plan de assets** (esta skill; los módulos activos se
+   deciden y se apuntan en el brief, y se cargan sus skills: ver [modulos/README.md](modulos/README.md)).
+4. **Construir**: antes de cada API de librería, `find-docs` en la versión del proyecto; antes de cada decisión de plataforma, `modern-web-guidance` (ver [codigo-y-plataforma.md](codigo-y-plataforma.md)). Plantilla y motores de aquí; componentes con `componentes-interactivos` y
+   `emil-design-eng` (y `biblioteca-componentes` si el módulo Biblioteca está activo); líneas de tiempo a medida con
+   `gsap-skills`; canvas y shaders con `webgl-animation-skills` si el módulo 3D y WebGL está activo.
 5. **Movimiento fino** en lo que no es scroll (botones, menús, estados): `animate`, `apple-design`.
 6. **Verificar** con `verificar-scroll.mjs` (aquí) y el código contra las consultas y guías apuntadas → **crítica y auditoría** (`impeccable`: `critique`, `audit`, `polish`;
    `animation-performance`, `mobile-native`, `break-ui`) → **revisor independiente** (agente `impeccable-finish-reviewer`

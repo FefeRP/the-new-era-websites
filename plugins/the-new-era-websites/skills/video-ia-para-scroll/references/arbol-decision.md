@@ -41,6 +41,8 @@ Despiece / líquidos / física
   ├─ calidad ....................... Veo 3.1 o Kling 3.0 (prueba los dos barato)
   └─ barato ........................ Hailuo 2.3 / MiniMax H3 lite (0,24 $ 6 s)
 Hero con poco movimiento ........... Seedance 2.0 5 s o Kling 3.0 std
+La obra al revés (de lo terminado a su construcción, plantilla 14)
+  └─ por defecto ................... Seedance 2.5 References con el render final · se invierte y se ata al scroll
 ```
 
 ## Paso 2: la resolución

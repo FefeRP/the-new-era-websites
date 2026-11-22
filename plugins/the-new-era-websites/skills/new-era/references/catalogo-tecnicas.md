@@ -20,13 +20,16 @@ skill existe; "idea": fase siguiente, sin skill todavía).
 - ref15: café en cuatro tiempos con clips de vídeo IA
 - ref16: Aeternum, escenas separadas por cortinas
 
+Cada sección dice si es de la **base** (vale para cualquier web) o de qué **módulo** es (se usa si el módulo está activo
+en el brief; ver [modulos/README.md](modulos/README.md)).
+
 Coste de rendimiento: **ligero** (cualquier móvil) · **medio** (cuidar móvil) · **pesado** (solo escritorio o con alternativa).
 
 Criterio de medio, antes de elegir técnica: lo quieto es **foto** (aislada, con alfa o en capas) que mueve el código;
 **vídeo IA** solo donde la cámara viaja o algo cambia físicamente; **frames** para el scrub; **3D** solo si el usuario lo
 gira libremente, lo configura o lo toca. Detalle en `pedir-assets-ia/references/matriz-medio-por-elemento.md`.
 
-## A. Scroll y ritmo (la columna vertebral)
+## A. Scroll y ritmo (la columna vertebral) · base
 | Efecto | Cómo | Coste | Skill / ref |
 |---|---|---|---|
 | Scroll suave con inercia | Lenis + `ScrollTrigger.update` en un único ticker | ligero | plantilla (hecho) · ref2, ref3 |
@@ -37,7 +40,7 @@ gira libremente, lo configura o lo toca. Detalle en `pedir-assets-ia/references/
 | Snap a capítulos | `snap:{snapTo:'labels'}` o CSS scroll-snap | ligero | idea |
 | Animaciones CSS ligadas al scroll sin JS | `animation-timeline: view()/scroll()` + `animation-range`, dentro de `@supports` | ligero (Chrome/Edge/Safari 26) | parallax-capas (patrones), revelados-y-transiciones (patrones.md) (hecho) |
 
-## B. Vídeo y secuencias de frames
+## B. Vídeo y secuencias de frames · módulos Vídeo con IA y Scroll inmersivo
 | Efecto | Cómo | Coste | Skill / ref |
 |---|---|---|---|
 | Producto que gira/se abre/se transforma al bajar | vídeo IA (imagen→vídeo) → frames WebP/AVIF → canvas | medio (4-8 MB) · € vídeo IA | video-ia-para-scroll + scroll-frames (hecho) · ref1, ref5, ref3 (sweet-tape) |
@@ -59,7 +62,7 @@ gira libremente, lo configura o lo toca. Detalle en `pedir-assets-ia/references/
 | Zoom a la pantalla y "entrar" en la web real | vídeo IA con inicio + fin (el fin es otra toma, no un recorte) → frames + capa de pantalla que crece a pantalla completa | medio · € vídeo IA (~1-2 $) | pedir-assets-ia (§1) + scroll-frames + seguir-pantalla (hecho) |
 | Assets realistas pedidos a IA (qué medio, imagen clave, inicio/fin, presupuesto previo, revisión "¿se nota falso?") | guion de tramos → `presupuesto.mjs` → claves → prueba de 3 s → finales → `revisar-ia.mjs` | — · € según plan | pedir-assets-ia (hecho) · ref4, ref5, ref6, ref7, ref10, ref11, ref15 |
 
-## C. Profundidad 2.5D (sin 3D)
+## C. Profundidad 2.5D (sin 3D) · módulo Assets de IA
 | Efecto | Cómo | Coste | Skill / ref |
 |---|---|---|---|
 | Parallax de capas en el scroll | `[data-profundidad]` + translate3d | ligero | parallax-capas (hecho) · ref4, ref5, ref12 |
@@ -75,7 +78,7 @@ gira libremente, lo configura o lo toca. Detalle en `pedir-assets-ia/references/
 | Tilt de tarjeta con brillo | puntero → rotateX/Y + degradado radial de brillo | ligero | skill de animación instalada (`animate`) |
 | Profundidad desde una foto (depth map) | foto + mapa de profundidad (Depth Anything, necesita Python/GPU para sacarlo; o un servicio externo) → shader de desplazamiento | medio | idea: foto-profundidad |
 
-## D. 3D real (three.js / R3F)
+## D. 3D real (three.js / R3F) · módulo 3D y WebGL
 Solo si el usuario debe girar el objeto libremente, configurarlo o tocarlo. Si solo se ve girar, frames de un render; si
 es una lata o botella con etiqueta, `envase-giratorio`.
 
@@ -96,7 +99,7 @@ es una lata o botella con etiqueta, `envase-giratorio`.
 | Postprocesado (bloom, aberración cromática, grano) | EffectComposer / pmndrs postprocessing | pesado | idea: postpro · ref2 |
 | Escenas hechas en Spline | `@splinetool/runtime` (pesado; bueno para prototipos) | pesado | idea |
 
-## E. Shaders y GPU
+## E. Shaders y GPU · módulo 3D y WebGL
 | Efecto | Cómo | Coste | Skill / ref |
 |---|---|---|---|
 | Partículas que forman una figura (y se deshacen) | MeshSurfaceSampler → posiciones; GPGPU (GPUComputationRenderer) + curl noise | pesado | idea: particulas-gpgpu · ref2 (pingüino) |
@@ -106,7 +109,7 @@ es una lata o botella con etiqueta, `envase-giratorio`.
 | Cursor con estela de imágenes (image trail) | pool fijo de `<img>` + Web Animations; solo con ratón, composición estática en táctil y reduced-motion | ligero | rastro-cursor (hecho) · ref13 |
 | Cursor con estela metaball | canvas 2D o shader | ligero-medio | idea |
 
-## F. Tipografía cinética
+## F. Tipografía cinética · base
 | Efecto | Cómo | Coste | Skill / ref |
 |---|---|---|---|
 | Reveal por líneas/palabras con máscara | `crearLineas` (texto plano) o SplitText (`mask:'lines'`) + `yPercent` stagger si hay marcado | ligero | revelados-y-transiciones, `crearLineas` (hecho) · ref1, ref3 (era), ref12 |
@@ -116,7 +119,7 @@ es una lata o botella con etiqueta, `envase-giratorio`.
 | Texto gigante que se escala/rellena | `scale`/`clip-path` con scrub | ligero | idea · ref12 (serif que se parte hacia las esquinas) |
 | Marquesina infinita con velocidad del scroll | duplicar pista + `x` modulado por la velocidad de Lenis | ligero | muro de reseñas: componentes-interactivos, `resenas-3d.js` (hecho); marquesina de texto: skill de animación instalada (`animate`) |
 
-## G. Transiciones y layout
+## G. Transiciones y layout · base
 | Efecto | Cómo | Coste | Skill / ref |
 |---|---|---|---|
 | Slider de producto con elemento compartido | GSAP Flip o View Transitions API (`view-transition-name`) | ligero | revelados-y-transiciones, patrones.md (hecho) · ref4 |
@@ -129,13 +132,13 @@ es una lata o botella con etiqueta, `envase-giratorio`.
 | Transiciones entre páginas | View Transitions entre documentos (`@view-transition { navigation: auto; }`) o Barba/Next | ligero | revelados-y-transiciones, patrones.md (hecho) |
 | Preloader con progreso real | progreso de frames/modelo (callbacks de los motores) | ligero | idea · ref3 (contador) |
 
-## H. Sonido
+## H. Sonido · base
 | Efecto | Cómo | Coste | Skill / ref |
 |---|---|---|---|
 | Sonido ambiente con interruptor | `<audio>` solo tras gesto, interruptor visible, apagado por defecto | ligero | idea: sonido · ref1, ref11 ("Sound off", el crujido) |
 | Sonidos de interfaz ligados al scroll | Web Audio, volumen/filtro por progreso | ligero | idea |
 
-## I. Microinteracciones
+## I. Microinteracciones · base
 | Efecto | Cómo | Coste | Skill / ref |
 |---|---|---|---|
 | Botón magnético | puntero → translate con lerp, solo hover | ligero | skill de animación instalada (`animate`) |

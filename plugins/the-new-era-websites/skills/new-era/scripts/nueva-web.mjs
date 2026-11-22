@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Crea una web nueva a partir de la plantilla base y copia los motores de las técnicas elegidas.
 // Uso: node nueva-web.mjs <carpeta-destino> [--con frames,pantalla,video,alfa,capas,revelados,rastro,3d,mapa,mapa-imagen,lente,envase,componentes,tarjeta,carrusel,resenas]
+//        [--modulos 3d,video-ia,scroll,assets,biblioteca,mapa]  (copia los motores típicos de cada módulo activo; se suma a --con)
 //        [--titulo "…"] [--descripcion "…"] [--marca "…"]
 //        [--fondo "#171412"] [--texto "#efe9e1"] [--acento "#c9a46a"] [--fuente "Inter"] [--fuente-display "…"]
 // No instala nada: al terminar te dice el npm install que toca.
@@ -58,7 +59,11 @@ const motores = {
   componentes: [['componentes-interactivos', 'tarjeta-volteo.js'], ['componentes-interactivos', 'carrusel-orbital.js'], ['componentes-interactivos', 'resenas-3d.js']],
 };
 const extra = { '3d': 'three', mapa: 'maplibre-gl' };   // dependencias que añade cada técnica
-const con = (op('con', '') || '').split(',').map((s) => s.trim()).filter(Boolean);
+// Módulos de new-era (references/modulos/): cada uno trae sus motores típicos. La base no copia nada por defecto.
+const porModulo = { '3d': ['3d'], 'video-ia': ['frames', 'video'], scroll: ['frames', 'video'], assets: ['alfa', 'capas'], biblioteca: [], mapa: ['mapa'] };
+const modulos = (op('modulos', '') || '').split(',').map((s) => s.trim()).filter(Boolean);
+for (const m of modulos) if (!porModulo[m]) console.warn(`módulo desconocido: ${m} (usa: ${Object.keys(porModulo).join(', ')})`);
+const con = [...new Set([...(op('con', '') || '').split(',').map((s) => s.trim()).filter(Boolean), ...modulos.flatMap((m) => porModulo[m] || [])])];
 const lib = join(dst, 'src', 'lib');
 mkdirSync(lib, { recursive: true });
 const deps = new Set(['gsap', 'lenis']);
@@ -71,6 +76,8 @@ for (const c of con) {
   if (extra[c]) deps.add(extra[c]);
 }
 console.log(`\nWeb lista en ${dst}`);
+if (modulos.length) console.log(`Módulos activos: ${modulos.join(', ')} (apúntalos en BRIEF.md con su motivo y lee references/modulos/ de new-era)`);
+if (modulos.includes('biblioteca')) console.log('Biblioteca: busca cada pieza de interfaz con la skill biblioteca-componentes antes de escribirla');
 const mas = [...deps].filter((d) => d !== 'gsap' && d !== 'lenis');
 console.log(`Siguiente: cd "${dst}" && npm install${mas.length ? ` && npm install ${mas.join(' ')}` : ''} && npm run dev`);
 if (con.includes('mapa'))

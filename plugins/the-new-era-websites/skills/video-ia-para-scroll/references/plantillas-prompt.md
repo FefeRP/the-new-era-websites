@@ -174,6 +174,28 @@ Slow, gentle, continuous small camera movement: a slight push in toward the [sub
 the foreground and the background. Fixed exposure, no cuts, no zoom.
 ```
 
+## 14. La obra al revés: del resultado final a su construcción
+**En la web:** el scroll cuenta cómo se hizo lo que vende la marca (una casa que se levanta desde el solar, un producto
+que se monta, un plato que se compone). Funciona en constructoras, arquitectura, interiorismo, cosmética y SaaS con un
+objeto central. Lo que lo hace premium es **una sola idea visual atada al scroll**, no el efecto.
+**Modelo:** Seedance 2.5 en modo References, con el **render final** de la web (la villa terminada, el producto
+acabado) como imagen de referencia. **Estado:** Publicada (método visto en un vídeo de un creador, noviembre de
+2026; sin datos técnicos de duración, resolución ni peso, que se resuelven con este marketplace).
+**Método:**
+1. Primero se diseña la web y se fija la imagen final (la que verá el visitante al terminar el scroll).
+2. Se pide el proceso **hacia atrás** desde esa imagen: al modelo le sale más fácil deshacer que construir desde la
+   nada, y la imagen final queda exacta porque es la referencia.
+3. En la web se invierte (`ffmpeg -i obra.mp4 -vf reverse construccion.mp4`), se recodifica según
+   [montaje-web.md](montaje-web.md) y se ata al scroll con `scroll-frames`: al bajar se construye y al final llega
+   la imagen del diseño.
+```
+Using the reference image, generate the entire construction process backwards: the finished [house / product /
+dish] is taken apart step by step until only [the empty plot / the raw materials / the empty plate] remains.
+Locked camera, same framing and light as the reference, one continuous take, no cuts.
+```
+Variante con cámara: añade un movimiento lento y constante («slow steady orbit to the left»), nunca dos. Antes de
+generar, pasa [checklists.md](checklists.md) y estima con `estimar-higgsfield.mjs`. Audio apagado si no se usa.
+
 ---
 
 ## Plantilla de pedido para dejar por escrito

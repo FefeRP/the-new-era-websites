@@ -2,10 +2,12 @@
 name: rastro-cursor
 description: Rastro de imágenes que siguen al cursor (image trail) - al mover el ratón por una zona aparecen fotos en el puntero que se apilan, siguen la inercia y se desvanecen. Motor rastro-cursor.js sin dependencias (pool fijo de img, Web Animations), solo con ratón; en táctil y con reduced-motion deja una composición estática. Úsala cuando pidan "fotos que siguen al ratón", "rastro de imágenes", "estela del cursor", "galería que aparece al mover el ratón", "efecto de cursor con fotos", "image trail", "cursor trail images", "mouse trail gallery", "hover image trail".
 license: MIT
-version: 1.0.0-beta.12
+version: 1.0.0-beta.13
 ---
 
 # Rastro de imágenes en el cursor
+
+> **En NEW ERA:** es de la **base común** (vale para cualquier web, sin activar módulos).
 
 Un efecto de portada o de galería: al mover el ratón por una zona van saliendo fotos en el puntero que se apilan y se
 apagan. Funciona porque es inesperado y cuesta muy poco: fotos normales (de producto, del equipo, de proyectos), sin

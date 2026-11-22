@@ -1,8 +1,8 @@
 # the-new-era-websites · marketplace de Claude Code
 
-**v1.0.0-beta.12** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
+**v1.0.0-beta.13** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
 
-Todo lo que vamos aprendiendo de hacer webs con Claude Code, en skills ordenadas **por técnica**: scroll cinematográfico con vídeo convertido en frames, capas con fondo transparente (el texto entre el producto y el fondo), imágenes que se revelan y transiciones, recursos de imagen con IA en lotes coherentes (objetos sueltos con alfa, juegos de iconos de marca, texturas repetibles, fondos de sección), componentes reutilizables (tarjeta con volteo, carrusel orbital, muro de reseñas 3D), un catálogo de componentes de interfaz para adaptar, 3D real, lata que gira sin 3D, lente de rayos X y un mapa que baja hasta el edificio. Y las reglas aprendidas en webs entregadas.
+Todo lo que vamos aprendiendo de hacer webs con Claude Code, en skills ordenadas **por técnica**: scroll cinematográfico con vídeo convertido en frames, capas con fondo transparente (el texto entre el producto y el fondo), imágenes que se revelan y transiciones, recursos de imagen con IA en lotes coherentes (objetos sueltos con alfa, juegos de iconos de marca, texturas repetibles, fondos de sección), componentes reutilizables (tarjeta con volteo, carrusel orbital, muro de reseñas 3D), un catálogo de componentes de interfaz para adaptar, 3D real como un módulo opcional más, lata que gira sin 3D, lente de rayos X y un mapa que baja hasta el edificio. Y las reglas aprendidas en webs entregadas.
 
 Una skill maestra (**NEW ERA**) recoge el pedido, **elige una dirección de estilo para ese cliente** (diez direcciones bien distintas, de la cinematográfica a la corporativa, la editorial, la minimal o la juguetona, cada una con cómo ejecutarla a buen nivel), carga en cada fase las skills de diseño que tengas instaladas, busca la idea y la firma de la web, combina técnicas, planifica los activos con su coste, monta la web, la verifica con capturas y la hace revisar por rondas hasta que deja de parecer genérica.
 
@@ -39,11 +39,27 @@ Escribe **NEW ERA: …** (o `/new-era …`) con el negocio, el producto y los ac
 1. Hace el brief (también qué es verdad: reseñas, cifras).
 2. Elige la **dirección de estilo** (estilo e intensidad) a partir del cliente, un tablero de referencias variadas y dos o tres opciones claramente distintas, y la deja escrita en `DESIGN.md`. Las skills de diseño se cargan con la herramienta Skill, no se recuerdan de memoria.
 3. Busca la idea, el hilo conductor y la firma de la web: un momento estrella en las inmersivas, una firma más callada en las contenidas. Toda web lleva una.
-4. Elige las técnicas y los componentes y cómo se combinan.
+4. Decide qué **módulos** activa (3D y WebGL, vídeo con IA, scroll inmersivo y frames, assets de IA, biblioteca de componentes, lugar y mapa), cada uno con su motivo en el brief, y elige las técnicas y los componentes y cómo se combinan. Una web que no lo necesita no arrastra 3D ni vídeo.
 5. Planifica los activos con su coste y dos o tres opciones.
 6. Monta la web con la plantilla (Vite + GSAP + Lenis) o dentro de tu proyecto, empezando por la primera pantalla y la firma. Antes de escribir o cambiar código que use la API de una librería (Next.js, React, Tailwind, GSAP, three.js…) consulta su documentación actual en la versión exacta del `package.json` con `find-docs`, y sigue Modern Web Guidance en las decisiones de plataforma (Core Web Vitals, imágenes, fuentes, accesibilidad, View Transitions, CSS moderno).
 7. La verifica con capturas en escritorio, móvil y movimiento reducido, le pasa la «prueba del genérico», pide la crítica a la skill de diseño y una segunda mirada a un revisor independiente, y repite por rondas.
 8. Entrega con la lista de skills que se cargaron de verdad, la documentación consultada, las rondas de revisión y el tiempo usado.
+
+### Base común y módulos
+NEW ERA sirve para cualquier web con carácter: corporativa, despacho, editorial, inmobiliaria, tienda, restaurante u hotel, producto o inmersiva.
+- **Base común (siempre):** brief, dirección de estilo y `DESIGN.md`, idea, hilo y firma, estructura, tipografía, ritmo, movimiento por código (revelados, titulares por líneas, transiciones, componentes interactivos), skills de diseño cargadas en cada fase, código contra la documentación actual (`find-docs` y Modern Web Guidance), verificación con capturas y revisión por rondas.
+- **Módulos (solo si el proyecto los pide):**
+
+| Módulo | Se activa cuando… | Skills |
+|---|---|---|
+| 3D y WebGL | el visitante gira o configura el objeto, el objeto vuelve en varias secciones, la idea es abstracta (luz, partículas, fondo por shader), hay un modelo 3D o una escena de Spline | `escena-3d-gltf`, skills de WebGL, recetas de Spline |
+| Vídeo con IA | la cámara viaja por un sitio, algo cambia físicamente, se cuenta un proceso (también «la obra al revés» con Seedance 2.5) | `video-ia-para-scroll`, `pedir-assets-ia`, `seguir-pantalla` |
+| Scroll inmersivo y frames | la web es un recorrido que controla el scroll, con secuencias que avanzan y retroceden | `scroll-frames`, `video-desde-html`, GSAP ScrollTrigger |
+| Assets de IA (foto, alfa y capas) | falta la imagen que la idea necesita, profundidad sin 3D, mirar dentro, envases con variantes | `pedir-assets-ia`, `recursos-imagen-ia`, `fotos-producto-ia`, `capas-alfa`, `parallax-capas`, `lente-revelado`, `envase-giratorio` |
+| Biblioteca de componentes | hay piezas de interfaz que pueden existir en el catálogo y el catálogo está disponible | `biblioteca-componentes` |
+| Lugar y mapa | la ubicación vende o hay que contar un viaje | `mapa-zoom-ubicacion` |
+
+La maestra escribe en `BRIEF.md` qué módulos activa y por qué, y solo carga sus skills. Detalle y combinaciones por tipo de web: [modulos/README.md](plugins/the-new-era-websites/skills/new-era/references/modulos/README.md).
 
 La palabra clave anterior, **WEB PREMIUM:**, y el comando `/web-premium` siguen funcionando como alias.
 
@@ -54,7 +70,7 @@ Ejemplo: `NEW ERA: landing para un reloj de edición limitada; tengo 4 fotos del
 ## Skills
 | Skill | Para qué |
 |---|---|
-| `new-era` | Maestra (palabra clave **NEW ERA**): dirige todo el proceso: dirección de estilo (diez direcciones y tres intensidades), qué skills de diseño se cargan en cada fase, revisión por rondas; plantilla Vite + GSAP + Lenis; `nueva-web.mjs` y `verificar-scroll.mjs`; reglas aprendidas en webs entregadas (dirección, carga, móvil, trampas de CSS, cómo se comprueba) |
+| `new-era` | Maestra (palabra clave **NEW ERA**): dirige todo el proceso con una base común (dirección de estilo con diez direcciones y tres intensidades, qué skills de diseño se cargan en cada fase, revisión por rondas) y seis módulos opcionales que activa según el proyecto y deja escritos en el brief (3D y WebGL, vídeo con IA, scroll inmersivo, assets de IA, biblioteca, lugar y mapa); plantilla Vite + GSAP + Lenis; `nueva-web.mjs` (con `--modulos`) y `verificar-scroll.mjs`; reglas aprendidas en webs entregadas (dirección, carga, móvil, trampas de CSS, cómo se comprueba) |
 | `recursos-imagen-ia` | Recursos de imagen con IA en lotes coherentes: objetos sueltos con alfa (frutas, hielo, hojas, piezas que flotan alrededor del producto), juegos de iconos de marca a partir de una sola lámina, texturas repetibles, fondos de sección con sitio para el titular (y su pareja día/noche), el mismo objeto en otros ángulos o materiales. Prompts por tipo de recurso y `lote-imagenes.mjs` para revisar el lote sin Python: hoja de conjunto sobre varios fondos, coherencia de luz y claridad entre piezas, corte de la lámina de iconos con medida del grosor del trazo, texturas medidas y arregladas para mosaico |
 | `componentes-interactivos` | Componentes reutilizables sin dependencias y con la accesibilidad resuelta: `tarjeta-volteo.js` (tarjeta con volteo 3D y capas en profundidad), `carrusel-orbital.js` (carrusel circular en órbita, o anillo 3D que gira con arrastre, teclado, autoplay o el scroll) y `resenas-3d.js` (muro de reseñas en columnas 3D inclinadas en movimiento continuo). Cada uno con táctil, movimiento reducido y `destruir()` |
 | `pedir-assets-ia` | Director de assets de IA: medio de cada elemento con una matriz de decisión (foto, foto con alfa o en capas, vídeo, vídeo con alfa, frames, código o 3D, con coste, peso y riesgo), coste antes de generar (`presupuesto.mjs`, la prueba más barata primero, tu presupuesto), plantillas de prompt por tipo de plano para Higgsfield, Kling, Veo, Seedance, Wan, Runway, Midjourney, Flux…, continuidad con imagen de inicio y fin, recetas por tipo de web y revisión "¿se nota falso?" (`revisar-ia.mjs` con Gemini + señales) |

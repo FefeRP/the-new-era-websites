@@ -3,7 +3,7 @@
 // decodificación de frames sueltos, con la CPU normal y frenada ×4 (aproximación a un móvil de gama media).
 // Uso, desde demos/reloj (playwright-core):
 //   node ../../pruebas/montaje-web/medir.mjs ../../pruebas/montaje-web/salida/<clip> [--freno 1,4] [--solo regex]
-// Escribe <salida>/medidas.json y una tabla. Sin GPU (VPS) todo se decodifica por software: las cifras sirven para
+// Escribe <salida>/medidas.json y una tabla. Sin GPU (servidor) todo se decodifica por software: las cifras sirven para
 // comparar variantes entre sí, no como tiempos absolutos de un móvil real.
 import { spawn } from 'node:child_process';
 import { existsSync, writeFileSync } from 'node:fs';

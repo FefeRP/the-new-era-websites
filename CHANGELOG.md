@@ -4,6 +4,32 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.0.0-beta.13] - 2026-11-22
+Todas las skills pasan a `1.0.0-beta.13`. NEW ERA se reorganiza en una **base común** para cualquier web con carácter
+(corporativa, editorial, inmobiliaria, tienda, restaurante, producto, inmersiva) y **seis módulos opcionales** que la
+maestra activa solo si el proyecto los pide. El 3D pasa a ser un módulo más. No se quita nada: se reordena y se conecta.
+
+### Añadido
+- `new-era/references/modulos/`: índice (qué es la base, cómo se decide cada módulo, combinaciones por tipo de web y
+  por qué cada skill está en su módulo) y un fichero por módulo con sus señales («se activa cuando», «no hace falta
+  cuando»), skills que se cargan, técnicas, activos y coste, construir y verificar: **3D y WebGL**, **vídeo con IA**
+  (todo Higgsfield y el método de Seedance 2.5), **scroll inmersivo y frames**, **assets de IA** (foto, alfa, capas,
+  lente, envase), **biblioteca de componentes** y **lugar y mapa**.
+- `video-ia-para-scroll`: plantilla 14, «la obra al revés» (Seedance 2.5 References con la imagen final de la web, el
+  proceso pedido hacia atrás, invertido y atado al scroll), también en el árbol de decisión.
+- `nueva-web.mjs --modulos 3d,video-ia,scroll,assets,biblioteca,mapa`: copia los motores típicos de cada módulo activo.
+- Cada skill del marketplace dice bajo su título a qué módulo pertenece o si es de la base.
+
+### Cambiado
+- `new-era`: regla 7 (los módulos se deciden por el proyecto y quedan escritos); paso 1 con las señales para los
+  módulos; **paso 4 «Módulos y técnicas»**: decidir cada módulo con su motivo en `BRIEF.md` antes de cargar nada,
+  contraste con la intensidad (en la 3, un módulo de escena da el momento estrella) y tabla de técnicas de la base; las
+  técnicas de cada módulo pasan a su fichero; pasos 5, 6 y 7 con lo propio de cada módulo activo; la entrega lista los
+  módulos activados y no activados. Descripción con más tipos de web y frases de activación.
+- Plantilla de `BRIEF.md` con la sección «Módulos» y «Skills cargadas → Módulos»; el catálogo de técnicas marca cada
+  sección como base o módulo; `reparto-skills-diseno.md` y los comandos `/new-era` y `/web-premium` incluyen el paso.
+- README en español e inglés con la base común y la tabla de módulos.
+
 ## [1.0.0-beta.12] - 2026-11-21
 Todas las skills pasan a `1.0.0-beta.12`. Segunda pasada sobre Higgsfield para webs: guía por modelo, plantillas por
 tipo de plano, árbol de decisión, checklists, flujos y una receta de montaje medida en Chrome.

@@ -88,6 +88,15 @@ Momento estrella / firma:
 Algo que tocar:
 Sistema (enlace a DESIGN.md): tipografía, paleta, retícula
 
+## Módulos (ver modulos/README.md; cada uno sí/no con la señal del pedido que lo decide)
+3D y WebGL:
+Vídeo con IA:
+Scroll inmersivo y frames:
+Assets de IA (foto, alfa, capas):
+Biblioteca de componentes:
+Lugar y mapa:
+Cambios durante el encargo (fecha · módulo · motivo):
+
 ## Plan
 Recorrido (secciones y qué cambia en cada una):
 Técnicas (fuerte + apoyo) y por qué:
@@ -103,6 +112,7 @@ Modern Web Guidance (id de la guía · qué se aplicó):
 Dirección:
 Componentes:
 Movimiento:
+Módulos (skills de cada módulo activo):
 Código (find-docs, modern-web-guidance):
 Revisión:
 No cargadas y motivo:

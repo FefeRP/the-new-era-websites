@@ -2,10 +2,12 @@
 name: biblioteca-componentes
 description: Buscar, elegir y adaptar componentes UI de un catálogo propio (índice JSON con código, dependencias, demo, licencia y un prompt de integración por componente, sacado de registros abiertos tipo shadcn como Magic UI, SmoothUI, Origin UI, Cult UI, Motion Primitives, Animata y similares, más recetas de Spline) para que cada web sea única - nunca se pega un componente tal cual. Incluye el buscador sin dependencias (scripts/buscar.mjs), cómo leer licencias, cómo cambiar un componente hasta que no se parezca al original, cómo integrar escenas de Spline y qué hacer con catálogos de pago o con clave (21st.dev, versiones Pro). Úsala cuando pidan "busca un componente", "¿hay algún componente de…?", "usa la biblioteca de componentes", "catálogo de componentes", "un fondo animado", "un hero con efecto", "botón con brillo", "texto que se escribe solo", "marquesina de logos", "Magic UI", "Aceternity", "React Bits", "shadcn blocks", "21st.dev", "Spline", "component library", "find a component", "UI component catalog", "animated background component", "hero section component", "Spline scene in React".
 license: MIT
-version: 1.0.0-beta.12
+version: 1.0.0-beta.13
 ---
 
 # Biblioteca de componentes
+
+> **En NEW ERA:** módulo **Biblioteca de componentes** (`new-era/references/modulos/biblioteca.md`): la maestra la carga cuando ese módulo está activo en el brief. Usada sola, funciona igual.
 
 Un catálogo propio de componentes de interfaz (fondos, textos animados, botones, tarjetas, heros, carruseles, 3D…)
 con el código completo, sus dependencias, una demo, la licencia y el autor de cada uno y un **prompt de integración**.

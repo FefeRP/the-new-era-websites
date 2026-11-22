@@ -2,10 +2,12 @@
 name: capas-alfa
 description: Elementos con fondo transparente - cómo pedir a la IA el asset aislado (foto o vídeo), cómo sacar el alfa sin Python ni GPU (fondo de color, negro, blanco, par negro/blanco para cristal y líquidos, o la máscara del proveedor) con alfa.mjs, en qué formato servirlo para que vaya en todos los navegadores (stacked alpha MP4 con video-alfa.js, WebM VP9, frames WebP con alfa, PNG/WebP) y cómo componerlo con parallax, z-index y texto entre capas. Úsala cuando pidan "fondo transparente", "vídeo con transparencia", "recortar el fondo", "splash aislado", "humo o chispas encima de la web", "el texto por detrás del producto", "texto entre capas", "elemento flotando sobre la web", "quitar el fondo verde", "transparent video", "alpha channel video", "video with transparency on the web", "remove background from AI video", "chroma key", "isolated asset", "text behind subject".
 license: MIT
-version: 1.0.0-beta.12
+version: 1.0.0-beta.13
 ---
 
 # Capas con alfa: elementos aislados que se mueven sobre la web
+
+> **En NEW ERA:** módulo **Assets de IA (foto, alfa y capas)** (`new-era/references/modulos/assets-ia.md`): la maestra la carga cuando ese módulo está activo en el brief. Usada sola, funciona igual.
 
 Muchos momentos "imposibles" son un elemento aislado (un splash, un producto, humo, una persona recortada) moviéndose
 por encima del fondo y del texto. Si el elemento está **quieto**, es una foto con alfa que el código mueve (parallax,

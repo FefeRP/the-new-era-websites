@@ -2,10 +2,12 @@
 name: lente-revelado
 description: Ver "por dentro" un producto - una lente circular que sigue al cursor (o al dedo) y revela otra versión ALINEADA de la misma imagen (rayos X, cámara térmica, interior, corte, boceto, antes/después), con interruptor de modos, y la misma pareja de imágenes como cortina antes/después ligada al scroll. Incluye el script que saca las variantes rayos X y térmica de cualquier foto sin IA (ffmpeg) y comprueba la alineación de una variante generada con IA. Úsala cuando pidan "rayos X al pasar el ratón", "lupa que enseña el interior", "ver por dentro", "modo térmico", "revelar al pasar el cursor", "antes y después con el scroll", "comparador", "x-ray hover effect", "cursor reveal", "spotlight reveal", "thermal view", "before after slider", "image reveal mask".
 license: MIT
-version: 1.0.0-beta.12
+version: 1.0.0-beta.13
 ---
 
 # Lente de revelado (rayos X, térmica, antes/después)
+
+> **En NEW ERA:** módulo **Assets de IA (foto, alfa y capas)** (`new-era/references/modulos/assets-ia.md`): la maestra la carga cuando ese módulo está activo en el brief. Usada sola, funciona igual.
 
 Dos imágenes **idénticas en encuadre** apiladas. La de arriba solo se ve dentro de una máscara (`mask-image`): un círculo que sigue
 al cursor (lente) o un corte que avanza con el scroll (cortina). Es barato (solo CSS en GPU), funciona en cualquier móvil y, bien
