@@ -1,6 +1,6 @@
 # the-new-era-websites · marketplace de Claude Code
 
-**v1.0.0** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
+**v1.0.1** · [Read in English](README.md) · antes `webs-premium` ([nota de migración](#migrar-desde-webs-premium))
 
 Todo lo que vamos aprendiendo de hacer webs con Claude Code, en skills ordenadas **por técnica**: scroll cinematográfico con vídeo convertido en frames, capas con fondo transparente (el texto entre el producto y el fondo), imágenes que se revelan y transiciones, recursos de imagen con IA en lotes coherentes (objetos sueltos con alfa, juegos de iconos de marca, texturas repetibles, fondos de sección), componentes reutilizables (tarjeta con volteo, carrusel orbital, muro de reseñas 3D), un catálogo de componentes de interfaz para adaptar, 3D real como un módulo opcional más, lata que gira sin 3D, lente de rayos X y un mapa que baja hasta el edificio. Y las reglas aprendidas en webs entregadas.
 
@@ -148,6 +148,7 @@ Revisión de un lote de imagen (`pruebas/recursos-imagen`): la hoja de conjunto 
 - Motores probados en Chrome: cancelación de carga y reintento de frames; lata que gira, lente y cortina con prueba de interacción (cursor, clic, dedo).
 - `alfa.mjs` medido con entradas de alfa conocido (croma 39,8 dB, pareja negro/blanco 59,4 dB) y la página de capas comprobada por píxeles; revelados, rastro del cursor y mapa por niveles comprobados por píxeles en escritorio, móvil y movimiento reducido.
 - Los tres componentes probados en Chrome (teclado, táctil, movimiento reducido, píxeles) y `lote-imagenes.mjs` contra entradas con defectos conocidos.
+- Las recetas de producto y servicio de NEW ERA (pasarela con foco, puntos sobre el producto, «límpialo tú», dial) probadas en Chrome con el código tal como está en la guía (22 comprobaciones, incluido el fondo sin recortar medido por píxeles).
 
 **Sin probar:**
 - Una generación de pago nueva siguiendo las plantillas de prompt nuevas (Higgsfield u otros) y las recetas de imagen de `recursos-imagen-ia`, incluidos los modelos de imagen con alfa nativo y las APIs de recorte de vídeo.

@@ -2,7 +2,7 @@
 name: new-era
 description: Skill maestra del marketplace the-new-era-websites para construir o mejorar cualquier web con carácter propio y sin resultados genéricos - corporativa, despacho, editorial, inmobiliaria, tienda o e-commerce, restaurante u hotel, estudio o portfolio, landing de producto, inmersiva o cinematográfica - palabra clave de activación "NEW ERA" o /new-era (siguen valiendo "WEB PREMIUM" y /web-premium, el nombre anterior). Tiene una base común que se usa siempre (brief, dirección de estilo con DESIGN.md, idea, hilo y firma, estructura, tipografía, ritmo y movimiento, carga obligatoria con la herramienta Skill de las skills de diseño instaladas, código contra la documentación actual con find-docs en la versión del proyecto y Modern Web Guidance en las decisiones de plataforma, verificación con capturas y revisión independiente por rondas) y módulos opcionales que activa solo si el proyecto los pide y deja escritos en el BRIEF con el motivo - 3D y WebGL (three.js con glTF, shaders, Spline), vídeo con IA (Higgsfield con Seedance, Kling, Veo y Wan, guía por modelo, plantillas, árbol de decisión, montaje medido), scroll inmersivo y frames, assets de IA (fotos de producto, alfa, capas, parallax, lente de rayos X, envase que gira sin 3D), biblioteca de componentes y lugar y mapa (de la ciudad al edificio). Planifica los activos y su coste, monta la web con la plantilla base (Vite + GSAP + Lenis), la verifica y la revisa antes de darla por terminada. Úsala SIEMPRE que el pedido diga "NEW ERA", "new era website", "WEB PREMIUM", "web premium", "hazme la web de", "mejora esta web", "que no parezca genérica", "web corporativa premium", "web para una inmobiliaria", "web de tienda", "web editorial", "web inmersiva", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "premium website", "immersive website", "awwwards style site", "cinematic scroll website", "3D scrolling website", "build a website with scroll effects", "premium corporate website", "real estate website".
 license: MIT
-version: 1.0.0
+version: 1.0.1
 ---
 
 # NEW ERA: de un pedido a una web con carácter propio
@@ -167,6 +167,8 @@ Técnicas de la base (valen para cualquier web, sin activar módulos):
 | Botones, menús, modales, avisos, estados de hover | Microinteracciones | skill de animación instalada (`animate`, `emil-design-eng`) |
 | Sonido de ambiente o de respuesta | Audio generado o cargado, **apagado por defecto** y con botón visible | catálogo (H) |
 | Transiciones entre páginas o estados | View Transitions con su alternativa | `revelados-y-transiciones` + `modern-web-guidance` |
+| Elegir entre pocos productos o looks de uno en uno (moda, carta, gama corta) | Pasarela con foco (centro nítido, vecinos desenfocados) + panel «en este look» + puntos sobre el producto; o el producto en escenario con foco, reflejo y el nombre en contorno detrás | catálogo (J) + [recetas-producto-y-servicio.md](references/recetas-producto-y-servicio.md) (1-3) |
+| Que un servicio se venda solo (limpieza, reformas, oficios) | «Límpialo tú» (el visitante pinta el resultado), instrumento que explica el método, presupuesto al instante con rango y barra fija con la llamada | catálogo (J) + [recetas-producto-y-servicio.md](references/recetas-producto-y-servicio.md) (4-6) |
 
 Las técnicas de 3D, vídeo IA, scroll con frames, capas con alfa, fotos IA, lente, envase, catálogo de componentes y mapa
 están en la tabla de su módulo.

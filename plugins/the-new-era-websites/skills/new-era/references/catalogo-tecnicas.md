@@ -19,6 +19,13 @@ skill existe; "idea": fase siguiente, sin skill todavía).
 - ref14: zapatillas Last Dept, zoom a la estantería (@ASCENTA.STUDIO)
 - ref15: café en cuatro tiempos con clips de vídeo IA
 - ref16: Aeternum, escenas separadas por cortinas
+- ref17, ref18: tienda de ropa por looks, pasarela de modelos con foco y puntos sobre la ropa (vídeos de dos creadores)
+- ref19: zapatilla en un mundo de nubes con titular inflado (clip de 1,8 s, incompleto)
+- ref20: limpieza a presión a domicilio, el trabajo contado por zonas, «límpialo tú», manómetro y presupuesto al instante
+- ref21: maqueta isométrica ilustrada de un concepto con etiquetas (clip de 1,8 s, incompleto)
+- ref22: bebida energética, tres latas en abanico (captura)
+- ref23: barbería, anillo de fotos alrededor del titular con «Ver en cuadrícula» (captura)
+- ref24: carta de hamburguesas, producto en escenario con foco, reflejo y título de contorno (captura)
 
 Cada sección dice si es de la **base** (vale para cualquier web) o de qué **módulo** es (se usa si el módulo está activo
 en el brief; ver [modulos/README.md](modulos/README.md)).
@@ -54,7 +61,8 @@ gira libremente, lo configura o lo toca. Detalle en `pedir-assets-ia/references/
 | Frames en sprite CSS (muy pocos frames) | `steps()` + `background-position` | ligero | scroll-frames, tabla de modos (hecho) |
 | La secuencia "aterriza" en la ficha de producto (PDP) o en la parrilla | último frame = foto exacta del producto en la UI; relevo de canvas a `<img>` sin fundido por CSS (cambio directo cuando el frame está pintado) y la UI (precio, botón) entra después | medio | scroll-frames + video-ia-para-scroll (hecho; el frame final, desde `fotos-producto-ia`) · ref6, ref15 |
 | Vuelo multiescala (cielo → plano del lugar → fachada → interior) | 2-4 vídeos encadenados por último frame, cada uno una escala; textos editoriales entre tramos | medio · € vídeo IA | video-ia-para-scroll, transición encadenada (hecho) · ref7 (Reposé) |
-| Antes/después guiado por el scroll (manchas que se borran, limpieza) | frames de un vídeo IA, o barato: dos fotos alineadas + cortina con máscara (`lente.cortina(p)`); shader de mezcla con ruido (idea) | ligero-medio | lente-revelado, cortina (hecho) · ref6 (sérum) |
+| Antes/después guiado por el scroll (manchas que se borran, limpieza) | frames de un vídeo IA, o barato: dos fotos alineadas + cortina con máscara (`lente.cortina(p)`); shader de mezcla con ruido (idea) | ligero-medio | lente-revelado, cortina (hecho) · ref6 (sérum); arrastrando la línea, «misma casa, una visita»: ref20 |
+| Un trabajo de principio a fin, por zonas (de sucio a limpio, de vacío a montado), con un anillo de avance 0-100 que cuenta el trabajo hecho | un clip IA por zona con la misma casa y la misma luz (antes → la persona trabajando → después), frames por tramo; el anillo es el `progress` de toda la sección en un SVG `stroke-dashoffset` con `tabular-nums`; un titular corto por zona que alterna lado («Kill it before we wash it» → «Like the day it was poured»); final con la casa entera terminada y el botón | medio · € vídeo IA (una toma por zona) | video-ia-para-scroll (plantillas por plano, imagen clave común) + scroll-frames (HUD) (hecho) · ref20 |
 | Producto realista contado por dentro en tramos (se parte → capas → entrar dentro → cambio de estado) | imagen clave sobre negro + 3-4 vídeos IA encadenados por fotograma (inicial/final) → frames por tramo + HUD | medio · € vídeo IA (unos pocos dólares en generación; la suscripción va aparte) | video-ia-para-scroll (receta-producto-por-dentro) + scroll-frames (hecho) · ref11 |
 | Cambio de estado ligado al scroll (crudo → horneado, cerrado → abierto) | vídeo IA con fotograma inicial y final del mismo encuadre → frames; el HUD pone nombre al estado | medio | video-ia-para-scroll, receta (hecho) · ref11 |
 | Composición vertical 9:16 propia para móvil | vídeo o frames generados aparte en vertical (no recortar el horizontal) | medio | scroll-frames, `--recorte-movil` o variante móvil (hecho) · ref6, ref7 |
@@ -67,7 +75,7 @@ gira libremente, lo configura o lo toca. Detalle en `pedir-assets-ia/references/
 |---|---|---|---|
 | Parallax de capas en el scroll | `[data-profundidad]` + translate3d | ligero | parallax-capas (hecho) · ref4, ref5, ref12 |
 | Capas que siguen al ratón | puntero → lerp por profundidad (solo hover) | ligero | parallax-capas (hecho) · ref3 (nickho) |
-| Ingredientes/objetos flotando alrededor del producto | PNG/WebP con alfa con rotación + flotación lenta + parallax | ligero | parallax-capas + capas-alfa (hecho) · ref4 |
+| Ingredientes/objetos flotando alrededor del producto | PNG/WebP con alfa con rotación + flotación lenta + parallax | ligero | parallax-capas + capas-alfa (hecho) · ref4, ref22 (frutas alrededor de tres latas en abanico) |
 | Splash o ingrediente aislado (líquido congelado, fruta, polvo en el aire) | foto IA del momento congelado sobre fondo liso → `alfa.mjs --modo croma --recortar` (o `--modo diferencia` si es semitransparente) → capa con parallax; vídeo solo si tiene que moverse solo | ligero · € imagen IA (céntimos) | capas-alfa + pedir-assets-ia (plantillas-por-plano §11) (hecho) · ref4, ref10 |
 | Texto entre planos (detrás del producto) | z-index: fondo < título HTML < producto con alfa | ligero | capas-alfa (componer-capas) + parallax-capas (hecho) · ref4, ref13 |
 | Sombra como capa propia: el producto levita y la sombra se abre y difumina; cambiar de fondo sin perder la sombra | `capas-sombra.mjs` (foto + plato → fondo, sombra semitransparente, producto) + CSS `view-timeline` | ligero | parallax-capas, sombras.md (hecho) |
@@ -91,6 +99,7 @@ es una lata o botella con etiqueta, `envase-giratorio`.
 | Del mapa al edificio (ciudad → barrio → parcela → edificio resaltado) | MapLibre + ortofoto con licencia (PNOA en España) + extrusión OSM; cámara por paradas ligada al scroll, relevo a foto/render real | ligero-medio · 0 € en España | mapa-zoom-ubicacion (hecho) · ref8 (Reposé, satélite) |
 | Mapa por niveles de imagen (ciudad → barrio → calle), ortofoto real o estilizada por IA | 3-5 imágenes anidadas en canvas 2D (`mapa-imagen.js`); marcadores, rutas y textos por código; arco entre dos sitios; `fotograma()` para clips IA | ligero (2-4 MB fijos) | mapa-zoom-ubicacion, `mapa-imagen.js` (hecho) · ref8, ref9 |
 | Mapa "de arcilla" o ilustrado con ruta que se dibuja y tarjetas ancladas | niveles de imagen estilizados con IA sobre la ortofoto real + rutas y tarjetas de `mapa-imagen.js`; o MapLibre con estilo propio de extrusión clara y capa `line` animada | ligero-medio | mapa-zoom-ubicacion, `mapa-imagen.js` + ideas-ref9 (hecho) · ref9 |
+| Maqueta ilustrada de un **concepto**, no de un sitio real: cada edificio es un servicio o una idea, con etiquetas en píldora (icono + palabra) clavadas encima y un titular corto | una sola imagen IA isométrica en estilo maqueta (clara, materiales mate, la paleta de la marca) + etiquetas por código como marcadores de `mapa-imagen.js` (o `<button>` en % de la imagen); paneo suave con el scroll y el % de avance arriba; nada de texto dentro de la imagen | ligero · € imagen IA (céntimos) | mapa-zoom-ubicacion (`mapa-imagen.js`, una sola capa) + pedir-assets-ia (hecho) · ref21 |
 | Corte circular del suelo que enseña el subsuelo (metro, cimientos) / dolly zoom | three.js con stencil/clipping; FOV animado | pesado | idea · ref9 |
 | Gama de latas: slider de sabores; carrusel orbital → foco → line-up | `envase-giratorio` + slider; carrusel orbital con varias instancias de glTF y GSAP timeline solo si hace falta giro libre en varios ejes | ligero (envase) · medio (3D) | envase-giratorio (hecho); carrusel orbital sin 3D: componentes-interactivos, `carrusel-orbital.js` (hecho); escena-3d-gltf, patrones (parcial) · ref7 (Ciao), ref10 |
 | Vidrio/hielo con refracción | MeshPhysicalMaterial `transmission`, `ior`, `thickness`; drei MeshTransmissionMaterial | pesado | idea: materiales-premium · ref2 |
@@ -117,6 +126,7 @@ es una lata o botella con etiqueta, `envase-giratorio`.
 | Contador que sube | `gsap.to(obj,{v})` o ligado al progreso + `textContent` redondeado, `tabular-nums` | ligero | scroll-frames, patrones HUD (hecho) · ref3, ref11, ref15 |
 | Sello/insignia giratoria | SVG `textPath` + rotación ligada al scroll | ligero | idea · ref3 (era) |
 | Texto gigante que se escala/rellena | `scale`/`clip-path` con scrub | ligero | idea · ref12 (serif que se parte hacia las esquinas) |
+| Titular volumétrico (inflado, de gominola, de globo) junto al producto en un mundo de su paleta | las letras **nunca generadas por IA** (deforma letras): three.js `TextGeometry` con bisel grande y `MeshMatcapMaterial` (módulo 3D); sin 3D, SVG con contorno grueso, degradado y brillo, o varias `text-shadow` apiladas en el tono oscuro de la letra; el mundo de fondo (nubes, caramelo) sí puede ser imagen IA | ligero (CSS/SVG) · medio (3D) | idea; el fondo con pedir-assets-ia · ref19 (incompleto) |
 | Marquesina infinita con velocidad del scroll | duplicar pista + `x` modulado por la velocidad de Lenis | ligero | muro de reseñas: componentes-interactivos, `resenas-3d.js` (hecho); marquesina de texto: skill de animación instalada (`animate`) |
 
 ## G. Transiciones y layout · base
@@ -130,6 +140,7 @@ es una lata o botella con etiqueta, `envase-giratorio`.
 | Zoom 2D a un punto de una imagen grande, con relevo a una imagen de detalle | escala logarítmica hacia un rectángulo de la imagen; fundido final a la toma de detalle | ligero · € imagen IA si hay que pedir la toma cercana | revelados-y-transiciones, `crearZoomA` (hecho) · ref14 |
 | Imagen o tarjeta que crece hasta pantalla completa | View Transitions de mismo documento, o GSAP Flip con scrub; `clip-path`/`scale` | ligero | revelados-y-transiciones, patrones.md (hecho) · ref3 (era) |
 | Transiciones entre páginas | View Transitions entre documentos (`@view-transition { navigation: auto; }`) o Barba/Next | ligero | revelados-y-transiciones, patrones.md (hecho) |
+| Anillo o esfera de fotos alrededor del titular, con botón «Ver en cuadrícula» que lo ordena en una rejilla | `carrusel-orbital.js` con las fotos inclinadas en el anillo y el titular delante; el botón cambia de vista con View Transitions (un `view-transition-name` por foto) o GSAP Flip; la rejilla es la vista accesible y la de móvil y movimiento reducido | ligero | componentes-interactivos (`carrusel-orbital.js`) + revelados-y-transiciones (patrones de View Transitions) (hecho) · ref23 |
 | Preloader con progreso real | progreso de frames/modelo (callbacks de los motores) | ligero | idea · ref3 (contador) |
 
 ## H. Sonido · base
@@ -144,6 +155,23 @@ es una lata o botella con etiqueta, `envase-giratorio`.
 | Botón magnético | puntero → translate con lerp, solo hover | ligero | skill de animación instalada (`animate`) |
 | Cursor personalizado contextual | div con `mix-blend-mode` y estados | ligero | skill de animación instalada (`animate`) |
 | Hover que revela imagen | fotos que salen en el puntero: `rastro-cursor`; otra versión de la misma imagen bajo el cursor: `lente-revelado` | ligero | rastro-cursor, lente-revelado (hecho) · ref11, ref13 |
+
+## J. Enseñar el producto y vender el servicio · base
+Recetas para tiendas, cartas y servicios: el producto en escena y la prueba de que el servicio funciona. Valen sin
+módulos; los activos (modelos, platos, fotos de antes y después) salen del módulo Assets de IA o del cliente. El
+detalle de cada receta está en [recetas-producto-y-servicio.md](recetas-producto-y-servicio.md).
+
+| Efecto | Cómo | Coste | Skill / ref |
+|---|---|---|---|
+| **Pasarela con foco**: una fila de modelos, platos o productos; el del centro nítido y a tamaño completo, los de los lados más pequeños, desenfocados y transparentes; al cambiar, se relevan en su sitio | 5 huecos fijos (escala 0,78 / 0,9 / 1 / 0,9 / 0,78; opacidad 0,45 / 0,8 / 1 / 0,8 / 0,45; desenfoque con **copias ya desenfocadas** cruzadas por opacidad, no `filter` animado); la figura que sale y la que entra se cruzan con un desplazamiento corto (300-450 ms); flechas, teclado y arrastre; panel lateral sincronizado | ligero | receta 1 · ref17, ref18, ref24 |
+| Fotos de estudio sin recortar: el fondo de la foto **es** el de la página | todas las tomas con el mismo fondo liso, llevado a **blanco puro** al exportar (curvas o niveles); las figuras van con `mix-blend-mode: multiply` sobre la página de cualquier color claro y el blanco toma ese color; sin alfa ni halos (si el fondo no es blanco puro, multiply lo oscurece y se ven rectángulos) | ligero | receta 1 · ref17, ref18 |
+| Panel «En este look / en este plato» que cambia con el elemento del centro | lista de piezas con miniatura, nombre y precio; salida y entrada escalonadas (40-60 ms entre filas); `aria-live="polite"`; botón «Añadir el look entero» con el total | ligero | receta 1 · ref17, ref18 |
+| **Puntos sobre el producto** enlazados con la lista: al pulsar el elemento, los demás se apagan, queda solo él y aparecen puntos sobre cada pieza; el punto y la fila de la lista se señalan a la vez | `<button>` posicionados en % sobre la imagen (no en píxeles), etiqueta al pasar o al enfocar, misma clave en el punto y en la fila; vuelta a la fila con Escape; en táctil, el punto abre la etiqueta | ligero | receta 2 · ref17, ref18 |
+| **Producto en escenario**: foco cenital, reflejo en el suelo y el nombre en letras de contorno gigantes detrás; vecinos pequeños y desenfocados a los lados; ficha a la izquierda (categoría, 02/03, nombre, descripción, precio, flechas) | foco = `conic-gradient` o trapecio con `linear-gradient` y `mix-blend-mode: screen`; reflejo = copia volteada (`scaleY(-1)`) con máscara degradada al 25-35 %; título con `-webkit-text-stroke` y relleno transparente, detrás del producto con alfa; al cambiar, el título se recorta y entra el nuevo | ligero | receta 3 + capas-alfa · ref24 |
+| **«Límpialo tú»**: el visitante pinta con el dedo o el ratón y la foto sucia se vuelve limpia debajo; contador de % y tiempo; dos herramientas (boquilla ancha / lanza) | canvas con la foto sucia encima de la limpia; mantener pulsado borra con `globalCompositeOperation = 'destination-out'` y una brocha con la forma de la herramienta; el % se mide con una rejilla de muestras cada 150-250 ms (no `getImageData` entero en cada movimiento); botón «Limpiarlo todo» como alternativa accesible y en movimiento reducido | ligero | receta 4 · ref20 |
+| **Instrumento que explica**: chips por tipo de superficie o de caso y un dial (manómetro, termómetro, medidor) cuya aguja va al rango correcto y nombra el método | SVG con arco y aguja; `rotate` con muelle corto (sin rebote exagerado), el arco se rellena hasta el rango, cifra con `tabular-nums`; el texto debajo dice por qué ese valor | ligero | receta 5 · ref20 |
+| **Presupuesto al instante**: chips de tamaño y servicios y un rango de precio que cambia en vivo; botón para reservarlo | estado en un objeto; cada cambio anima las cifras del rango (300-500 ms); los precios y las reglas **los da el cliente** (nunca inventados); se muestra como rango con lo que incluye y un aviso de que se confirma en la visita | ligero | receta 6 · ref20 |
+| Barra fija inferior con la llamada principal (presupuesto gratis, reservar) | barra estrecha que aparece tras el hero y se oculta encima del pie y del formulario; nunca tapa contenido en móvil (`env(safe-area-inset-bottom)`) | ligero | receta 6 · ref20 |
 
 ## Repos y librerías que nombran los vídeos
 - Del vídeo ref3 (Sanjai Builds):
@@ -175,6 +203,14 @@ es una lata o botella con etiqueta, `envase-giratorio`.
   botón (ref6); antes/después con el scroll; producto que levita sobre su sombra.
 - **Gama de bebidas o variantes**: `envase-giratorio` + slider de sabores + frutas con alfa (`parallax-capas`/`capas-alfa`);
   3D real (carrusel orbital → foco → line-up, ref7) solo si hay giro libre en varios ejes.
+- **Moda y tiendas por looks** (también cartas de restaurante y gamas cortas): **pasarela con foco** + panel «en este
+  look» + **puntos sobre la ropa** + «añadir el look entero» (ref17, ref18); para una carta, el **producto en escenario**
+  con foco, reflejo y el nombre en contorno detrás (ref24). Modelos o platos generados con IA con la misma luz, cámara y
+  fondo; un bucle de 2-4 s de cámara fija en el del centro si hace falta vida.
+- **Servicios a domicilio y oficios** (limpieza, jardinería, reformas, pintura, climatización): el **trabajo por zonas**
+  con el anillo de avance (vídeo IA) o, sin vídeo, antes/después arrastrando; **«límpialo tú»** para que el visitante
+  pruebe el resultado; un **instrumento que explica** el método; **presupuesto al instante** con rango y la barra fija
+  con la llamada (ref20).
 - **Narrativa por escenas**: una frase por escena, escenas separadas por cortinas (`crearCortina`) y HUD fino (ref16).
 - **Marca tecnológica o abstracta**: **3D real** con shaders y partículas + tipografía cinética (solo escritorio en el pico,
   con póster en móvil).

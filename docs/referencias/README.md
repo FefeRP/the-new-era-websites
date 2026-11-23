@@ -1,8 +1,8 @@
 # Vídeos de referencia
 
-> Los vídeos (`ref*.mp4`) **no se incluyen en el repositorio**: son de sus autores. Aquí solo van los análisis escritos; la columna "Fichero" es el nombre de la copia local de trabajo.
+> Los vídeos y capturas (`ref*.mp4`, `ref*.webp`) **no se incluyen en el repositorio**: son de sus autores. Aquí solo van los análisis escritos; la columna "Fichero" es el nombre de la copia local de trabajo.
 
-Análisis completos (Gemini) en `analisis-ref*.md`. Catálogo de técnicas resultante: `plugins/the-new-era-websites/skills/new-era/references/catalogo-tecnicas.md`.
+Análisis completos (Gemini, o propios con fotogramas cuando no hubo Gemini) en `analisis-ref*.md`. Catálogo de técnicas resultante: `plugins/the-new-era-websites/skills/new-era/references/catalogo-tecnicas.md`.
 
 | Fichero | Nombre original | Qué es | Técnicas clave | Repos / librerías nombrados |
 |---|---|---|---|---|
@@ -22,3 +22,11 @@ Análisis completos (Gemini) en `analisis-ref*.md`. Catálogo de técnicas resul
 | ref14-zapatillas-estantes.mp4 | VID_20261028_160053_995.mp4 | **Web** de zapatillas Last Dept (@ASCENTA.STUDIO) | Estantería en una imagen grande, zoom 2D con origen en el producto y relevo a una imagen de detalle, ficha HTML encima | — · técnicas: `pedir-assets-ia` (otra toma más cerca), `revelados-y-transiciones` (zoom a producto) |
 | ref15-cafe-scrollytelling.mp4 | ssstik.io_1793128670860.mp4 | **Web** de café en cuatro tiempos (hecha con Claude según el vídeo) | 3-4 clips de vídeo IA con el mismo fondo marfil y la misma luz de ventana, grúa por el molinillo, vertido, gota en cámara lenta; contadores y textos por código; tienda sobre el último fotograma | — · técnicas: `pedir-assets-ia`, `scroll-frames` |
 | ref16-aeternum.mp4 | ssstik.io_1793128788362.mp4 | **Web** narrativa Aeternum (pirámide, escarabajo, túnel; hecha con Claude según el vídeo) | Escenas separadas por cortinas (blanco, arena), una frase por escena, HUD fino; técnica de las escenas sin confirmar (vídeo IA encadenado o 3D) | — · técnicas: `pedir-assets-ia` (cortinas), `revelados-y-transiciones` |
+| ref17-ropa-try-the-look.mp4 | VID_20261108_103942_413.mp4 | **Web** de moda por looks (@JERRYTHEWEBDEV, «Opus 5.5 + Higgsfield») | Pasarela con foco (centro nítido, vecinos desenfocados que se relevan en su sitio), panel «In this look», detalle con puntos sobre las prendas | — (deducido: vídeo IA en bucle por modelo) · `new-era` catálogo J, recetas 1-2 · análisis en `analisis-ref17-18-looks.md` |
+| ref18-ropa-shop-the-look.mp4 | VID_20261108_103847_664.mp4 | **Web** de moda por looks (@DROPSTUDIOS.CO), la misma idea que ref17 | Pasarela con foco, panel sincronizado, «añadir el look entero» | — · catálogo J |
+| ref19-zapatilla-nubes.mp4 | 97d15adeff9814695f524f3c83f48437.mp4 | Clip de **1,8 s** (@deis.motion): zapatilla en un mundo de nubes | Titular volumétrico (letras infladas) | — · catálogo F · `analisis-ref19-21-clips-cortos.md` |
+| ref20-limpieza-presupuesto.mp4 | c978f07f210fd76f225be7906365d1c1.mp4 | **Web** de limpieza a presión (@opuscode.de) | Trabajo por zonas con anillo de avance, «límpialo tú» pintando, antes/después, manómetro, presupuesto al instante, barra fija | — · catálogo B y J, recetas 4-6 · `analisis-ref20-limpieza-presupuesto.md` |
+| ref21-ciudad-isometrica.mp4 | 91ca1a629e3b510ef620f72bee9376f7.mp4 | Clip de **1,8 s** (@deis.motion): maqueta isométrica de arcilla de un concepto | Maqueta ilustrada con % de avance y mensajes cortos | — · catálogo D, `mapa-zoom-ubicacion` (`mapa-imagen.js`) |
+| ref22-bebida-latas.webp | 462207645cfc0230cb707f8f1b527850.webp | Captura (@deis.motion): tres latas en abanico | Ingredientes flotando, título condensado en cursiva | — · catálogo C, `envase-giratorio` · `analisis-ref22-24-capturas.md` |
+| ref23-barberia-fotos-orbita.webp | f30705de6b31b25e1ce41e25dd17767d.webp | Captura de una barbería | Anillo de fotos alrededor del titular + «Ver en cuadrícula» | — · catálogo G, `componentes-interactivos` (`carrusel-orbital.js`) |
+| ref24-hamburguesa-carrusel.webp | 1c23aca17ed6277d2d7ab7918cabd649.webp | Captura de una carta (hamburguesería) | Producto en escenario: foco, reflejo, nombre en contorno detrás, vecinos desenfocados, ficha con 02/03 | — · catálogo J, receta 3 |

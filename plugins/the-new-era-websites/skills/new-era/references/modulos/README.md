@@ -73,9 +73,11 @@ Skills que no son módulo porque son de la base: `revelados-y-transiciones`, `ra
 | Editorial, revista, cultura | Biblioteca · a veces Scroll inmersivo (una escena larga por artículo) | 3D, Vídeo IA | Tipografía como imagen, ritmo y maquetación |
 | Inmobiliaria | Lugar y mapa · Assets (fachada en capas) · Biblioteca | 3D (salvo que el visitante configure la vivienda) | Del mapa a la puerta, fichas con volteo |
 | Tienda o e-commerce | Assets (producto aislado, fotos IA desde las reales) · Biblioteca · a veces Vídeo IA (el producto se abre) | 3D salvo configurador | La ficha que aterriza desde la escena |
-| Restaurante, hotel, lugar | Assets · Lugar y mapa · a veces Vídeo IA (entrar al local) | 3D | La entrada al sitio |
+| Restaurante, hotel, lugar | Assets · Lugar y mapa · a veces Vídeo IA (entrar al local) | 3D | La entrada al sitio, o la carta con el plato en escenario (catálogo J) |
 | Producto estrella (reloj, perfume, bebida) | Vídeo IA + Scroll inmersivo · Assets · 3D solo si se gira libre | — | El objeto que se transforma con el scroll |
 | Inmersiva, marca tecnológica o abstracta | 3D y WebGL · Scroll inmersivo · a veces Vídeo IA | — | La escena viva que persiste toda la web |
+| Moda o tienda por looks | Assets (modelos IA con la misma luz, cámara y fondo blanco) · a veces Vídeo IA (bucle corto del look central) | 3D, Scroll inmersivo | La pasarela con foco y los puntos sobre la ropa (catálogo J) |
+| Servicio a domicilio u oficio (limpieza, reformas, jardín) | Assets (antes y después del mismo encuadre) · a veces Vídeo IA (el trabajo por zonas) | 3D | «Límpialo tú» y el presupuesto al instante (catálogo J) |
 | Constructora, arquitectura | Vídeo IA (la obra al revés, plantilla 14) + Scroll inmersivo · Assets | 3D salvo maqueta navegable | Se construye mientras bajas |
 
 ## Lo que no cambia con los módulos

@@ -4,6 +4,26 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.0.1] - 2026-11-23
+Ocho referencias nuevas (ref17-ref24) convertidas en recetas de la base de NEW ERA. No hay scripts nuevos y todas las skills pasan a `1.0.1`.
+
+### Añadido
+- `new-era/references/recetas-producto-y-servicio.md`, con seis recetas con código probado en Chrome:
+  - pasarela con foco;
+  - puntos sobre el producto enlazados con la lista;
+  - producto en escenario;
+  - «límpialo tú», pintando sobre un canvas;
+  - instrumento que explica;
+  - presupuesto al instante con barra fija.
+- Catálogo de técnicas, sección **J. Enseñar el producto y vender el servicio**. También estas filas nuevas:
+  - trabajo por zonas con anillo de avance (B);
+  - maqueta ilustrada de un concepto (D);
+  - titular volumétrico (F);
+  - anillo de fotos que pasa a cuadrícula (G).
+- Combinaciones nuevas: «Moda y tiendas por looks» y «Servicios a domicilio y oficios», tanto en el catálogo como en `modulos/README.md`. Además, dos filas en la tabla de técnicas de la base de `new-era/SKILL.md`.
+- Análisis de las referencias en `docs/referencias/` y sus filas en el índice.
+- Regla medida por píxeles para las fotos de estudio sin recortar: `mix-blend-mode: multiply` solo hace desaparecer el fondo de la foto si es **blanco puro**. Con hueso sobre hueso, el fondo se oscurece y se ven los rectángulos.
+
 ## [1.0.0] - 2026-11-22
 Primera versión estable. Es la 1.0.0-beta.13 sin cambios de contenido: NEW ERA con una base común y seis módulos
 opcionales, y las 18 skills. Todas las skills pasan a `1.0.0`.

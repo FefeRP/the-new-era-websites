@@ -2,7 +2,7 @@
 name: envase-giratorio
 description: Lata, bote, tarro o botella cilíndrica que gira de verdad sin modelo 3D ni vídeo - la etiqueta PLANA (desplegada) se enrolla sobre un cilindro en un canvas 2D con sombreado, brillo y tapa metálica; el giro se liga al scroll, a un arrastre o a un slider de sabores/variantes (fondo, título y frutas que cambian a la vez). Incluye cómo preparar la etiqueta (diseño o IA) y el slider de variantes con elemento compartido. Úsala cuando pidan "lata que gira", "slider de sabores", "cambiar de sabor y que gire la lata", "mockup de lata animado", "etiqueta que da la vuelta", "bebida con varios sabores", "can rotation", "drink flavour slider", "3D can without 3D", "rotating label", "product variant slider".
 license: MIT
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Envase que gira (sin 3D)

@@ -2,7 +2,7 @@
 name: escena-3d-gltf
 description: Escena 3D real con three.js y un modelo glTF/GLB (producto, objeto, personaje) - conseguir y optimizar el modelo (gltf-transform, Meshopt/Draco, texturas WebP/KTX2, versión móvil), escena de estudio con luz realista sin HDR externo, producto que gira o se acerca con el scroll (GSAP ScrollTrigger), arrastre que no secuestra el scroll, render bajo demanda, póster de reserva, limpieza de memoria, y equivalente en React Three Fiber. Úsala cuando pidan "modelo 3D en la web", "producto en 3D que se pueda girar", "three.js", "glTF/GLB", "configurador 3D", "3D al hacer scroll", "3D product viewer", "WebGL hero", "react-three-fiber".
 license: MIT
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Escena 3D con modelo glTF

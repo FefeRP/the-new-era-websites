@@ -8,6 +8,9 @@ dist/
 docs/referencias/*.mp4
 docs/referencias/*.mov
 docs/referencias/*.webm
+docs/referencias/*.webp
+docs/referencias/*.png
+docs/referencias/*.jpg
 
 # Secretos y configuración local
 .env
