@@ -57,3 +57,7 @@ pruebas/montaje-web/salida/
 
 # Biblioteca privada de componentes (código de terceros, prompts y web privada): nunca al repo público
 biblioteca/
+
+# Demo con marca de terceros (NVIDIA): nunca al repo público
+demos/nvidia/
+capturas/nvidia/
