@@ -4,6 +4,12 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.2.1] - 2026-11-24
+### Corregido
+- `learn-taste` sale de la fase Revisión de la tabla de carga: su autor la marcó con `disable-model-invocation` y la
+  herramienta `Skill` la rechaza (comprobado en una sesión de prueba). La maestra explica qué hacer con esas skills: la
+  corrección pasa igual a regla de `DESIGN.md` y en la entrega se recuerda `/learn-taste`. Todas las skills pasan a `1.2.1`.
+
 ## [1.2.0] - 2026-11-24
 Fondos generados por capas como recurso fijo de la base, regla contra las distribuciones típicas de IA y más skills de
 diseño en la carga obligatoria. Todas las skills pasan a `1.2.0`.

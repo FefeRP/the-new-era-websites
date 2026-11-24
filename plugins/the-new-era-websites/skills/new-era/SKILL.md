@@ -2,7 +2,7 @@
 name: new-era
 description: Skill maestra del marketplace the-new-era-websites para construir o mejorar cualquier web con carácter propio y sin resultados genéricos - corporativa, despacho, editorial, inmobiliaria, tienda o e-commerce, restaurante u hotel, estudio o portfolio, landing de producto, inmersiva o cinematográfica - palabra clave de activación "NEW ERA" o /new-era (siguen valiendo "WEB PREMIUM" y /web-premium, el nombre anterior). Tiene una base común que se usa siempre (brief, dirección de estilo con DESIGN.md, idea, hilo y firma, estructura, tipografía, ritmo y movimiento, carga obligatoria con la herramienta Skill de las skills de diseño instaladas, código contra la documentación actual con find-docs en la versión del proyecto y Modern Web Guidance en las decisiones de plataforma, verificación con capturas y revisión independiente por rondas) y módulos opcionales que activa solo si el proyecto los pide y deja escritos en el BRIEF con el motivo - 3D y WebGL (three.js con glTF, shaders, Spline), vídeo con IA (Higgsfield con Seedance, Kling, Veo y Wan, guía por modelo, plantillas, árbol de decisión, montaje medido), scroll inmersivo y frames, assets de IA (fotos de producto, alfa, capas, parallax, lente de rayos X, envase que gira sin 3D), biblioteca de componentes y lugar y mapa (de la ciudad al edificio). Planifica los activos y su coste, monta la web con la plantilla base (Vite + GSAP + Lenis), la verifica y la revisa antes de darla por terminada. Úsala SIEMPRE que el pedido diga "NEW ERA", "new era website", "WEB PREMIUM", "web premium", "hazme la web de", "mejora esta web", "que no parezca genérica", "web corporativa premium", "web para una inmobiliaria", "web de tienda", "web editorial", "web inmersiva", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "premium website", "immersive website", "awwwards style site", "cinematic scroll website", "3D scrolling website", "build a website with scroll effects", "premium corporate website", "real estate website".
 license: MIT
-version: 1.2.0
+version: 1.2.1
 ---
 
 # NEW ERA: de un pedido a una web con carácter propio
@@ -65,7 +65,11 @@ y se dice en la entrega.
 | **Activos** (paso 5) | `pedir-assets-ia` y, si están instaladas, `creative-architect:direccion-de-arte` (criterio de estilo y prompts de imagen que no parecen IA) | Lista de activos con medio, prompt y coste |
 | **Módulos** (paso 4) | Las de cada módulo activo, según su fichero en [references/modulos/](references/modulos/README.md) | Técnicas, activos y comprobaciones propias del módulo |
 | **Código** (pasos 1, 4, 6 y 7) | `find-docs` (API de cada librería en la versión del `package.json`) · `modern-web-guidance:modern-web-guidance` (plataforma: Core Web Vitals, imágenes, fuentes, accesibilidad, View Transitions, CSS moderno, formularios, PWA) | Código que funciona con la versión instalada y decisiones de plataforma con su guía, apuntadas en `BRIEF.md` |
-| **Revisión** (paso 7) | `impeccable:impeccable` (`critique`, `audit`, `polish`) · la puerta de revisión de `taste-skill:design-taste-frontend` · `learn-taste` (cada corrección del cliente o del revisor pasa a regla de `DESIGN.md`) · `animation-performance` · `mobile-native` · `break-ui` · el agente revisor `impeccable-finish-reviewer` (y `impeccable-motion-reviewer` si hay movimiento) | Lista ordenada de arreglos, aplicada por rondas |
+| **Revisión** (paso 7) | `impeccable:impeccable` (`critique`, `audit`, `polish`) · la puerta de revisión de `taste-skill:design-taste-frontend` · `animation-performance` · `mobile-native` · `break-ui` · el agente revisor `impeccable-finish-reviewer` (y `impeccable-motion-reviewer` si hay movimiento) | Lista ordenada de arreglos, aplicada por rondas |
+
+Las skills que su autor dejó solo para el usuario (`disable-model-invocation`, p. ej. `learn-taste` o las variantes de
+`taste-skill-classics`) no se cargan con `Skill`. Cada corrección del cliente o del revisor pasa igualmente a regla de
+`DESIGN.md`, y en la entrega se recuerda que `/learn-taste` puede guardarla.
 
 Quién manda cuando dos skills opinan distinto: [references/reparto-skills-diseno.md](references/reparto-skills-diseno.md).
 
