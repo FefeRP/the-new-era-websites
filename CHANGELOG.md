@@ -4,6 +4,45 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.3.0] - 2026-11-24
+Oficio de interfaz: el plugin aprende a construir componentes de cristal y física de primer nivel desde cero y a
+adaptar los de una librería, trae los dos primeros componentes «NEW ERA original» y se reordena para que cada pedido
+cargue la skill que le toca. Todas las skills pasan a `1.3.0`.
+
+### Añadido
+- `componentes-interactivos/references/cristal-liquido.md`: anatomía del cristal por capas (lente, tinte, luz de cara,
+  canto asimétrico, especular, bisel, grano, sombra de contacto y sombra con el color del fondo), refracción real con
+  un mapa de desplazamiento por SDF en `backdrop-filter: url(#id)` (solo Chromium) y sus respaldos, errores típicos
+  y una receta mínima.
+- `componentes-interactivos/references/fisica-y-fluidez.md`: muelles (k, c, ζ), muelle convertido a `linear()` de
+  CSS, interrupción y velocidad, la gota de dos cuerpos (cabeza y cola con distinto muelle), aplastamiento con la
+  velocidad, desplegable con rebote (entrada con muelle, salida corta, ítems escalonados) y recetas.
+- `componentes-interactivos/references/adaptar-componentes.md`: receta para modificar cualquier componente
+  (paleta, tipo, radios, tamaños, tiempos y curvas, de React a HTML o three.js, combinar dos, quitar lo genérico).
+- Motores nuevos: `muelle.js` (muelle con paso fijo, `muelleLinear()` para CSS y muelles con nombre) y
+  `cristal-lente.js` (lente de refracción con mapa SDF, `refraccionDisponible()`, respeta la transparencia reducida).
+- Dos componentes **NEW ERA original**, con ficha en `references/originales.md`: `nivel-burbuja.js` (indicador de
+  scroll como un nivel de obra: la burbuja se estira si vas deprisa, se arrastra y responde al teclado) y `marea.js`
+  (control segmentado líquido: la superficie se inclina con la aceleración y chapotea al llegar).
+- Prueba `pruebas/componentes-propios`: dos páginas hechas desde cero con las guías (barra de cristal con gota,
+  desplegable con rebote y fondo por capas; los dos originales). 32 comprobaciones en Chrome.
+- Regla 8 ampliada (`direcciones-de-estilo.md` §6): tabla de piezas de interfaz que delatan una librería copiada
+  sin adaptar (nav en píldora de cristal blanco, cristal sobre fondo liso, dock que se magnifica, sidebar de admin,
+  todo rebotando igual, brillo en bucle, bento con gráficos falsos) y qué hacer en su lugar.
+- `biblioteca-componentes`: cómo tratar un catálogo de pago con condiciones de uso propio (solo en local, sin
+  redistribuir).
+
+### Cambiado
+- Descripciones de todas las skills reescritas: cortas (de 190 a 575 caracteres, antes hasta 2061), con el pedido
+  típico al principio y un «NO para» que manda a la skill correcta.
+- Un único mapa de enrutado en `new-era` (antes repartido en cinco sitios) y la tabla de capas en los README.
+- Referencias duplicadas fusionadas: 11 temas con un solo fichero de referencia cada uno.
+- `/web-premium` queda como alias obsoleto de `/new-era` (se quitará en la 2.0).
+
+### Corregido
+- Prompt negativo: ya no se dice que un modelo lo admite si no lo admite (`video-ia-para-scroll` paso 6 y
+  `prompts-foto.md`).
+
 ## [1.2.1] - 2026-11-24
 ### Corregido
 - `learn-taste` sale de la fase Revisión de la tabla de carga: su autor la marcó con `disable-model-invocation` y la

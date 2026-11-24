@@ -41,9 +41,9 @@ ffprobe -v error -select_streams v -show_entries stream=codec_name,profile,pix_f
 - [ ] La hoja de contactos en los segundos que señala el informe. Los fallos suelen salir entre el s 5 y el 8 en
       clips largos.
 - [ ] El producto es el real en **todos** los fotogramas: forma, color, etiqueta, proporciones.
-- [ ] Sin manos raras, objetos que aparecen o desaparecen, texto basura.
 - [ ] Hueco limpio donde irán los textos.
-- [ ] Revisión de realismo con IA (`pedir-assets-ia/scripts/revisar-ia.mjs`) como apoyo, nunca como única prueba.
+- [ ] Revisión de realismo (señales de «se nota falso», revisión con IA como apoyo y confirmación a mano):
+      [se-nota-falso.md](../../pedir-assets-ia/references/se-nota-falso.md).
 
 **Decidir**
 - [ ] Velocidad irregular o frenada → arreglo por código (`higgsfield-para-webs.md` §7).

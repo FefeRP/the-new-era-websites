@@ -14,7 +14,8 @@ ffprobe -v error -select_streams v -show_entries stream=codec_name,profile,pix_f
 ffprobe -v error -select_streams v -skip_frame nokey -show_entries frame=pts_time -of csv=p=0 clip.mp4 | wc -l   # fotogramas clave
 ```
 Si llega H.265 o 10 bits (BytePlus da así Seedance a 1080p), pásalo a H.264 8 bits 4:2:0: es lo único que va en todos
-los navegadores.
+los navegadores (HEVC y 10 bits dan problemas al buscar [17][18]). Con VP9 de libvpx el recuento de fotogramas clave
+de la segunda orden no es fiable.
 
 ## 1. Medidas propias (21-11-2026)
 Clip: intro de Seedance 2.5, 720p, 5 s, 121 fotogramas. Escritorio a 1280 px de ancho; móvil, recorte central 9:16 a
@@ -62,7 +63,9 @@ Pintar el bitmap ya decodificado en el canvas: menos de 1 ms.
 | Clip largo (más de 10 s) o varios por página | Vídeo, uno a la vez | 300+ frames por clip no caben en memoria de móvil |
 | Bucle de fondo con autoplay (no scroll) | `<video autoplay muted loop playsinline>` normal | No hace falta GOP corto |
 Medición publicada en un móvil emulado (CPU ×4): frames WebP 4 MB, 193 peticiones, primer pintado 585 ms; vídeo
-`-g 8` 0,85 MB, 2 peticiones, primer pintado 117 ms; en escritorio, empate [7]. Un estudio que empezó con
+`-g 8` 0,85 MB, 2 peticiones, primer pintado 117 ms; en escritorio, empate [7]. Otra medida publicada (8 s, 192
+frames a 1280×720): JPEG q85 11,1 MB, WebP q60 4,0 MB, MP4 H.264 GOP 8 0,85 MB. En táctiles hay quien cambia el scrub
+de vídeo por un bucle porque en iOS no es fiable [17]: decide con `scroll-frames` y pruébalo en un móvil real. Un estudio que empezó con
 `currentTime` y ScrollTrigger lo cambió por frames WebP en canvas por tirones en móvil, el autoplay y la calidad [5].
 Lo que no hace nadie bien: **WebCodecs** (`VideoDecoder`) decodifica todo el clip al cargar y no está en Firefox de
 Android [8]; para un hero no compensa.
@@ -79,7 +82,12 @@ ffmpeg -i clip.mp4 -an -vf "crop=ih*9/16:ih,scale=540:960:flags=lanczos,format=y
 ```
 **Frames:** `extraer-frames.mjs` (WebP q72, 1600 px escritorio y 900 px móvil, 90-150 frames; `--frames` toma 1 de
 cada k fotogramas a intervalo fijo). Referencias publicadas: 30 KB por frame WebP q80 en una web de estudio con
-secuencias por dispositivo (1440×832, 1024×1366 y 393×852 vertical a 1x) [5].
+secuencias por dispositivo (1440×832, 1024×1366 y 393×852 vertical a 1x) [5]; para un hero, 60-150 frames de 15-40 KB
+(5-15 MB en total), ~1600-1920 px en escritorio y ~960 px en móvil, calidad 75-80 [19][20]. Extrae a 24 fps, nunca por
+encima de los del clip; `decode()` de los primeros ~20 antes de dibujar y DPR limitado a 2 [16].
+- WebP es el formato por defecto; JPEG solo como reserva antigua; PNG nunca para secuencias (salvo como intermedio).
+- Transparencia: mejor evitarla. Pide al generador un fondo liso y pon ese color de fondo en la sección (más ligero y
+  sin halos). Si de verdad hace falta, formatos y pesos con alfa en la skill `capas-alfa` (`references/formatos-alfa.md`).
 
 ## 4. Carga progresiva y póster
 - **Póster** como `<img fetchpriority="high">` con el primer fotograma (WebP de 30-80 KB), no el PNG del generador
@@ -92,6 +100,7 @@ secuencias por dispositivo (1440×832, 1024×1366 y 393×852 vertical a 1x) [5].
   quede en [0,0] si el servidor no responde 206 a las peticiones Range [10]. Una web de estudio con vídeo de Kling lo
   pasó de 14,7 a 6,5 MB solo recodificando con `-g 6` [11].
 - La sección que está más abajo se crea al acercarse (IntersectionObserver con margen) y fuera de vista no se carga.
+- 6 descargas en paralelo con HTTP/2; cabecera de caché larga y carpeta versionada (`/frames/reloj-v2/`).
 
 ## 5. El bucle del scroll
 - Lee el scroll en `requestAnimationFrame`; suaviza con lerp de 0,12 a 0,20 [11][12].
@@ -141,3 +150,8 @@ cuenta mejor la historia) y no descargues ni frames ni vídeo [10]. Los motores 
 13. Kaev, animación por scroll sin matar el rendimiento [leída entera]: https://kaev.ai/blog/scroll-driven-animation-without-killing-performance
 14. PQINA, memoria total de canvas en iOS [parcial]: https://pqina.nl/blog/total-canvas-memory-use-exceeds-the-maximum-limit/ · WebKit bug 195325 [parcial]: https://bugs.webkit.org/show_bug.cgi?id=195325
 15. Ludicon, carga de imágenes en la web (2026) [leída entera]: https://www.ludicon.com/castano/blog/2026/05/image-loading-on-the-web/
+16. Internet Toolbox, frames para animación por scroll: https://internettoolbox.it/guides/scroll-animation-frames/
+17. Red Eye Automations, fondos de vídeo con scrub: https://redeyeautomations.com/notes/scroll-scrub-video-backgrounds
+18. ericswpark, scrub de vídeo suave: https://ericswpark.com/blog/2023/2023-08-07-smooth-scrubbing-videos-version-2/
+19. Scrollsequence, secuencias que van lentas en móvil: https://beta.scrollsequence.com/blog/image-sequence-lagging-on-mobile-9-fixes
+20. AI CSS Animations, animaciones de scroll al estilo Apple: https://www.aicssanimations.com/guides/apple-style-scroll-animations

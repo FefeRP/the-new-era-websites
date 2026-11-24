@@ -1,7 +1,7 @@
 {
   "name": "the-new-era-websites",
-  "version": "1.2.1",
-  "description": "Claude Code skills for building websites: cinematic scroll with video frames, AI image assets (isolated objects with alpha, brand icon sets, textures, backgrounds, product), transparent layers and alpha video, reveals and scene transitions, depth layers with real shadows, 3D glTF only when it is needed, a map that zooms to the building, reusable components (flip card, orbital carousel, 3D reviews), a searchable catalogue of UI components to adapt (never paste as-is) and rules learned on real sites. Master skill: NEW ERA (/new-era). Works alongside your design skills instead of repeating them. Skills written in Spanish.",
+  "version": "1.3.0",
+  "description": "Claude Code skills for building websites: cinematic scroll with video frames, AI image assets (isolated objects with alpha, brand icon sets, textures, backgrounds, product), transparent layers and alpha video, reveals and scene transitions, depth layers with real shadows, 3D glTF only when it is needed, a map that zooms to the building, interface craft (liquid glass with real lens refraction, spring physics, bounce dropdowns, gooey drops, how to adapt any component to a brand), reusable engines (springs, glass lens, flip card, orbital carousel, 3D reviews and two NEW ERA originals: a spirit-level scroll indicator and a liquid segmented control), a searchable catalogue of UI components and rules learned on real sites. Master skill: NEW ERA (/new-era) routes every request to the right skill. Works alongside your design skills instead of repeating them. Skills written in Spanish.",
   "author": {
     "name": "FefeRP",
     "url": "https://github.com/FefeRP"
@@ -43,6 +43,10 @@
     "icons",
     "textures",
     "ai-images",
-    "design-system"
+    "design-system",
+    "liquid-glass",
+    "glassmorphism",
+    "spring-physics",
+    "dropdown"
   ]
 }

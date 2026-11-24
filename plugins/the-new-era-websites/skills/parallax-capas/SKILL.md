@@ -1,8 +1,8 @@
 ---
 name: parallax-capas
-description: Profundidad sin 3D - hero y secciones "dimensionales" con capas (fondo, sujeto, primer plano, atmósfera) que se mueven a distinta velocidad con el scroll y el puntero; cómo preparar las capas (recorte con alfa, clean plate, imágenes generadas por capa o capas hechas con código), la SOMBRA como capa propia semitransparente (extraída de la foto con capas-sombra.mjs o sintética) para recomponer y levitar, versión solo CSS con scroll-driven animations y versión JS sin dependencias. Úsala cuando pidan "efecto de profundidad", "parallax", "que parezca 3D sin 3D", "hero con capas", "ingredientes flotando alrededor del producto", "separar en capas", "sacar la sombra", "producto que levita", "depth effect", "layered hero", "multiplane parallax", "mouse parallax", "2.5D", "shadow layer", "keep the shadow when removing background".
+description: "Profundidad por capas: capas que se mueven a distinta velocidad con el scroll o el puntero, la sombra como capa propia y fondos generados por capas que cambian de escena. «parallax», «hero con capas», «producto que levita», «fondo por capas», «2.5D». NO para recortar (capas-alfa) ni si el objeto gira (scroll-frames, escena-3d-gltf, envase-giratorio)."
 license: MIT
-version: 1.2.1
+version: 1.3.0
 ---
 
 # Parallax y profundidad por capas

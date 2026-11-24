@@ -1,8 +1,8 @@
 ---
 name: fotos-producto-ia
-description: Fotos de producto de calidad con IA (Higgsfield con Nano Banana 2.1 / Pro, GPT Image 2 / 2.5 / 2.6, Seedream 5, Soul y Marketing Studio; también Flux 3 / Flux 2 pro y Qwen Image 3) partiendo de fotos REALES del producto. Cubre cómo hacer las fotos de referencia con el móvil, encuadres e iluminación de producto, prompts por referencia que conservan forma/logo/texto/color, consistencia entre tomas (mismo producto en varias escenas, imagen clave para vídeo), capas por separado (fondo vacío, producto, flotantes, plato limpio para la sombra) y qué hacer cuando sale deformado (revisión contra la referencia, inpaint por zona, componer el producto real recortado encima). Úsala cuando pidan "fotos de producto con IA", "foto del producto en otra escena", "packshot con Higgsfield", "imagen clave del producto", "que el producto salga igual", "arreglar logo deformado", "AI product photography", "product photo from reference", "keep product consistent".
+description: Fotos del producto REAL del cliente en escenas nuevas a partir de sus fotos (edición por referencia), sin que cambie la forma ni la etiqueta, y arreglo de logos deformados. «foto del producto en otra escena», «packshot con IA», «AI product photo from reference». NO para piezas sueltas, iconos o texturas (recursos-imagen-ia) ni para decidir qué hace falta (pedir-assets-ia).
 license: MIT
-version: 1.2.1
+version: 1.3.0
 ---
 
 # Fotos de producto con IA desde fotos reales
@@ -70,4 +70,4 @@ Por eso el proceso **asume que habrá fallos** y trae la forma de arreglarlos.
 - [references/fotos-referencia.md](references/fotos-referencia.md): cómo hacer (o pedir al cliente) las fotos reales con el móvil.
 - [references/prompts-foto.md](references/prompts-foto.md): preámbulo de luz, plantillas por encuadre (hero ¾, packshot, cenital, macro, en uso, contraluz, flotante, escena vacía) y negativos.
 - [references/fallos-y-arreglos.md](references/fallos-y-arreglos.md): deformaciones típicas, cómo detectarlas (prompt de control) y cómo corregirlas.
-- [references/modelos-y-precios.md](references/modelos-y-precios.md): modelos de imagen de Higgsfield y alternativas locales, referencias que admiten, precios con fecha.
+- [references/modelos-y-precios.md](references/modelos-y-precios.md): qué modelo para el producto real, alternativas locales y presupuesto tipo; los precios y créditos de cada modelo, en `pedir-assets-ia/references/proveedores.md`.

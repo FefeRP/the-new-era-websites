@@ -1,5 +1,5 @@
 ---
-description: Alias de /new-era (nombre anterior del comando; se mantiene para no romper a quien ya lo usa)
+description: "Obsoleto: alias de /new-era (nombre anterior). Usa /new-era; este alias se quitará en la 2.0"
 argument-hint: <qué web quieres: negocio, producto, activos, destino>
 ---
 

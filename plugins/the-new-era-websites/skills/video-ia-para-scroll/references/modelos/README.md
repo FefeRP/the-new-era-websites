@@ -16,35 +16,12 @@ MCP (`estimate_video_cost`, también gratis). Son dos tarifas distintas: no conv
 | [otros-video.md](otros-video.md) | MiniMax H3 / Hailuo 2.3, Grok Video 1.5, LTX-2.5, Happy Horse, Cinema Studio, DoP | Casos puntuales; Cinema Studio para registro de cámara y lente |
 | [imagen-clave.md](imagen-clave.md) | Nano Banana, Seedream, GPT Image, Cinema Studio Image, Soul, Flux, Qwen, Recraft | La imagen de inicio y la de fin: aquí se fija el FOV, la luz y la marca |
 
-## Tabla rápida
-
-Precio por segundo en la API (sin audio). Entre paréntesis, créditos de la web por 5 s.
-
-| Modelo | Duración | 480p | 720p | 1080p | 4K | Inicio + fin |
-|---|---|---|---|---|---|---|
-| Seedance 2.5 | 4-30 s | 0,118 (15) | 0,265 (35) | 0,652 (80) | — | Sí (el fin se recorta a la proporción del inicio) |
-| Seedance 2.0 | 4-15 s | 0,080 | 0,174 (22,5) | 0,429 (60) | 0,891 | Sí |
-| Seedance 2.0 Mini | 4-15 s | — | (5) | — | — | Sí |
-| Kling 3.0 std / pro / 4k | 3-15 s | — | 0,071 (7,5) | 0,096 (8,75) | 0,315 (30) | Sí |
-| Kling 3.0 Turbo | 3-15 s | — | 0,084 | 0,105 | — | **No** (solo inicio) |
-| Kling O3 (FLF) | 3-15 s | — | 0,068 | 0,086 (6,25) | — | Sí |
-| Kling 2.5 Turbo pro | 5/10 s | — | 0,032 | 0,053 | — | No |
-| Kling 4.0 | 3-30 s | — | 0,126 | 0,188 (18,75) | 0,549 | Sí + intermedios |
-| Kling 4.0 Flash | 3-20 s | — | 0,094 (7,5) | — | — | No |
-| Veo 3.1 / Fast / Lite | 4/6/8 s | solo web: 8 s Fast 32 cr, High 80 cr, Lite 12 cr | | | | Lite y web (ver ficha) |
-| Wan 3.0 | 2-30 s | 0,038 | 0,075 | 0,150 (15) | — | Sí |
-| Wan 3.0 Prime | 2-30 s | 0,051 | 0,105 | 0,210 (27,5) | — | Sí |
-| Wan 2.7 | 2-15 s | — | 0,075 | 0,113 (12,5) | — | Sí |
-
-Por clip: Kling 4.0 Flash 5 s 0,47 $; MiniMax H3 lite 6 s 0,24 $ (768p); Grok Video 1.5 5 s 720p 0,71 $; LTX-2.5 pro
-6 s 1080p 1,02 $; Happy Horse 1.1 5 s 1080p 0,90 $.
-
-Herramientas (créditos de la web): deflicker 2, upscale 2, ByteDance upscale a 1080p (preset AIGC) 1. Topaz y
-fps_boost no se pueden estimar sin el vídeo.
-
-**Lo que no está:** Sora 2 no aparece en Higgsfield (ni web, ni API, ni skills oficiales). Veo, Nano Banana, GPT
-Image y Flux no están en la API de pago por uso; sí en la web y el MCP (Seedream 5 Pro sí está en la API: 0,108 $). Seedance 2.5 Flash existe en BytePlus
-y en el MCP de Higgsfield (25 créditos 5 s a 720p), no en la API.
+## Precios de todos los modelos
+La tabla medida de Higgsfield (dólares por segundo en la API y créditos de la web por resolución, duración e inicio +
+fin), lo que no está en la API y los demás proveedores están en un solo sitio:
+[proveedores.md](../../../pedir-assets-ia/references/proveedores.md) de `pedir-assets-ia` («Vídeo en Higgsfield: tabla
+medida»). Fuera de Higgsfield, Runway describe bien la cámara (Gen-4.5 solo con inicio; Aleph edita un vídeo hecho) y
+Luma tiene modo bucle y hasta 16 fotogramas clave.
 
 ## Lo común a todos (léelo una vez)
 - **Imagen a vídeo**, nunca texto a vídeo, para todo lo que tenga producto o marca. La imagen manda: encuadre, lente,

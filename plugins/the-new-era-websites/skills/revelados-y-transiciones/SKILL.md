@@ -1,8 +1,8 @@
 ---
 name: revelados-y-transiciones
-description: Revelados y transiciones entre secciones sin 3D ni vídeo - imagen que aparece por bloques (rejilla), cortina que cambia de escena, zoom 2D a un punto de una imagen grande con relevo a una imagen de detalle, titulares que suben línea a línea con máscara, tarjeta que crece a pantalla completa, View Transitions y animaciones CSS ligadas al scroll. Motor revelados.js sin dependencias, con la misma interfaz para scroll (GSAP scrub) o tiempo. Úsala cuando pidan "revelado por bloques", "la imagen aparece en cuadrícula", "transición entre secciones", "cortina", "cambio de escena", "zoom a un producto de la estantería", "acercarse a un punto de la imagen", "texto que sube por líneas", "titular con máscara", "tarjeta a pantalla completa", "grid reveal", "clip-path reveal", "section transition", "curtain wipe", "zoom into image", "line reveal text", "view transitions", "scroll-driven animation".
+description: "Entradas y cambios de escena por código: rejilla de bloques, cortina entre secciones, zoom 2D a un punto, titulares por líneas, View Transitions. «transición entre secciones», «revelar el titular», «line reveal», «curtain wipe», «page transition». NO para mirar dentro con el cursor ni para el antes y después (lente-revelado)."
 license: MIT
-version: 1.2.1
+version: 1.3.0
 ---
 
 # Revelados y transiciones

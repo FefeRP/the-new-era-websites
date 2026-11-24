@@ -80,6 +80,9 @@ Skills que no son módulo porque son de la base: `revelados-y-transiciones`, `ra
 | Servicio a domicilio u oficio (limpieza, reformas, jardín) | Assets (antes y después del mismo encuadre) · a veces Vídeo IA (el trabajo por zonas) | 3D | «Límpialo tú» y el presupuesto al instante (catálogo J) |
 | Constructora, arquitectura | Vídeo IA (la obra al revés, plantilla 14) + Scroll inmersivo · Assets | 3D salvo maqueta navegable | Se construye mientras bajas |
 
+Qué assets lleva cada tipo de web, tramo a tramo y con su coste:
+[recetas-por-tipo-de-web.md](../../../pedir-assets-ia/references/recetas-por-tipo-de-web.md) de `pedir-assets-ia`.
+
 ## Lo que no cambia con los módulos
 - Ninguna web concreta es referencia fija: el tablero del paso 2 se hace para cada cliente.
 - Lo realista sale de la IA o de fotos, no del 3D; lo exacto (logos, textos, precios, pantallas) siempre por código.

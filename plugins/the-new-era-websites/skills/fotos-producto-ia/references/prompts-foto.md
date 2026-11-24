@@ -41,6 +41,6 @@ The label reads exactly "[TEXTO LITERAL]". Do not add, remove or change any part
 
 ## Restricciones (en positivo, al final del prompt)
 `Keep a single product, with its label and logo exactly as in reference 1 and neutral colours. No text, no logos, no hands, no extra objects.`
-Campo negativo, solo en los modelos que lo tienen (Wan, Seedance, Qwen, Flux):
+Campo negativo, solo en los modelos de imagen que lo tienen (Qwen, Flux):
 `extra objects, duplicate products, text, watermark, distorted label, warped logo, hands, reflections of the photographer, colour cast`
 (Los negativos ayudan poco con los logos: la defensa real es la revisión y la composición del producto real.)

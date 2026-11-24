@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Originales NEW ERA: nivel de burbuja y marea</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+  :root { --fondo: #061a20; --zona: #0b2a33; --texto: #e9f4f1; --suave: color-mix(in oklab, #e9f4f1 70%, #061a20);
+    --turquesa: #5ce1c9; --ambar: #f0a44b; --coral: #ff6f59; --ultramar: #6e86ff; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fondo); color: var(--texto); font: 400 1.0625rem/1.55 Archivo, system-ui, sans-serif; }
+  .tira { position: fixed; right: clamp(14px, 3vw, 36px); top: 50%; translate: 0 -50%; z-index: 5; }
+  .nivel { --nivel-largo: min(52vh, 360px); --nivel-grosor: 24px; --nivel-liquido: rgb(92 225 201 / .34); color: var(--texto); }
+  section { min-height: 92vh; padding: 12vh clamp(20px, 8vw, 120px); display: grid; align-content: center; gap: 28px;
+    border-top: 1px solid rgb(233 244 241 / .08); }
+  section:nth-child(even) { background: var(--zona); }
+  h1, h2 { margin: 0; font-stretch: 118%; font-weight: 800; line-height: .95; letter-spacing: -0.02em; }
+  h1 { font-size: clamp(3rem, 9vw, 7.5rem); }
+  h2 { font-size: clamp(2rem, 5vw, 4rem); }
+  p { margin: 0; max-width: 46ch; color: var(--suave); }
+  .marea-plan { gap: 4px; padding: 5px; border-radius: 18px; background: rgb(233 244 241 / .06);
+    box-shadow: inset 0 0 0 1px rgb(233 244 241 / .14), 4px 4px 0 rgb(0 0 0 / .35);
+    --marea-liquido: var(--turquesa); --marea-texto-activo: #052027; --marea-espuma: rgb(255 255 255 / .75); }
+  .marea-plan button { min-height: 48px; padding: 0 22px; border: 0; border-radius: 13px; background: transparent;
+    color: var(--texto); font: 700 1rem/1 Archivo, sans-serif; font-stretch: 112%; cursor: pointer; }
+  .marea-plan button:focus-visible { outline: 2px solid var(--texto); outline-offset: 2px; }
+  .precio { font-size: clamp(2.6rem, 6vw, 4.5rem); font-weight: 800; font-stretch: 120%; color: var(--texto); font-variant-numeric: tabular-nums; }
+  .marea-ambar { --marea-liquido: var(--ambar); --marea-texto-activo: #2a1606; }
+</style>
+</head>
+<body>
+  <div class="tira"><div class="nivel" id="nivel"></div></div>
+  <main>
+    <section>
+      <h1>Webs que se notan<br>hechas a mano</h1>
+      <p>Bájate la página: la burbuja de la derecha marca dónde estás y se estira si vas deprisa. Arrástrala para moverte.</p>
+    </section>
+    <section>
+      <h2>Elige cómo pagar</h2>
+      <div class="marea-plan" id="marea1" aria-label="Forma de pago">
+        <button aria-selected="true">Mensual</button><button>Trimestral</button><button>Anual</button><button>Proyecto cerrado</button>
+      </div>
+      <div class="precio" id="precio" aria-live="polite">290 € / mes</div>
+    </section>
+    <section>
+      <h2>Lo que hacemos</h2>
+      <div class="marea-plan marea-ambar" id="marea2" aria-label="Servicio">
+        <button aria-selected="true">Webs</button><button>Tiendas</button><button>Marca</button>
+      </div>
+      <p>Cada opción tiene su color de marca: el líquido es el mismo componente con otra variable.</p>
+    </section>
+    <section><h2>Final de la página</h2><p>Aquí la burbuja choca con el tapón y se aplasta un instante.</p></section>
+  </main>
+  <script type="module">
+    import { crearNivelBurbuja } from '../../plugins/the-new-era-websites/skills/componentes-interactivos/scripts/nivel-burbuja.js';
+    import { crearMarea } from '../../plugins/the-new-era-websites/skills/componentes-interactivos/scripts/marea.js';
+    const precios = ['290 € / mes', '810 € / trimestre', '2.900 € / año', 'desde 4.500 €'];
+    const nivel = crearNivelBurbuja(document.getElementById('nivel'));
+    const m1 = crearMarea(document.getElementById('marea1'), { alCambiar: (i) => { document.getElementById('precio').textContent = precios[i]; } });
+    const m2 = crearMarea(document.getElementById('marea2'));
+    window.__prueba = { nivel, m1, m2 };
+  </script>
+</body>
+</html>

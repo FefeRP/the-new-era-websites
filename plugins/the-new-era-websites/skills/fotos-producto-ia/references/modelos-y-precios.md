@@ -1,33 +1,13 @@
-# Modelos de imagen y precios (consultado 30-10-2026; los precios cambian: confírmalos en la herramienta antes de presupuestar)
+# Modelos de imagen y precios (los precios cambian: confírmalos en la herramienta antes de presupuestar)
 
-Tabla general de imagen y vídeo de todos los proveedores (Nano Banana, GPT Image, Qwen, Flux, Seedream, Midjourney…) y cálculo
-del presupuesto: `pedir-assets-ia` (`references/proveedores.md`, `scripts/presupuesto.mjs`).
+Planes de Higgsfield, créditos por imagen de cada modelo (Nano Banana, GPT Image, Seedream, Soul, Marketing Studio,
+Layers…), API y los demás proveedores, en un solo sitio:
+[proveedores.md](../../pedir-assets-ia/references/proveedores.md) de `pedir-assets-ia` («Imagen en Higgsfield»). El
+presupuesto se calcula con `pedir-assets-ia/scripts/presupuesto.mjs`.
 
-## Higgsfield (higgsfield.ai)
-- **Planes:**
-  - Starter: 15 $/mes, 200 créditos.
-  - Plus: 49 $/mes, 1.000 créditos.
-  - Ultra: 129 $/mes, 3.000 créditos.
-  - Free: sin créditos y con marca de agua.
-  - Un crédito sale por ~0,04-0,075 $ según el plan.
-  - Los créditos del plan caducan cada mes.
-- **Medido por API:** Qwen Image 3 (escena e interiores 2K, edita con referencia) ~0,075 $/imagen.
-
-| Modelo / herramienta | Referencias | Máx. | Coste aprox. | Para |
-|---|---|---|---|---|
-| Nano Banana Pro | hasta 14 | 4K | ~2 créditos (0,134 $), ~4 en 4K | producto con texto y logo, el más fiable |
-| Nano Banana 2.1 | hasta 14 | 4K | sin confirmar (Plus/Ultra: 7 días ilimitado a 2K) | lo mismo, más rápido |
-| GPT Image 2 / 2.5 / 2.6 | hasta 16 | 4K | 1,5 (1K baja) · 5,5 (2K alta) · 26,5 créditos (4K máx.) | texto exacto, composición; la 2.6 con fondo transparente |
-| Seedream 5 / 5 Pro | hasta 14 (dato de terceros) | 4096² | ~1 crédito | volumen barato, variaciones; la Pro recorta (`remove_bg`) |
-| Soul 2.0 | sin confirmar | — | ~0,12 créditos | estética, escenas (poco fiel al producto) |
-| Marketing Studio / Recreate | 1 foto | — | 2-4 créditos por foto | serie hero, lifestyle y modelo desde una foto |
-| Layers (Seedream 5) | — | 4K | sin confirmar | separar capas, inpaint dibujando, recorte con alfa, reiluminar |
-
-- **API:**
-  - En cloud.higgsfield.ai, pago por uso desde un saldo en dólares.
-  - Soul 2: ~0,0032 $/imagen. Marketing Studio Image: ~0,0059 $.
-  - La tarifa de Nano Banana Pro y GPT Image por API **no está confirmada**.
-- **Fidelidad:** Higgsfield no promete fidelidad de logo o texto. Revisa siempre.
+Para fotos del producto real: Nano Banana Pro o GPT Image en calidad alta si hay texto o logo (el más fiable, el
+primero); Seedream 5 o Nano Banana 2.1 para volumen; Soul solo para ambiente sin producto; Marketing Studio para una
+serie desde una foto; Layers para separar capas o reiluminar. Ninguno promete fidelidad de logo o texto: revisa siempre.
 
 ## Alternativas (gratis en local, necesitan GPU)
 | Modelo | Licencia | Requisitos | Nota |

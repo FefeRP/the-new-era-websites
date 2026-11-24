@@ -1,21 +1,35 @@
 ---
 name: componentes-interactivos
-description: Componentes reutilizables para webs, sin dependencias y con la accesibilidad resuelta - tarjeta con volteo 3D y capas en profundidad (tarjeta-volteo.js), carrusel circular en órbita o anillo 3D que gira con arrastre, teclado, autoplay o el scroll (carrusel-orbital.js) y muro de reseñas en columnas inclinadas en 3D en movimiento continuo (resenas-3d.js). Cada uno con su versión para táctil, para reduced-motion y su destruir(). Úsala cuando pidan "tarjeta que se da la vuelta", "tarjeta con volteo", "flip card", "carrusel circular", "carrusel orbital", "anillo 3D", "galería circular", "carrusel 3D que gira con el scroll", "reseñas en 3D", "muro de testimonios", "testimonios en columnas", "componente reutilizable", "3D flip card", "circular gallery", "orbital carousel", "3D carousel on scroll", "3D testimonials", "testimonial marquee", "reusable component".
+description: "Para hacer a mano una barra de navegación, menú, desplegable, sidebar, panel o carrusel de cristal líquido (liquid glass, glassmorphism con refracción real), o con física de muelle (rebote, gota que se estira, gooey), y para adaptar un componente ya hecho a una marca (paleta, tipo, radios, tiempos, de React a HTML o three.js, combinar dos, quitarle lo genérico). Guías de oficio y motores probados: muelle.js, cristal-lente.js, tarjeta con volteo, carrusel orbital, reseñas 3D y dos originales (nivel de burbuja, marea). «nav de cristal», «liquid glass navbar», «desplegable con rebote», «bouncy dropdown», «spring animation», «adapta este componente». NO para buscar uno hecho (biblioteca-componentes)."
 license: MIT
-version: 1.2.1
+version: 1.3.0
 ---
 
 # Componentes interactivos
 
 > **En NEW ERA:** es de la **base común** (vale para cualquier web, sin activar módulos).
 
-Tres piezas que se repiten en webs reales (listados, destacados, prueba social), escritas en JavaScript sin dependencias
-para que sirvan igual en HTML estático, Vite, Astro o dentro de un componente de React o Vue. Cada motor recibe el HTML
-que ya existe, devuelve `destruir()` y trae resuelto lo que suele quedar a medias: teclado, lectores de pantalla, táctil,
-reduced-motion y pausa fuera de pantalla.
+El oficio de las piezas de interfaz: cómo se **construyen** desde cero a nivel de las mejores librerías y cómo se
+**modifica** un componente ajeno sin romperlo. Dos partes:
 
-El aspecto (colores, tipografía, radios, sombras) **no** lo pone esta skill: sale del sistema de diseño del proyecto. Si
-hay skills de diseño instaladas, el pulido de curvas y tiempos se consulta con `animate` o `emil-design-eng`.
+**A. Oficio (guías, sin motor que copiar).** Se leen antes de escribir o adaptar cualquier pieza con material o física:
+| Pieza | Guía | Qué enseña |
+|---|---|---|
+| Cristal y cristal líquido (nav, dock, sidebar, tarjeta, botón) | [references/cristal-liquido.md](references/cristal-liquido.md) | Anatomía por capas con valores, refracción SVG y WebGL, borde de luz, física de gota, alternativas y coste |
+| Rebote, estiramiento, gotas que se funden, menús y carruseles con inercia | [references/fisica-y-fluidez.md](references/fisica-y-fluidez.md) | Muelles con valores, interrupción, squash and stretch, gooey, origen desde el disparador, recetas de desplegable, menú, sidebar, carrusel y transiciones |
+| Llevar un componente de la librería a la marca | [references/adaptar-componentes.md](references/adaptar-componentes.md) | Qué se puede tocar y qué no (paleta, tipo, radios, tamaños, tiempos), pasar de React a HTML o a three.js, combinar dos, quitarle lo genérico |
+| Piezas propias firmadas | [references/originales.md](references/originales.md) | Componentes «NEW ERA original» hechos con estas guías, con su idea y sus valores |
+
+Orden de trabajo: buscar primero en la librería (`biblioteca-componentes`); si hay algo que encaje, se **adapta** con la
+guía; si no, se **construye** con las guías de material y física. Nunca una versión rebajada «inspirada en».
+
+**B. Motores.** Tres piezas que se repiten en webs reales (listados, destacados, prueba social), escritas en JavaScript
+sin dependencias para que sirvan igual en HTML estático, Vite, Astro o dentro de un componente de React o Vue. Cada motor
+recibe el HTML que ya existe, devuelve `destruir()` y trae resuelto lo que suele quedar a medias: teclado, lectores de
+pantalla, táctil, reduced-motion y pausa fuera de pantalla.
+
+El aspecto (colores, tipografía, radios, sombras) sale del sistema de diseño del proyecto (`DESIGN.md`). Si hay skills
+de diseño instaladas, el pulido de curvas y tiempos se consulta con `animate`, `emil-design-eng` y `apple-design`.
 
 | Quiero… | Motor | Cuándo sí | Cuándo no |
 |---|---|---|---|
@@ -23,6 +37,13 @@ hay skills de diseño instaladas, el pulido de curvas y tiempos se consulta con 
 | Destacados que giran alrededor de un centro | `carrusel-orbital.js` (`modo: 'orbita'`) | 5-9 elementos de igual peso, uno protagonista cada vez | Más de 12 elementos o comparación lado a lado: rejilla |
 | Un anillo de tarjetas que gira al bajar | `carrusel-orbital.js` (`modo: 'anillo'` + `desplazar`) | Sección fijada de destacados con foto | Sin fotos buenas: el anillo las enseña grandes y en escorzo |
 | Prueba social con movimiento | `resenas-3d.js` | 5 o más reseñas reales | Menos de 5, o reseñas inventadas: no se usa |
+| Un valor que persigue a otro con física (indicador, gota, arrastre) o una curva de muelle para CSS | `muelle.js` (`crearMuelle`, `muelleLinear`, `MUELLES`) | Todo lo que se interrumpe o hereda velocidad; `linear()` para popovers y hovers con transición | Un fundido o un cambio de color: transición CSS normal |
+| Refracción de lente en una capa de cristal | `cristal-lente.js` (`crearLente`) | Navs, paneles y botones de cristal sobre un fondo con detalle (Chromium; el resto, esmerilado) | Sobre fondo plano o vídeo a pantalla completa: no hay nada que doblar o cuesta demasiado |
+| Indicador de scroll con carácter | `nivel-burbuja.js` (NEW ERA original) | Páginas largas de lectura o de portafolio | Páginas cortas: no aporta |
+| Selector o pestañas con líquido | `marea.js` (NEW ERA original) | 2-5 opciones (plan, filtro, sección) donde el cambio merece un momento | Navegación que se usa cientos de veces al día: sin animación |
+
+Prueba de los cuatro últimos: `pruebas/componentes-propios/` del repositorio (barra de cristal con gota, desplegable
+con rebote y fondo por capas desde cero, más los dos originales; ver su LEEME).
 
 ## Antes de programar (obligatorio)
 El código de esta skill se monta dentro de un proyecto: no se escribe de memoria (regla 6 de `new-era`; protocolo en

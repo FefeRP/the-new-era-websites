@@ -29,6 +29,8 @@ respete el alfa de VP9.
 - Keyframes: por defecto uno cada 2 s (bucle, pesa poco). `--scrub` pone uno cada 4 frames: la búsqueda con `currentTime`
   responde rápido sin el peso de `-g 1`.
 - Frames con alfa: la memoria decodificada es la misma que sin alfa (ancho × alto × 4 bytes): la ventana LRU de
-  `frame-scrubber` sigue siendo necesaria.
+  `frame-scrubber` sigue siendo necesaria. En disco pesan ~1,5-2 veces los opacos: resolución contenida (≤ 1280 px) y
+  menos frames.
+- Peso típico del apilado: ~0,4-1 MB por 3-5 s. Topes por tipo (capa, vídeo, frames) en las reglas del `SKILL.md`.
 - iOS en ahorro de energía no reproduce `<video>`: `video-alfa.js` deja el póster. Si el elemento es imprescindible en móvil,
   frames.

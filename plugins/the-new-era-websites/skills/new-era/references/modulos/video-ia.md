@@ -32,8 +32,9 @@ es solo un bucle de fondo con autoplay, basta la receta de `montaje-web.md`).
 - `references/arbol-decision.md`: ¿hace falta vídeo?, tipo de plano → modelo y precio, resolución, presupuestos por
   tipo de web.
 - `references/modelos/`: una ficha por modelo (parámetros reales, precio medido, fallos, prompt de partida).
-- `references/plantillas-prompt.md`: 14 plantillas por tipo de plano (intro, revelado de logo, bucle, transición,
-  producto 360, giro, dolly, grúa, despiece, ingredientes, líquido, FPV, hero sutil, la obra al revés).
+- `references/plantillas-prompt.md`: 18 plantillas por tipo de plano (intro, revelado de logo, bucle, transición,
+  producto 360, giro, dolly, grúa, despiece, ingredientes, líquido, FPV, hero sutil, la obra al revés, zoom a una
+  pantalla, entrada por umbral, cambio de estado con cámara fija, descenso aéreo).
 - `references/checklists.md` (antes de generar y al recibir), `references/flujos.md` (imagen clave, encadenar,
   extender, bucles, upscale, deflicker, marca sin deformar), `references/montaje-web.md` (GOP 8 sin B-frames, frames,
   móvil, póster, movimiento reducido), `references/modelos-y-camaras.md` (lente y FOV, dolly frente a zoom).

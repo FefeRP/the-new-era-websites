@@ -1,8 +1,8 @@
 ---
 name: new-era
-description: Skill maestra del marketplace the-new-era-websites para construir o mejorar cualquier web con carácter propio y sin resultados genéricos - corporativa, despacho, editorial, inmobiliaria, tienda o e-commerce, restaurante u hotel, estudio o portfolio, landing de producto, inmersiva o cinematográfica - palabra clave de activación "NEW ERA" o /new-era (siguen valiendo "WEB PREMIUM" y /web-premium, el nombre anterior). Tiene una base común que se usa siempre (brief, dirección de estilo con DESIGN.md, idea, hilo y firma, estructura, tipografía, ritmo y movimiento, carga obligatoria con la herramienta Skill de las skills de diseño instaladas, código contra la documentación actual con find-docs en la versión del proyecto y Modern Web Guidance en las decisiones de plataforma, verificación con capturas y revisión independiente por rondas) y módulos opcionales que activa solo si el proyecto los pide y deja escritos en el BRIEF con el motivo - 3D y WebGL (three.js con glTF, shaders, Spline), vídeo con IA (Higgsfield con Seedance, Kling, Veo y Wan, guía por modelo, plantillas, árbol de decisión, montaje medido), scroll inmersivo y frames, assets de IA (fotos de producto, alfa, capas, parallax, lente de rayos X, envase que gira sin 3D), biblioteca de componentes y lugar y mapa (de la ciudad al edificio). Planifica los activos y su coste, monta la web con la plantilla base (Vite + GSAP + Lenis), la verifica y la revisa antes de darla por terminada. Úsala SIEMPRE que el pedido diga "NEW ERA", "new era website", "WEB PREMIUM", "web premium", "hazme la web de", "mejora esta web", "que no parezca genérica", "web corporativa premium", "web para una inmobiliaria", "web de tienda", "web editorial", "web inmersiva", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "premium website", "immersive website", "awwwards style site", "cinematic scroll website", "3D scrolling website", "build a website with scroll effects", "premium corporate website", "real estate website".
+description: "Maestra: dirige una web ENTERA de principio a fin (brief, dirección de estilo, módulos, construcción, revisión por rondas) y reparte el trabajo entre las demás skills. Úsala con «NEW ERA», /new-era, «hazme la web de…», «rediseña esta web», «mejora esta web», «build a website / landing page», «redesign my site». NO para una sola técnica o efecto suelto: carga directamente la skill de esa técnica."
 license: MIT
-version: 1.2.1
+version: 1.3.0
 ---
 
 # NEW ERA: de un pedido a una web con carácter propio
@@ -18,6 +18,31 @@ Se organiza en dos capas:
   inmersivo y frames**, **assets de IA** (foto, alfa y capas), **biblioteca de componentes** y **lugar y mapa**.
   Cada uno vive en [references/modulos/](references/modulos/README.md) con sus señales, sus skills, sus técnicas, sus
   activos y sus comprobaciones. Una web que no los necesita no arrastra ni el 3D ni el vídeo.
+
+## Mapa del marketplace (quién hace qué)
+Esta es la **única tabla de reparto**: el resto de tablas (módulos, técnicas de la base) solo dicen *cuándo* se usa cada
+skill. Si el trabajo es una sola pieza, se carga directamente la skill de su fila sin pasar por toda la maestra.
+
+| Capa | Skill | Se encarga de | No es para |
+|---|---|---|---|
+| Dirección | `new-era` | La web entera: brief, estilo, módulos, construir, revisar | Un efecto suelto |
+| Interfaz | `componentes-interactivos` | Construir y **adaptar** componentes a mano: cristal líquido, física de muelles, navs, menús, desplegables, sidebars, carruseles; tarjeta con volteo, carrusel orbital, reseñas 3D | Buscar uno hecho |
+| Interfaz | `biblioteca-componentes` | Buscar y copiar un componente del catálogo (con licencia y autor) | Transformarlo a fondo (→ `componentes-interactivos`) |
+| Movimiento | `revelados-y-transiciones` | Entradas, cortinas entre secciones, zoom 2D, titulares por líneas, View Transitions | Antes y después |
+| Movimiento | `rastro-cursor` | Imágenes que siguen al ratón | |
+| Movimiento | `lente-revelado` | Lente bajo el cursor (rayos X, interior) y antes/después | Transiciones |
+| Profundidad | `parallax-capas` | Capas a distinta velocidad, sombra como capa, fondos generados por capas | Recortar |
+| Imagen | `pedir-assets-ia` | Plan de assets: qué medio, coste, orden, continuidad, proveedores | Escribir el prompt de un clip |
+| Imagen | `fotos-producto-ia` | El producto real del cliente en escenas nuevas; logos deformados | Iconos, texturas |
+| Imagen | `recursos-imagen-ia` | Lotes de piezas sueltas, iconos, texturas, fondos | El producto |
+| Imagen | `capas-alfa` | Fondo transparente en imagen y vídeo, texto detrás del sujeto | Mover capas |
+| Vídeo | `video-ia-para-scroll` | Generar y revisar el clip de IA (modelo, prompt, primer/último fotograma) | Montarlo en la web |
+| Vídeo | `scroll-frames` | Montar frames o vídeo que avanzan con el scroll | Generar el vídeo |
+| Vídeo | `seguir-pantalla` | Contenido real sobre una pantalla de un vídeo | |
+| Vídeo | `video-desde-html` | Pasar HTML/CSS/JS a vídeo (redes, bucles, alfa) | Vídeo realista |
+| 3D | `escena-3d-gltf` | Modelo glTF que el visitante gira o configura | Giros guionizados (→ `scroll-frames`) |
+| 3D | `envase-giratorio` | Lata o botella que gira sin 3D | Otras formas |
+| Lugar | `mapa-zoom-ubicacion` | Del mapa de la ciudad al edificio con el scroll | Mapa de contacto |
 
 ## Ocho reglas que no se saltan
 1. **Se elige dirección antes de construir** (paso 2). Una web sale genérica cuando nadie decide: secciones correctas,
@@ -179,6 +204,9 @@ Técnicas de la base (valen para cualquier web, sin activar módulos):
 | Fichas con más datos por detrás (inmuebles, productos, equipo) | Tarjeta con volteo y capas en profundidad | `componentes-interactivos` (`tarjeta-volteo.js`) |
 | Destacados que giran alrededor de un centro, o un anillo que gira al bajar | Carrusel en órbita o anillo 3D por CSS | `componentes-interactivos` (`carrusel-orbital.js`) |
 | Prueba social con movimiento (con reseñas reales) | Muro de reseñas en columnas 3D por CSS | `componentes-interactivos` (`resenas-3d.js`) |
+| Una nav, un dock, una sidebar o un panel que parezcan de cristal de verdad (refracción, borde de luz, gota que se mueve) | Cristal líquido por capas (CSS + SVG, o WebGL si es la firma) | `componentes-interactivos` ([cristal-liquido.md](../componentes-interactivos/references/cristal-liquido.md)) |
+| Desplegables, menús y selectores que rebotan, se estiran o se funden como gotas | Física de muelles e interpolación interrumpible | `componentes-interactivos` ([fisica-y-fluidez.md](../componentes-interactivos/references/fisica-y-fluidez.md)) |
+| Un componente de la librería que hay que llevar a la marca (paleta, tipo, radios, tiempos, otra pila, juntar dos) | Adaptación sin romper el efecto | `componentes-interactivos` ([adaptar-componentes.md](../componentes-interactivos/references/adaptar-componentes.md)) |
 | Botones, menús, modales, avisos, estados de hover | Microinteracciones | skill de animación instalada (`animate`, `emil-design-eng`) |
 | Sonido de ambiente o de respuesta | Audio generado o cargado, **apagado por defecto** y con botón visible | catálogo (H) |
 | Transiciones entre páginas o estados | View Transitions con su alternativa | `revelados-y-transiciones` + `modern-web-guidance` |

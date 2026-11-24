@@ -6,9 +6,10 @@ el prompt (en inglés) y de dónde sale. **Estado** dice cuánto te puedes fiar:
 - **Medida:** se generó en un proyecto real y se midió con `revisar-video.mjs`.
 - **Por reglas:** sigue las reglas comprobadas, pero nadie ha publicado el resultado: el primer clip es la prueba.
 
-> Para escenas realistas (entrar en un lugar, zoom a una pantalla, día/noche) y lo que delata a la IA, ver también
-> `pedir-assets-ia/references/plantillas-por-plano.md`. Para elegir el modelo: `arbol-decision.md`. Para cada
-> modelo: `modelos/`.
+> Esta es la única biblioteca de prompts de **vídeo**. Las imágenes clave y finales de las escenas realistas (zoom a
+> una pantalla, entrar en un lugar, día/noche), el bloque de realismo, lo que delata a la IA y los assets para componer
+> están en [plantillas-por-plano.md](../../pedir-assets-ia/references/plantillas-por-plano.md) de `pedir-assets-ia`.
+> Para elegir el modelo: `arbol-decision.md`. Para cada modelo: `modelos/`.
 
 ## Estructura de todas
 ```
@@ -21,7 +22,16 @@ el prompt (en inglés) y de dónde sale. **Estado** dice cuánto te puedes fiar:
 - Menos de ~200 tokens. Un movimiento. Como mucho dos fases en 5 s.
 - Velocidad: «constant speed», «one constant angular speed», «no speed changes, no steps, no drift». No escribas
   «settling into a static hold» si no quieres que frene [1].
-- Campo negativo solo en Wan y Kling 2.5 Turbo (ver la ficha del modelo).
+- Campo negativo solo en Wan y Kling 2.5 Turbo (ver la ficha del modelo). Lista de partida para ese campo:
+  `cuts, scene change, camera shake, handheld, jitter, speed ramp, zoom pumping, morphing, warping, melting edges, shape
+  change, flicker, light changes, new objects, text, garbled letters, logo distortion, people, hands`.
+
+**Bloque de estabilidad** (el `[Estabilidad]` de las plantillas; va al final de todo prompt de vídeo con producto o
+escena):
+```
+Everything stays rigid and physically stable: [the furniture, the laptop, the product] keep their exact shape, size, position
+and colors. Constant speed from the first frame to the last, no cuts, no rotation beyond the described move, no camera shake.
+```
 
 ## Preámbulos de estilo (elige uno por proyecto y no lo toques)
 - **Estudio oscuro cálido** (lujo, relojería, perfume): `Premium product film, seamless warm charcoal studio background (#171412), soft large softbox key light from upper left, subtle cool rim light from behind right, gentle contact shadow, product in sharp focus from front to back, photoreal, 24 fps, clean and calm.`
@@ -72,6 +82,14 @@ frame, so the clip loops seamlessly. Constant, calm motion, no flicker.
 ```
 Si no cierra: ida y vuelta o fundido de la cola sobre el principio (`flujos.md`, «Bucles»). En el motor de nsfw de
 producto, evita «seamless loop feel», «ambient» e «intimate» [2].
+Variante de fondo de ambiente (cielo, agua, niebla, luz que entra), con el color de la sección:
+```
+Locked-off camera, [soft morning clouds drifting slowly from left to right over a pale sky], very slow, calm, continuous
+motion, no camera move, no birds, no planes, no sun flare. Low contrast, muted colors that match [#e9e4da]. Seamless loop:
+the last frame matches the first. [Estabilidad].
+```
+Antes de pedirlo, mira si es código (degradado animado, ruido en un shader, grano, foto con zoom lento): vídeo solo si
+el movimiento natural es el protagonista. Un fondo de vídeo por web; si hay dos, el segundo por código. 5 s, 0,25-0,56 $.
 
 ## 4. Transición entre secciones (A → B)
 **En la web:** el vídeo que une dos secciones al hacer scroll. **Imagen clave:** inicio = imagen de la sección A,
@@ -85,6 +103,9 @@ around the [shared subject] to seamlessly end on [view of section B]. One contin
 ```
 Si A y B no comparten nada, no hay prompt que lo salve: transición por código (`revelados-y-transiciones`) o un
 puente generado con inicio = último fotograma de A y fin = primero de B (`flujos.md`).
+**Transición física dentro del plano** (otra forma de portador): A acaba con algo saliendo por un borde (granos que
+caen) y B empieza con eso entrando por el opuesto; o, al final de A, «a wave of coffee sweeps across and fills the
+whole frame». Si B cambia de lugar con un objeto fijo en el encuadre, sujeto ancla (`flujos.md`, «Encadenar»).
 
 ## 5. Producto 360 / arco alrededor del producto
 **En la web:** el producto que gira con el scroll. **Imagen clave:** producto centrado a 3/4, con aire a los lados,
@@ -106,6 +127,12 @@ them. No radius drift, no height drift, no speed changes, no reversal, no turnta
 in place.
 ```
 Aviso publicado: pedir pocos grados a veces da más giro del pedido; mide.
+- **Antes de pedirlo:** si el producto lleva texto o etiqueta que se tiene que leer al girar, el vídeo la deformará:
+  `envase-giratorio` (lata o botella, canvas) o `escena-3d-gltf`. El vídeo, para productos sin texto o con la marca
+  pequeña que se pueda tapar o seguir por código.
+- Para scroll, un arco de 90-180° en 5 s se ve mejor que 360° (más fotogramas por grado = más nitidez al arrastrar). Con
+  luz fija en la sala, los brillos se deslizan solos por el cristal o el metal.
+- Imagen clave del producto (edición con la foto real) y coste: `pedir-assets-ia`, plantillas por plano §2.
 
 ## 6. Producto que gira sobre sí mismo (cámara fija)
 **Modelo:** Kling 3.0 std. **Estado:** Por reglas.
@@ -115,6 +142,14 @@ constant angular speed, starting immediately and never pausing. Every part keeps
 material. Background and lighting never change.
 ```
 Con inicio = fin para un bucle de 360° algunos modelos devuelven un clip casi quieto: comprueba el giro.
+Variante de 360° en bucle para pasar a frames (objetos sin texto; **nunca giro y zoom a la vez**):
+```
+The [product] rotates 360 degrees on its vertical axis at a perfectly constant speed on a turntable, camera locked-off,
+same distance and height, the product stays centered and the same size. Plain [warm grey #cfc8bd] background, studio light
+fixed in the room. Seamless loop: the last frame matches the first. [Estabilidad].
+```
+La cara trasera la inventa el modelo: si hay foto de la trasera, dásela como referencia (Kling Elements) o descarta el
+vídeo. Salida en frames y alternativa 3D generada: `pedir-assets-ia`, plantillas por plano §14.
 
 ## 7. Dolly de revelado (de un detalle al producto entero)
 **Modelo:** Kling 3.0 / Seedance 2.0. **Estado:** Por reglas (vocabulario de Kling [5]).
@@ -195,6 +230,52 @@ Locked camera, same framing and light as the reference, one continuous take, no 
 ```
 Variante con cámara: añade un movimiento lento y constante («slow steady orbit to the left»), nunca dos. Antes de
 generar, pasa [checklists.md](checklists.md) y estima con `estimar-higgsfield.mjs`. Audio apagado si no se usa.
+
+Las plantillas 15-18 son escenas realistas: sus imágenes clave y finales (con el bloque de realismo) y lo que va por
+código están en `pedir-assets-ia`, plantillas por plano §1, §3, §5-§6 y §8. Aquí solo el vídeo entre ellas.
+
+## 15. Zoom a una pantalla (estudio, agencia, app, SaaS)
+**En la web:** la cámara se acerca al portátil o al móvil y la web real del cliente aparece en la pantalla
+(`seguir-pantalla`). **Imagen clave:** la escena con la pantalla en blanco liso; **fin:** otra toma de verdad, con la
+cámara movida (nunca un recorte ampliado: da un zoom plano, sin paralaje, y se nota). **Modelo:** Kling O3 pro con
+inicio + fin, 4-5 s (~0,45-0,56 $; prueba de 3 s ~0,34 $). **Estado:** Por reglas.
+```
+A slow, steady dolly-in toward the laptop on the desk, the camera physically travels forward through the room with natural
+parallax: foreground objects pass the frame edge, the background gently defocuses. Ends exactly on the last frame. The screen
+stays plain white. [Estabilidad].
+```
+La pantalla blanca (o del color de fondo de la web) facilita seguirla y que la captura la tape entera.
+
+## 16. Entrada a una escena por un umbral (puerta, ventana, entre árboles)
+**Imagen clave:** fuera; **fin:** el interior generado como edición de la clave, con el marco aún visible en los
+bordes. **Modelo:** Kling O3 pro con inicio + fin, 5-6 s (~0,56-0,67 $). **Estado:** Por reglas.
+```
+One continuous slow dolly-in through the half-open door into the room, constant speed, the door frame passes the edges of
+the frame, the light changes naturally from outdoor golden hour to the warm interior. Ends exactly on the last frame. [Estabilidad].
+```
+Las rectas de arquitectura tiemblan en vídeo: clip corto, cámara lenta, 1080p.
+
+## 17. Cambio de estado con cámara fija (se dora, florece, se abre, se parte)
+**Imagen clave:** el estado inicial; **fin:** el estado final generado antes como foto (edición de la clave), así el
+modelo solo interpola. Si solo cambia la luz o el color, no hay vídeo: fundido por código entre las dos imágenes.
+**Modelo:** Kling O3 pro, 5 s (~0,56 $). **Estado:** Por reglas.
+```
+Locked-off camera, [the peony] centered occupying [50]% of the frame, plain [blush pink] background matching hex [#f3dede].
+[The closed bud slowly opens petal by petal, revealing the jar inside]. Slow, continuous, constant pace, ends exactly on the last frame.
+[Estabilidad].
+```
+Con un fondo de escena en vez de liso: «Locked-off camera, nothing moves except [the croissant slowly turning from pale
+to deep golden brown as it bakes]. Same framing from first to last frame. [Estabilidad].» Partículas, migas o líquidos
+que se congelan delatan: «every crumb keeps falling with gravity», o quítalas. Despiece: plantilla 9.
+
+## 18. Descenso aéreo (nubes → ciudad → edificio)
+**Antes de pedirlo:** una ubicación real va con `mapa-zoom-ubicacion` (ortofoto, gratis y exacta, o niveles de imagen);
+la IA, solo para las nubes o el final cercano. 4-6 s (5 por defecto, ~0,45-0,67 $); 8 s solo en Veo cuando hace falta
+el fotograma final, y se recorta. Por tramos encadenados mejor que uno largo. **Estado:** Por reglas.
+```
+Aerial drone shot descending slowly through a sea of morning clouds, the clouds part to reveal [a coastal town with
+whitewashed houses] seen obliquely from 300 m, soft haze, constant slow descent, no rotation. [Estabilidad].
+```
 
 ---
 

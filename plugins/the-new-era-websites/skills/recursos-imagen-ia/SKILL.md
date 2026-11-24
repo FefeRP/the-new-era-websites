@@ -1,8 +1,8 @@
 ---
 name: recursos-imagen-ia
-description: Generar con IA los recursos de imagen de una web como lotes coherentes y listos para usar - objetos sueltos con fondo transparente (frutas, hielo, hojas, piezas que flotan o caen), juegos de iconos únicos de marca, texturas que se repiten sin junta, fondos de sección con sitio para el texto (y su pareja día/noche), el mismo objeto en varios ángulos o materiales. Prompts por tipo de recurso, cómo mantener la misma luz y el mismo estilo en todo el lote, y lote-imagenes.mjs para revisarlo sin Python - hoja de conjunto sobre varios fondos, coherencia de luz y claridad entre piezas, corte de una lámina de iconos con medida del grosor del trazo, y texturas medidas y arregladas para mosaico. Úsala cuando pidan "frutas sueltas con transparencia", "elementos flotando", "objetos con alfa", "iconos de marca", "set de iconos coherente", "iconos únicos", "textura repetible", "textura seamless", "fondo para la sección", "fondo con espacio para el titular", "mismo producto en varios ángulos", "cambiar el material", "assets de imagen para la web", "isolated objects with alpha", "floating ingredients", "brand icon set", "consistent icon set", "seamless texture", "tileable texture", "section background image", "AI image assets for a website".
+description: "Lotes coherentes de imágenes que NO son el producto: ingredientes u objetos sueltos, iconos de marca de una lámina, texturas repetibles, fondos de sección, mosaicos igualados. «set de iconos», «textura seamless», «objetos sueltos para la web», «brand icon set». NO para sacar el fondo transparente (capas-alfa) ni para fotos del producto (fotos-producto-ia)."
 license: MIT
-version: 1.2.1
+version: 1.3.0
 ---
 
 # Recursos de imagen con IA

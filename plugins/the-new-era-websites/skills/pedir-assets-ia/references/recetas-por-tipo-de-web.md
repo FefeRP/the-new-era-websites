@@ -12,20 +12,11 @@ Costes con Kling O3 pro 1080p (0,112 $/s) e imagen a ~0,05-0,075 $; "peor caso" 
 Son precios de octubre de 2026: en noviembre Kling O3 pro bajó a 0,086 $/s (los totales de vídeo salen ~20 % más baratos;
 recalcula con `presupuesto.mjs`). Para intros, fondos, transiciones y marcos con Higgsfield, antes de presupuestar lee
 `video-ia-para-scroll/references/higgsfield-para-webs.md` (modelo por pieza, primer y último fotograma sin saltos, checklist).
-Calcula el tuyo con `scripts/presupuesto.mjs`. Plantillas de prompt: [plantillas-por-plano.md](plantillas-por-plano.md) (§n).
-
-## Cómo decidir el medio de cada asset
-| Si el asset… | Medio | Por qué |
-|---|---|---|
-| necesita que **la cámara se mueva de verdad** por un espacio real (entrar, acercarse con paralaje, rodear sin texto) | **vídeo IA** con inicio+fin | el 3D barato no llega a ese realismo |
-| es un **cambio de estado físico** (se abre, se hornea, florece, se vierte) | **vídeo IA** con cámara fija | ídem |
-| es un **lugar o producto quieto** (interior, fachada, packshot, ingrediente, splash congelado) | **imagen IA** (aislada con alfa si va en capas: `capas-alfa`) + movimiento por código (zoom, parallax, máscara, `revelados-y-transiciones`) | 10-20 veces más barato y las rectas no tiemblan |
-| es un **cambio de escena** sin puente físico | **código**: cortina (`crearCortina`), rejilla, fundido | gratis y exacto |
-| solo cambia la **luz o el color** (día/noche, antes/después) | **2 imágenes** (edición) + fundido por código | sin artefactos, gratis el movimiento |
-| lleva **texto, logo, interfaz, cifras** | **código** encima (`seguir-pantalla`, HTML, SVG) | la IA inventa letras y aplasta logos |
-| **gira con texto legible** o el usuario lo manipula | **3D / canvas** (`escena-3d-gltf`, `envase-giratorio`) | el vídeo deforma la etiqueta |
-| es un **lugar real concreto** visto desde el aire | **mapa real** (`mapa-zoom-ubicacion`: mapa vivo, o niveles de imagen con `mapa-imagen.js` y la ortofoto estilizada) | exacto y gratis (o céntimos si se estiliza) |
-| no hay presupuesto o es un borrador | **3D / código** como respaldo | 0 $; luego se sustituye por IA |
+Calcula el tuyo con `scripts/presupuesto.mjs`. Plantillas de prompt: [plantillas-por-plano.md](plantillas-por-plano.md)
+(§n; los prompts de vídeo, en `video-ia-para-scroll`). Qué medio lleva cada asset (vídeo, foto, alfa, código, 3D o mapa):
+[matriz-medio-por-elemento.md](matriz-medio-por-elemento.md). Qué **módulos** de NEW ERA suele activar cada tipo de web
+y dónde está su firma: [modulos/README.md](../../new-era/references/modulos/README.md), «Combinaciones típicas»; aquí solo
+va la parte de assets.
 
 ## 1. Estudio, agencia, SaaS (zoom a la pantalla con la web del cliente)
 | Tramo | Asset | Medio | § | Coste |

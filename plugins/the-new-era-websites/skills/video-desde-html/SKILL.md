@@ -1,8 +1,8 @@
 ---
 name: video-desde-html
-description: Convierte en vídeo las animaciones hechas con HTML, CSS y JS usando HyperFrames (framework open source de HeyGen, Apache-2.0), sin modelos de IA de vídeo. Dos sentidos. De la web al vídeo, el hero, un tramo de scroll o el producto girando pasan a MP4 9:16 o 16:9 para promos y redes. Del código a la web, fondos en bucle sin corte, capas con transparencia (WebM con alfa, secuencia PNG) y secuencias para scroll por fotogramas, generados por código y repetibles. Trae un lanzador seguro (versión fijada, sin telemetría, sin descargas), plantillas probadas (bucle, capa con alfa, scroll a vídeo), el patrón para motores con WebGL o canvas, un medidor de bucles y el reparto con scroll-frames, capas-alfa, Remotion y los modelos de IA. Úsala cuando pidan "pasa el hero a vídeo", "vídeo de la web para redes", "reel de la web", "fondo en bucle sin IA", "vídeo en bucle por código", "render de HTML a vídeo", "HyperFrames", "frames para scroll sin IA", "capa animada con transparencia", "HTML to video", "render website animation to MP4", "seamless loop background video", "code-generated video", "hyperframes render".
+description: "Render de HTML, CSS y JS a vídeo con HyperFrames: el hero a MP4 para redes, bucles sin costura y capas con alfa hechos por código. «pasa el hero a vídeo», «vídeo de la web para redes», «bucle por código», «HTML to video». NO para vídeo realista generado por IA (video-ia-para-scroll)."
 license: MIT
-version: 1.2.1
+version: 1.3.0
 ---
 
 # Vídeo desde HTML (HyperFrames)

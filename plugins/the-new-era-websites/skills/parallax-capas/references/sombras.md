@@ -82,6 +82,8 @@ Revisa siempre:
 - Sirve para objetos que se apoyan en el suelo.
 - Para objetos colgando o flotando, mejor solo la difusa (baja `--intensidad`).
 - Es una sombra "de diseño", no física. Si la escena tiene una luz clara y dura, mejor la extraída de una foto real.
+- Sin ningún script: un `radial-gradient` oscuro y desenfocado debajo del sujeto recortado, que se aleja y se aclara
+  cuando el sujeto sube (para un elemento con alfa que flota sobre la web).
 
 ## 5. Con IA en vez de con código
 - **Higgsfield Layers**: separa en capas y reilumina, con créditos.

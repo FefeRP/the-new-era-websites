@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Salinas de Arés · prueba de componentes propios</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <!-- Pieza 3: fondo generado por capas (cielo, montones de sal, balsas) con tres escenas -->
+  <div class="fondo" data-fondo-capas aria-hidden="true">
+    <div class="capa" data-capa="cielo"></div>
+    <div class="capa" data-capa="montes"></div>
+    <div class="capa" data-capa="balsas"></div>
+  </div>
+
+  <main class="portada">
+    <p class="lugar">Salinas de Arés, ría de Betanzos</p>
+    <h1>Sal que se cosecha<br>con rastrillo y paciencia</h1>
+    <p class="entrada">Doce balsas de agua de mar que el sol y el viento convierten en flor de sal entre junio y septiembre.</p>
+  </main>
+
+  <!-- Pieza 1: barra de cristal con lente y gota de dos cuerpos -->
+  <nav class="barra" aria-label="Principal">
+    <span class="barra__lente" aria-hidden="true"></span>
+    <span class="barra__gota" aria-hidden="true"></span>
+    <ul class="barra__lista">
+      <li><a href="#salinas" data-escena="mediodia" aria-current="page">Las salinas</a></li>
+      <li><a href="#flor" data-escena="alba">Flor de sal</a></li>
+      <li><a href="#visitas" data-escena="ocaso">Visitas</a></li>
+      <li>
+        <!-- Pieza 2: desplegable con rebote (popover + commandfor + muelle en linear()) -->
+        <button class="barra__boton" type="button" commandfor="menu-tienda" command="toggle-popover" aria-haspopup="menu">
+          Tienda
+          <svg class="barra__flecha" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 7.5 6 4.5l3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="menu" id="menu-tienda" popover role="menu" aria-label="Tienda">
+    <a role="menuitem" href="#flor-250">Flor de sal, 250 g<span>9,50 €</span></a>
+    <a role="menuitem" href="#escamas">Escamas ahumadas en roble<span>7,80 €</span></a>
+    <a role="menuitem" href="#gruesa">Sal gruesa para horno<span>4,20 €</span></a>
+    <a role="menuitem" href="#lote">Lote de las tres<span>19,00 €</span></a>
+  </div>
+
+  <script type="module" src="principal.js"></script>
+</body>
+</html>

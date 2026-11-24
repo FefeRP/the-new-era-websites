@@ -1,8 +1,8 @@
 ---
 name: pedir-assets-ia
-description: Director de assets de IA - dado un pedido de web, decide qué assets hacen falta y, elemento a elemento, si van con foto, foto con alfa o en capas, vídeo, vídeo con alfa, frames, código o 3D (matriz con coste, peso y riesgo); estima el coste ANTES de generar y propone la prueba más barata; redacta los prompts de imagen clave y de vídeo (en inglés, por tipo de plano) para Higgsfield o cualquier proveedor (Kling, Veo, Seedance, Wan, Runway, Luma, Midjourney, Flux, Nano Banana, GPT Image, Qwen); fija la continuidad (imagen de inicio y fin, encadenado, día/noche); y revisa el resultado ("¿se nota falso?") antes de montarlo. Úsala cuando pidan "qué assets necesito", "pide el vídeo a Higgsfield", "prompt para Kling/Veo/Seedance", "que parezca real y no IA", "cuánto cuesta generar", "imagen clave", "imagen de inicio y fin", "encadenar vídeos", "versión de noche", "¿foto o vídeo?", "pedir el producto aislado", "splash", "giro 360", "AI asset plan", "photo or video for this section", "AI video prompt for a website", "make AI video look real", "first and last frame", "Higgsfield prompt", "AI generation budget".
+description: "Planificar los assets de IA de una web antes de generar nada: qué medio lleva cada elemento (foto, pieza con alfa, vídeo, frames, código, 3D), cuánto cuesta y en qué orden, con continuidad y revisión de que no se note falso. «qué assets necesito», «¿foto o vídeo?», «cuánto cuesta generar», «AI asset plan». NO para escribir el prompt de un clip de vídeo (video-ia-para-scroll) ni para fotos del producto real (fotos-producto-ia)."
 license: MIT
-version: 1.2.1
+version: 1.3.0
 ---
 
 # Pedir assets realistas a la IA (y saber cuándo no)
@@ -69,9 +69,9 @@ director: decide, presupuesta, escribe los prompts, controla la calidad y entreg
 
 ## Referencias
 - [references/matriz-medio-por-elemento.md](references/matriz-medio-por-elemento.md): foto, alfa, vídeo, frames o 3D para cada tipo de elemento, con coste, peso, riesgo y formatos.
-- [references/recetas-por-tipo-de-web.md](references/recetas-por-tipo-de-web.md): qué medio para cada asset y la receta de 6 tipos de web con costes.
-- [references/plantillas-por-plano.md](references/plantillas-por-plano.md): prompts de imagen clave y vídeo por tipo de plano (1-9), assets para componer (10-16: foto aislada, splash quieto, objeto en capas, vídeo para recortar, 360 por frames, mapa cenital o isométrico, fondos de ambiente), coherencia de un lote y formato de salida.
+- [references/recetas-por-tipo-de-web.md](references/recetas-por-tipo-de-web.md): los assets y costes de 6 tipos de web (qué medio, en la matriz; qué módulos, en `new-era/references/modulos/README.md`).
+- [references/plantillas-por-plano.md](references/plantillas-por-plano.md): prompts de imagen clave por tipo de plano (1-9; los de vídeo están en `video-ia-para-scroll/references/plantillas-prompt.md`), assets para componer (10-16: foto aislada, splash quieto, objeto en capas, vídeo para recortar, 360 por frames, mapa cenital o isométrico, fondos de ambiente), coherencia de un lote y formato de salida.
 - [references/proveedores.md](references/proveedores.md): tabla de modelos de vídeo e imagen, alfa, recorte y 3D generado, precios, inicio y fin, cuándo usar cada uno.
-- [references/continuidad.md](references/continuidad.md): inicio y fin, encadenar, sujeto ancla, día/noche, cortinas.
+- [references/continuidad.md](references/continuidad.md): continuidad en las imágenes (inicio y fin, día/noche, fondo del color de la sección, cortinas, móvil); la de vídeo, en `video-ia-para-scroll/references/flujos.md`.
 - [references/se-nota-falso.md](references/se-nota-falso.md): revisión de calidad en 4 capas, señales y su arreglo.
 - `scripts/presupuesto.mjs` + `scripts/precios.json`: coste por fases antes de generar (vídeo, imagen, revisión y composición: recorte, capas, 3D). `scripts/revisar-ia.mjs`: revisión con Gemini.

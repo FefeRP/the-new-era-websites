@@ -14,8 +14,9 @@ Para servir menos frames en móvil, extrae la secuencia móvil aparte en su carp
 --ancho-movil 0`, desde la toma vertical si la hay) y elige la `base` del scrubber con `matchMedia('(max-width: 767px)')`.
 El progreso es una fracción 0..1, así que los textos y el HUD siguen cuadrando.
 
-Datos medidos por terceros (8 s, 192 frames 1280×720): JPEG q85 11,1 MB · WebP q60 4,0 MB · MP4 H.264 GOP 8: 0,85 MB.
-El vídeo pesa ~5× menos; los frames son más fiables (iOS en ahorro de batería bloquea `<video>`) y precisos.
+¿Frames o vídeo, y con qué códec? El vídeo pesa ~5 veces menos; los frames son más fiables (iOS en ahorro de batería
+bloquea `<video>`) y precisos. Las medidas (pesos, tiempos de búsqueda y decodificación por códec y formato) y la
+decisión están en [montaje-web.md](../../video-ia-para-scroll/references/montaje-web.md) de `video-ia-para-scroll`.
 
 ## Memoria (lo que tumba móviles)
 - Decodificado, un frame ocupa ancho × alto × 4 bytes: 1920×1080 = 8,3 MB; 1600×900 = 5,8 MB; 900×1600 = 5,8 MB.
@@ -24,17 +25,14 @@ El vídeo pesa ~5× menos; los frames son más fiables (iOS en ahorro de baterí
 - No crees un canvas por sección si no se ven a la vez; destruye al desmontar.
 
 ## Formatos
-- **WebP**: el comodín. Decodifica rápido. Por defecto.
-- **AVIF**: en fotos suele pesar un 20-35 % menos, pero en frames de vídeo de IA medidos (121 frames, 1280 px) solo
-  ahorró un 4 % frente a WebP q72 y tardó casi el doble en decodificar (17 frente a 10 ms). Úsalo (`--formato ambos`)
-  solo si el peso aprieta mucho; el motor elige AVIF solo si el navegador lo soporta.
-- **JPEG**: solo como reserva antigua. **PNG**: nunca para secuencias (salvo intermedio).
-- Transparencia: WebP y AVIF admiten alfa. Mejor evitarla: pide al generador un fondo liso y pon ese color de fondo en la sección (más ligero y sin halos).
+WebP por defecto. AVIF (`--formato ambos`) solo si el peso aprieta mucho: en fotos ahorra un 20-35 %, pero en frames de
+vídeo de IA medidos solo un 4 % y decodifica casi el doble de lento; el motor lo elige solo si el navegador lo soporta.
+Medidas, JPEG, PNG y transparencia: [montaje-web.md](../../video-ia-para-scroll/references/montaje-web.md) §1 y §3.
 
 ## Carga
 - El primer frame va antes que nada (es el póster vivo) y luego orden progresivo: último, cada 16, 8, 4, 2, 1. La secuencia se puede recorrer a "baja resolución temporal" en cuanto llegan ~10 frames.
-- 6 descargas en paralelo con HTTP/2. Cabecera de caché larga + carpeta versionada (`/frames/reloj-v2/`).
 - Si la secuencia está más abajo de la página, crea el scrubber al acercarse (IntersectionObserver con `rootMargin: '200% 0px'`), no al cargar.
+- Descargas en paralelo, caché y póster: [montaje-web.md](../../video-ia-para-scroll/references/montaje-web.md) §4.
 
 ## Frames intermedios (si el vídeo va a tirones)
 - Generar a más fps no ayuda si el generador da 24 fps con tirones. Primero remapea la velocidad o recorta; interpolar
@@ -48,14 +46,10 @@ Con el vídeo pedido sobre fondo liso o negro (skill `capas-alfa`):
 `node ../capas-alfa/scripts/alfa.mjs --entrada clip.mp4 --modo croma --formatos frames --salida public/frames/splash`
 (sin Python; `--modo negro` para humo o chispas; los frames quedan en `<salida>/frames/` con su manifest) y en la web
 `crearFrameScrubber({ canvas, base: '/frames/splash/frames/', transparente: true })` (el manifest de `alfa.mjs` ya lleva
-`alfa: true`). Revisa la `hoja.png` y los avisos de `alfa.json` (halos, parpadeo del recorte). Los
-frames con alfa pesan ~1,5-2× los opacos: ≤ 1280 px y menos frames.
+`alfa: true`). Revisa la `hoja.png` y los avisos de `alfa.json` (halos, parpadeo del recorte). Pesos y formatos con
+alfa: [formatos-alfa.md](../../capas-alfa/references/formatos-alfa.md) de `capas-alfa`.
 
 ## Modo vídeo: codificación
-`-c:v libx264 -crf 20 -g 8 -keyint_min 8 -sc_threshold 0 -bf 0 -movflags +faststart -an` (móvil: 720 p, crf 24, `-g 4`).
-Medido en Chrome con un clip de IA de 5 s a 1280 px: `-g 8 -bf 0` busca en 28 ms (mediana), igual que `-g 4`, con un
-22 % menos de peso; con B-frames, +6 ms; `-g 1` (todo intra) 17 ms pero 1,8× el peso; **el clip tal como sale del
-generador (un solo fotograma clave) 220 ms**: recodifica siempre. Tabla completa (VP9, AV1, WebP, AVIF, JPEG) en
-`video-ia-para-scroll/references/montaje-web.md`. Comprueba los fotogramas clave:
-`ffprobe -v error -select_streams v -skip_frame nokey -show_entries frame=pts_time -of csv=p=0 v.mp4` (una línea por
-clave; con VP9 de libvpx el recuento no es fiable).
+`extraer-frames.mjs --video-scrub` ya recodifica con `-g 8 -bf 0` (móvil `-g 4`): el clip tal como sale del generador
+(un solo fotograma clave) tarda ~220 ms por búsqueda. Receta ffmpeg, tabla medida (H.264, VP9, AV1) y cómo contar los
+fotogramas clave: [montaje-web.md](../../video-ia-para-scroll/references/montaje-web.md) §0, §1 y §3.

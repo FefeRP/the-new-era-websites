@@ -29,6 +29,9 @@ Orden de preferencia: **1.ª opción** → alternativa → lo que **no** hacer.
 | **Personas** | Foto (retrato, ambiente) con parallax o máscara | Vídeo corto con cámara casi quieta y la persona haciendo una sola acción | Primeros planos de caras en movimiento, manos manipulando | Caras y manos son lo primero que delata la IA |
 | **UI, texto, cifras, logos, pantallas** | **Código** (HTML, SVG, `seguir-pantalla`) | Captura real encajada con su proporción | Generarlos con IA, estirarlos | La IA inventa letras y aplasta logos |
 | **Transiciones entre escenas** | Código (cortina, `clip-path`, fundido, máscara SVG) | Clip con imagen de inicio y fin si hay puente físico real | Morphing libre entre dos escenas | El código es exacto y gratis; el morphing se nota |
+| **Cambio de estado físico** (se abre, se hornea, florece, se vierte) | Vídeo IA con cámara fija, inicio y fin | Frames de ese vídeo | 3D o foto con efecto por código | El 3D barato no llega a ese realismo |
+| **Solo cambia la luz o el color** (día/noche, antes/después) | 2 imágenes (la segunda como edición de la primera) + fundido por código | Vídeo con inicio y fin nocturnos si hay movimiento | Generar las dos desde cero | Sin artefactos y el movimiento sale gratis |
+| **Sin presupuesto o borrador** | 3D / código como respaldo | Fotos libres con movimiento por código | Pagar antes del vale | 0 $; luego se sustituye por IA |
 
 ## Cuándo sube de categoría (y cuánto cuesta subir)
 - **Foto → capas con alfa:** cuando el texto tiene que pasar **entre** el fondo y el sujeto (sándwich de texto), o el sujeto
@@ -47,8 +50,7 @@ Orden de preferencia: **1.ª opción** → alternativa → lo que **no** hacer.
 | Capa con alfa | El tamaño mostrado × 2 como mucho | WebP con alfa (q 80-88); PNG solo como máster | ≤ 250 KB por capa |
 | Vídeo para frames | Máster 1920×1080 o 1080×1920, 24 fps, sin audio; se exporta a 1600 px (escritorio, 90-150 frames) y 900 px (móvil, 60-90) | MP4 máster → WebP q 75 por frame (`extraer-frames.mjs --ancho 1600 --ancho-movil 900`) | 3-8 MB escritorio · 1,5-4 MB móvil |
 | Vídeo con `currentTime` | Tamaño mostrado (1280 px típico) | MP4 H.264 `-g 1` a `-g 8` | 1-8 MB |
-| Vídeo con alfa | ≤ 1280 px de lado, 24-30 fps | stacked alpha MP4 (todos) + WebM VP9 alfa (opcional) + póster WebP | ≤ 3 MB |
-| Frames con alfa | ≤ 1280 px, 60-120 frames | WebP con alfa | ≤ 6 MB |
+| Vídeo o frames con alfa | ≤ 1280 px de lado, 24-30 fps (frames: 60-120) | según [formatos-alfa.md](../../capas-alfa/references/formatos-alfa.md) de `capas-alfa` (por defecto, stacked alpha MP4 + póster WebP) | ≤ 3 MB vídeo · ≤ 6 MB frames |
 | Mapa por niveles | 2048-2560 px por nivel (los profundos, 4:5 para móvil) | WebP/AVIF calidad 70-80; JSON de niveles y marcadores en coordenadas 0..1 | ≤ 900 KB por nivel |
 | Modelo 3D | — | glTF/GLB con Draco o Meshopt, texturas KTX2 | ≤ 3 MB escritorio · 1,5 MB móvil |
 

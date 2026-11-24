@@ -1,8 +1,11 @@
-# Plantillas de prompt por tipo de plano (imagen clave + vídeo)
+# Plantillas de prompt por tipo de plano (imagen clave y assets para componer)
 
 Prompts en inglés (los modelos rinden mejor). `[corchetes]` = rellenar. Cada plano trae: **imagen clave** (inicio), **imagen
-final** si hace falta, **vídeo** entre ambas, qué va **por código** y el **coste** orientativo de una tirada
-(precios en [proveedores.md](proveedores.md); cálculo con `scripts/presupuesto.mjs`).
+final** si hace falta, qué va **por código** y el **coste** orientativo de una tirada (precios en
+[proveedores.md](proveedores.md); cálculo con `scripts/presupuesto.mjs`). El **prompt del vídeo** entre las dos imágenes
+está en la biblioteca única de prompts de vídeo:
+[plantillas-prompt.md](../../video-ia-para-scroll/references/plantillas-prompt.md) de `video-ia-para-scroll` (cada
+sección de aquí dice qué plantilla usar).
 
 Estado de validación: las plantillas siguen reglas comprobadas, pero no todas se han validado con una generación real modelo
 a modelo. Trata el primer clip como la prueba.
@@ -33,19 +36,13 @@ Producto aislado en estudio: usa los preámbulos de estudio de `video-ia-para-sc
 | Cámara caótica | "dynamic, epic, fast, cinematic camera" | UN movimiento, "slow, steady, constant speed" |
 | Fondo que hierve | ciudad entera en movimiento, follaje denso a contraluz | exterior quieto o desenfocado; la vida del exterior por código (capa de vídeo o partículas) |
 
-### Negativos (en modelos que los aceptan: Wan, Seedance, Qwen, Flux; Kling y Veo no: pon "Keep…" en el prompt)
+### Negativos de imagen (solo en modelos con campo negativo, como Qwen o Flux; si no lo tiene, pon "Keep…" en el prompt)
 ```
 Negative (imagen): text, letters, words, logo, watermark, brand names, people, hands, CGI, 3d render look, plastic, oversaturated,
 HDR halo, bloom, lens flare, fisheye, warped perspective, bent lines, melted objects, extra objects, clutter
-Negative (vídeo): cuts, scene change, camera shake, handheld, jitter, speed ramp, zoom pumping, morphing, warping, melting edges,
-shape change, flicker, light changes, new objects, text, garbled letters, logo distortion, people, hands
 ```
-
-### Estabilidad (al final de todo prompt de vídeo)
-```
-Everything stays rigid and physically stable: [the furniture, the laptop, the product] keep their exact shape, size, position
-and colors. Constant speed from the first frame to the last, no cuts, no rotation beyond the described move, no camera shake.
-```
+Los negativos de vídeo y el bloque `[Estabilidad]` que cierra todo prompt de vídeo están en
+[plantillas-prompt.md](../../video-ia-para-scroll/references/plantillas-prompt.md), «Estructura de todas».
 
 ---
 
@@ -68,15 +65,8 @@ Show this exact same scene from a camera that has physically moved [1.5 m] forwa
 falls out of focus with real parallax (window frame and plants shift relative to the laptop). Keep every object, material,
 color and the blank white screen exactly the same.
 ```
-Vídeo (inicio y fin):
-```
-A slow, steady dolly-in toward the laptop on the desk, the camera physically travels forward through the room with natural
-parallax: foreground objects pass the frame edge, the background gently defocuses. Ends exactly on the last frame. The screen
-stays plain white. [Estabilidad].
-```
-- 4-5 s. Kling O3 pro (inicio+fin) ~0,45-0,56 $; prueba de 3 s ~0,34 $.
-- **Nunca** pidas como final un recorte ampliado de la misma foto: interpola un zoom plano, sin paralaje, y se nota.
-- La pantalla blanca (o del color de fondo de la web) facilita seguirla y que la captura tape todo.
+**Vídeo:** plantilla 15 de `plantillas-prompt.md` (inicio y fin, Kling O3 pro, 4-5 s, ~0,45-0,56 $). **Nunca** pidas como
+final un recorte ampliado de la misma foto: interpola un zoom plano, sin paralaje, y se nota.
 
 ## 2. Producto que gira (o arco alrededor)
 **Antes de pedirlo:** si el producto lleva **texto o etiqueta que se tiene que leer al girar**, el vídeo IA lo deformará:
@@ -90,15 +80,8 @@ reference. Centered, occupying [45]% of the frame height, [three-quarter front v
 that matches hex [#cfc8bd], soft key light from the upper left, gentle rim light, soft contact shadow under the product.
 85mm lens, f/8, everything sharp.
 ```
-Vídeo:
-```
-The camera orbits [90] degrees to the right around the [product] at a slow constant speed, the product stays centered and
-the same size, the background stays plain [warm grey]. Studio light fixed in the room, so highlights glide naturally across
-the [glass/metal]. [Estabilidad].
-```
-- 5 s, Kling O3 pro ~0,56 $ (prueba de 3 s: ~0,34 $). Para 360° en bucle, imagen de inicio = fin (sección 14); algunos
-  modelos devuelven entonces un clip casi quieto: comprueba que el giro existe.
-- Para scroll: un giro de 90-180° en 5 s se ve mejor que 360° (más fotogramas por grado = más nitidez al arrastrar).
+**Vídeo:** plantilla 5 (arco) o 6 (giro sobre sí mismo) de `plantillas-prompt.md`; 5 s, Kling O3 pro ~0,56 $ (prueba
+de 3 s: ~0,34 $). Para 360° en bucle por frames, sección 14.
 
 ## 3. Entrada a una escena (por una puerta, ventana, entre árboles, "dentro" del producto)
 **Assets:** imagen clave (fuera), imagen final (dentro, generada como edición manteniendo estilo), vídeo de entrada.
@@ -115,12 +98,7 @@ Show the interior space behind that door in the same light and style: [a vaulted
 sofa, terracotta floor], camera at eye level just past the threshold, 24mm, the door frame edges still visible at the left and
 right borders of the frame. Same color grade, same time of day.
 ```
-Vídeo:
-```
-One continuous slow dolly-in through the half-open door into the room, constant speed, the door frame passes the edges of
-the frame, the light changes naturally from outdoor golden hour to the warm interior. Ends exactly on the last frame. [Estabilidad].
-```
-- 5-6 s. Kling O3 pro ~0,56-0,67 $. Las líneas rectas de arquitectura tiemblan en vídeo: corto, cámara lenta, 1080p.
+**Vídeo:** plantilla 16 de `plantillas-prompt.md` (5-6 s, Kling O3 pro ~0,56-0,67 $).
 
 ## 4. Capas con fondo separado (parallax de verdad, producto que flota)
 No es un vídeo: son **imágenes** que el código mueve a distinta velocidad (`parallax-capas`). Orden "plate-first":
@@ -145,11 +123,8 @@ No es un vídeo: son **imágenes** que el código mueve a distinta velocidad (`p
 - **Primero la imagen A, luego B como edición de A** con "keep the composition, camera and every object exactly in place".
   Las ediciones mueven píxeles (hasta ~30 px): compruébalo superponiendo al 50 % y re-mide esquinas si hay pantalla.
 - Si el cambio es **solo de luz o color**, no hagas vídeo: fundido por código entre A y B (gratis, sin artefactos).
-- Si hay cambio físico (se dora, florece), vídeo con inicio A y fin B, cámara fija:
-  ```
-  Locked-off camera, nothing moves except [the croissant slowly turning from pale to deep golden brown as it bakes]. Same
-  framing from first to last frame. [Estabilidad].
-  ```
+- Si hay cambio físico (se dora, florece), vídeo con inicio A y fin B, cámara fija: plantilla 17 de `plantillas-prompt.md`.
+
 Noche como edición (lo que funcionó):
 ```
 Relight this exact photograph as if it was taken at [1 a.m.] on a clear night. Keep the composition, the camera, the
@@ -161,35 +136,18 @@ low-contrast night photograph, subtle grain, no HDR.
 (Si no se dice la hora de noche cerrada, sale un atardecer HDR. Comprueba que las lámparas encendidas/apagadas cumplen.)
 
 ## 6. Sujeto que cambia de estado con cámara fija (se abre, se parte, florece, se despieza)
-```
-Locked-off camera, [the peony] centered occupying [50]% of the frame, plain [blush pink] background matching hex [#f3dede].
-[The closed bud slowly opens petal by petal, revealing the jar inside]. Slow, continuous, constant pace, ends exactly on the last frame.
-[Estabilidad].
-```
-- Imagen final generada antes como foto (estado final) → el modelo solo interpola. 5 s, ~0,56 $ (Kling O3 pro).
-- Física: partículas, migas o líquidos que "se congelan" delatan. Pide "every crumb keeps falling with gravity" o quítalas.
+La imagen final (el estado final) se genera antes como foto, editando la clave; el vídeo entre las dos es la plantilla 17
+de `plantillas-prompt.md` (5 s, ~0,56 $ con Kling O3 pro); el despiece, la 9.
 
 ## 7. Transición entre escenas
-- **Encadenar por fotograma:** el último fotograma real del clip A (`ffmpeg -sseof -0.05 -i a.mp4 -frames:v 1 a-ultimo.png`) es
-  el inicio del clip B. Si B cambia de lugar, **edita** ese fotograma manteniendo el sujeto ancla en su sitio y tamaño:
-  ```
-  Keep [the drop of serum] exactly in the same position and size in the frame. Replace everything around it: now it rests on
-  [human skin with natural pores, soft daylight]. Same camera, same focus.
-  ```
-- **Transición física dentro del plano:** A acaba con algo saliendo por un borde (granos que caen), B empieza con eso entrando
-  por el opuesto; o "a wave of coffee sweeps across and fills the whole frame" al final de A.
-- **Cortina** cuando no hay puente: tarjeta de texto sobre el color de la sección, fundido a blanco o niebla, barrido de
-  color. Gratis y por código: `revelados-y-transiciones` (`crearCortina`, el cambio de escena en `alCubrir`).
-- Detalle en [continuidad.md](continuidad.md).
+Por orden: un portador compartido o una transición física dentro del plano (plantilla 4 de `plantillas-prompt.md`), un
+sujeto ancla al encadenar por el último fotograma ([flujos.md](../../video-ia-para-scroll/references/flujos.md),
+«Encadenar clips») o, si no hay puente, una cortina por código (`revelados-y-transiciones`; ver
+[continuidad.md](continuidad.md), «Cortinas»).
 
 ## 8. Descenso aéreo (nubes → ciudad → edificio)
-- Ubicación real → `mapa-zoom-ubicacion` (ortofoto, gratis y exacto): mapa vivo o niveles de imagen (`mapa-imagen.js`,
-  sección 15). La IA solo para nubes o el final cercano.
-- ```
-  Aerial drone shot descending slowly through a sea of morning clouds, the clouds part to reveal [a coastal town with
-  whitewashed houses] seen obliquely from 300 m, soft haze, constant slow descent, no rotation. [Estabilidad].
-  ```
-- 4-6 s (5 por defecto), ~0,45-0,67 $; 8 s solo en Veo cuando hace falta el fotograma final, y se recorta. Por tramos encadenados mejor que uno largo.
+Ubicación real → `mapa-zoom-ubicacion` (ortofoto, gratis y exacto): mapa vivo o niveles de imagen (`mapa-imagen.js`,
+sección 15). La IA solo para nubes o el final cercano: plantilla 18 de `plantillas-prompt.md` (4-6 s, ~0,45-0,67 $).
 
 ## 9. Interior o arquitectura fija (el más barato y el más creíble)
 - **Imagen** (no vídeo): verticales rectas, hora dorada o día suave, 24mm, cámara a 1,5 m.
@@ -267,14 +225,8 @@ evenly lit, unchanged in every frame: no gradient, no vignette, no smoke or haze
 **Antes de pedirlo:** etiqueta o texto que se tenga que leer al girar → **no es vídeo**: `envase-giratorio` (lata o botella)
 o 3D (`escena-3d-gltf`; el modelo se puede generar desde fotos con TRELLIS 2, 0,25-0,35 $, o Hunyuan3D v3, desde 0,225 $,
 y renderizar los frames). Vídeo solo para objetos sin texto, y **nunca giro y zoom a la vez**.
-```
-The [product] rotates 360 degrees on its vertical axis at a perfectly constant speed on a turntable, camera locked-off,
-same distance and height, the product stays centered and the same size. Plain [warm grey #cfc8bd] background, studio light
-fixed in the room. Seamless loop: the last frame matches the first. [Estabilidad].
-```
-- Inicio = fin = la misma foto (sección 2). Aviso: con inicio = fin algunos modelos devuelven un clip casi quieto; comprueba
-  el giro en la hoja de fotogramas antes de darlo por bueno. La cara trasera la inventa el modelo: si existe una foto de la trasera, dásela
-  como referencia (Kling Elements) o descarta el vídeo.
+Prompt: plantilla 6 de `plantillas-prompt.md`, variante de 360° en bucle para pasar a frames (inicio = fin = la misma foto de la
+sección 2; comprueba en la hoja que el giro existe; la trasera la inventa el modelo).
 - **Salida:** 90-120 frames (3-4° por frame) en escritorio y 60-90 en móvil con `scroll-frames` (`extraer-frames.mjs`),
   WebP 1600 px escritorio / 900 px móvil (menos si el objeto no ocupa la pantalla); con alfa si va
   sobre la web (sección 13 + `alfa.mjs`).
@@ -296,12 +248,8 @@ add, remove or move anything. No text, no labels, no icons.
 ## 16. Fondos de ambiente (cielo, agua, niebla, luz que entra, textura que respira)
 **Antes de pedirlo:** muchos fondos son **código**: degradados animados, ruido en un shader, grano, una foto con un zoom muy
 lento. Vídeo solo si el movimiento natural es el protagonista (nubes que pasan, agua, cortinas al viento).
-```
-Locked-off camera, [soft morning clouds drifting slowly from left to right over a pale sky], very slow, calm, continuous
-motion, no camera move, no birds, no planes, no sun flare. Low contrast, muted colors that match [#e9e4da]. Seamless loop:
-the last frame matches the first. [Estabilidad].
-```
-- Con inicio = fin (la misma foto) para que haga bucle; si el modelo no lo respeta, fundido cruzado de 0,5 s en el bucle.
+Prompt: plantilla 3 de `plantillas-prompt.md`, variante de fondo de ambiente (inicio = fin para que haga bucle; si el
+modelo no lo respeta, fundido cruzado de 0,5 s en el bucle).
 - **Salida:** MP4 H.264 sin audio, 1280-1920 px, 6-10 s, crf 26-30, **≤ 1,5 MB**; `muted playsinline loop`, póster WebP, pausa
   fuera de vista. En móvil, el póster.
 - **Coste:** 5 s 0,25-0,56 $. Un fondo por web; si hay dos, el segundo, por código.
@@ -323,15 +271,12 @@ the last frame matches the first. [Estabilidad].
 | Foto aislada / capa | PNG con alfa o fondo liso, 2048 px | WebP con alfa recortado a su caja, ≤ 250 KB |
 | Vídeo para frames (scroll) | 1080p, 24 fps, sin audio, 4-6 s | WebP por frame, 1600 px y 90-150 frames escritorio / 900 px y 60-90 frames móvil |
 | Vídeo en bucle | 1080p, 24 fps, sin audio | MP4 H.264 crf 26-30, ≤ 1,5 MB, póster |
-| Vídeo con alfa | Fondo liso, 720-1080p | `apilado.mp4` (stacked alpha) + póster; frames WebP con alfa para scroll |
+| Vídeo con alfa | Fondo liso, 720-1080p | ver [formatos-alfa.md](../../capas-alfa/references/formatos-alfa.md) |
 | Mapa por niveles | Ortofoto por WMS, 2048-2560 px por nivel | WebP calidad 70-80, ≤ 900 KB por nivel |
 
 ## Adaptar al modelo
-- **Kling:** sin negative prompt → la estabilidad va en positivo. Inicio y fin (`first/last frame`). Respeta muy bien el final.
-- **Veo:** prompts largos y descriptivos; el final solo en clips de 8 s (y no en todos los modos). Muy bueno con luz y materiales.
-- **Seedance:** movimiento de cámara más "de cine" y paralaje real; más caro a 1080p; texto y finos "hierven" a 480-720p.
-- **Runway / Luma:** describen bien la cámara; Luma tiene modo bucle.
-- **Wan:** barato, admite negativo; a veces ignora la trayectoria y rompe el texto; revisa fps (puede salir a 30) y audio.
-- **Imagen (Midjourney, Flux, Nano Banana, GPT Image, Qwen, Seedream):** la misma descripción; para editar manteniendo encuadre
-  (finales, día/noche, variantes) usa los que editan con referencia (Nano Banana 2.1 / Pro, Flux 3 / Flux 2 pro, Qwen Image 3, GPT Image 2 / 2.5, Seedream 5).
-  Midjourney da estética pero edita peor y no tiene API oficial.
+Cómo se comporta cada modelo de vídeo (negativo, inicio y fin, duraciones, fallos):
+[modelos/README.md](../../video-ia-para-scroll/references/modelos/README.md) y su ficha. En imagen, la misma descripción
+vale para todos; para editar manteniendo encuadre (finales, día/noche, variantes), los que editan con referencia:
+[imagen-clave.md](../../video-ia-para-scroll/references/modelos/imagen-clave.md) y
+[proveedores.md](proveedores.md).

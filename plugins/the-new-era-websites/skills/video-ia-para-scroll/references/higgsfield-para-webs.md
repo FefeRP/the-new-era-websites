@@ -95,8 +95,8 @@ Por qué cada parte:
   y fin en Seedance 2.5 [1]. En una intro de 5 s, medio segundo basta: más, y la cámara «se para».
 - Con imagen a vídeo se describe el **movimiento**, no el aspecto: el aspecto ya lo da la imagen [18].
 - Para FPV: «FPV cinewhoop, ultrawide, fly-through» [19].
-- Plantillas por tipo de plano (giro, despiece, bucle, transición…): `plantillas-prompt.md`; escenas realistas:
-  `pedir-assets-ia/references/plantillas-por-plano.md`.
+- Plantillas por tipo de plano (giro, despiece, bucle, transición…): `plantillas-prompt.md`; la imagen
+  clave de cada escena realista: `pedir-assets-ia/references/plantillas-por-plano.md`.
 
 ## 4. Primer y último fotograma: cuándo sí y cuándo no
 
@@ -198,43 +198,21 @@ tres semanas, la última tanda con un tope de 6 $:
 esa última tanda.
 
 ## 9. Montaje en la web
-Dos caminos (detalle y código en `scroll-frames`):
-- **Secuencia de imágenes en canvas** (lo más fiable en móvil): 60-150 frames para un hero, 15-40 KB por WebP,
-  5-15 MB en total, ~1600-1920 px en escritorio y ~960 px en móvil, calidad 75-80 [26][27]. Extrae a 24 fps, nunca
-  por encima de los del clip; `decode()` de los primeros ~20 antes de dibujar y DPR limitado a 2 [24].
-- **`<video>` con `currentTime`** (pesa menos). El clip de Higgsfield **nunca se monta tal cual**: llega con un
-  solo fotograma clave y cada búsqueda tarda ~220 ms en Chrome (medido). Recodifica con GOP corto y sin B-frames:
-  ```bash
-  ffmpeg -i clip.mp4 -vf "fps=24,scale=1280:-2" -c:v libx264 -crf 20 -g 8 -keyint_min 8 -sc_threshold 0 -bf 0     -pix_fmt yuv420p -an -movflags +faststart scrub.mp4          # móvil: recorte 9:16 a 540x960, -crf 24 -g 4
-  ```
-  Medido en Chrome con un clip de IA de 5 s a 1280 px: `-g 8 -bf 0` busca en 28 ms con un 43 % menos de peso que
-  todo intra (`-g 1`, 17 ms); VP9 y AV1 con GOP 12 buscan en ~26 ms y pesan menos, pero Safari sin hardware no
-  decodifica AV1: úsalos solo como fuente extra de `<source>`. Tabla, recetas, póster, móvil y movimiento reducido en
-  [montaje-web.md](montaje-web.md). El servidor tiene que responder 206 a las peticiones Range; no pidas otra
-  posición hasta el evento `seeked` [29]. Evita HEVC y 10 bits [29][30]. En táctiles hay quien cambia el scrub por
-  un bucle porque en iOS no es fiable [29]: decide con `scroll-frames` y pruébalo en un móvil real.
+Dos caminos: frames WebP en canvas (lo más fiable en móvil) o `<video>` con `currentTime` (pesa menos). El clip de
+Higgsfield **nunca se monta tal cual**: llega con un solo fotograma clave y cada búsqueda tarda ~220 ms; se recodifica
+(`-g 8 -bf 0` en escritorio, `-g 4` en móvil) o se pasa a frames. La receta medida (códecs, pesos, tiempos de
+búsqueda, póster, móvil, movimiento reducido) está en [montaje-web.md](montaje-web.md); el código, en `scroll-frames`.
 
 ## 10. Presupuesto (precios medidos en la API de Higgsfield, noviembre de 2026)
 
-| Modelo | 480p | 720p | 1080p | 5 s a 720p | Créditos web, 5 s |
-|---|---|---|---|---|---|
-| Seedance 2.5 | 0,118 $/s | 0,265 $/s | 0,652 $/s | 1,32 $ | 15 / 35 / 80 |
-| Seedance 2.0 | 0,080 $/s | 0,174 $/s | 0,429 $/s | 0,87 $ | — / 22,5 / 60 (Mini 5) |
-| Kling O3 | — | 0,068 $/s | 0,086 $/s | 0,34 $ | 6,25 (1080p) |
-| Kling 3.0 std / pro | — | 0,071 $/s (std) | 0,096 $/s (pro) | 0,36 $ | 7,5 / 8,75 |
-| Kling 4.0 | — | 0,126 $/s | 0,188 $/s | 0,63 $ | 12,5 / 18,75 |
-| Wan 3.0 | 0,038 $/s | 0,075 $/s | 0,150 $/s | 0,38 $ | 3,75 / 7,5 / 15 |
-| Veo 3.1 (solo web) | — | — | — | — | 8 s: Lite 12, Fast 32, High 80 |
-
-Todas las cifras están medidas el 21-11-2026: en dólares con `POST /estimate` de la API y en créditos con
-`estimate_video_cost` del MCP. Son tarifas distintas y no se convierten una en otra. Para recalcularlas:
+La tabla medida el 21-11-2026 (dólares por segundo en la API y créditos de la web, por modelo y resolución) está en
+[proveedores.md](../../pedir-assets-ia/references/proveedores.md) de `pedir-assets-ia`, «Vídeo en Higgsfield: tabla
+medida». Para recalcularla o presupuestar un lote sin gastar:
 ```bash
 node scripts/estimar-higgsfield.mjs tabla                  # precios de las rutas útiles para webs
 node scripts/estimar-higgsfield.mjs lote lote.json         # [{ "id", "ruta", "cuerpo" }] → precio por pieza y total
 ```
-La tabla completa está en `pedir-assets-ia/scripts/precios.json` y `references/proveedores.md`, y se calcula con
-`presupuesto.mjs`. Una intro bien planificada (borrador a 480p y final a 720p con Seedance 2.5) cuesta 1,91 $; con Kling
-o Wan, menos de 1 $. Por proyecto: `arbol-decision.md`, paso 3.
+Por proyecto: `arbol-decision.md`, paso 3.
 
 ## Fuentes
 1. Clipdance, «Seedance 2.5 first & last frame prompt workflow»: https://clipdance.ai/blog/seedance-2-5-first-last-frame-prompt-workflow

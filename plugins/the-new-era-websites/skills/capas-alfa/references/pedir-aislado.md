@@ -4,12 +4,10 @@ El recorte bueno empieza en el prompt: un sujeto bien separado de un fondo liso 
 fondo cargado no lo arregla ningún script. Precios de octubre de 2026 (confírmalos en `pedir-assets-ia/scripts/precios.json`).
 
 ## 1. Imagen con alfa nativo (sin recortar después)
-| Modelo | Cómo | Precio |
-|---|---|---|
-| gpt-image-1 / 1.5 / 2.5 | `background: "transparent"`, salida PNG o WebP. **gpt-image-2 ya no** (se retiró el 30-09-2026) | por tokens |
-| Ideogram 3 Transparent | endpoint propio | 0,03-0,09 $ |
-| Seedream 5 Flash | `background: "transparent"`, una sola referencia | ~0,02 $ |
-| Qwen-Image-Layered | parte una imagen ya hecha en 1-10 capas RGBA | 0,05 $ |
+Qué modelos dan alfa nativo y cómo se pide (`background: "transparent"` en GPT Image 1.5 / 2.5 / 2.6 y Seedream 5
+Flash, `remove_bg` en Seedream 5 Pro, Ideogram 3 Transparent, Qwen-Image-Layered para partir una imagen en capas), con
+su precio: [proveedores.md](../../pedir-assets-ia/references/proveedores.md) de `pedir-assets-ia`, «Alfa, recorte y 3D
+generado». GPT Image 2 lo perdió el 30-09-2026.
 
 - **No describas ningún fondo** en el prompt: con "on a white background" algunos lo pintan aunque pidas transparencia.
 - Revisa igual con `alfa.mjs --modo ya-alfa --entrada x.png` (la hoja enseña halos y restos).
@@ -43,9 +41,9 @@ Reglas de la toma aislada:
 - El verde rebota en superficies brillantes y cristal: para lo reflectante, magenta o el par negro/blanco.
 
 ## 3. Recorte por servicio (cuando no hay fondo liso)
-- Imagen (fal, 07-2026): Rembg Enhance 0,006 $ · Ideogram Remove BG 0,01 $ · Recraft 0,011 $ · Pixelcut 0,016 $ · Bria RMBG 2.0 0,018 $.
-- Con Python y GPU en local: `rembg` (BiRefNet), gratis.
-- Higgsfield Layers separa sujeto y fondo; no está confirmado que exporte PNG con alfa ni su precio: pruébalo con una imagen.
+Servicios de recorte (0,006-0,018 $ por imagen en fal), `rembg` en local y Higgsfield Layers, con precio y avisos:
+[proveedores.md](../../pedir-assets-ia/references/proveedores.md), «Alfa, recorte y 3D generado». Lo que devuelvan entra
+en `alfa.mjs --modo ya-alfa` para revisarlo.
 
 ## 4. Vídeo con alfa
 | Vía | Cómo | Coste | Cuándo |

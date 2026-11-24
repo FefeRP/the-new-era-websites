@@ -95,3 +95,15 @@ parezca hecha en cinco minutos. Solo se aceptan si el pedido las exige con un mo
 | FAQ en acordeón + CTA final en caja con degradado y botón | Cierre de plantilla | Cierre que retoma la idea y el hilo conductor; preguntas dentro del recorrido donde surgen |
 | Píldora de «etiqueta» encima de cada titular, emojis o iconos de línea genéricos | Muletilla visual | Numeración, filetes, tipografía secundaria propia, iconos hechos para la marca |
 | Malla o degradado morado-azul, glassmorphism por todas partes, sombras suaves en cada tarjeta | Estética por defecto | La paleta de `DESIGN.md`; profundidad con capas reales, no con sombras genéricas |
+
+**Piezas de interfaz** (salen de copiar un componente de librería sin adaptarlo; arreglo detallado en
+`componentes-interactivos/references/adaptar-componentes.md` §8):
+| Pieza | Por qué delata | Qué hacer en su lugar |
+|---|---|---|
+| Nav en píldora de cristal blanco al 10 % centrada arriba, con 4-5 enlaces y un botón | Es la nav de cristal de cualquier librería | Si va de cristal, que refracte algo real de la marca (foto, fondo por capas) y que el indicador tenga física propia; si no hay nada detrás que refractar, nada de cristal |
+| Cristal sobre un degradado liso o sobre negro | El cristal solo se ve si hay algo detrás: sin imagen es un gris translúcido | Cristal solo encima de imagen, vídeo o fondo con detalle; si no, superficie opaca con borde de luz |
+| Dock que se magnifica al pasar el ratón, en una web que no es una herramienta | Copia del sistema operativo, sin motivo | Una navegación que salga de la idea de la web (el plano, el reloj, el hilo conductor) |
+| Sidebar de panel con iconos de línea genéricos y «Dashboard / Analytics / Settings» | Plantilla de admin | Secciones con el nombre del negocio, iconos propios y una firma en el estado activo |
+| Todo rebota igual (botones, menús, tarjetas con el mismo muelle) | Movimiento sin intención | Rebote solo donde el gesto lleva impulso (soltar, lanzar); el resto, muelle sin rebote o curva fija. Un juego de curvas por web en `DESIGN.md` |
+| Brillo que recorre el borde en bucle, botones con «shimmer» permanente | Adorno que no responde a nada | Que el brillo dependa del puntero, del scroll o del estado; o quitarlo |
+| Bento de 6 tarjetas con micro-gráficos falsos | La sección «features» del 2024 | Datos reales del cliente en una sola pieza grande, o un instrumento que se toca |

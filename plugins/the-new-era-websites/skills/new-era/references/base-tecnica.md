@@ -25,8 +25,8 @@
 - **Lenis + ScrollTrigger en un bucle** (la plantilla): `lenis.on('scroll', ScrollTrigger.update)`,
   `gsap.ticker.add((t) => lenis.raf(t * 1000))`, `gsap.ticker.lagSmoothing(0)`. GSAP 3.13+ es gratis con todos sus
   plugins (SplitText, ScrollSmoother, Flip, MorphSVG); su licencia solo excluye herramientas visuales sin código.
-- **Peso de la transparencia:** vídeo con alfa como stacked alpha (`capas-alfa`), ~0,4-1 MB por 3-5 s; frames WebP con
-  alfa pesan ~1,5-2× los opacos: resolución contenida (≤ 1280 px) y menos frames.
+- **Transparencia:** formatos, navegadores y pesos con alfa en
+  [formatos-alfa.md](../../capas-alfa/references/formatos-alfa.md) de `capas-alfa` (por defecto, stacked alpha).
 
 ## Maquetación de escenas fijadas
 - **`position: sticky` deja de funcionar si un antepasado tiene `overflow: hidden`** (síntoma: capturas vacías). Para

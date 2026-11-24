@@ -56,9 +56,8 @@ gsap.timeline({ scrollTrigger: { trigger: escena, start: 'top top', end: '+=200%
 - Las capas quietas, `<img>` con `decoding="async"` y `loading="lazy"` fuera del hero.
 
 ## Sombra
-El recorte se lleva la sombra. Si el sujeto "flota" sin sombra, parece pegado: sombra de contacto como capa propia
-(`parallax-capas`, `capas-sombra.mjs`) o un `radial-gradient` oscuro y desenfocado debajo, que se aleja y se aclara cuando el
-sujeto sube.
+El recorte se lleva la sombra; sin ella el sujeto parece pegado. Cómo ponerla como capa propia (extraída, sintética o
+con un degradado por CSS): [sombras.md](../../parallax-capas/references/sombras.md) de `parallax-capas`.
 
 ## Móvil y accesibilidad
 - `prefers-reduced-motion`: `video-alfa.js` no arranca y deja el póster; `capas-parallax.js` no mueve nada.

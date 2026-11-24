@@ -5,7 +5,8 @@
 2. **Fin editando el inicio**, nunca desde cero: «Make the end frame by editing the start frame» [1]. Google lo hace
    igual: Nano Banana para el antes y el después, y Veo con los dos fotogramas [2].
 3. **Fin alcanzable:** si la geometría entre los dos no es compatible, el modelo lo tapa con un fundido, un morph o un
-   corte [3]. Inicio = fin solo para bucles; un recorte ampliado del inicio da un zoom plano.
+   corte [3]. Inicio = fin solo para bucles; un recorte ampliado del inicio da un zoom plano. Los modelos no clavan
+   el final al píxel (±4-6 px): mide pantallas y anclas en el vídeo, no en la imagen que diste.
 4. **Prueba barata** (borrador de Seedance a 480p, Kling 2.5 Turbo o 3.0 std) y **final con el bueno**.
 5. El modelo **retoca un poco el primer fotograma**: para encadenar, saca el último fotograma del vídeo generado, no
    uses tu imagen original.
@@ -29,7 +30,13 @@
   en cada eslabón e iguala el color (`colorbalance`/`eq`, o una LUT con `haldclut`) [4].
 - **La costura**: si los dos lados ya casan, interpola solo la unión (RIFE); si no, genera un **puente** con inicio =
   último de A y fin = primero de B [6]. `xfade` de 0,25 s tapa el color pero deja fantasmas al arrastrar el scroll.
-- **No mezcles modelos** dentro de una cadena [7]. Comprueba la unión con `revisar-video.mjs` sobre el vídeo unido.
+- **No mezcles modelos** dentro de una cadena [7] (ni resoluciones). Comprueba la unión con `revisar-video.mjs` sobre
+  el vídeo unido y, ya en la web, con `verificar-scroll.mjs` de `new-era` (el último frame de A y el primero de B se
+  pintan seguidos).
+- **Sujeto ancla (match cut)** entre dos lugares distintos: un objeto en el mismo sitio y tamaño del encuadre hace de
+  puente (la gota que pasa del líquido a la piel, la semilla siempre en el centro). Último fotograma de A → edición
+  «keep [the drop] exactly in the same position and size; replace everything around it with [skin]» → inicio de B.
+  Comprueba superponiendo al 50 % que el ancla no se movió.
 
 ## 3. Extender
 - **Seedance 2.5 / 2.0:** `video-extend` / `video_extension`, 4-15 s por extensión, `extension_mode` backward o
@@ -72,21 +79,9 @@ con `revisar-video.mjs` antes y después.
 - Interpolar a 60 fps no hace falta para scroll; solo para cámara lenta.
 
 ## 7. Marca: logo y texto sin que se deforme
-Ningún modelo mantiene un logo o un texto concretos: pruebas de anuncios vieron a Veo 3.1 Fast y Kling O3 rediseñar
-un logo simple, y a Seedance 2.5 respetar un logo pequeño que a 720p no se leía [14]. No hay cifra publicada de tamaño
-mínimo. En orden de preferencia:
-1. **Por código** encima del vídeo: capa HTML/SVG, o `seguir-pantalla` si la cámara se mueve. Exacto y editable.
-2. **Componer después** sobre el vídeo (corner pin con seguimiento, desenfoque ligero para integrarlo).
-3. **Incrustado en la imagen de inicio** y poco movimiento: el texto que ya está en la imagen aguanta más que el que
-   se pide en el prompt. Giros cortos: un 360 completo destroza la etiqueta.
-4. **Revelado con dos fotogramas** (Seedance 2.0 con fin, o Veo 3.1): inicio con la superficie vacía o formas sueltas,
-   fin con el logo real compuesto; «shapes assemble into the logo with precise alignment, no extra symbols», «clean
-   edges, centered, high contrast, no distortion», «static final logo, no motion after assembly» [2]. Medido en una
-   intro: el símbolo compuesto como fin llegó exacto (comprobado con el contorno del SVG); las letras, no.
-5. **Referencias:** Seedance con «@Image1» (PNG transparente) y «The logo from @Image1 must remain perfectly
-   unchanged»; Kling 3.0 `elements` mantiene el texto de las imágenes subidas. Útil para planos lejanos, no para el
-   primer plano.
-Para generar el logo: Recraft V4.1 Vector o Ideogram Vector (SVG). Precios, CTA y letra pequeña: siempre HTML.
+Ningún modelo mantiene un logo ni un texto concretos. Por orden: por código encima del vídeo, componer después,
+incrustado en la imagen de inicio con poco movimiento, revelado con dos fotogramas o referencias. Detalle, prompts y
+fuentes en [fallos-y-arreglos.md](../../fotos-producto-ia/references/fallos-y-arreglos.md), «Logo y texto en vídeo».
 
 ## Fuentes
 1. ClipSpeed, guía de fotograma inicial y final [parcial]: https://clipspeed.ai
@@ -102,5 +97,4 @@ Para generar el logo: Recraft V4.1 Vector o Ideogram Vector (SVG). Precios, CTA 
 11. ffmpeg.party, bucle de vídeo IA [leída entera]: https://ffmpeg.party/guides/ai-video-loop/
 12. Renderio, posproceso de vídeo de Kling [leída entera]: https://renderio.dev/blogs/kling-video-post-processing
 13. Higgsfield, mejores upscalers de vídeo de 2026 [leída entera]: https://higgsfield.ai/blog/best-ai-video-upscalers-2026 · Help Center, upscale [leída entera]: https://higgsfield.ai/creator-hub/help-center/tools/how-do-i-use-upscale
-14. Masonry, mejor modelo para anuncios de producto [parcial]: https://masonry.so/blog/best-ai-video-model-for-product-ads
 15. fal, upscalers de vídeo a vídeo [leída entera]: https://fal.ai/learn/tools/video-to-video-upscalers

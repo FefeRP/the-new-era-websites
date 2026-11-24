@@ -66,3 +66,26 @@ Así el producto son píxeles reales: el logo no se puede deformar. Es lo que ha
 - La luz va en sentido contrario a la de la serie.
 
 Regenerar cuesta lo mismo que una tirada; retocar a mano varias zonas cuesta más tiempo y suele notarse.
+
+## 5. Logo y texto en vídeo
+Ningún modelo de vídeo mantiene un logo o un texto concretos: pruebas de anuncios vieron a Veo 3.1 Fast y Kling O3
+rediseñar un logo simple, y a Seedance 2.5 respetar un logo pequeño que a 720p no se leía [2]. No hay cifra publicada de
+tamaño mínimo. Un logo deformado en la imagen clave sale deformado en todo el vídeo: revísala antes (secciones 1-2). En
+orden de preferencia:
+1. **Por código** encima del vídeo: capa HTML/SVG, o `seguir-pantalla` si la cámara se mueve. Exacto y editable.
+2. **Componer después** sobre el vídeo (corner pin con seguimiento, desenfoque ligero para integrarlo).
+3. **Incrustado en la imagen de inicio** y poco movimiento: el texto que ya está en la imagen aguanta más que el que
+   se pide en el prompt. Giros cortos: un 360 completo destroza la etiqueta.
+4. **Revelado con dos fotogramas** (Seedance 2.0 con fin, o Veo 3.1): inicio con la superficie vacía o formas sueltas,
+   fin con el logo real compuesto; «shapes assemble into the logo with precise alignment, no extra symbols», «clean
+   edges, centered, high contrast, no distortion», «static final logo, no motion after assembly» [1]. Medido en una
+   intro: el símbolo compuesto como fin llegó exacto (comprobado con el contorno del SVG); las letras, no.
+5. **Referencias:** Seedance con «@Image1» (PNG transparente) y «The logo from @Image1 must remain perfectly
+   unchanged»; Kling 3.0 `elements` mantiene el texto de las imágenes subidas. Útil para planos lejanos, no para el
+   primer plano.
+
+Para generar el logo: Recraft V4.1 Vector o Ideogram Vector (SVG). Precios, CTA y letra pequeña: siempre HTML.
+
+## Fuentes
+1. Google Cloud, guía definitiva de prompts de Veo 3.1 [leída entera]: https://cloud.google.com/blog/products/ai-machine-learning/ultimate-prompting-guide-for-veo-3-1
+2. Masonry, mejor modelo para anuncios de producto [parcial]: https://masonry.so/blog/best-ai-video-model-for-product-ads

@@ -1,8 +1,8 @@
 ---
 name: biblioteca-componentes
-description: Buscar, elegir y adaptar componentes UI de un catálogo propio (índice JSON con código, dependencias, demo, licencia y un prompt de integración por componente, sacado de registros abiertos tipo shadcn como Magic UI, SmoothUI, Origin UI, Cult UI, Motion Primitives, Animata y similares, más recetas de Spline). Es la librería común de recursos para todas las skills (webs, motion graphics, vídeo desde HTML): los recursos (componentes, fondos y elementos de decoración, shaders y similares) se copian tal cual y se modifican solo si hace falta; los iconos y lo propio de cada proyecto los genera cada usuario. Incluye el buscador sin dependencias (scripts/buscar.mjs), el acceso por carpeta local o por la API con token personal, cómo leer licencias, cómo integrarlos y ajustarlos, cómo integrar escenas de Spline y qué hacer con catálogos de pago o con clave (21st.dev, versiones Pro). Úsala cuando pidan "un shader de fondo", "elemento de decoración", "recurso de la librería", "librería de recursos", "busca un componente", "¿hay algún componente de…?", "usa la biblioteca de componentes", "catálogo de componentes", "un fondo animado", "un hero con efecto", "botón con brillo", "texto que se escribe solo", "marquesina de logos", "Magic UI", "Aceternity", "React Bits", "shadcn blocks", "21st.dev", "Spline", "component library", "find a component", "UI component catalog", "animated background component", "hero section component", "Spline scene in React".
+description: Buscar en el catálogo propio un componente UI ya hecho (Magic UI, Aceternity, React Bits, 21st.dev y otros), elegirlo por licencia y peso, y copiarlo al proyecto; también escenas de Spline. «busca un componente», «¿hay algún componente de…?», «un fondo animado de la librería», «find a component», «UI component library», «Spline scene». NO para construirlo o transformarlo a fondo (componentes-interactivos) ni para 3D con glTF (escena-3d-gltf).
 license: MIT
-version: 1.2.1
+version: 1.3.0
 ---
 
 # Biblioteca de componentes
@@ -117,6 +117,12 @@ empeorarlo. Se toca solo lo que el proyecto pida:
 | Interacción | Si hace falta: estados de foco y teclado, alternativa al hover en móvil, `prefers-reduced-motion` |
 | Rendimiento | Si repinta de más (blur, `clip-path`) o pesa: ver el punto 3 del paso 2 |
 
+**Cómo se cambia cada cosa sin romper el efecto** (qué valores van en pareja, cómo se cambia la duración de un muelle sin
+cambiar su carácter, pasar de React a HTML o a three.js, juntar dos componentes y quitarles el aspecto de librería):
+`componentes-interactivos`, guía [adaptar-componentes.md](../componentes-interactivos/references/adaptar-componentes.md).
+Un componente sin adaptar delata la librería de la que sale: el contenido, los iconos y una firma de la marca se cambian
+siempre.
+
 Después: prueba a 390, 768, 1280 y 1440 px, con `prefers-reduced-motion`, con teclado, y mide que no tire el
 rendimiento (sin tirones al hacer scroll; pausa fuera de pantalla). Conserva la licencia y el autor en un comentario al
 principio del fichero.
@@ -143,7 +149,7 @@ interfaz, variables desde React, carga diferida y la versión sin React. Lo esen
 | Aceternity UI (gratis) | Registro público | Propia: uso en productos, no redistribuir |
 | React Bits, shadcnblocks (gratis) | Repo de GitHub | MIT + Commons Clause: uso en productos, no redistribuir ni vender |
 | Versiones Pro (Aceternity, Magic UI, React Bits, Motion Primitives, Cult, Kokonut, shadcnblocks) | Solo referencia con enlace | De pago |
-| 21st.dev | Solo referencia: sus términos no permiten extraerlo de forma automática y el registro y los prompts piden cuenta o clave. Para usarlo, a mano en la web o con su API oficial (`https://21st.dev/api/v1`, clave del plan que la incluya) | La de cada componente |
+| 21st.dev | Con un plan de pago que incluya su API o su MCP oficial (`https://21st.dev/api/mcp`, clave en el entorno), una selección curada para uso propio, con autor, enlace e id de origen. Sus términos prohíben redistribuir el código o copiarlo a otras webs: en un catálogo compartido va **sin código** (solo ficha y enlace), y cada persona lo saca con su propia cuenta. Sin plan, a mano en su web | De su autor y de 21st Labs; las de código abierto conservan su licencia y el crédito |
 
 Al sincronizar un catálogo propio: respeta `robots.txt`, deja una pausa de al menos un segundo entre peticiones al mismo
 servidor, no saques nada de pago ni tras login y guarda autor y licencia de cada pieza.

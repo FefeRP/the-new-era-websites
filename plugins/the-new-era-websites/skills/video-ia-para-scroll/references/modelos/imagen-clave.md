@@ -17,18 +17,11 @@ más caro).
   ello al elegir la focal.
 
 ## Qué modelo para qué imagen
-| Modelo | Créditos (web) | API | Lo mejor | Notas |
-|---|---|---|---|---|
-| **GPT Image 2.6** (por defecto en Higgsfield) | 1,75-2 (high 2K) | no | Tipografía, composición exacta, hasta 16 referencias | Salida PNG, JPEG, WebP, GIF o **SVG** |
-| **Nano Banana Pro / 2 / 2.1** | 2 (4K: 4) | no | Editar una imagen manteniendo el universo (**fin editando el inicio**), 14 referencias en Lite | El que la skill oficial recomienda para mantener un «universo de producto» coherente |
-| **Seedream 5.0 Pro / 5.5** | 2,5 / 3,5 | 0,108 $ (5 pro) | Letra pequeña legible; 5.5 con **fondo transparente** | 10 referencias |
-| **Cinema Studio Image** | 2 (2K) | no | **Focal, lente, cuerpo y apertura** controlados | La forma de fijar el FOV |
-| Soul 2.0 / Cinema / Location | 0,12 | no | Semilla; Location para escenarios | Estética propia, menos neutra |
-| Flux 2 Pro / Flex / Max · Kontext | 1 / 3 / 4 · 1,5 | no | Edición contextual | — |
-| Qwen Image 3 | — | 0,04 $ | Semilla y **prompt negativo**; edición con 1-3 referencias | Barato para variantes |
-| Kling Image 4 | — | 0,063 $ | — | — |
-| Grok Image 2 | 2,5 | 0,06 $ | 10 referencias | — |
-| Recraft V4.1 Vector / Ideogram Vector | — | — | **Logos en SVG** | Para la marca que luego va por código |
+Para la imagen clave: **Cinema Studio Image** para fijar la focal; **Nano Banana Pro / 2 / 2.1** para hacer el fin
+editando el inicio; **GPT Image 2.6** para tipografía y composición exacta; **Seedream 5.5** si hace falta fondo
+transparente; **Qwen Image 3** para variantes repetibles (semilla y negativo); Recraft o Ideogram Vector para el logo en
+SVG que luego va por código. Créditos, precio de la API y referencias que admite cada uno:
+[proveedores.md](../../../pedir-assets-ia/references/proveedores.md) de `pedir-assets-ia`, «Imagen en Higgsfield».
 
 ## Reglas de la imagen clave para scroll
 1. **Proporción final** desde el principio (16:9 escritorio; con aire lateral para recortar 9:16, o una segunda imagen
