@@ -2,7 +2,7 @@
 name: new-era
 description: Skill maestra del marketplace the-new-era-websites para construir o mejorar cualquier web con carácter propio y sin resultados genéricos - corporativa, despacho, editorial, inmobiliaria, tienda o e-commerce, restaurante u hotel, estudio o portfolio, landing de producto, inmersiva o cinematográfica - palabra clave de activación "NEW ERA" o /new-era (siguen valiendo "WEB PREMIUM" y /web-premium, el nombre anterior). Tiene una base común que se usa siempre (brief, dirección de estilo con DESIGN.md, idea, hilo y firma, estructura, tipografía, ritmo y movimiento, carga obligatoria con la herramienta Skill de las skills de diseño instaladas, código contra la documentación actual con find-docs en la versión del proyecto y Modern Web Guidance en las decisiones de plataforma, verificación con capturas y revisión independiente por rondas) y módulos opcionales que activa solo si el proyecto los pide y deja escritos en el BRIEF con el motivo - 3D y WebGL (three.js con glTF, shaders, Spline), vídeo con IA (Higgsfield con Seedance, Kling, Veo y Wan, guía por modelo, plantillas, árbol de decisión, montaje medido), scroll inmersivo y frames, assets de IA (fotos de producto, alfa, capas, parallax, lente de rayos X, envase que gira sin 3D), biblioteca de componentes y lugar y mapa (de la ciudad al edificio). Planifica los activos y su coste, monta la web con la plantilla base (Vite + GSAP + Lenis), la verifica y la revisa antes de darla por terminada. Úsala SIEMPRE que el pedido diga "NEW ERA", "new era website", "WEB PREMIUM", "web premium", "hazme la web de", "mejora esta web", "que no parezca genérica", "web corporativa premium", "web para una inmobiliaria", "web de tienda", "web editorial", "web inmersiva", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "premium website", "immersive website", "awwwards style site", "cinematic scroll website", "3D scrolling website", "build a website with scroll effects", "premium corporate website", "real estate website".
 license: MIT
-version: 1.0.1
+version: 1.1.0
 ---
 
 # NEW ERA: de un pedido a una web con carácter propio
@@ -51,7 +51,7 @@ y se dice en la entrega.
 | Fase | Se cargan con `Skill` | Qué sale de ahí |
 |---|---|---|
 | **Dirección** (paso 2) | `frontend-design:frontend-design` (dirección estética) · `impeccable:impeccable` (`shape`, y `init`/`document` para `DESIGN.md`) · `ui-ux-pro-max:ui-ux-pro-max` (paletas y pares de fuentes por sector) | Dirección elegida, tipografía, paleta y tokens en `DESIGN.md` |
-| **Componentes** (pasos 4 y 6) | `componentes-interactivos` · `emil-design-eng` (detalle de cada pieza) · y `biblioteca-componentes` si el módulo Biblioteca está activo | Piezas adaptadas a la marca, no de catálogo tal cual |
+| **Componentes** (pasos 4 y 6) | `componentes-interactivos` · `emil-design-eng` (detalle de cada pieza) · y `biblioteca-componentes` si el módulo Biblioteca está activo | Recursos de la librería copiados tal cual (ajustados solo si hace falta); iconos y marca, del proyecto |
 | **Movimiento** (pasos 4 y 6) | `revelados-y-transiciones` (y `rastro-cursor` si toca) · `gsap-skills:gsap-scrolltrigger` y `gsap-skills:gsap-timeline` (líneas de tiempo a medida) · `animate` y `apple-design` (microinteracciones, gestos, muelles) · y las skills de los módulos activos | Escenas, transiciones y estados con intención |
 | **Módulos** (paso 4) | Las de cada módulo activo, según su fichero en [references/modulos/](references/modulos/README.md) | Técnicas, activos y comprobaciones propias del módulo |
 | **Código** (pasos 1, 4, 6 y 7) | `find-docs` (API de cada librería en la versión del `package.json`) · `modern-web-guidance:modern-web-guidance` (plataforma: Core Web Vitals, imágenes, fuentes, accesibilidad, View Transitions, CSS moderno, formularios, PWA) | Código que funciona con la versión instalada y decisiones de plataforma con su guía, apuntadas en `BRIEF.md` |
@@ -215,7 +215,9 @@ Cada técnica en su fichero `src/secciones/<seccion>.js` (la carpeta `src/seccio
 hilo conductor y las transiciones → resto de secciones y componentes, uno a uno → microinteracciones con la skill de
 animación.
 Para cada pieza de interfaz, si el módulo Biblioteca está activo, busca antes en el catálogo (`biblioteca-componentes`) y
-adapta lo que encaje con su tabla de cambios; lo que el catálogo no tenga con la pila del proyecto, se rehace con la idea.
+copia tal cual lo que encaje, ajustándolo solo si hace falta (contenido real; color y tipografía si chocan con
+`DESIGN.md`); si la pila es otra, se pasa conservando el efecto exacto. Los iconos y lo propio de la marca se generan
+para el proyecto, no salen de la librería.
 **Antes de escribir código** (regla 6; se carga la fase **Código**):
 - Cada API de librería que se escribe o se cambia, consultada antes con `find-docs` en la versión del proyecto (en
   Next.js: metadata, `next/image`, `next/font`, componente de servidor o de cliente y dónde se monta un motor que usa

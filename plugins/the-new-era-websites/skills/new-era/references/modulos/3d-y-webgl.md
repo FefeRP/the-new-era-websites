@@ -22,8 +22,8 @@ three.js con glTF, escenas de Spline, shaders, partículas y fondos vivos dibuja
 ## Skills que se cargan
 `escena-3d-gltf` · `webgl-animation-skills:shader-glsl`, `webgl-animation-skills:threejs-animation`,
 `webgl-animation-skills:particle-system` (las que toquen) · `gsap-skills:gsap-scrolltrigger` y
-`gsap-skills:gsap-timeline` (cámara y escenas ligadas al scroll) · `biblioteca-componentes` solo por sus recetas
-`spline/*` si la escena viene de Spline. Antes de escribir código propio con three.js, `find-docs` en la versión
+`gsap-skills:gsap-timeline` (cámara y escenas ligadas al scroll) · `biblioteca-componentes` solo por su sección
+de Spline si la escena viene de Spline. Antes de escribir código propio con three.js, `find-docs` en la versión
 del `package.json` (regla 6).
 
 ## Técnicas
@@ -31,7 +31,7 @@ del `package.json` (regla 6).
 |---|---|---|
 | Que el visitante gire/configure el objeto, o 3D en varias secciones | 3D real glTF | `escena-3d-gltf` |
 | Un fondo vivo que persiste toda la web y cambia con el relato (luz, materia, ondas, un objeto dibujado por código) | Canvas fijo a pantalla completa con shader o 2D, con el avance del scroll como parámetro | `webgl-animation-skills:shader-glsl` + catálogo (E) |
-| Escena 3D hecha en Spline (hero, objeto que sigue al ratón, configurador ligero) | Escena exportada + runtime de Spline con carga diferida | `biblioteca-componentes` (recetas `spline/*`) |
+| Escena 3D hecha en Spline (hero, objeto que sigue al ratón, configurador ligero) | Escena exportada + runtime de Spline con carga diferida | `biblioteca-componentes` (sección Spline) |
 | Partículas que forman figuras, distorsiones, portales | Shaders/GPGPU | catálogo (E) + `webgl-animation-skills` |
 | Gama de envases con giro libre en varios ejes (carrusel orbital → foco → line-up) | 3D real | `escena-3d-gltf` (si el giro es solo sobre su eje: `envase-giratorio`) |
 

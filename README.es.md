@@ -82,7 +82,7 @@ Ejemplo: `NEW ERA: landing para un reloj de edición limitada; tengo 4 fotos del
 | `revelados-y-transiciones` | `revelados.js`: imagen que se descubre en rejilla, cortina que cambia de escena, zoom 2D a un punto de una imagen grande con relevo a una foto de detalle, titular que sube por líneas; tarjeta a pantalla completa, View Transitions, animaciones CSS ligadas al scroll |
 | `rastro-cursor` | Fotos que siguen al cursor y se desvanecen (grupo fijo de imágenes, solo ratón; composición estática en táctil y con movimiento reducido) |
 | `video-desde-html` | Vídeo a partir de HTML, CSS y JS con [HyperFrames](https://github.com/heygen-com/hyperframes) (open source), sin modelos de IA de vídeo: el hero, un tramo de scroll o el producto girando pasan a MP4 9:16 o 16:9 para promos y redes; y en el otro sentido, fondos en bucle sin corte, capas con transparencia y secuencias para scroll hechas por código. Lanzador seguro `hf.mjs` (versión fijada, sin telemetría ni descargas), plantillas probadas, `medir-bucle.mjs` y tiempos de render medidos |
-| `biblioteca-componentes` | Buscar, elegir y adaptar componentes de interfaz de un catálogo propio (índice JSON con código, dependencias, demo, licencia, autor y un prompt de integración por componente, sincronizado desde registros abiertos tipo shadcn como Magic UI, SmoothUI, Origin UI, Cult UI, Motion Primitives o Animata). `buscar.mjs` (sin dependencias) busca en español o en inglés y saca código y prompt; una tabla de cambios para que ningún componente salga tal cual; reglas de licencia (MIT, «no redistribuir», de pago); recetas de Spline (hero con escena y póster, objeto que sigue al ratón, escena movida por el scroll, eventos y variables desde React, carga diferida). El catálogo no viaja con el plugin: `BIBLIOTECA_COMPONENTES` apunta al tuyo |
+| `biblioteca-componentes` | Buscar, elegir y adaptar componentes de interfaz de un catálogo propio (índice JSON con código, dependencias, demo, licencia, autor y un prompt de integración por componente, sincronizado desde registros abiertos tipo shadcn como Magic UI, SmoothUI, Origin UI, Cult UI, Motion Primitives o Animata). `buscar.mjs` (sin dependencias) busca en español o en inglés y saca código y prompt; los recursos (componentes, fondos, elementos de decoración, shaders) se copian tal cual y se ajustan solo si hace falta, y los iconos y lo de marca los genera siempre cada proyecto; el catálogo se lee de una carpeta local o por su API con un token personal (`BIBLIOTECA_TOKEN`), y es la librería común de recursos de todas las skills, motion graphics incluido; reglas de licencia (MIT, «no redistribuir», de pago); recetas de Spline (hero con escena y póster, objeto que sigue al ratón, escena movida por el scroll, eventos y variables desde React, carga diferida). El catálogo no viaja con el plugin: `BIBLIOTECA_COMPONENTES` apunta al tuyo |
 | `parallax-capas` | Profundidad 2.5D: capas con scroll y puntero, CSS scroll-driven; `capas-sombra.mjs` saca la sombra como capa semitransparente (producto que levita, cambio de fondo) |
 | `escena-3d-gltf` | three.js con glTF optimizado (meshopt), entorno PBR, arrastre y scroll, rendimiento móvil, cancelación de carga |
 | `lente-revelado` | Lente que sigue al cursor (o al dedo) y enseña otra versión alineada: rayos X, térmica, interior; interruptor de modos; cortina antes/después con el scroll; `variantes-revelado.mjs` saca rayos X y térmica de una foto con ffmpeg y comprueba la alineación |
@@ -149,6 +149,7 @@ Revisión de un lote de imagen (`pruebas/recursos-imagen`): la hoja de conjunto 
 - `alfa.mjs` medido con entradas de alfa conocido (croma 39,8 dB, pareja negro/blanco 59,4 dB) y la página de capas comprobada por píxeles; revelados, rastro del cursor y mapa por niveles comprobados por píxeles en escritorio, móvil y movimiento reducido.
 - Los tres componentes probados en Chrome (teclado, táctil, movimiento reducido, píxeles) y `lote-imagenes.mjs` contra entradas con defectos conocidos.
 - Las recetas de producto y servicio de NEW ERA (pasarela con foco, puntos sobre el producto, «límpialo tú», dial) probadas en Chrome con el código tal como está en la guía (22 comprobaciones, incluido el fondo sin recortar medido por píxeles).
+- `buscar.mjs` contra la API del catálogo con un token personal: búsqueda, ficha con código, ficha sin código por licencia y token rechazado.
 
 **Sin probar:**
 - Una generación de pago nueva siguiendo las plantillas de prompt nuevas (Higgsfield u otros) y las recetas de imagen de `recursos-imagen-ia`, incluidos los modelos de imagen con alfa nativo y las APIs de recorte de vídeo.
@@ -156,7 +157,7 @@ Revisión de un lote de imagen (`pruebas/recursos-imagen`): la hoja de conjunto 
 - Vídeo HEVC con alfa (solo se codifica en un Mac).
 - Mapa: relevo a foto real del edificio (la demo no tiene foto propia; el patrón está documentado) y fuentes de pago (MapTiler, Esri…).
 
-**Previsto para la 1.1:**
+**Previsto para la 1.2:**
 - Una web real construida de principio a fin con NEW ERA.
 - Las plantillas de prompt de vídeo validadas con clips reales.
 - El vídeo y los frames medidos en móviles reales.

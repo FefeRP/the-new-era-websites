@@ -12,6 +12,8 @@
 //
 // Dónde está el catálogo: variable BIBLIOTECA_COMPONENTES =
 //   - una carpeta con indice.json y c/<fuente>/<slug>.json, o
+//   - la API del catálogo (https://…/api) con un token personal, sin escribirlo en el proyecto ni en el comando:
+//       BIBLIOTECA_TOKEN=ne_…   o   BIBLIOTECA_TOKEN_FILE=/ruta/fuera/del/proyecto/token.txt
 //   - una URL base (https://…/datos). Si pide usuario y contraseña, sin escribirlos en el proyecto ni en el comando:
 //       BIBLIOTECA_AUTH_FILE=/ruta/fuera/del/proyecto/acceso.txt   fichero con «usuario:clave» en una línea, o con
 //                                                                 líneas «Usuario: …» y «Contraseña: …»
@@ -45,13 +47,29 @@ function credenciales() {
   throw new Error('BIBLIOTECA_AUTH_FILE no tiene «usuario:clave» ni líneas «Usuario: …» y «Contraseña: …».');
 }
 
+// token personal de la API (nunca se imprime)
+function tokenPersonal() {
+  if (process.env.BIBLIOTECA_TOKEN) return process.env.BIBLIOTECA_TOKEN.trim();
+  const f = process.env.BIBLIOTECA_TOKEN_FILE;
+  if (!f) return null;
+  let txt;
+  try { txt = fs.readFileSync(f, 'utf8'); } catch { throw new Error('No se puede leer BIBLIOTECA_TOKEN_FILE.'); }
+  const t = txt.match(/ne_[A-Za-z0-9_-]{20,}/)?.[0] || txt.trim().split(/\s+/)[0];
+  if (!t) throw new Error('BIBLIOTECA_TOKEN_FILE está vacío.');
+  return t;
+}
+
 async function leer(rel) {
   if (!esURL) return JSON.parse(fs.readFileSync(path.join(ORIGEN, rel), 'utf8'));
   const cab = {};
-  const cred = credenciales();
-  if (cred) cab.authorization = 'Basic ' + Buffer.from(cred).toString('base64');
+  const token = tokenPersonal();
+  const cred = token ? null : credenciales();
+  if (token) cab.authorization = 'Bearer ' + token;
+  else if (cred) cab.authorization = 'Basic ' + Buffer.from(cred).toString('base64');
   const r = await fetch(ORIGEN.replace(/\/$/, '') + '/' + rel, { headers: cab });
-  if (r.status === 401) throw new Error('El catálogo pide usuario y contraseña: define BIBLIOTECA_AUTH_FILE (fichero fuera del proyecto) o BIBLIOTECA_AUTH en el entorno.');
+  const motivo = async () => { try { return (await r.json()).error || ''; } catch { return ''; } };
+  if (r.status === 401) throw new Error(token ? `El catálogo no acepta el token. ${await motivo()}` : 'El catálogo pide acceso: define BIBLIOTECA_TOKEN (o BIBLIOTECA_TOKEN_FILE) con tu token personal, o BIBLIOTECA_AUTH_FILE si usa usuario y contraseña.');
+  if (r.status === 429) throw new Error(await motivo() || 'Límite diario de la API alcanzado.');
   if (!r.ok) throw new Error(`HTTP ${r.status} al leer ${rel}`);
   return r.json();
 }
@@ -122,6 +140,7 @@ if (orden === 'ver') {
   console.log(`# ${c.nombre}  (${c.id})\n${c.descripcion}\nFuente: ${c.fuenteNombre} · Autor: ${c.autor || '-'} · Licencia: ${c.licencia || '-'}\nOriginal: ${c.url || '-'}`);
   if (c.tipo === 'referencia') { console.log('\nSolo referencia (de pago, tras login o descartada): no hay código. Ábrelo en su web.'); process.exit(0); }
   const d = await leer(`c/${c.id}.json`);
+  if (d.soloEnlace) console.log(`\nSin código por la API: ${d.aviso || 'su licencia no permite redistribuirlo.'} ${d.url || c.url || ''}`);
   console.log(`Dependencias: ${(d.deps || []).join(' ') || 'ninguna'}${d.regDeps?.length ? `\nBase de shadcn/ui u otros del registro: ${d.regDeps.join(', ')}` : ''}`);
   if (c.usa?.length) console.log(`Pila: ${c.usa.join(', ')}`);
   if (c.tecnica) console.log(`Técnica: ${c.tecnica}`);

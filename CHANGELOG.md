@@ -4,6 +4,25 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.1.0] - 2026-11-24
+La biblioteca de componentes pasa a ser la librería común de recursos de todas las skills, con una regla de uso nueva
+y acceso por API con un token personal. Todas las skills pasan a `1.1.0`.
+
+### Cambiado
+- **Regla de uso de la librería** (`biblioteca-componentes`, `new-era`, `modulos/biblioteca.md`, reparto y README):
+  los recursos (componentes, fondos y elementos de decoración, shaders y similares) **se copian tal cual** y se
+  modifican solo si hace falta, porque rehechos rara vez quedan igual de bien. Lo que genera cada usuario para su
+  proyecto son los **iconos** y lo propio de su marca. Desaparecen la «tabla de cambios obligatoria» y la prueba de
+  «que no se reconozca el original». Si la pila es otra, el recurso se pasa conservando el efecto exacto.
+- `biblioteca-componentes` explica quién la usa: `new-era`, motion graphics y vídeo desde HTML, y cualquier skill que
+  necesite una pieza visual.
+
+### Añadido
+- `buscar.mjs` lee la **API del catálogo con un token personal** (`BIBLIOTECA_COMPONENTES=https://…/api` +
+  `BIBLIOTECA_TOKEN` o `BIBLIOTECA_TOKEN_FILE`). El índice se lee entero; cada componente se pide al usarlo, con
+  límite diario. Los de licencia «no redistribuir» llegan sin código, con su enlace. Usuario y contraseña siguen
+  admitidos.
+
 ## [1.0.1] - 2026-11-23
 Ocho referencias nuevas (ref17-ref24) convertidas en recetas de la base de NEW ERA. No hay scripts nuevos y todas las skills pasan a `1.0.1`.
 
