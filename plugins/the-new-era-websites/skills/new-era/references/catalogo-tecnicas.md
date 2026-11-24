@@ -84,6 +84,7 @@ gira libremente, lo configura o lo toca. Detalle en `pedir-assets-ia/references/
 | Lata o envase cilíndrico que gira sin 3D | etiqueta plana enrollada en canvas 2D (`u = asin(x/r)`) + sombreado y tapa; giro con scroll, arrastre o slider | ligero | envase-giratorio (hecho) · ref10 (en Figma: franja dentro de máscara) |
 | Tarjetas en perspectiva (CSS 3D) | `perspective` + `rotateX/Y` + stagger | ligero | componentes-interactivos, `tarjeta-volteo.js` (hecho) · ref5 |
 | Tilt de tarjeta con brillo | puntero → rotateX/Y + degradado radial de brillo | ligero | skill de animación instalada (`animate`) |
+| Fondo generado por capas: shader detrás + nubes o niebla en el suelo del hero que cambian con el producto; o cielo, montañas y suelo como fotos separadas que se mueven y se relevan entre escenas (día/noche, modelo, capítulo) | un plano por capa y una versión por escena; `fondo-capas.js` hace el relevo escalonado (opacity + transform) y `capas-parallax.js` la profundidad; mismo encuadre y horizonte en todas las escenas | ligero · 0 € por código, céntimos por capa con IA | parallax-capas, `fondo-capas.js` + [fondos-por-capas.md](fondos-por-capas.md) (hecho) · recurso fijo de la base |
 | Profundidad desde una foto (depth map) | foto + mapa de profundidad (Depth Anything, necesita Python/GPU para sacarlo; o un servicio externo) → shader de desplazamiento | medio | idea: foto-profundidad |
 
 ## D. 3D real (three.js / R3F) · módulo 3D y WebGL
@@ -113,7 +114,7 @@ es una lata o botella con etiqueta, `envase-giratorio`.
 |---|---|---|---|
 | Partículas que forman una figura (y se deshacen) | MeshSurfaceSampler → posiciones; GPGPU (GPUComputationRenderer) + curl noise | pesado | idea: particulas-gpgpu · ref2 (pingüino) |
 | Imagen que se distorsiona al pasar / al hacer scroll | plano con shader de desplazamiento (OGL o three) | medio | idea: imagen-shader · ref3 (sweet-tape vertex) |
-| Fondo de degradado vivo / ruido | fragment shader a pantalla completa (OGL, ligero) | medio | idea: fondo-shader |
+| Fondo de degradado vivo / ruido | fragment shader a pantalla completa (OGL, ligero) | medio | idea: fondo-shader; como capa fija de un fondo por capas: fondos-por-capas.md (A) |
 | Transición líquida entre imágenes | mezcla de texturas con mapa de desplazamiento | medio | idea |
 | Cursor con estela de imágenes (image trail) | pool fijo de `<img>` + Web Animations; solo con ratón, composición estática en táctil y reduced-motion | ligero | rastro-cursor (hecho) · ref13 |
 | Cursor con estela metaball | canvas 2D o shader | ligero-medio | idea |

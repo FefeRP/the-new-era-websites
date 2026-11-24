@@ -2,7 +2,7 @@
 name: new-era
 description: Skill maestra del marketplace the-new-era-websites para construir o mejorar cualquier web con carácter propio y sin resultados genéricos - corporativa, despacho, editorial, inmobiliaria, tienda o e-commerce, restaurante u hotel, estudio o portfolio, landing de producto, inmersiva o cinematográfica - palabra clave de activación "NEW ERA" o /new-era (siguen valiendo "WEB PREMIUM" y /web-premium, el nombre anterior). Tiene una base común que se usa siempre (brief, dirección de estilo con DESIGN.md, idea, hilo y firma, estructura, tipografía, ritmo y movimiento, carga obligatoria con la herramienta Skill de las skills de diseño instaladas, código contra la documentación actual con find-docs en la versión del proyecto y Modern Web Guidance en las decisiones de plataforma, verificación con capturas y revisión independiente por rondas) y módulos opcionales que activa solo si el proyecto los pide y deja escritos en el BRIEF con el motivo - 3D y WebGL (three.js con glTF, shaders, Spline), vídeo con IA (Higgsfield con Seedance, Kling, Veo y Wan, guía por modelo, plantillas, árbol de decisión, montaje medido), scroll inmersivo y frames, assets de IA (fotos de producto, alfa, capas, parallax, lente de rayos X, envase que gira sin 3D), biblioteca de componentes y lugar y mapa (de la ciudad al edificio). Planifica los activos y su coste, monta la web con la plantilla base (Vite + GSAP + Lenis), la verifica y la revisa antes de darla por terminada. Úsala SIEMPRE que el pedido diga "NEW ERA", "new era website", "WEB PREMIUM", "web premium", "hazme la web de", "mejora esta web", "que no parezca genérica", "web corporativa premium", "web para una inmobiliaria", "web de tienda", "web editorial", "web inmersiva", "web de las que parecen imposibles", "web con 3D y scroll", "web tipo Apple/Awwwards", "web cinematográfica", "landing con efectos", "premium website", "immersive website", "awwwards style site", "cinematic scroll website", "3D scrolling website", "build a website with scroll effects", "premium corporate website", "real estate website".
 license: MIT
-version: 1.1.0
+version: 1.2.0
 ---
 
 # NEW ERA: de un pedido a una web con carácter propio
@@ -19,7 +19,7 @@ Se organiza en dos capas:
   Cada uno vive en [references/modulos/](references/modulos/README.md) con sus señales, sus skills, sus técnicas, sus
   activos y sus comprobaciones. Una web que no los necesita no arrastra ni el 3D ni el vídeo.
 
-## Siete reglas que no se saltan
+## Ocho reglas que no se saltan
 1. **Se elige dirección antes de construir** (paso 2). Una web sale genérica cuando nadie decide: secciones correctas,
    tipografía neutra, tarjetas, entradas suaves y un efecto suelto. Estilo e intensidad se eligen según el cliente y quedan
    escritos.
@@ -42,6 +42,15 @@ Se organiza en dos capas:
 7. **Los módulos se deciden por el proyecto y quedan escritos** (paso 4): cada uno, activado o no, con el motivo
    sacado del pedido. Ni se activa el 3D por costumbre ni se deja una web sin imagen propia por no activar módulos: la
    base sola ya exige dirección, firma, imagen y revisión.
+8. **Nada de distribuciones típicas de IA.** Prohibidas salvo que el pedido las exija con un motivo: el hero centrado
+   (titular, subtítulo y dos botones en el centro sobre un degradado), el hero partido «texto a la izquierda, imagen a la
+   derecha», la fila de 3 (o 4) tarjetas iguales con icono, título y dos líneas, los bloques de estadísticas en fila, el
+   zigzag imagen-texto que se repite, el FAQ en acordeón y el CTA final en una caja con degradado, las píldoras de
+   «etiqueta» encima de cada titular y el fondo de malla de degradados morado-azul. En su lugar: composición asimétrica
+   con la retícula de `DESIGN.md`, escala tipográfica extrema, una pieza que rompe la retícula, contenido de distinto
+   peso en cada sección y la imagen como protagonista. La lista completa y la prueba están en
+   [references/direcciones-de-estilo.md](references/direcciones-de-estilo.md) (§5 y §6); se pasa antes de construir y
+   antes de entregar.
 
 ## Base · skills que se cargan en cada fase (obligatorio si están instaladas)
 Mira la lista de skills disponibles en la sesión, no supongas. Las de este marketplace que pida la fase van siempre; de
@@ -50,12 +59,13 @@ y se dice en la entrega.
 
 | Fase | Se cargan con `Skill` | Qué sale de ahí |
 |---|---|---|
-| **Dirección** (paso 2) | `frontend-design:frontend-design` (dirección estética) · `impeccable:impeccable` (`shape`, y `init`/`document` para `DESIGN.md`) · `ui-ux-pro-max:ui-ux-pro-max` (paletas y pares de fuentes por sector) | Dirección elegida, tipografía, paleta y tokens en `DESIGN.md` |
+| **Dirección** (paso 2) | `frontend-design:frontend-design` (dirección estética) · `taste-skill:design-taste-frontend` (criterio anti-genérico: un sistema, una sección por pantalla, fotos y UI reales, y su puerta de revisión) · `impeccable:impeccable` (`shape`, y `init`/`document` para `DESIGN.md`) · `ui-ux-pro-max:ui-ux-pro-max` (paletas y pares de fuentes por sector) · y, si la marca no tiene nombre o voz, `founder-skill:founder-brand` | Dirección elegida, tipografía, paleta y tokens en `DESIGN.md` |
 | **Componentes** (pasos 4 y 6) | `componentes-interactivos` · `emil-design-eng` (detalle de cada pieza) · y `biblioteca-componentes` si el módulo Biblioteca está activo | Recursos de la librería copiados tal cual (ajustados solo si hace falta); iconos y marca, del proyecto |
-| **Movimiento** (pasos 4 y 6) | `revelados-y-transiciones` (y `rastro-cursor` si toca) · `gsap-skills:gsap-scrolltrigger` y `gsap-skills:gsap-timeline` (líneas de tiempo a medida) · `animate` y `apple-design` (microinteracciones, gestos, muelles) · y las skills de los módulos activos | Escenas, transiciones y estados con intención |
+| **Movimiento** (pasos 4 y 6) | `revelados-y-transiciones` (y `rastro-cursor` si toca) · `parallax-capas` si hay fondo por capas · `gsap-skills:gsap-scrolltrigger` y `gsap-skills:gsap-timeline` (líneas de tiempo a medida) · `animate`, `choreograph` (varios elementos a la vez), `gestures` y `apple-design` (microinteracciones, gestos, muelles) · y las skills de los módulos activos | Escenas, transiciones y estados con intención |
+| **Activos** (paso 5) | `pedir-assets-ia` y, si están instaladas, `creative-architect:direccion-de-arte` (criterio de estilo y prompts de imagen que no parecen IA) | Lista de activos con medio, prompt y coste |
 | **Módulos** (paso 4) | Las de cada módulo activo, según su fichero en [references/modulos/](references/modulos/README.md) | Técnicas, activos y comprobaciones propias del módulo |
 | **Código** (pasos 1, 4, 6 y 7) | `find-docs` (API de cada librería en la versión del `package.json`) · `modern-web-guidance:modern-web-guidance` (plataforma: Core Web Vitals, imágenes, fuentes, accesibilidad, View Transitions, CSS moderno, formularios, PWA) | Código que funciona con la versión instalada y decisiones de plataforma con su guía, apuntadas en `BRIEF.md` |
-| **Revisión** (paso 7) | `impeccable:impeccable` (`critique`, `audit`, `polish`) · `animation-performance` · `mobile-native` · `break-ui` · el agente revisor `impeccable-finish-reviewer` (y `impeccable-motion-reviewer` si hay movimiento) | Lista ordenada de arreglos, aplicada por rondas |
+| **Revisión** (paso 7) | `impeccable:impeccable` (`critique`, `audit`, `polish`) · la puerta de revisión de `taste-skill:design-taste-frontend` · `learn-taste` (cada corrección del cliente o del revisor pasa a regla de `DESIGN.md`) · `animation-performance` · `mobile-native` · `break-ui` · el agente revisor `impeccable-finish-reviewer` (y `impeccable-motion-reviewer` si hay movimiento) | Lista ordenada de arreglos, aplicada por rondas |
 
 Quién manda cuando dos skills opinan distinto: [references/reparto-skills-diseno.md](references/reparto-skills-diseno.md).
 
@@ -155,6 +165,7 @@ la base de abajo y la tabla de cada módulo activo, y carga la skill de cada té
 Técnicas de la base (valen para cualquier web, sin activar módulos):
 | Quiero… | Técnica | Skill |
 |---|---|---|
+| Un fondo con mundo propio que cambia con el producto, el modelo o el capítulo (shader detrás y nubes en el suelo del hero; o cielo, montañas y suelo como fotos separadas que se mueven y se relevan) | **Fondo generado por capas**: un plano por capa, una versión por escena, relevo escalonado + parallax (varias animaciones solo con fotos). Recurso fijo: plantéalo en toda web antes de descartarlo | [fondos-por-capas.md](references/fondos-por-capas.md) + `parallax-capas` (`fondo-capas.js`; `--con fondo`) |
 | Tipografía como imagen (titulares de 12-36 vw, letras que se ensanchan o engordan al bajar) | Fuente variable (ejes de ancho y peso) ligada al scroll | catálogo (F) + `revelados-y-transiciones` |
 | Textos con presencia | Titulares que suben por líneas, máscaras, texto entre capas | `revelados-y-transiciones` (`crearLineas`) (+ `capas-alfa` si el módulo Assets está activo) |
 | Una foto que se descubre (rejilla, máscara) o una cortina que cambia de escena | Revelados por código | `revelados-y-transiciones` |

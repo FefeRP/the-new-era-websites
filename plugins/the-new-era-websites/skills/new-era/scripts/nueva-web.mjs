@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Crea una web nueva a partir de la plantilla base y copia los motores de las técnicas elegidas.
-// Uso: node nueva-web.mjs <carpeta-destino> [--con frames,pantalla,video,alfa,capas,revelados,rastro,3d,mapa,mapa-imagen,lente,envase,componentes,tarjeta,carrusel,resenas]
+// Uso: node nueva-web.mjs <carpeta-destino> [--con frames,pantalla,video,alfa,capas,fondo,revelados,rastro,3d,mapa,mapa-imagen,lente,envase,componentes,tarjeta,carrusel,resenas]
 //        [--modulos 3d,video-ia,scroll,assets,biblioteca,mapa]  (copia los motores típicos de cada módulo activo; se suma a --con)
 //        [--titulo "…"] [--descripcion "…"] [--marca "…"]
 //        [--fondo "#171412"] [--texto "#efe9e1"] [--acento "#c9a46a"] [--fuente "Inter"] [--fuente-display "…"]
@@ -17,7 +17,7 @@ const plantilla = resolve(aqui, '..', 'plantilla');
 const argv = process.argv.slice(2);
 const destino = argv.find((a) => !a.startsWith('--') && !argv[argv.indexOf(a) - 1]?.startsWith('--'));
 const op = (k, def) => { const i = argv.indexOf(`--${k}`); return i !== -1 ? argv[i + 1] : def; };
-if (!destino) { console.error('Uso: node nueva-web.mjs <destino> [--con frames,pantalla,video,alfa,capas,revelados,rastro,3d,mapa,mapa-imagen,lente,envase,componentes,tarjeta,carrusel,resenas] [--titulo …] [--descripcion …] [--marca …] [--fondo …] [--texto …] [--acento …] [--fuente …] [--fuente-display …]'); process.exit(2); }
+if (!destino) { console.error('Uso: node nueva-web.mjs <destino> [--con frames,pantalla,video,alfa,capas,fondo,revelados,rastro,3d,mapa,mapa-imagen,lente,envase,componentes,tarjeta,carrusel,resenas] [--titulo …] [--descripcion …] [--marca …] [--fondo …] [--texto …] [--acento …] [--fuente …] [--fuente-display …]'); process.exit(2); }
 const dst = resolve(destino);
 const vars = {
   '{{TITULO}}': op('titulo', 'Web nueva'), '{{DESCRIPCION}}': op('descripcion', ''), '{{MARCA}}': op('marca', 'Marca'),
@@ -45,6 +45,7 @@ const motores = {
   pantalla: [['scroll-frames', 'frame-scrubber.js'], ['seguir-pantalla', 'capa-pantalla.js']], // web/logo real sobre el vídeo
   video: [['scroll-frames', 'video-scrubber.js']],
   capas: [['parallax-capas', 'capas-parallax.js']],
+  fondo: [['parallax-capas', 'fondo-capas.js'], ['parallax-capas', 'capas-parallax.js']],         // fondo por capas que cambian por escena
   '3d': [['escena-3d-gltf', 'escena-producto.js']],
   mapa: [['mapa-zoom-ubicacion', 'mapa-scroll.js']],
   'mapa-imagen': [['mapa-zoom-ubicacion', 'mapa-imagen.js']],                                  // mapa por niveles de imagen

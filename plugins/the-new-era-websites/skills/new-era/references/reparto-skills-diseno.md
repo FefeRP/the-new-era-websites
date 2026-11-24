@@ -15,7 +15,9 @@ direccion.md valen siempre como suelo.
 ## Quién manda en cada tema
 | Tema | Manda | Apoyo | Este marketplace aporta |
 |---|---|---|---|
-| Dirección estética (que no parezca plantilla) | `frontend-design:frontend-design` | `impeccable:impeccable` (`shape`, `bolder`, `quieter`) | El momento estrella y qué técnica lo hace posible |
+| Dirección estética (que no parezca plantilla) | `frontend-design:frontend-design` | `taste-skill:design-taste-frontend` (criterio anti-genérico y su puerta de revisión; las variantes de `taste-skill-classics` —soft, minimalist, brutalist…— solo si el pedido nombra ese estilo: no se cargan solas con `Skill`, se lee su `SKILL.md`), `impeccable:impeccable` (`shape`, `bolder`, `quieter`) | El momento estrella y qué técnica lo hace posible, el fondo por capas y la regla 8 (sin distribuciones típicas de IA) |
+| Nombre, voz y promesa de la marca (cuando no existen) | `founder-skill:founder-brand` | `ui-ux-pro-max:brand` | Nada: se usan en el brief y en `DESIGN.md` |
+| Criterio de estilo de las imágenes y prompts que no parecen IA | `pedir-assets-ia` (medio, coste, plantillas) | `creative-architect:direccion-de-arte` | El presupuesto y la revisión «¿se nota falso?» |
 | Sistema de diseño y tokens | `impeccable:impeccable` (`init`, `document`, `extract`: PRODUCT.md y DESIGN.md) | `ui-ux-pro-max:ui-ux-pro-max --design-system` (datos: estilos, paletas, pares de fuentes), `ui-ux-pro-max:design-system` (tokens en 3 capas con validador) | Solo los tokens de la plantilla (`--fondo`, `--texto`, `--acento`), que se rellenan con lo que decida el sistema |
 | Tipografía | `impeccable:impeccable` (`typeset`) | `ui-ux-pro-max` (pares), `apple-design` (tracking, tamaño óptico) | Titulares que suben por líneas y texto entre capas (el efecto, no la elección de la fuente) |
 | Color | `impeccable:impeccable` (`colorize`) | `ui-ux-pro-max` (paletas por tipo de producto) | Una regla propia: el fondo de la sección = el fondo del vídeo o de la foto, para que el lienzo desaparezca |

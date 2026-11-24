@@ -83,7 +83,7 @@ Ejemplo: `NEW ERA: landing para un reloj de edición limitada; tengo 4 fotos del
 | `rastro-cursor` | Fotos que siguen al cursor y se desvanecen (grupo fijo de imágenes, solo ratón; composición estática en táctil y con movimiento reducido) |
 | `video-desde-html` | Vídeo a partir de HTML, CSS y JS con [HyperFrames](https://github.com/heygen-com/hyperframes) (open source), sin modelos de IA de vídeo: el hero, un tramo de scroll o el producto girando pasan a MP4 9:16 o 16:9 para promos y redes; y en el otro sentido, fondos en bucle sin corte, capas con transparencia y secuencias para scroll hechas por código. Lanzador seguro `hf.mjs` (versión fijada, sin telemetría ni descargas), plantillas probadas, `medir-bucle.mjs` y tiempos de render medidos |
 | `biblioteca-componentes` | Buscar, elegir y adaptar componentes de interfaz de un catálogo propio (índice JSON con código, dependencias, demo, licencia, autor y un prompt de integración por componente, sincronizado desde registros abiertos tipo shadcn como Magic UI, SmoothUI, Origin UI, Cult UI, Motion Primitives o Animata). `buscar.mjs` (sin dependencias) busca en español o en inglés y saca código y prompt; los recursos (componentes, fondos, elementos de decoración, shaders) se copian tal cual y se ajustan solo si hace falta, y los iconos y lo de marca los genera siempre cada proyecto; el catálogo se lee de una carpeta local o por su API con un token personal (`BIBLIOTECA_TOKEN`), y es la librería común de recursos de todas las skills, motion graphics incluido; reglas de licencia (MIT, «no redistribuir», de pago); recetas de Spline (hero con escena y póster, objeto que sigue al ratón, escena movida por el scroll, eventos y variables desde React, carga diferida). El catálogo no viaja con el plugin: `BIBLIOTECA_COMPONENTES` apunta al tuyo |
-| `parallax-capas` | Profundidad 2.5D: capas con scroll y puntero, CSS scroll-driven; `capas-sombra.mjs` saca la sombra como capa semitransparente (producto que levita, cambio de fondo) |
+| `parallax-capas` | Profundidad 2.5D: capas con scroll y puntero, CSS scroll-driven; `capas-sombra.mjs` saca la sombra como capa semitransparente (producto que levita, cambio de fondo); `fondo-capas.js` monta fondos por capas que cambian por escena (shader detrás y nubes en el suelo del hero que cambian con el producto; cielo, montañas y suelo como fotos separadas que se relevan capa a capa) |
 | `escena-3d-gltf` | three.js con glTF optimizado (meshopt), entorno PBR, arrastre y scroll, rendimiento móvil, cancelación de carga |
 | `lente-revelado` | Lente que sigue al cursor (o al dedo) y enseña otra versión alineada: rayos X, térmica, interior; interruptor de modos; cortina antes/después con el scroll; `variantes-revelado.mjs` saca rayos X y térmica de una foto con ffmpeg y comprueba la alineación |
 | `envase-giratorio` | Lata, bote o tarro que gira sin 3D: etiqueta plana enrollada en canvas con sombreado y tapa; giro con scroll, arrastre o slider de sabores (fondo, título y frutas que cambian a la vez) |
@@ -94,7 +94,7 @@ Este marketplace cubre **técnica y activos**. No es un sistema de diseño ni un
 
 | Tema | Quién manda | Qué aporta este marketplace |
 |---|---|---|
-| Dirección visual (que no parezca plantilla) | `frontend-design`, `impeccable` (shape) | El momento estrella y la técnica que lo hace posible |
+| Dirección visual (que no parezca plantilla) | `frontend-design`, [`taste-skill`](https://github.com/Leonxlnx/taste-skill) (`design-taste-frontend` y su puerta de revisión), `impeccable` (shape) | El momento estrella y la técnica que lo hace posible, los fondos por capas y la regla 8: nada de distribuciones típicas de IA (hero centrado, fila de tres tarjetas…) |
 | Sistema de diseño, tokens, tipografía, color, maquetación, textos de interfaz | `impeccable` (typeset, colorize, layout, clarify; PRODUCT.md / DESIGN.md), con `ui-ux-pro-max` como fuente de datos (estilos, paletas, pares de fuentes) | Solo los tokens de la plantilla, que se rellenan con lo que decida el sistema |
 | Microinteracciones (botones, menús, modales, hover) | `animate`, `emil-design-eng`, `apple-design` | Nada: los componentes de aquí traen su movimiento; un botón se anima con `animate` |
 | Movimiento ligado al scroll, frames de vídeo, capas, revelados, mapas | **Este marketplace** | Motores, plantilla (Lenis + ScrollTrigger en un solo bucle) y verificación por posiciones; `gsap-skills` para la API |
@@ -150,6 +150,7 @@ Revisión de un lote de imagen (`pruebas/recursos-imagen`): la hoja de conjunto 
 - Los tres componentes probados en Chrome (teclado, táctil, movimiento reducido, píxeles) y `lote-imagenes.mjs` contra entradas con defectos conocidos.
 - Las recetas de producto y servicio de NEW ERA (pasarela con foco, puntos sobre el producto, «límpialo tú», dial) probadas en Chrome con el código tal como está en la guía (22 comprobaciones, incluido el fondo sin recortar medido por píxeles).
 - `buscar.mjs` contra la API del catálogo con un token personal: búsqueda, ficha con código, ficha sin código por licencia y token rechazado.
+- `fondo-capas.js` en Chrome: relevo escalonado, interrupción a medias, movimiento reducido y pasos por scroll (16 comprobaciones).
 
 **Sin probar:**
 - Una generación de pago nueva siguiendo las plantillas de prompt nuevas (Higgsfield u otros) y las recetas de imagen de `recursos-imagen-ia`, incluidos los modelos de imagen con alfa nativo y las APIs de recorte de vídeo.
@@ -157,7 +158,7 @@ Revisión de un lote de imagen (`pruebas/recursos-imagen`): la hoja de conjunto 
 - Vídeo HEVC con alfa (solo se codifica en un Mac).
 - Mapa: relevo a foto real del edificio (la demo no tiene foto propia; el patrón está documentado) y fuentes de pago (MapTiler, Esri…).
 
-**Previsto para la 1.2:**
+**Previsto para la 1.3:**
 - Una web real construida de principio a fin con NEW ERA.
 - Las plantillas de prompt de vídeo validadas con clips reales.
 - El vídeo y los frames medidos en móviles reales.

@@ -77,3 +77,21 @@ Responde por escrito; con un «no» se vuelve a la dirección:
 5. ¿Cada sección cambia algo respecto a la anterior?
 6. ¿Aguanta al lado del tablero de referencias (mismas capturas, lado a lado)?
 7. En una mejora de una web existente: ¿se nota el cambio a primera vista en la captura de antes y después?
+8. ¿Hay alguna de las distribuciones típicas de IA del §6? Si la hay, ¿la pide el pedido con un motivo escrito?
+
+## 6. Distribuciones típicas de IA (no se usan)
+Son las maquetas que salen de un generador cuando nadie decide. Se notan aunque cambien los colores, y hacen que la web
+parezca hecha en cinco minutos. Solo se aceptan si el pedido las exige con un motivo, y entonces se apunta en `BRIEF.md`.
+
+| Distribución | Por qué delata | Qué hacer en su lugar |
+|---|---|---|
+| Hero centrado: titular, subtítulo y dos botones en el centro sobre un degradado o una malla de color | Es la primera pantalla por defecto de cualquier generador | Composición asimétrica con la retícula, titular a escala extrema anclado a un borde, la imagen o el fondo por capas como protagonista |
+| Hero partido: texto a la izquierda, imagen a la derecha, mitad y mitad | Plantilla de landing de SaaS | La imagen a sangre y el texto entre capas o encima; o una pieza que cruza las dos columnas |
+| Fila de 3 (o 4) tarjetas iguales con icono, título y dos líneas | La sección «features» de plantilla | Pesos distintos (una pieza grande y dos pequeñas), lista editorial numerada, un instrumento interactivo o un recorrido fijado |
+| Fila de estadísticas («+500 clientes · 98 % · 24/7») | Relleno sin prueba | Una sola cifra verdadera a escala de titular, con su fuente |
+| Zigzag imagen-texto que se repite tres o más veces | Ritmo cero | Cada sección cambia composición, escala o técnica (§4, ritmo) |
+| Logos de clientes en gris en una marquesina | Prueba social vacía | Un caso real con imagen o una cita a pantalla completa |
+| Testimonios en 3 tarjetas con avatar y estrellas | Plantilla | Reseñas reales en un formato propio (muro 3D, cita grande, vídeo) |
+| FAQ en acordeón + CTA final en caja con degradado y botón | Cierre de plantilla | Cierre que retoma la idea y el hilo conductor; preguntas dentro del recorrido donde surgen |
+| Píldora de «etiqueta» encima de cada titular, emojis o iconos de línea genéricos | Muletilla visual | Numeración, filetes, tipografía secundaria propia, iconos hechos para la marca |
+| Malla o degradado morado-azul, glassmorphism por todas partes, sombras suaves en cada tarjeta | Estética por defecto | La paleta de `DESIGN.md`; profundidad con capas reales, no con sombras genéricas |

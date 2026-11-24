@@ -4,6 +4,34 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.2.0] - 2026-11-24
+Fondos generados por capas como recurso fijo de la base, regla contra las distribuciones típicas de IA y más skills de
+diseño en la carga obligatoria. Todas las skills pasan a `1.2.0`.
+
+### Añadido
+- **Fondos generados por capas** (`new-era/references/fondos-por-capas.md`): un fondo hecho de planos separados con
+  una versión por escena. Dos formas: un shader detrás con nubes o niebla en el suelo del hero que cambian con el
+  producto o el modelo, o un paisaje fotográfico (cielo, fondo lejano, suelo) cuyas capas se mueven y se relevan entre sí,
+  con varias animaciones hechas solo con fotos (parallax, relevo escalonado, deriva, el suelo como cortina, dolly y
+  texto entre capas). Está en la tabla de técnicas de la base, en el catálogo (sección C) y en `parallax-capas`.
+- Motor `parallax-capas/scripts/fondo-capas.js` (`crearFondoCapas`): relevo capa a capa con retraso y sentido por capa,
+  interrumpible, llevado por botones o por el scroll (`pasos`), con reduced-motion y `destruir()`. Se combina con
+  `crearParallax` sobre la misma raíz. En `nueva-web.mjs`: `--con fondo`.
+- Prueba `pruebas/fondo-capas` (capas SVG generadas con `hacer-capas.mjs`): 16 comprobaciones en Chrome (estado
+  inicial, escalonado medido con las animaciones pausadas, final limpio, sin animaciones acumuladas, capa fija intacta,
+  interrupción a medias, reduced-motion y pasos por scroll).
+- **Regla 8 de `new-era`: nada de distribuciones típicas de IA** (hero centrado, hero mitad y mitad, fila de 3
+  tarjetas iguales, estadísticas en fila, zigzag repetido, FAQ en acordeón + CTA en caja con degradado, píldoras sobre
+  cada titular, malla morado-azul). Tabla con qué hacer en su lugar en `direcciones-de-estilo.md` (§6) y pregunta 8 en
+  la prueba del genérico.
+
+### Cambiado
+- Carga obligatoria de skills (tabla de la base y reparto): `taste-skill:design-taste-frontend` en Dirección y su
+  puerta en Revisión; `learn-taste` en Revisión (cada corrección pasa a regla de `DESIGN.md`); `choreograph` y `gestures`
+  en Movimiento; fase nueva **Activos** con `pedir-assets-ia` y `creative-architect:direccion-de-arte`; y
+  `founder-skill:founder-brand` cuando la marca no tiene nombre o voz. Las variantes de `taste-skill-classics` solo si
+  el pedido nombra ese estilo.
+
 ## [1.1.0] - 2026-11-24
 La biblioteca de componentes pasa a ser la librería común de recursos de todas las skills, con una regla de uso nueva
 y acceso por API con un token personal. Todas las skills pasan a `1.1.0`.

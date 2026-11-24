@@ -2,7 +2,7 @@
 name: biblioteca-componentes
 description: Buscar, elegir y adaptar componentes UI de un catálogo propio (índice JSON con código, dependencias, demo, licencia y un prompt de integración por componente, sacado de registros abiertos tipo shadcn como Magic UI, SmoothUI, Origin UI, Cult UI, Motion Primitives, Animata y similares, más recetas de Spline). Es la librería común de recursos para todas las skills (webs, motion graphics, vídeo desde HTML): los recursos (componentes, fondos y elementos de decoración, shaders y similares) se copian tal cual y se modifican solo si hace falta; los iconos y lo propio de cada proyecto los genera cada usuario. Incluye el buscador sin dependencias (scripts/buscar.mjs), el acceso por carpeta local o por la API con token personal, cómo leer licencias, cómo integrarlos y ajustarlos, cómo integrar escenas de Spline y qué hacer con catálogos de pago o con clave (21st.dev, versiones Pro). Úsala cuando pidan "un shader de fondo", "elemento de decoración", "recurso de la librería", "librería de recursos", "busca un componente", "¿hay algún componente de…?", "usa la biblioteca de componentes", "catálogo de componentes", "un fondo animado", "un hero con efecto", "botón con brillo", "texto que se escribe solo", "marquesina de logos", "Magic UI", "Aceternity", "React Bits", "shadcn blocks", "21st.dev", "Spline", "component library", "find a component", "UI component catalog", "animated background component", "hero section component", "Spline scene in React".
 license: MIT
-version: 1.1.0
+version: 1.2.0
 ---
 
 # Biblioteca de componentes

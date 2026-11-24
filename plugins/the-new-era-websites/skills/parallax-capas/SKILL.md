@@ -2,7 +2,7 @@
 name: parallax-capas
 description: Profundidad sin 3D - hero y secciones "dimensionales" con capas (fondo, sujeto, primer plano, atmósfera) que se mueven a distinta velocidad con el scroll y el puntero; cómo preparar las capas (recorte con alfa, clean plate, imágenes generadas por capa o capas hechas con código), la SOMBRA como capa propia semitransparente (extraída de la foto con capas-sombra.mjs o sintética) para recomponer y levitar, versión solo CSS con scroll-driven animations y versión JS sin dependencias. Úsala cuando pidan "efecto de profundidad", "parallax", "que parezca 3D sin 3D", "hero con capas", "ingredientes flotando alrededor del producto", "separar en capas", "sacar la sombra", "producto que levita", "depth effect", "layered hero", "multiplane parallax", "mouse parallax", "2.5D", "shadow layer", "keep the shadow when removing background".
 license: MIT
-version: 1.1.0
+version: 1.2.0
 ---
 
 # Parallax y profundidad por capas
@@ -50,6 +50,11 @@ El código de esta skill se monta dentro de un proyecto: no se escribe de memori
    - **JS sin dependencias** (scroll + puntero): `scripts/capas-parallax.js` → `crearParallax(raiz)`. Patrón en [references/patrones-codigo.md](references/patrones-codigo.md).
    - **Solo CSS** (`animation-timeline: view()`): cero JS, fuera del hilo principal; sin puntero. Patrón en references.
    - **GSAP ScrollTrigger** si ya hay timeline (sección fijada con más cosas pasando): `gsap.to(capa, { yPercent: -20 * z, ease: 'none', scrollTrigger: { scrub: true } })`.
+   - **Fondo por capas que cambia de escena** (shader detrás y nubes en el suelo que cambian con el producto; o cielo,
+     montañas y suelo con una versión por escena): `scripts/fondo-capas.js` → `crearFondoCapas(raiz).irA('noche')`, con
+     relevo escalonado capa a capa, interrumpible y llevado por botones o por el scroll (`pasos`); se combina con
+     `crearParallax` en la misma raíz. Guía completa en `new-era/references/fondos-por-capas.md`; prueba en
+     `pruebas/fondo-capas` del repo.
 5. **Reduced motion**: las capas quietas (el motor ya lo respeta; en CSS, envuelve en `@media (prefers-reduced-motion: no-preference)`).
 6. **Verifica** con capturas en 3 posiciones de scroll (entrada, centro, salida) en escritorio y móvil: no deben verse bordes de capa, halos ni huecos.
 

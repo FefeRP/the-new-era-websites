@@ -61,3 +61,4 @@ biblioteca/
 # Demo con marca de terceros (NVIDIA): nunca al repo público
 demos/nvidia/
 capturas/nvidia/
+pruebas/fondo-capas/capas/

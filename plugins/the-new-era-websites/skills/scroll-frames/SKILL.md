@@ -2,7 +2,7 @@
 name: scroll-frames
 description: Scroll-scrubbing de vídeo estilo Apple - un vídeo (generado con IA o del cliente) partido en frames que avanza al hacer scroll, dibujado en canvas con GSAP ScrollTrigger, o en modo vídeo con currentTime. Incluye la extracción y optimización de frames con ffmpeg (WebP/AVIF, escritorio y móvil, manifest), el motor de reproducción con carga progresiva y memoria acotada, textos sincronizados, reduced-motion y verificación. Úsala cuando pidan "que al hacer scroll avance el vídeo", "secuencia de imágenes en canvas", "scroll como el de los AirPods", "producto que gira al hacer scroll", "explosión del producto al bajar", "image sequence scroll", "scroll-driven video", "scrub video on scroll", "frame sequence canvas".
 license: MIT
-version: 1.1.0
+version: 1.2.0
 ---
 
 # Scroll-scrubbing: vídeo → frames → scroll
