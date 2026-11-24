@@ -2,7 +2,7 @@
 name: mapa-zoom-ubicacion
 description: "Sección de la ciudad al edificio con el scroll: MapLibre con ortofoto o niveles de imagen, paradas de cámara y edificio resaltado. «dónde está el piso», «zoom del mapa al edificio», «map zoom to building». NO para un mapa de contacto estático."
 license: MIT
-version: 1.3.0
+version: 1.3.1
 ---
 
 # Del mapa al edificio (zoom de ubicación con scroll)

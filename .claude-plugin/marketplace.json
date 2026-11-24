@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Marketplace of Claude Code skills for websites of the new era: cinematic scroll, AI imagery and image assets, transparent layers, reveals, depth, 3D when it is needed, reusable interactive components and rules learned on real projects. Organised by techniques that combine, not by styles.",
-    "version": "1.3.0"
+    "version": "1.3.1"
   },
   "plugins": [
     {
       "name": "the-new-era-websites",
       "source": "./plugins/the-new-era-websites",
       "description": "Claude Code skills for building websites: cinematic scroll with video frames, AI image assets (isolated objects with alpha, brand icon sets, textures, backgrounds, product), transparent layers and alpha video, reveals and scene transitions, depth layers with real shadows, 3D glTF only when it is needed, a map that zooms to the building, reusable components (flip card, orbital carousel, 3D reviews), a searchable catalogue of UI components to adapt (never paste as-is) and rules learned on real sites. Master skill: NEW ERA (/new-era). Works alongside your design skills instead of repeating them. Skills written in Spanish.",
-      "version": "1.3.0",
+      "version": "1.3.1",
       "author": {
         "name": "FefeRP",
         "url": "https://github.com/FefeRP"

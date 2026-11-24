@@ -61,6 +61,7 @@ async function hacerMapa(w, h, r, bisel, perfil) {
   }
   ctx.putImageData(img, 0, 0);
   const blob = await new Promise((res) => lienzo.toBlob(res, 'image/png'));
+  if (!blob) throw new Error('cristal-lente: el lienzo no dio imagen');
   return URL.createObjectURL(blob);                         // blob y no data: (WebKit rechaza data: en feImage)
 }
 
@@ -74,7 +75,7 @@ export function crearLente(capa, {
   aberracion = 0,       // 0 = una pasada; 0.05-0.1 = tres pasadas por canal (más caro)
 } = {}) {
   const sinTransparencia = matchMedia('(prefers-reduced-transparency: reduce), (prefers-contrast: more), (forced-colors: active)');
-  if (!refraccionDisponible()) return { destruir() {}, activa: false };
+  if (!refraccionDisponible()) return { reconstruir() {}, destruir() {}, activa: false };
   let url = null, firma = '', filtro = null, pendiente = 0, vivo = true;
 
   function quitar() {
@@ -88,12 +89,18 @@ export function crearLente(capa, {
     if (!vivo) return;
     if (sinTransparencia.matches) return quitar();
     const w = Math.round(capa.offsetWidth), h = Math.round(capa.offsetHeight);   // offset*: ignora transforms
-    const r = Math.min(parseFloat(getComputedStyle(capa).borderTopLeftRadius) || 0, w / 2, h / 2);
+    // el radio puede venir en % (border-radius: 50%): se pasa a px sobre el lado menor
+    const radioCss = getComputedStyle(capa).borderTopLeftRadius.split(' ')[0];
+    const rPx = radioCss.endsWith('%') ? (parseFloat(radioCss) / 100) * Math.min(w, h) : parseFloat(radioCss) || 0;
+    const r = Math.min(rPx, w / 2, h / 2);
     const f = `${w}:${h}:${r}`;
     if (w < 4 || h < 4 || f === firma) return;
     firma = f;
     const b = bisel ?? Math.min(20, h / 3);
-    const nuevo = await hacerMapa(w, h, r, b, perfil);
+    let nuevo;
+    try { nuevo = await hacerMapa(w, h, r, b, perfil); }
+    catch { firma = ''; return; }                            // sin mapa se queda el cristal sin refracción; se reintenta al cambiar
+
     if (!vivo || firma !== f) { URL.revokeObjectURL(nuevo); return; }
     const id = `cristal-lente-${++contador}`;                // id nuevo: el navegador cachea por id
     const el = document.createElementNS(NS, 'filter');

@@ -4,6 +4,22 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.3.1] - 2026-11-24
+Arreglos de la revisión de código de los motores nuevos de la 1.3.0. Todas las skills pasan a `1.3.1`.
+
+### Corregido
+- `marea.js`: una pulsación nueva anula los temporizadores de la anterior (la cabeza ya no se queda con el muelle de
+  la cola), el chapoteo vuelve a arrancar el bucle si el agua estaba parada, el bucle se para de verdad al quedar
+  quieto, un grupo sin opciones no rompe, y redimensionar a mitad de viaje no corta el viaje. Las variables de su
+  hoja van en `:where()` para que la página pueda cambiarlas.
+- `nivel-burbuja.js`: con movimiento reducido la burbuja va pegada al arrastrar, y tras redimensionar ya no se queda
+  estirada.
+- `marea.js` y `nivel-burbuja.js`: `destruir()` quita todos los listeners (`AbortController`) y deja el elemento como
+  estaba (clase, `role`, `tabindex`, `aria-*`, `data-*`).
+- `cristal-lente.js`: el retorno sin refracción (otros navegadores) trae también `reconstruir()`, el radio en
+  porcentaje (`border-radius: 50%`) se pasa a píxeles, y si el lienzo no da imagen la capa se queda sin refracción
+  en vez de lanzar un error.
+
 ## [1.3.0] - 2026-11-24
 Oficio de interfaz: el plugin aprende a construir componentes de cristal y física de primer nivel desde cero y a
 adaptar los de una librería, trae los dos primeros componentes «NEW ERA original» y se reordena para que cada pedido

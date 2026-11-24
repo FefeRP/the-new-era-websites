@@ -2,7 +2,7 @@
 name: lente-revelado
 description: "Dos imágenes alineadas: una lente que sigue al cursor (rayos X, térmica, interior) o un comparador antes y después con cortina. «ver por dentro con el ratón», «rayos X al pasar», «antes y después», «x-ray hover», «before after slider». NO para transiciones entre secciones (revelados-y-transiciones)."
 license: MIT
-version: 1.3.0
+version: 1.3.1
 ---
 
 # Lente de revelado (rayos X, térmica, antes/después)

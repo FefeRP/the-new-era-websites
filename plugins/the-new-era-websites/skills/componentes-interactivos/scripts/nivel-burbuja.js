@@ -109,7 +109,7 @@ export function crearNivelBurbuja(contenedor, {
     const p = progreso();
     contenedor.setAttribute('aria-valuenow', String(Math.round(p * 100)));
     if (arrastre) return;
-    if (reducido.matches) muellePos.fijar(p * recorrido); else muellePos.ir(p * recorrido);
+    if (reducido.matches) { muellePos.fijar(p * recorrido); muelleEstira.fijar(1); } else muellePos.ir(p * recorrido);
   }
 
   // Arrastrar la burbuja (o pulsar el tubo) desplaza la página
@@ -123,23 +123,26 @@ export function crearNivelBurbuja(contenedor, {
     const max = desplazable.scrollHeight - desplazable.clientHeight;
     desplazable.scrollTo({ top: (x / (recorrido || 1)) * max, behavior: suave && !reducido.matches ? 'smooth' : 'instant' });
   }
+  const ctl = new AbortController(), { signal } = ctl;
+  // arrastrando, la burbuja sigue al dedo con muelle; con reduced-motion va pegada, sin rebote
+  const mover = (x) => (reducido.matches ? muellePos.fijar(x) : muellePos.ir(x));
   contenedor.addEventListener('pointerdown', (e) => {
     if (e.button !== 0) return;
     contenedor.setPointerCapture(e.pointerId);
     contenedor.dataset.arrastrando = '';
     const x = desdePuntero(e);
     arrastre = { ultimo: x, t: e.timeStamp };
-    muellePos.ir(x); irA(x, false);
-  });
+    mover(x); irA(x, false);
+  }, { signal });
   contenedor.addEventListener('pointermove', (e) => {
     if (!arrastre) return;
     const x = desdePuntero(e);
     arrastre.ultimo = x;
-    muellePos.ir(x); irA(x, false);
-  });
+    mover(x); irA(x, false);
+  }, { signal });
   const soltar = () => { if (!arrastre) return; arrastre = null; delete contenedor.dataset.arrastrando; alScroll(); };
-  contenedor.addEventListener('pointerup', soltar);
-  contenedor.addEventListener('pointercancel', soltar);
+  contenedor.addEventListener('pointerup', soltar, { signal });
+  contenedor.addEventListener('pointercancel', soltar, { signal });
   contenedor.addEventListener('keydown', (e) => {
     const vista = desplazable.clientHeight, max = desplazable.scrollHeight - vista;
     const pasos = { ArrowDown: 80, ArrowRight: 80, ArrowUp: -80, ArrowLeft: -80, PageDown: vista * 0.9, PageUp: -vista * 0.9 };
@@ -150,18 +153,21 @@ export function crearNivelBurbuja(contenedor, {
     if (destino === null) return;
     e.preventDefault();
     desplazable.scrollTo({ top: destino, behavior: reducido.matches ? 'instant' : 'smooth' });
-  });
+  }, { signal });
 
   const fuente = desplazable === document.scrollingElement ? window : desplazable;
-  fuente.addEventListener('scroll', alScroll, { passive: true });
-  const ro = new ResizeObserver(() => { medir(); muellePos.fijar(progreso() * recorrido); alScroll(); });
+  fuente.addEventListener('scroll', alScroll, { passive: true, signal });
+  const ro = new ResizeObserver(() => { medir(); muellePos.fijar(progreso() * recorrido); muelleEstira.fijar(1); alScroll(); });
   ro.observe(contenedor);
   medir(); muellePos.fijar(progreso() * recorrido); alScroll();
 
   return {
     destruir() {
-      fuente.removeEventListener('scroll', alScroll); ro.disconnect();
+      ctl.abort(); ro.disconnect();
       muellePos.destruir(); muelleEstira.destruir(); contenedor.replaceChildren();
+      contenedor.classList.remove('nivel-burbuja'); contenedor.removeAttribute('tabindex'); delete contenedor.dataset.orientacion;
+      delete contenedor.dataset.arrastrando;
+      for (const a of ['role', 'aria-label', 'aria-orientation', 'aria-valuemin', 'aria-valuemax', 'aria-valuenow']) contenedor.removeAttribute(a);
     },
     get estado() { return { pos, estira, recorrido, progreso: progreso() }; },
   };

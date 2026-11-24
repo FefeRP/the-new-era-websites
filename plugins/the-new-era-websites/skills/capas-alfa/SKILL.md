@@ -2,7 +2,7 @@
 name: capas-alfa
 description: Sacar el fondo transparente de una imagen o de un vídeo y servirlo con alfa en la web (stacked MP4, WebM, frames WebP, PNG), con el texto pasando por detrás del sujeto. «fondo transparente», «quitar el fondo del vídeo», «chroma key», «transparent video», «text behind subject». NO para mover capas con el scroll (parallax-capas) ni para generar las piezas (recursos-imagen-ia).
 license: MIT
-version: 1.3.0
+version: 1.3.1
 ---
 
 # Capas con alfa: elementos aislados que se mueven sobre la web

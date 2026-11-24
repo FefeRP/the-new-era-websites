@@ -2,7 +2,7 @@
 name: pedir-assets-ia
 description: "Planificar los assets de IA de una web antes de generar nada: qué medio lleva cada elemento (foto, pieza con alfa, vídeo, frames, código, 3D), cuánto cuesta y en qué orden, con continuidad y revisión de que no se note falso. «qué assets necesito», «¿foto o vídeo?», «cuánto cuesta generar», «AI asset plan». NO para escribir el prompt de un clip de vídeo (video-ia-para-scroll) ni para fotos del producto real (fotos-producto-ia)."
 license: MIT
-version: 1.3.0
+version: 1.3.1
 ---
 
 # Pedir assets realistas a la IA (y saber cuándo no)

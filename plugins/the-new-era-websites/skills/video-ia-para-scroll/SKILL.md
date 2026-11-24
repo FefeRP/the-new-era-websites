@@ -2,7 +2,7 @@
 name: video-ia-para-scroll
 description: "Generar y revisar un clip de vídeo con IA (Higgsfield: Seedance, Kling, Veo…) pensado para un hero o un scroll: modelo, prompt por plano, primer y último fotograma, coste y control de cortes y saltos. «pide el vídeo a Higgsfield», «prompt para Kling», «first and last frame», «el vídeo da saltos». NO para montarlo en la web (scroll-frames) ni para vídeo hecho por código (video-desde-html)."
 license: MIT
-version: 1.3.0
+version: 1.3.1
 ---
 
 # Pedir el vídeo para scroll a una IA

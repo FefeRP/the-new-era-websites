@@ -2,7 +2,7 @@
 name: seguir-pantalla
 description: Pegar contenido real (una web, un logo, un texto) sobre una pantalla o un cartel de un vídeo, con su perspectiva y siguiéndolo fotograma a fotograma. «poner nuestra web en la pantalla del vídeo», «screen replacement», «corner pin». NO para logos deformados en fotos (fotos-producto-ia).
 license: MIT
-version: 1.3.0
+version: 1.3.1
 ---
 
 # Seguir una pantalla (o un cartel) y poner encima lo real

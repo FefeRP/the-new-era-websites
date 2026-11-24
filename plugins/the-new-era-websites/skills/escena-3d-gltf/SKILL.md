@@ -2,7 +2,7 @@
 name: escena-3d-gltf
 description: "3D real con three.js y un modelo glTF cuando el visitante gira, configura o explora el objeto: escena, luces, optimizar el modelo, R3F. «configurador 3D», «visor 3D del producto», «3D product viewer», «react-three-fiber». NO para giros guionizados con el scroll (scroll-frames) ni para latas (envase-giratorio)."
 license: MIT
-version: 1.3.0
+version: 1.3.1
 ---
 
 # Escena 3D con modelo glTF

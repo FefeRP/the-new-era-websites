@@ -37,8 +37,13 @@ export function crearMarea(grupo, {
     document.head.append(Object.assign(document.createElement('style'), { id: 'marea-css', textContent: CSS_BASE }));
   }
   const reducido = matchMedia('(prefers-reduced-motion: reduce)');
-  grupo.classList.add('marea');
   const opciones = [...grupo.querySelectorAll(':scope > [role=tab], :scope > button')];
+  if (!opciones.length) return { elegir() {}, actual: -1, estado: {}, destruir() {} };
+  grupo.classList.add('marea');
+  const ctl = new AbortController(), { signal } = ctl;
+  let vivo = true, tCola = 0, tChapoteo = 0;
+  const rolPuesto = !grupo.getAttribute('role');
+  const rolesOpcion = opciones.map((o) => !o.getAttribute('role'));
   const NS = 'http://www.w3.org/2000/svg';
   const agua = document.createElementNS(NS, 'svg');
   agua.classList.add('marea__agua');
@@ -86,7 +91,7 @@ export function crearMarea(grupo, {
     const quieto = !bordeI.enMarcha && !bordeD.enMarcha && !muelleInclina.enMarcha && Math.abs(ola) < 0.05;
     if (quieto) { ola = 0; inclina = 0; dibujar(); raf = 0; } else raf = requestAnimationFrame(bucle);
   }
-  const arrancar = () => { if (!raf) { ultimo = performance.now(); raf = requestAnimationFrame(bucle); } };
+  const arrancar = () => { if (vivo && !raf) { ultimo = performance.now(); raf = requestAnimationFrame(bucle); } };
 
   function medir(el) {
     return { x: el.offsetLeft, w: el.offsetWidth, y: el.offsetTop, h: el.offsetHeight,
@@ -100,12 +105,14 @@ export function crearMarea(grupo, {
     }
     const derecha = m.x > izq;
     const [cabeza, cola] = derecha ? [bordeD, bordeI] : [bordeI, bordeD];
+    // una pulsación nueva anula los temporizadores de la anterior (si no, la cabeza de ahora se quedaba con k de cola)
+    clearTimeout(tCola); clearTimeout(tChapoteo);
     cabeza.ajustar({ k: 230, c: 24 }); cola.ajustar({ k: 70 * 0.1, c: 12 });
-    setTimeout(() => cola.ajustar({ k: 70, c: 12 }), 80);              // la cola sale tarde: el agua «se vacía»
+    tCola = setTimeout(() => cola.ajustar({ k: 70, c: 12 }), 80);       // la cola sale tarde: el agua «se vacía»
     bordeI.ir(m.x); bordeD.ir(m.x + m.w);
     const distancia = Math.abs(m.x - izq);
     // el chapoteo llega tarde: si el agua ya se había parado, hay que volver a arrancar el bucle o la ola se queda puesta
-    setTimeout(() => { ola = (derecha ? 1 : -1) * Math.min(oleaje, 2 + distancia / 40); arrancar(); }, 260);
+    tChapoteo = setTimeout(() => { ola = (derecha ? 1 : -1) * Math.min(oleaje, 2 + distancia / 40); arrancar(); }, 260);
     arrancar();
   }
 
@@ -124,18 +131,22 @@ export function crearMarea(grupo, {
     if (!o.getAttribute('role')) o.setAttribute('role', 'tab');
     o.setAttribute('aria-selected', String(i === actual));
     o.tabIndex = i === actual ? 0 : -1;
-    o.addEventListener('click', () => elegir(i));
+    o.addEventListener('click', () => elegir(i), { signal });
   });
-  if (!grupo.getAttribute('role')) grupo.setAttribute('role', 'tablist');
+  if (rolPuesto) grupo.setAttribute('role', 'tablist');
   grupo.addEventListener('keydown', (e) => {
     const n = opciones.length;
     const mapa = { ArrowRight: actual + 1, ArrowDown: actual + 1, ArrowLeft: actual - 1, ArrowUp: actual - 1, Home: 0, End: n - 1 };
     if (!(e.key in mapa)) return;
     e.preventDefault();
     elegir((mapa[e.key] + n) % n, true);
-  });
+  }, { signal });
 
-  const ro = new ResizeObserver(() => colocar(actual, false));
+  // si el grupo cambia de tamaño a mitad de viaje (p. ej. el activo cambia de peso), no se corta el viaje: se recoloca al llegar
+  const ro = new ResizeObserver(() => {
+    if (bordeI.enMarcha || bordeD.enMarcha) { const m = medir(opciones[actual]); alto = m.h; arriba = m.y; bordeI.ir(m.x); bordeD.ir(m.x + m.w); }
+    else colocar(actual, false);
+  });
   ro.observe(grupo);
   colocar(actual, false);
 
@@ -143,6 +154,13 @@ export function crearMarea(grupo, {
     elegir: (i) => elegir(i),
     get actual() { return actual; },
     get estado() { return { izq, der, inclina, ola }; },
-    destruir() { cancelAnimationFrame(raf); ro.disconnect(); bordeI.destruir(); bordeD.destruir(); muelleInclina.destruir(); agua.remove(); },
+    destruir() {
+      vivo = false; ctl.abort(); clearTimeout(tCola); clearTimeout(tChapoteo);
+      cancelAnimationFrame(raf); raf = 0; ro.disconnect();
+      bordeI.destruir(); bordeD.destruir(); muelleInclina.destruir(); agua.remove();
+      grupo.classList.remove('marea');
+      if (rolPuesto) grupo.removeAttribute('role');
+      opciones.forEach((o, i) => { if (rolesOpcion[i]) o.removeAttribute('role'); o.removeAttribute('aria-selected'); o.removeAttribute('tabindex'); });
+    },
   };
 }

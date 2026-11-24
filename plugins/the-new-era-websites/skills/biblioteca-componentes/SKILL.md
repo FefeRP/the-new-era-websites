@@ -2,7 +2,7 @@
 name: biblioteca-componentes
 description: Buscar en el catálogo propio un componente UI ya hecho (Magic UI, Aceternity, React Bits, 21st.dev y otros), elegirlo por licencia y peso, y copiarlo al proyecto; también escenas de Spline. «busca un componente», «¿hay algún componente de…?», «un fondo animado de la librería», «find a component», «UI component library», «Spline scene». NO para construirlo o transformarlo a fondo (componentes-interactivos) ni para 3D con glTF (escena-3d-gltf).
 license: MIT
-version: 1.3.0
+version: 1.3.1
 ---
 
 # Biblioteca de componentes

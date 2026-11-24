@@ -2,7 +2,7 @@
 name: parallax-capas
 description: "Profundidad por capas: capas que se mueven a distinta velocidad con el scroll o el puntero, la sombra como capa propia y fondos generados por capas que cambian de escena. «parallax», «hero con capas», «producto que levita», «fondo por capas», «2.5D». NO para recortar (capas-alfa) ni si el objeto gira (scroll-frames, escena-3d-gltf, envase-giratorio)."
 license: MIT
-version: 1.3.0
+version: 1.3.1
 ---
 
 # Parallax y profundidad por capas

@@ -2,7 +2,7 @@
 name: new-era
 description: "Maestra: dirige una web ENTERA de principio a fin (brief, dirección de estilo, módulos, construcción, revisión por rondas) y reparte el trabajo entre las demás skills. Úsala con «NEW ERA», /new-era, «hazme la web de…», «rediseña esta web», «mejora esta web», «build a website / landing page», «redesign my site». NO para una sola técnica o efecto suelto: carga directamente la skill de esa técnica."
 license: MIT
-version: 1.3.0
+version: 1.3.1
 ---
 
 # NEW ERA: de un pedido a una web con carácter propio
