@@ -2,7 +2,7 @@
 name: componentes-interactivos
 description: "Para hacer a mano una barra de navegación, menú, desplegable, sidebar, panel o carrusel de cristal líquido (liquid glass, glassmorphism con refracción real), o con física de muelle (rebote, gota que se estira, gooey), y para adaptar un componente ya hecho a una marca (paleta, tipo, radios, tiempos, de React a HTML o three.js, combinar dos, quitarle lo genérico). Guías de oficio y motores probados: muelle.js, cristal-lente.js, tarjeta con volteo, carrusel orbital, reseñas 3D y dos originales (nivel de burbuja, marea). «nav de cristal», «liquid glass navbar», «desplegable con rebote», «bouncy dropdown», «spring animation», «adapta este componente». NO para buscar uno hecho (biblioteca-componentes)."
 license: MIT
-version: 1.3.1
+version: 1.3.2
 ---
 
 # Componentes interactivos

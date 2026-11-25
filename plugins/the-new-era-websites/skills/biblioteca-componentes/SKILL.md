@@ -2,7 +2,7 @@
 name: biblioteca-componentes
 description: Buscar en el catálogo propio un componente UI ya hecho (Magic UI, Aceternity, React Bits, 21st.dev y otros), elegirlo por licencia y peso, y copiarlo al proyecto; también escenas de Spline. «busca un componente», «¿hay algún componente de…?», «un fondo animado de la librería», «find a component», «UI component library», «Spline scene». NO para construirlo o transformarlo a fondo (componentes-interactivos) ni para 3D con glTF (escena-3d-gltf).
 license: MIT
-version: 1.3.1
+version: 1.3.2
 ---
 
 # Biblioteca de componentes
@@ -70,6 +70,10 @@ categoría y la descripción, con sinónimos en español e inglés, y ordena por
 pesa más). Si sale poco, quita palabras o cambia la más rara por lo que hace el efecto. Cada resultado dice de qué
 depende (`usa`) y, si el índice la trae, la técnica en una línea. Los componentes marcados «sin vista previa fiable» se
 pueden usar igual, pero hay que probarlos antes de elegirlos: `--con-vista` los deja fuera.
+
+Si el índice marca componentes como **«recomendado»** (campo `buena`: vista fiable, pinta de verdad, código con
+cuerpo y algo de movimiento; nada de botones o inputs sueltos), suben por delante a igualdad de coincidencias.
+Empieza por ellos: `--recomendados` deja solo esos, y si no hay ninguno que sirva, quita el filtro.
 
 ## Paso 2 · Elegir (filtro rápido)
 1. **¿Cuenta algo de la marca?** Un efecto que no refuerza el mensaje sobra; cuántas piezas vistosas caben lo marca la

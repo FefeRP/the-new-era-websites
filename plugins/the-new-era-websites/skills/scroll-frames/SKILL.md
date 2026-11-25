@@ -2,7 +2,7 @@
 name: scroll-frames
 description: "Montar en la web una secuencia que ya existe (frames o vídeo) para que avance con el scroll, estilo Apple: extraer frames, scrubber en canvas o vídeo, rendimiento. «scroll como el de Apple», «que el vídeo avance con el scroll», «image sequence scroll», «scrub video on scroll». NO para generar el vídeo (video-ia-para-scroll) ni si el visitante gira el objeto (escena-3d-gltf)."
 license: MIT
-version: 1.3.1
+version: 1.3.2
 ---
 
 # Scroll-scrubbing: vídeo → frames → scroll

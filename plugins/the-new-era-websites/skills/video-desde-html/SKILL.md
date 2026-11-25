@@ -2,7 +2,7 @@
 name: video-desde-html
 description: "Render de HTML, CSS y JS a vídeo con HyperFrames: el hero a MP4 para redes, bucles sin costura y capas con alfa hechos por código. «pasa el hero a vídeo», «vídeo de la web para redes», «bucle por código», «HTML to video». NO para vídeo realista generado por IA (video-ia-para-scroll)."
 license: MIT
-version: 1.3.1
+version: 1.3.2
 ---
 
 # Vídeo desde HTML (HyperFrames)

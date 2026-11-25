@@ -2,7 +2,7 @@
 name: fotos-producto-ia
 description: Fotos del producto REAL del cliente en escenas nuevas a partir de sus fotos (edición por referencia), sin que cambie la forma ni la etiqueta, y arreglo de logos deformados. «foto del producto en otra escena», «packshot con IA», «AI product photo from reference». NO para piezas sueltas, iconos o texturas (recursos-imagen-ia) ni para decidir qué hace falta (pedir-assets-ia).
 license: MIT
-version: 1.3.1
+version: 1.3.2
 ---
 
 # Fotos de producto con IA desde fotos reales

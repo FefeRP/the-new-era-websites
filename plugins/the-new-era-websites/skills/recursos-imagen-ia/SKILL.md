@@ -2,7 +2,7 @@
 name: recursos-imagen-ia
 description: "Lotes coherentes de imágenes que NO son el producto: ingredientes u objetos sueltos, iconos de marca de una lámina, texturas repetibles, fondos de sección, mosaicos igualados. «set de iconos», «textura seamless», «objetos sueltos para la web», «brand icon set». NO para sacar el fondo transparente (capas-alfa) ni para fotos del producto (fotos-producto-ia)."
 license: MIT
-version: 1.3.1
+version: 1.3.2
 ---
 
 # Recursos de imagen con IA

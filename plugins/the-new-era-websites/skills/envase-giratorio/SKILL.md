@@ -2,7 +2,7 @@
 name: envase-giratorio
 description: Lata o botella cilíndrica que gira sin 3D (etiqueta plana enrollada en canvas), con slider de sabores. «lata que gira», «botella que rota con la etiqueta», «flavour slider». NO para objetos que no son cilíndricos o giran en varios ejes (escena-3d-gltf).
 license: MIT
-version: 1.3.1
+version: 1.3.2
 ---
 
 # Envase que gira (sin 3D)

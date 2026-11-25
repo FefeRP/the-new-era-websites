@@ -2,7 +2,7 @@
 name: revelados-y-transiciones
 description: "Entradas y cambios de escena por código: rejilla de bloques, cortina entre secciones, zoom 2D a un punto, titulares por líneas, View Transitions. «transición entre secciones», «revelar el titular», «line reveal», «curtain wipe», «page transition». NO para mirar dentro con el cursor ni para el antes y después (lente-revelado)."
 license: MIT
-version: 1.3.1
+version: 1.3.2
 ---
 
 # Revelados y transiciones

@@ -170,7 +170,7 @@ const sin = (opt('--sin') || '').split(',').map(norm).filter(Boolean);
 const limite = Number(opt('--limite') || 15);
 let lista = indice.componentes.filter((c) =>
   (tiene('--con-referencias') || c.tipo !== 'referencia') && (!cat || c.categoria === cat) && (!fuente || c.fuente === fuente) &&
-  (!tiene('--con-vista') || c.preview === 'ok') && (!sin.length || !sin.some((s) => dependeDe(c).includes(s))));
+  (!tiene('--con-vista') || c.preview === 'ok' || c.soloEnlace) && (!tiene('--recomendados') || c.buena) && (!sin.length || !sin.some((s) => dependeDe(c).includes(s))));
 const puntos = (c) => {
   const nombre = norm(`${c.nombre} ${c.slug}`);
   const etiquetas = norm([c.categoriaNombre, c.categoria, ...(c.etiquetas || [])].join(' '));
@@ -183,17 +183,18 @@ const puntos = (c) => {
     p += v;
   }
   if (!hallados) return null;
-  return { p: hallados * 100 + p + (c.preview === 'ok' ? 1 : 0), hallados };
+  // «recomendado» (c.buena, lo marca el índice con un criterio medido) sube por delante a igualdad de coincidencias
+  return { p: hallados * 100 + p + (c.preview === 'ok' ? 1 : 0) + (c.buena ? 5 : 0), hallados };
 };
 if (terminos.length) {
   lista = lista.map((c) => [c, puntos(c)]).filter(([, r]) => r).sort((a, b) => b[1].p - a[1].p).map(([c, r]) => ({ ...c, _hallados: r.hallados }));
-}
+} else lista.sort((a, b) => (b.buena ? 1 : 0) - (a.buena ? 1 : 0));
 if (tiene('--json')) { console.log(JSON.stringify(lista.slice(0, limite), null, 2)); process.exit(0); }
 const completos = terminos.length > 1 ? lista.filter((c) => c._hallados === terminos.length).length : null;
 console.log(`${lista.length} resultado(s)${q ? ` para «${q}»` : ''}${completos !== null ? ` (${completos} con todas las palabras)` : ''}${lista.length > limite ? `; muestro ${limite}` : ''}:`);
 for (const c of lista.slice(0, limite)) {
   const parcial = terminos.length > 1 && c._hallados < terminos.length ? `, ${c._hallados} de ${terminos.length} palabras` : '';
-  console.log(`- ${c.id}  ·  ${c.nombre}  [${c.categoriaNombre}${c.preview === 'ok' ? ', con vista' : ''}${c.tipo === 'referencia' ? ', solo referencia' : ''}${parcial}]`);
+  console.log(`- ${c.id}  ·  ${c.nombre}  [${c.categoriaNombre}${c.buena ? ', recomendado' : ''}${c.preview === 'ok' ? ', con vista' : ''}${c.tipo === 'referencia' ? ', solo referencia' : ''}${parcial}]`);
   const linea = c.descripcion || c.tecnica;
   if (linea) console.log(`    ${linea.slice(0, 150)}`);
   if (c.deps?.length || c.usa?.length) console.log(`    deps: ${(c.deps || []).slice(0, 8).join(' ') || '-'}${c.deps?.length > 8 ? ' …' : ''}${c.usa?.length ? `  ·  pila: ${c.usa.join(', ')}` : ''}  ·  ${c.licencia}`);

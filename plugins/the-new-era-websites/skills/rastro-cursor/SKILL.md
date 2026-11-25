@@ -2,7 +2,7 @@
 name: rastro-cursor
 description: Rastro de imágenes que aparecen siguiendo al ratón y se desvanecen. «fotos que siguen al cursor», «image trail», «mouse trail gallery». NO para lentes que revelan otra imagen (lente-revelado).
 license: MIT
-version: 1.3.1
+version: 1.3.2
 ---
 
 # Rastro de imágenes en el cursor

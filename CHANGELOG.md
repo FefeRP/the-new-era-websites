@@ -4,6 +4,15 @@ Formato: [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). Versiones:
 
 ## [Sin publicar]
 
+## [1.3.2] - 2026-11-25
+El buscador de componentes tira primero de los recomendados. Todas las skills pasan a `1.3.2`.
+
+### Añadido
+- `biblioteca-componentes/scripts/buscar.mjs`: si el índice marca un componente como recomendado (campo `buena`),
+  sale con la etiqueta «recomendado» y sube por delante a igualdad de coincidencias; sin términos de búsqueda, los
+  recomendados van primero. Nuevo filtro `--recomendados` para ver solo esos.
+- `--con-vista` admite también los componentes que el índice enseña solo con enlace a su página (`soloEnlace`).
+
 ## [1.3.1] - 2026-11-24
 Arreglos de la revisión de código de los motores nuevos de la 1.3.0. Todas las skills pasan a `1.3.1`.
 
